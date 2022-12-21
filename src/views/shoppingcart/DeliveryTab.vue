@@ -745,27 +745,22 @@ const proceed_to_payment = () =>{
       return
     }
   }
-  if(shipping_info.value.shipping_method === 'pickup' && shipping_option_index.value === null){
+  if (shipping_info.value.shipping_method === 'pickup' && shipping_option_index.value === null){
     layoutStore.alert.showMessageToast('選擇取貨店鋪')
       return
   }
-  if (["UNIMARTC2C", "FAMIC2C"].includes(shipping_option_index.value)) {
+  if ((["UNIMARTC2C", "FAMIC2C"].includes(shipping_option_index.value)) || (shipping_info.value.shipping_method === 'delivery' && shoppingCartStore.cart.campaign.meta_logistic.additional_delivery_options[shipping_option_index.value]?.is_cvs == true)) {
     shipping_info.value.shipping_location = ''
     shipping_info.value.shipping_region = ''
     shipping_info.value.shipping_address_1 = ''
     shipping_info.value.shipping_postcode = ''
 
-  } else if(shipping_info.value.shipping_method === 'delivery' && shoppingCartStore.cart.campaign.meta_logistic.additional_delivery_options[shipping_option_index]?.is_cvs == false) {
+  } else {
     delivery_validate.value.$touch();
     if (delivery_validate.value.$invalid && shipping_info.value.shipping_option_data.logisticsType !== 'CVS'){
       layoutStore.alert.showMessageToast(i18n.global.t('shopping_cart.invalid_delivery_info'))
       return
     }
-  } else {
-    shipping_info.value.shipping_location = ''
-    shipping_info.value.shipping_region = ''
-    shipping_info.value.shipping_address_1 = ''
-    shipping_info.value.shipping_postcode = ''
   }
 
   reciever_validate.value.$touch();
