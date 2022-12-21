@@ -196,6 +196,13 @@
 										</select> 
 									</td> 
 
+									<td v-else-if=" column.key === 'pinned'  " class="pinned" :data-content="$t(`assign_product.product_table.${column.key}`)">
+										<div class="md:min-w-[40px] sm:text-center"> 
+											<input class="form-control form-check-input w-[1.2rem] h-[1.2rem] my-auto" type="checkbox" v-model="product[column.key]" v-if="product.type=='product' "/>
+											<div v-else class="w-[1.2rem] h-[1.2rem] dash sm:mx-auto">-</div>
+										</div>
+									</td>
+
 									<td v-else-if="column.key === 'oversell' " class="editable" :data-content="$t(`assign_product.product_table.${column.key}`)">
 										<div class="md:min-w-[40px] sm:text-center">
 											<input class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" type="checkbox" v-model="product[column.key]" v-if="product.type=='product'"/>
@@ -350,6 +357,12 @@
 											<div class="text-danger absolute z-10 -bottom-5 right-0 sm:right-auto sm:left-0 whitespace-nowrap z-10" v-if="errorMessages[product_index]&& errorMessages[product_index][column.key]">{{  $t(`assign_product.product_table.errors.${errorMessages[product_index][column.key]}`)}}</div>
 										</div>
 									</td> 
+									<td v-else-if=" column.key === 'pinned'  " class="pinned" :data-content="$t(`assign_product.product_table.${column.key}`)">
+										<div class="md:min-w-[40px] sm:text-center"> 
+											<input class="form-control form-check-input w-[1.2rem] h-[1.2rem] my-auto" type="checkbox" v-model="product[column.key]" v-if="product.type=='product' "/>
+											<div v-else class="w-[1.2rem] h-[1.2rem] dash sm:mx-auto">-</div>
+										</div>
+									</td>
 									<td v-else-if=" column.key === 'oversell'  " class="removable" :data-content="$t(`assign_product.product_table.${column.key}`)">
 										<div class="md:min-w-[40px] sm:text-center"> 
 											<input class="form-control form-check-input w-[1.2rem] h-[1.2rem] my-auto" type="checkbox" v-model="product[column.key]" v-if="product.type=='product' "/>
@@ -442,6 +455,7 @@ const computedColumns = computed(()=>{
 		{ name: "Oversell", key: "oversell" },
 		{ name: "Editable", key: "customer_editable" },
 		{ name: "Deletable", key: "customer_removable" },
+		{ name: "Pinned", key:"pinned"},
 		{ name: "Category", key: "categories" },
 	]
 	if(campaignDetailStore.campaign.meta?.stock_subscription_id){
