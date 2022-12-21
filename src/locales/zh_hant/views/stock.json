@@ -61,6 +61,7 @@
     },
 
     "add_product_page": {
+        "pinned":"商品置頂",
         "sku":"商品貨號 (SKU)",
         "sku_input":"請輸入商品貨號 (SKU)",
         "edit_title": "編輯活動商品",

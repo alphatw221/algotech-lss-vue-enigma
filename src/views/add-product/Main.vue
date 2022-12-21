@@ -175,7 +175,7 @@
 				</template>
 			</div>
 
-			<div class="col-span-12 col-start-1 mt-2">
+			<div class="col-span-6 col-start-1 mt-2">
 				<label class="text-base font-medium">{{ $t('stock.add_product_page.status') }}</label>
 				<div class="flex flex-col mt-2 sm:flex-row" v-for="status in statusRadio" :key="status.id">
 					<div class="mt-2 ml-2 mr-2 form-check sm:mt-0">
@@ -193,6 +193,16 @@
 							{{ $t(`stock.${status.text}`) }}
 						</label>
 					</div>
+				</div>
+			</div>
+			<div class="col-span-6 mt-2">
+				<div class="flex flex-row gap-3"> 
+				<input 
+					class="form-control form-check-input w-[1.2rem] h-[1.2rem] my-auto" 
+					type="checkbox" 
+					v-model="product.pinned"
+				/>
+				<label class="text-base font-medium">{{ $t('stock.add_product_page.pinned') }}</label>
 				</div>
 			</div>
 
@@ -272,7 +282,8 @@ const product = ref({
 	status: 'enabled',
 	remark:'',
 	categories:[],
-	sku:''
+	sku:'',
+	pinned:'',
 })
 
 const notContains = (param) => (value) => !value.includes(param)
@@ -341,7 +352,7 @@ const removeImage = () =>{
 }
 const submit = ()=>{
 
-	// console.log(product.value)
+	console.log(product.value)
 	// return
 	validate.value.$touch();
     if (validate.value.$invalid) {

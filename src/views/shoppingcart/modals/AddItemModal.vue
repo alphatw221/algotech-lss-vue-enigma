@@ -139,7 +139,8 @@ const updateAddOnProducts = ()=>{
 	shoppingCartStore.campaignProducts.forEach(product => {
 		if(!(product.id.toString() in shoppingCartStore.cart.products) && product.type!='lucky_draw'){
 			product.qty=1
-			temp.push(product)
+			if(product.pinned) temp.unshift(product)
+			else temp.push(product)
 		}
 	});
 	addOnProducts.value = temp

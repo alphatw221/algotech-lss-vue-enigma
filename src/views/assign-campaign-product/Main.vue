@@ -627,6 +627,7 @@ const selectStockProduct = (stockProduct) =>{
 const clickStockProductCheckbox = (stockProduct, event) =>{
 	console.log('clickStockProductCheckbox')
 	console.log(event.target.checked)
+	// console.log(stockProduct)
     if(event.target.checked && !(stockProduct.id.toString() in selectedProductDict.value)){
         errorMessages.value.push({})
         selectedProducts.value.push( stockProduct )
@@ -755,8 +756,9 @@ const submitData = ()=>{
         layoutStore.alert.showMessageToast(i18n.global.t('assign_product.invalid'))
         return
     }
-	console.log(selectedProducts.value)
+	// console.log('selected',selectedProducts.value)
 	seller_bulk_create_campaign_products(route.params.campaign_id, selectedProducts.value, layoutStore.alert).then(res=>{
+		// console.log(res.data)
 		if(props.templateInModal){
 			campaignDetailStore.campaignProducts = res.data
 			
