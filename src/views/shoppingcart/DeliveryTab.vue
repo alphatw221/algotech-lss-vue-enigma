@@ -86,7 +86,7 @@
                       :class="{'border-slate-600': shipping_option_index_computed == null}"
                       @click="select_shipping_method('delivery') & (shipping_option_index_computed = null)"
                       >
-                      <div class="ml-2 text-lg">{{$t('shopping_cart.delivery_tab.option.default')}}</div>
+                      <div class="ml-2 text-lg">{{ shoppingCartStore.cart.campaign.meta_logistic?.title != ''? shoppingCartStore.cart.campaign.meta_logistic?.title : $t('shopping_cart.delivery_tab.option.default')}}</div>
                       <div class="ml-auto">
                         <label class="form-check-label">
                         {{ shoppingCartStore.cart.campaign.currency }}
@@ -744,27 +744,22 @@ const proceed_to_payment = () =>{
       return
     }
   }
-  if(shipping_info.value.shipping_method === 'pickup' && shipping_option_index.value === null){
+  if (shipping_info.value.shipping_method === 'pickup' && shipping_option_index.value === null){
     layoutStore.alert.showMessageToast('選擇取貨店鋪')
       return
   }
-  if (["UNIMARTC2C", "FAMIC2C"].includes(shipping_option_index.value)) {
+  if ((["UNIMARTC2C", "FAMIC2C"].includes(shipping_option_index.value)) || (shipping_info.value.shipping_method === 'delivery' && shoppingCartStore.cart.campaign.meta_logistic.additional_delivery_options[shipping_option_index.value]?.is_cvs == true)) {
     shipping_info.value.shipping_location = ''
     shipping_info.value.shipping_region = ''
     shipping_info.value.shipping_address_1 = ''
     shipping_info.value.shipping_postcode = ''
 
-  } else if(shipping_info.value.shipping_method === 'delivery' && shoppingCartStore.cart.campaign.meta_logistic.additional_delivery_options[shipping_option_index]?.is_cvs == false) {
+  } else {
     delivery_validate.value.$touch();
     if (delivery_validate.value.$invalid && shipping_info.value.shipping_option_data.logisticsType !== 'CVS'){
       layoutStore.alert.showMessageToast(i18n.global.t('shopping_cart.invalid_delivery_info'))
       return
     }
-  } else {
-    shipping_info.value.shipping_location = ''
-    shipping_info.value.shipping_region = ''
-    shipping_info.value.shipping_address_1 = ''
-    shipping_info.value.shipping_postcode = ''
   }
 
   reciever_validate.value.$touch();
