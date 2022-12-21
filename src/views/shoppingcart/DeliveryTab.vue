@@ -416,7 +416,7 @@ import ShoppingCartTableSimple from "./ShoppingCartTable-simple.vue";
 import { required, minLength, maxLength, email, integer, helpers, requiredUnless } from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";
 
-import { computed, onMounted,onUnmounted, ref, watch, reactive, toRefs } from "vue";
+import { computed, onMounted,onUnmounted, ref, watch, reactive, toRefs, getCurrentInstance } from "vue";
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
 import { useRoute, useRouter } from "vue-router";
 // import { buyer_update_delivery_info } from "@/api_v2/pre_order"
@@ -430,6 +430,7 @@ import { ModalHeader } from "../../global-components/modal";
 const { cookies } = useCookies()
 const route = useRoute();
 const router = useRouter();
+const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
 
 const shoppingCartStore = useShoppingCartStore();
 const layoutStore = useLSSBuyerLayoutStore();
@@ -449,7 +450,7 @@ const props = defineProps({
   },
 })
 
-const shipping_option_index = ref(null)
+const shipping_option_index = ref("No")
 const pickup_select_index = ref(null)
 const shipping_info= ref({
 			shipping_option:"",
@@ -586,6 +587,10 @@ const pickup_date_range = (index) =>{
 }
 
 onMounted(()=>{
+  eventBus.on("changeShippingOption", (payload)=>{
+    shipping_info.value.shipping_method = shoppingCartStore.shipping_info.shipping_method
+    shipping_option_index_computed.value = shoppingCartStore.shipping_info.shipping_option_index
+  })
   if(!isAnonymousUser){
     buyer_retrieve_latest_order_shipping_info(layoutStore.alert).then(res=>{
 
@@ -600,7 +605,9 @@ onMounted(()=>{
   
 })
 
-
+onUnmounted(()=>{
+  eventBus.off('changeShippingOption')
+})
 const exactlength = (param) =>
   helpers.withParams(
     { type: 'exactlength', value: param },
@@ -735,7 +742,7 @@ const get_c2c_map = (storeType) =>{
 const proceed_to_payment = () =>{
   
   if(shipping_info.value.shipping_method !== 'pickup'){
-    if(shipping_option_index.value === ''){
+    if(shipping_option_index_computed.value === 'No'){
       layoutStore.alert.showMessageToast('選擇運送方式')
       return
     }
@@ -749,7 +756,11 @@ const proceed_to_payment = () =>{
     layoutStore.alert.showMessageToast('選擇取貨店鋪')
       return
   }
-  if ((["UNIMARTC2C", "FAMIC2C"].includes(shipping_option_index.value)) || (shipping_info.value.shipping_method === 'delivery' && shoppingCartStore.cart.campaign.meta_logistic.additional_delivery_options[shipping_option_index.value]?.is_cvs == true)) {
+
+  // pickup, ecpay cvs, self delivery csv. These options doesn't need validate delivery address
+  if ((["UNIMARTC2C", "FAMIC2C"].includes(shipping_option_index.value)) || 
+  (shipping_info.value.shipping_method === 'delivery' && shoppingCartStore.cart.campaign.meta_logistic.additional_delivery_options[shipping_option_index.value]?.is_cvs == true) || 
+  (shipping_info.value.shipping_method === 'pickup')) {
     shipping_info.value.shipping_location = ''
     shipping_info.value.shipping_region = ''
     shipping_info.value.shipping_address_1 = ''
