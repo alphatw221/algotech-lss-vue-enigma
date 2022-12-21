@@ -10,23 +10,26 @@
 
         <TabGroup>
           <TabList class="flex items-center justify-around w-full nav-boxed-tabs grow">
-            <Tab class="w-[95%] h-14 border-[#131c34] lg:w-64 flex" tag="button"
-              @click="select_shipping_method('delivery')">
-              <div class="inline-flex items-center grow place-content-center">
-                <SimpleIcon icon="delivery" :color="deliveryColor" class="block mr-3" width="24" /> 
-                <span class="text-sm lg:text-lg">{{$t('shopping_cart.delivery_tab.home_delivery')}}</span>
-              </div>
-            </Tab>
+            <div> 
+              <Tab class="w-[95%] h-14 border-[#131c34] lg:w-64 flex" tag="button"
+                @click="select_shipping_method('delivery')">
+                <div class="inline-flex items-center grow place-content-center">
+                  <SimpleIcon icon="delivery" :color="deliveryColor" class="block mr-3" width="24" /> 
+                  <span class="text-sm lg:text-lg">{{$t('shopping_cart.delivery_tab.home_delivery')}}</span>
+                </div>
+              </Tab>
+            </div>
+            <div v-show="shoppingCartStore.cart.campaign && !(shoppingCartStore.cart.campaign.meta_logistic.pickup_options.length === 0)">
+              <Tab  
+                class="w-[95%] h-14 border-[#131c34] lg:w-64 flex" tag="button"
+                @click="select_shipping_method('pickup')">
 
-            <Tab  class="w-[95%] h-14 border-[#131c34] lg:w-64 flex" tag="button"
-                  v-show="shoppingCartStore.cart.campaign && shoppingCartStore.cart.campaign.meta_logistic.pickup_options.length !== 0"
-                  @click="select_shipping_method('pickup')">
-
-              <div class="inline-flex items-center grow place-content-center">
-                <SimpleIcon icon="store" :color="pickupColor" class="block mr-3" width="24" /> 
-                <span class="text-sm lg:text-lg">{{$t('shopping_cart.delivery_tab.self_pickup')}}</span>
-              </div>
-            </Tab>
+                <div class="inline-flex items-center grow place-content-center">
+                  <SimpleIcon icon="store" :color="pickupColor" class="block mr-3" width="24" /> 
+                  <span class="text-sm lg:text-lg">{{$t('shopping_cart.delivery_tab.self_pickup')}}</span>
+                </div>
+              </Tab>
+            </div>
 
           </TabList>
 
@@ -737,6 +740,10 @@ const proceed_to_payment = () =>{
       return
     }
   }
+  if(shipping_info.value.shipping_method === 'pickup' && shipping_option_index.value === null){
+    layoutStore.alert.showMessageToast('選擇取貨店鋪')
+      return
+  }
   if (["UNIMARTC2C", "FAMIC2C"].includes(shipping_option_index.value)) {
     shipping_info.value.shipping_location = ''
     shipping_info.value.shipping_region = ''
@@ -758,19 +765,19 @@ const proceed_to_payment = () =>{
     layoutStore.alert.showMessageToast(i18n.global.t('shopping_cart.invalid_user_info'))
     return
   }
-  // console.log(shipping_info.value)
-  checkoutLoading.value = true
-  buyer_checkout_cart(route.params.cart_oid, {shipping_data:shipping_info.value, points_used:shoppingCartStore.points_used}, layoutStore.alert)
-  .then(res=>{
-    if(res.data.oid){
-      router.push({name:"buyer-order-payment-page", params:{'order_oid':res.data.oid}})
-    }else{
-      shoppingCartStore.cart = res.data
-      layoutStore.alert.showMessageToast('out of stock')
-    }
-    checkoutLoading.value = false
-  })
-  .catch(err=>{checkoutLoading.value = false})
+  console.log(shipping_info.value)
+  // checkoutLoading.value = true
+  // buyer_checkout_cart(route.params.cart_oid, {shipping_data:shipping_info.value, points_used:shoppingCartStore.points_used}, layoutStore.alert)
+  // .then(res=>{
+  //   if(res.data.oid){
+  //     router.push({name:"buyer-order-payment-page", params:{'order_oid':res.data.oid}})
+  //   }else{
+  //     shoppingCartStore.cart = res.data
+  //     layoutStore.alert.showMessageToast('out of stock')
+  //   }
+  //   checkoutLoading.value = false
+  // })
+  // .catch(err=>{checkoutLoading.value = false})
   
 }
 

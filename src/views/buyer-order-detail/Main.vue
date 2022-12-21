@@ -26,22 +26,12 @@
                         <span class="font-medium mr-5">{{$t('order_detail.order_date')}} : {{ new Date(buyerOrderStore.order.created_at).toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"})  }} </span>
                     </div>
                 </div>
-                <div class="box p-6 border-2 border-secondary ">
-                    <div class="flex">
-                        <div class="mr-10">{{$t('order_detail.delivery.name')}}</div>
-                        <div>{{ buyerOrderStore.order.shipping_first_name }}</div>
-                    </div>
-                    <div class="flex mt-4" v-if="buyerOrderStore.order.shipping_phone">
-                        <div class="mr-10">{{$t('order_detail.delivery.phone')}}</div>
-                        <div>{{ buyerOrderStore.order.shipping_phone }}</div>
-                    </div>
-                    <div class="flex mt-4" v-if="buyerOrderStore.order.shipping_email">
-                        <div class="mr-10">{{$t('order_detail.delivery.email')}}</div>
-                        <div>{{ buyerOrderStore.order.shipping_email }}</div>
-                    </div>
-                    <div class="flex mt-4">
-                        <div class="mr-7">{{$t('order_detail.remark')}}</div>
-                        <div>{{ buyerOrderStore.order.shipping_remark }}</div>
+                <div class="box p-6 border-2 border-secondary flex flex-col gap-4"> 
+                    <div 
+                    v-for="field in buyerDetails" :key="field.name"
+                        class="flex">
+                        <p class="min-w-fit w-32">{{$t('order_detail.delivery.'+ field.name)}}</p>
+                        <p>{{ buyerOrderStore.order[field.value] }}</p>
                     </div>
                 </div>
             </div>
@@ -226,13 +216,19 @@ import { useCookies } from 'vue3-cookies'
 import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout";
 
 const layoutStore = useLSSBuyerLayoutStore();
+const buyerOrderStore = useLSSBuyerOrderStore(); 
 const i18n = getCurrentInstance().appContext.config.globalProperties.$i18n
 const { cookies } = useCookies()
 const route = useRoute();
 const router = useRouter();
+const detailLoading = ref(true)
 
-const buyerOrderStore = useLSSBuyerOrderStore(); 
-
+const buyerDetails = ref([
+    {name:'name',value:'shipping_first_name'},
+    {name:'phone',value:'shipping_phone'},
+    {name:'email',value:'shipping_email'},
+    {name:'remark',value:'shipping_remark'}
+])
 
 onMounted(() => {
 
@@ -242,6 +238,7 @@ onMounted(() => {
             buyerOrderStore.order = res.data
             buyerOrderStore.user_subscription = JSON.parse(JSON.stringify(res.data.user_subscription))
             i18n.locale = res.data.campaign.lang
+            detailLoading.value = false
             // console.log(res.data)
         }
     )
