@@ -20,5 +20,6 @@
     "paypal":"Paypal",
     "pay_mongo":"PayMongo",
     "rapyd":"Rapyd",
-    "ecpay":"台灣綠界"
+    "ecpay":"台灣綠界",
+    "ecpay_cash_on_delivery":"貨到付款"
 }

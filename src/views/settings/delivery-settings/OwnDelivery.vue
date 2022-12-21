@@ -19,6 +19,37 @@
                 />
                 
             </div>
+            <!-- <div class="flex flex-row flex-wrap gap-5 justify-between mb-5 lg:w-5/6">
+                <template  v-for="(option, option_index) in csvOptions" :key="option_index">
+                    <div class="flex-row flex-wrap col-span-3 md:col-span-1">
+                        <input
+                            class="form-check-input w-[1.5rem] h-[1.5rem]" 
+                            type="checkbox"
+                            v-model="csvData[option.key]['is_enalbe']"
+                            />
+                        <label class="ml-2">
+                            {{ option.name }}
+                        </label>
+                        
+                        <div>
+                            <span class=" ml-auto my-auto">{{ "運費" }}</span>
+                            <input :type="number" :min="0" style="border:solid 1px gray" class="text-center w-20 h-[33px] form-control px-1 ml-1" 
+                            v-model="csvData[option.key]['price']"
+                            />
+                        </div>
+                        <div>
+                                <select 
+                                class="flex-1 w-full rounded-lg form-select sm:form-select-lg sm:w-fit"
+                                v-model="csvData[option.key]['type']"
+                            >
+                                <option value="+">{{ $t('settings.delivery.on_top_of_charge') }}</option>
+                                <option value="=">{{ $t('settings.delivery.replace_charge') }}</option>
+                            </select>
+                        </div>
+                            
+                    </div>
+                </template>
+            </div> -->
             <div class="flex flex-wrap justify-between mt-5"> 
                 <label for="regular-form-2" class="text-base font-bold form-label my-auto">{{ $t('settings.delivery.charge_option') }}</label>
                 <!-- <a 
@@ -74,6 +105,18 @@
                         :key="index"
                         >{{ $t(`settings.delivery.errors.${error.$message.replace(/\s/g, "_")}`) }}</label>                    
                 </div>
+
+                <div>
+                    <input  
+                        class="w-10 h-10 form-control"
+                        type="checkbox" 
+                        :placeholder="$t('settings.delivery_form.express_charge')"
+                        v-model="option.is_cvs"
+                    />
+                    <label class="text-[16px] ml-2" 
+                        >{{ $t("settings.delivery_form.turn_on_cvs_map") }}
+                    </label>                    
+                </div>
                 
                 <button 
                     class="inline-block w-full h-[42px] ml-auto text-base btn btn-danger sm:rounded-lg sm:w-24" 
@@ -99,6 +142,7 @@
             </button>
         </div>
     </div>
+    
 </template>
 
 <script setup>
@@ -111,7 +155,36 @@ import { helpers, required, requiredIf, numeric, integer, decimal,minValue } fro
 import useVuelidate from '@vuelidate/core'
 
 const layoutStore = useLSSSellerLayoutStore();
-
+const csvOptions = ref([
+    {
+        "key": "FAMIC2C", "name": "全家店到店"
+    },
+    {
+        "key": "UNIMARTC2C", "name": "7-11店到店"
+    }
+])
+const csvData = ref({
+    "FAMIC2C": {
+        "is_enalbe": false,
+        "title": "全家店到店",
+        "type": "=",
+        "price":0,
+    },
+    "UNIMARTC2C": {
+        "is_enalbe": false,
+        "title": "全家店到店",
+        "type": "=",
+        "price":0,
+    }
+    
+})
+const UnimartData = ref({
+    "is_enalbe": false,
+    "title": "7-11店到店",
+    "type": "=",
+    "price":0,
+    "key": "UNIMARTC2C"
+})
 const deliverySettings = reactive({
     delivery_charge : 0,
     is_self_delivery_enabled: false,
@@ -136,7 +209,7 @@ const deliverySettingsRules = {
 
 const v = useVuelidate(deliverySettingsRules, deliverySettings)
 
-const additional_delivery_option = { title: null, type: null, price: null }
+const additional_delivery_option = { title: null, type: null, price: null, is_cvs: false}
 
 onMounted(() => {
     if(!layoutStore.userInfo.user_subscription)return

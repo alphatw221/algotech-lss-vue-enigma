@@ -242,7 +242,8 @@ const computedShippingCost = computed(()=>{
       const logisticCategories = {}
       var applyCategoryLogistic = false
       Object.entries(shoppingCartStore.cart.products).forEach(([key, value])=>{
-
+        console.log(key)
+        console.log(value)
         if(value>0 && shoppingCartStore.campaignProductDict?.[key]?.categories?.length===1 && shoppingCartStore.campaignProductDict?.[key]?.categories[0] in shoppingCartStore.productCategoryDict){
           
           if(logisticCategories?.[shoppingCartStore.campaignProductDict?.[key]?.categories[0]]){
@@ -299,11 +300,12 @@ const computedShippingCost = computed(()=>{
   }
   return shippingCost
 })
-
+const productTotalQuantity = ref(0)
 const computedIsMultipleShippingCostApplied = computed(()=>{  //temp
 
   const logisticCategories = {}
   Object.entries(shoppingCartStore.cart?.products||[]).forEach(([key, value])=>{
+    productTotalQuantity.value += value
     if(value>0 && shoppingCartStore.campaignProductDict?.[key]?.categories?.length===1 && shoppingCartStore.campaignProductDict?.[key]?.categories[0] in shoppingCartStore.productCategoryDict){
       const productCategory = shoppingCartStore.productCategoryDict[shoppingCartStore.campaignProductDict?.[key]?.categories[0]]
       if(productCategory?.meta_logistic?.enable_flat_rate == true){
@@ -339,7 +341,7 @@ const computedSubtotalOverFreeDeliveryThreshold = computed(()=>{
 })
 
 const computedItemsOverFreeDeliveryThreshold = computed(()=>{
-  return shoppingCartStore.cart.campaign?.meta_logistic?.is_free_delivery_for_how_many_order_minimum ? Object.keys(shoppingCartStore.cart?.products||{}).length >= shoppingCartStore.cart.campaign?.meta_logistic?.free_delivery_for_how_many_order_minimum : false
+  return shoppingCartStore.cart.campaign?.meta_logistic?.is_free_delivery_for_how_many_order_minimum ? productTotalQuantity.value >= shoppingCartStore.cart.campaign?.meta_logistic?.free_delivery_for_how_many_order_minimum : false
 })
 
 

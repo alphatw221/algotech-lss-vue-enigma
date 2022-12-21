@@ -135,6 +135,17 @@
 					</label>
 				</div>
 				
+				<div>
+                    <input  
+                        class="w-10 h-10 form-control"
+                        type="checkbox" 
+                        :placeholder="$t('settings.delivery_form.express_charge')"
+                        v-model="option.is_cvs"
+                    />
+                    <label class="text-[16px] ml-2" 
+                        >{{ $t("settings.delivery_form.turn_on_cvs_map") }}
+                    </label>                    
+                </div>
 
 				<button 
 					class="btn btn-danger inline-block text-base w-full sm:w-24 ml-auto h-[42px]" 
