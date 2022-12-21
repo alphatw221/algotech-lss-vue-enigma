@@ -50,6 +50,7 @@
         "name" : "Name",
         "phone" : "Phone",
         "email" : "Email",
+        "cellphone":"Cellphone",
         "method" : "Delivery Method",
         "default":"Default",
         "delivery" : "Delivery",
