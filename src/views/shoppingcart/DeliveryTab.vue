@@ -426,7 +426,6 @@ import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout"
 import { useTwZipcodeStore } from "@/stores/tw-zipcode"
 import { useCookies } from 'vue3-cookies'
 import i18n from "@/locales/i18n"
-import { ModalHeader } from "../../global-components/modal";
 const { cookies } = useCookies()
 const route = useRoute();
 const router = useRouter();
@@ -776,18 +775,18 @@ const proceed_to_payment = () =>{
     return
   }
   console.log(shipping_info.value)
-  // checkoutLoading.value = true
-  // buyer_checkout_cart(route.params.cart_oid, {shipping_data:shipping_info.value, points_used:shoppingCartStore.points_used}, layoutStore.alert)
-  // .then(res=>{
-  //   if(res.data.oid){
-  //     router.push({name:"buyer-order-payment-page", params:{'order_oid':res.data.oid}})
-  //   }else{
-  //     shoppingCartStore.cart = res.data
-  //     layoutStore.alert.showMessageToast('out of stock')
-  //   }
-  //   checkoutLoading.value = false
-  // })
-  // .catch(err=>{checkoutLoading.value = false})
+  checkoutLoading.value = true
+  buyer_checkout_cart(route.params.cart_oid, {shipping_data:shipping_info.value, points_used:shoppingCartStore.points_used}, layoutStore.alert)
+  .then(res=>{
+    if(res.data.oid){
+      router.push({name:"buyer-order-payment-page", params:{'order_oid':res.data.oid}})
+    }else{
+      shoppingCartStore.cart = res.data
+      layoutStore.alert.showMessageToast('out of stock')
+    }
+    checkoutLoading.value = false
+  })
+  .catch(err=>{checkoutLoading.value = false})
   
 }
 

@@ -295,7 +295,6 @@ const computedShippingCost = computed(()=>{
           shippingCost =  Number(meta_logistic.ecpay.logistics_sub_type[shoppingCartStore.shipping_info.shipping_option_index].delivery_charge)
         }
       }
-      
     }
   }
   return shippingCost
@@ -341,8 +340,8 @@ const computedSubtotalOverFreeDeliveryThreshold = computed(()=>{
 })
 
 const computedItemsOverFreeDeliveryThreshold = computed(()=>{
-  console.log("all", allProductsAmount.value)
-  console.log(shoppingCartStore.cart.campaign?.meta_logistic?.free_delivery_for_how_many_order_minimum)
+  // console.log("all", allProductsAmount.value)
+  // console.log(shoppingCartStore.cart.campaign?.meta_logistic?.free_delivery_for_how_many_order_minimum)
   return shoppingCartStore.cart.campaign?.meta_logistic?.is_free_delivery_for_how_many_order_minimum ? allProductsAmount.value >= shoppingCartStore.cart.campaign?.meta_logistic?.free_delivery_for_how_many_order_minimum : false
 })
 
