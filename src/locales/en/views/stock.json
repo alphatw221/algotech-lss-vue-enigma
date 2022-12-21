@@ -61,6 +61,7 @@
     },
 
     "add_product_page": {
+        "pinned":"Pinned Product",
         "sku":"SKU code",
         "edit_title": "Edit Product",
         "add_title": "Add Product",

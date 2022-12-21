@@ -29,6 +29,7 @@
         "customer_removable":"允許顧客刪除",
         "oversell":"可否超賣",
         "overbid":"可否超訂",
+        "pinned":"商品置頂",
         "types":{
             "product":"商品",
             "product-fast":"商品",

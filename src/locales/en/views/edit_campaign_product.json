@@ -8,6 +8,7 @@
         "all":"All"
     },
     "campaign_product_table":{
+        "pinned":"Pinned",
         "image":"Image",
         "name":"Name",
         "type":"Type",
@@ -35,7 +36,7 @@
     "edit_product_modal":{
         "edit_campaign_product":"Edit Campaign Product",
 
-        
+        "pinned":"Pinned",
         "name":"Name",
         "type":"Type",
         "order_code":"Order Code",

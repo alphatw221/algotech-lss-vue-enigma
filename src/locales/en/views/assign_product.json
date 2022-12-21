@@ -32,6 +32,7 @@
         "customer_removable":"Removable",
         "oversell":"Oversell",
         "overbid":"Overbid",
+        "pinned":"Pinned",
         "types":{
             "product":"Product",
             "product-fast":"Product",
