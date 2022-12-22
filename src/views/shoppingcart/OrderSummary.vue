@@ -242,8 +242,6 @@ const computedShippingCost = computed(()=>{
       const logisticCategories = {}
       var applyCategoryLogistic = false
       Object.entries(shoppingCartStore.cart.products).forEach(([key, value])=>{
-        console.log(key)
-        console.log(value)
         if(value>0 && shoppingCartStore.campaignProductDict?.[key]?.categories?.length===1 && shoppingCartStore.campaignProductDict?.[key]?.categories[0] in shoppingCartStore.productCategoryDict){
           
           if(logisticCategories?.[shoppingCartStore.campaignProductDict?.[key]?.categories[0]]){

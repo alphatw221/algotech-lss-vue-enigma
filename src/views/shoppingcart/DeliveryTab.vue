@@ -54,12 +54,12 @@
                         >
                           <div class="ml-2 text-lg">{{ $t(`settings.delivery_form.ecpay.logistics_sub_type.${key}`) }}</div>
                           <div v-if="key !== 'TCAT'" class="flex flex-row gap-4 -p-6">
-                            <a class="ml-2 my-auto" @click="get_c2c_map(key)">選擇門市</a>
+                            <a class="ml-2 my-auto" @click="get_c2c_map(key, 'ecpay', key)">選擇門市</a>
                             <!-- <img class="cursor-pointer" src="@/assets/images/lss-img/711.png" @click="get_c2c_map('UNIMARTC2C')"/>  -->
                             <!-- <img class="cursor-pointer" src="@/assets/images/lss-img/Family_Mart.png" @click="get_c2c_map('FAMIC2C')"/>  -->
                           </div>
                           <div class="ml-4 my-auto" v-if="shoppingCartStore.cart.meta?.ecpay_cvs?.logistics_sub_type == key">
-                            <p> {{shoppingCartStore.cart.meta.ecpay_cvs.cvs_store_name}} </p>
+                            <p> {{shoppingCartStore.cart.meta.ecpay_cvs?.cvs_store_name}} </p>
                             
                             <p> {{shoppingCartStore.cart.meta?.ecpay_cvs?.cvs_address}}</p>
                           </div>
@@ -104,7 +104,15 @@
                           @click="select_shipping_method('delivery') & (shipping_option_index_computed = index)"
                         >
                         <div class="ml-2 text-lg">{{ option.title }}</div>
-                          
+                          <!--cvs map button-->
+                          <div v-if="(option.is_cvs == true) && (option?.cvs_key)" class="flex flex-row gap-4 -p-6">
+                            <a class="ml-2 my-auto" @click="get_c2c_map(option?.cvs_key, 'delivery', index)">選擇門市</a>
+                          </div>
+                          <div class="ml-4 my-auto" v-if="shoppingCartStore.cart.meta?.ecpay_cvs?.logistics_sub_type == option?.cvs_key">
+                            <p> {{shoppingCartStore.cart.meta.ecpay_cvs?.cvs_store_name}} </p>
+                            
+                            <p> {{shoppingCartStore.cart.meta?.ecpay_cvs?.cvs_address}}</p>
+                          </div>
                           <template v-if="option.type === '+'">
                             <label class="form-check-label whitespace-nowrap ml-auto">
                               {{ shoppingCartStore.cart.campaign.currency }}
@@ -419,7 +427,6 @@ import { useVuelidate } from "@vuelidate/core";
 import { computed, onMounted,onUnmounted, ref, watch, reactive, toRefs, getCurrentInstance } from "vue";
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
 import { useRoute, useRouter } from "vue-router";
-// import { buyer_update_delivery_info } from "@/api_v2/pre_order"
 import { buyer_checkout_cart,buyer_get_cvs_map } from "@/api_v2/cart"
 import { buyer_retrieve_latest_order_shipping_info } from "@/api_v2/order"
 import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout"
@@ -523,7 +530,13 @@ const shipping_method_computed = computed({
       shoppingCartStore.shipping_info.shipping_option_index = shipping_option_index.value
     } 
     if (method === "pickup") {
-      shoppingCartStore.shipping_info.shipping_option_index = null
+      if (shoppingCartStore.cart.campaign.meta_logistic?.pickup_options.length > 0) {
+        shoppingCartStore.shipping_info.shipping_option_index = 0
+        shipping_option_index_computed.value = 0
+      } else {
+        shoppingCartStore.shipping_info.shipping_option_index = null
+      }
+      
     }
   }
 })
@@ -535,21 +548,40 @@ const shipping_option_index_computed = computed({
     console.log("set", index)
     shipping_option_index.value = index
     shoppingCartStore.shipping_info.shipping_option_index=index
-    shipping_info.value.pickup_address=shipping_info.value.shipping_method=='pickup'?shoppingCartStore.cart.campaign.meta_logistic.pickup_options[index]?.address : ''
-
-    shipping_info.value.shipping_option=shipping_info.value.shipping_method=='pickup'?shoppingCartStore.cart.campaign.meta_logistic.pickup_options[index]?.name :shipping_info.value.shipping_method=='delivery' && index!=null ? shoppingCartStore.cart.campaign.meta_logistic.additional_delivery_options[index]?.title : ''
-    
-    if(shipping_info.value.shipping_method=='pickup'){
+    // pickup 
+    if (shipping_info.value.shipping_method=='pickup') {
+      shipping_info.value.pickup_address = shoppingCartStore.cart.campaign.meta_logistic.pickup_options[index]?.address
+      shipping_info.value.shipping_option = shoppingCartStore.cart.campaign.meta_logistic.pickup_options[index]?.name
       shipping_info.value.shipping_option_data = JSON.parse(JSON.stringify(shoppingCartStore.cart.campaign.meta_logistic.pickup_options[index]))
       showAddressForm.value = false
-    }
-    // temp for ecpay
-    else if(shipping_info.value.shipping_method=='ecpay'){
-      if(shipping_option_index.value == shoppingCartStore.cart.meta.ecpay_cvs?.logistics_sub_type) {
+    
+    // delivery
+    } else if (shipping_info.value.shipping_method=='delivery') {
+      shipping_info.value.shipping_option = index != null ? shoppingCartStore.cart.campaign.meta_logistic.additional_delivery_options[index]?.title : ''
+      shipping_info.value.shipping_option_data = index == null ? {} : JSON.parse(JSON.stringify(shoppingCartStore.cart.campaign.meta_logistic.additional_delivery_options[index]))
+      if(shipping_option_index.value == shoppingCartStore.cart.meta.ecpay_cvs?.shipping_option_index) {
+        Object.assign(shipping_info.value.shipping_option_data,shoppingCartStore.cart.meta.ecpay_cvs)
+      }
+      if (shoppingCartStore.cart.campaign.meta_logistic.additional_delivery_options[index]?.is_cvs) {
+        showAddressForm.value = false
+      } else {
+        showAddressForm.value = true
+      }
+    
+    // ecpay
+    } else if (shipping_info.value.shipping_method=='ecpay') {
+      if(shipping_option_index.value == shoppingCartStore.cart.meta.ecpay_cvs?.shipping_option_index) {
         shipping_info.value.shipping_option_data = shoppingCartStore.cart.meta.ecpay_cvs
       } else {
         shipping_info.value.shipping_option_data = {}
       }
+      
+      Object.assign(shipping_info.value.shipping_option_data,{
+        'LogisticsSubType': shipping_option_index.value,
+        'type': shoppingCartStore.cart.campaign.meta_logistic[shipping_info.value.shipping_method]?.logistics_sub_type[shipping_option_index.value].type,
+        "price": shoppingCartStore.cart.campaign.meta_logistic[shipping_info.value.shipping_method]?.logistics_sub_type[shipping_option_index.value].delivery_charge,
+      })
+
       if (["TCAT"].includes(shipping_option_index.value)) {
         shipping_info.value.shipping_option_data['logisticsType'] = 'HOME'
         showAddressForm.value = true
@@ -557,23 +589,8 @@ const shipping_option_index_computed = computed({
         shipping_info.value.shipping_option_data['logisticsType'] = 'CVS'
         showAddressForm.value = false
       }
-      Object.assign(shipping_info.value.shipping_option_data,{
-        'LogisticsSubType': shipping_option_index.value,
-        'type': shoppingCartStore.cart.campaign.meta_logistic[shipping_info.value.shipping_method]["logistics_sub_type"][shipping_option_index.value].type,
-        "price": shoppingCartStore.cart.campaign.meta_logistic[shipping_info.value.shipping_method]["logistics_sub_type"][shipping_option_index.value].delivery_charge,
-      })
-      // console.log(shipping_info.value.shipping_option_data)
     }
-    else{
-      if (shoppingCartStore.cart.campaign.meta_logistic.additional_delivery_options[index]?.is_cvs) {
-        showAddressForm.value = false
-      } else {
-        showAddressForm.value = true
-      }
-      
-      shipping_info.value.shipping_option_data = index == null ? {} : JSON.parse(JSON.stringify(shoppingCartStore.cart.campaign.meta_logistic.additional_delivery_options[index]))
-
-    }
+    console.log(shipping_info.value.shipping_option_data)
   }
 })
 
@@ -589,6 +606,7 @@ const pickup_date_range = (index) =>{
 onMounted(()=>{
   eventBus.on("changeShippingOption", (payload)=>{
     shipping_info.value.shipping_method = shoppingCartStore.shipping_info.shipping_method
+    console.log(shoppingCartStore.shipping_info.shipping_option_index)
     shipping_option_index_computed.value = shoppingCartStore.shipping_info.shipping_option_index
   })
   if(!isAnonymousUser){
@@ -703,8 +721,8 @@ const delivery_rules = computed(()=>{
 const reciever_validate = useVuelidate(reciever_rules, shipping_info);
 const delivery_validate = useVuelidate(delivery_rules, shipping_info);
 
-const get_c2c_map = (storeType) =>{
-  const cvsdata = {'LogisticsSubType':storeType} //UNIMARTC2C or FAMIC2C
+const get_c2c_map = (storeType, shipping_method, shipping_option_index) =>{
+  const cvsdata = {'LogisticsSubType':storeType, 'shipping_method': shipping_method, 'shipping_option_index': shipping_option_index} //UNIMARTC2C or FAMIC2C
   buyer_get_cvs_map(route.params.cart_oid,cvsdata).then(
     res=>{
       const form = document.createElement('form');

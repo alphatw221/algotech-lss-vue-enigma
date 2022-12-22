@@ -115,9 +115,9 @@ onMounted(()=>{
         shoppingCartStore.product_categories.forEach(productCategory => {
           shoppingCartStore.productCategoryDict[productCategory.id.toString()]=productCategory
         }); 
-        if (shoppingCartStore.cart.meta?.ecpay_cvs?.logistics_sub_type) {
-          shoppingCartStore.shipping_info.shipping_method = "ecpay"
-          shoppingCartStore.shipping_info.shipping_option_index = shoppingCartStore.cart.meta?.ecpay_cvs?.logistics_sub_type
+        if (shoppingCartStore.cart.meta?.ecpay_cvs?.shipping_option_index && shoppingCartStore.cart.meta?.ecpay_cvs?.shipping_method) {
+          shoppingCartStore.shipping_info.shipping_method = shoppingCartStore.cart.meta?.ecpay_cvs?.shipping_method
+          shoppingCartStore.shipping_info.shipping_option_index = shoppingCartStore.cart.meta?.ecpay_cvs?.shipping_option_index
           eventBus.emit("changeShippingOption")
         }
         buyerLayoutStore.sellerInfo = res.data.user_subscription

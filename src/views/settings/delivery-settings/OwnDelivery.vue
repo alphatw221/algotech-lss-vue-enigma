@@ -21,26 +21,26 @@
             </div>
             <!-- <div class="flex flex-row flex-wrap gap-5 justify-between mb-5 lg:w-5/6">
                 <template  v-for="(option, option_index) in csvOptions" :key="option_index">
-                    <div class="flex-row flex-wrap col-span-3 md:col-span-1">
-                        <input
+                    <div v-for="(column, index) in cvsOptionColums" class="flex-row flex-wrap col-span-3 md:col-span-1" :key="index">
+                        <input v-if="column.type =='checkbox'"
                             class="form-check-input w-[1.5rem] h-[1.5rem]" 
                             type="checkbox"
-                            v-model="csvData[option.key]['is_enalbe']"
+                            v-model="csvData[option.key][colum.key]"
                             />
-                        <label class="ml-2">
+                        <label class="ml-2" v-if="column.type == 'text'">
                             {{ option.name }}
                         </label>
                         
-                        <div>
-                            <span class=" ml-auto my-auto">{{ "運費" }}</span>
+                        <div v-if="column.type=='number'">
+                            <span class=" ml-auto my-auto">{{ $t(`setting.delivery.${column.key}`) }}</span>
                             <input :type="number" :min="0" style="border:solid 1px gray" class="text-center w-20 h-[33px] form-control px-1 ml-1" 
-                            v-model="csvData[option.key]['price']"
+                            v-model="csvData[option.key][colum.key]"
                             />
                         </div>
-                        <div>
-                                <select 
+                        <div v-if="column.type=='select'">
+                            <select 
                                 class="flex-1 w-full rounded-lg form-select sm:form-select-lg sm:w-fit"
-                                v-model="csvData[option.key]['type']"
+                                v-model="csvData[option.key][colum.key]"
                             >
                                 <option value="+">{{ $t('settings.delivery.on_top_of_charge') }}</option>
                                 <option value="=">{{ $t('settings.delivery.replace_charge') }}</option>
@@ -105,17 +105,32 @@
                         :key="index"
                         >{{ $t(`settings.delivery.errors.${error.$message.replace(/\s/g, "_")}`) }}</label>                    
                 </div>
-
+                
                 <div>
                     <input  
                         class="w-10 h-10 form-control"
                         type="checkbox" 
-                        :placeholder="$t('settings.delivery_form.express_charge')"
                         v-model="option.is_cvs"
                     />
                     <label class="text-[16px] ml-2" 
-                        >{{ $t("settings.delivery_form.turn_on_cvs_map") }}
+                        >{{ $t("settings.delivery.own_delivery.is_cvs") }}
                     </label>                    
+                </div>
+                <div>
+                    <select 
+                        :disabled="option.is_cvs !== true"
+                        class="flex-1 w-full rounded-lg form-select sm:form-select-lg sm:w-fit"
+                        v-model="option.cvs_key"
+                    >   
+                        <option :value="undefined">{{ $t('settings.delivery.own_delivery.turn_on_cvs_map') }}</option>
+                        <template v-for="(cvs_option, option_index) in csvOptions" :key="option_index">
+                            <option :value="cvs_option.key">{{ $t('settings.delivery.own_delivery.cvs_map')+":"+cvs_option.name }}</option>
+                        </template>
+                    </select>
+                    <!-- <label class="block text-danger text-[12px]" 
+                        v-for="error, index in v.additional_delivery_options.$each.$response.$errors[index].type"
+                        :key="index"
+                        >{{ $t(`settings.delivery.errors.${error.$message.replace(/\s/g, "_")}`) }}</label> -->
                 </div>
                 
                 <button 
@@ -153,6 +168,7 @@ import i18n from '@/locales/i18n';
 
 import { helpers, required, requiredIf, numeric, integer, decimal,minValue } from '@vuelidate/validators'
 import useVuelidate from '@vuelidate/core'
+import { faLess } from '@fortawesome/free-brands-svg-icons';
 
 const layoutStore = useLSSSellerLayoutStore();
 const csvOptions = ref([
@@ -161,35 +177,30 @@ const csvOptions = ref([
     },
     {
         "key": "UNIMARTC2C", "name": "7-11店到店"
+    },
+    {
+        "key":"HILIFEC2C", "name":"萊爾富店到店"
+
+    },
+    {
+        "key":"OKMARTC2C", "name":"OK店到店"
     }
 ])
-const csvData = ref({
-    "FAMIC2C": {
-        "is_enalbe": false,
-        "title": "全家店到店",
-        "type": "=",
-        "price":0,
-    },
-    "UNIMARTC2C": {
-        "is_enalbe": false,
-        "title": "全家店到店",
-        "type": "=",
-        "price":0,
-    }
-    
-})
-const UnimartData = ref({
-    "is_enalbe": false,
-    "title": "7-11店到店",
-    "type": "=",
-    "price":0,
-    "key": "UNIMARTC2C"
-})
+const cvsOptionColums = ref([
+    {"key": "is_enabled", "type":"checkbox", "default": false},
+    {"key": "title", "type": "text", "default": ""},
+    {"key": "type", "type": "select", "default": "="},
+    {"key": "price", "name": "", "type": "number", "default": 0}
+])
+
+const csvData = ref({})
+
 const deliverySettings = reactive({
     delivery_charge : 0,
     is_self_delivery_enabled: false,
     is_additional_delivery_charge : true,
     additional_delivery_options: [],
+    // cvs_delivery_options: []
 })
 
 const props = defineProps({
@@ -205,6 +216,13 @@ const deliverySettingsRules = {
             price:{required, numeric}
         })
     },
+    // cvs_delivery_options: {
+    //     $each: helpers.forEach({
+    //         title:{required},
+    //         type: {required},
+    //         price:{required, numeric}
+    //     })
+    // },
 }
 
 const v = useVuelidate(deliverySettingsRules, deliverySettings)
