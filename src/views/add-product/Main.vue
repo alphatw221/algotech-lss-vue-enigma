@@ -283,7 +283,7 @@ const product = ref({
 	remark:'',
 	categories:[],
 	sku:'',
-	pinned:'',
+	pinned:false,
 })
 
 const notContains = (param) => (value) => !value.includes(param)
