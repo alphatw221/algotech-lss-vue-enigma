@@ -38,6 +38,11 @@
                 "pickup_store":"取貨門市／地點",
                 "pickup_address":"取貨地址"
         },
+        "own_delivery": {
+            "is_cvs": "是否為超商",
+            "turn_on_cvs_map": "選擇超商地圖",
+            "cvs_map": "超商地圖"
+        },
         "errors":{
             "Value_is_required":"此欄位必填",
             "Value_must_be_numeric":"輸入必須為數字",

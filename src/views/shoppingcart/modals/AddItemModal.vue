@@ -144,7 +144,6 @@ const updateAddOnProducts = ()=>{
 		}
 	});
 	addOnProducts.value = temp
-	console.log(addOnProducts.value)
 }
 
 const changeQuantity = (event, index, operation) => {
