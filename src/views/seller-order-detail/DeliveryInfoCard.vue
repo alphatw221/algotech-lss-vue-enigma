@@ -15,6 +15,10 @@
                     <div class="col-start-1 col-span-2 py-2">{{$t('order_detail.delivery.phone')}}</div>
                     <div class="col-start-3 col-span-3 py-2">{{sellerOrderDetailStore.order.shipping_phone}}</div>
                 </template>
+                <template v-if="sellerOrderDetailStore.order.shipping_cellphone">
+                    <div class="col-start-1 col-span-2 py-2">{{$t('order_detail.delivery.cellphone')}}</div>
+                    <div class="col-start-3 col-span-3 py-2">{{sellerOrderDetailStore.order.shipping_cellphone}}</div>
+                </template>
 
                 <template v-if="sellerOrderDetailStore.order.shipping_email">
                     <div class="col-start-1 col-span-2 py-2">{{$t('order_detail.delivery.email')}}</div>

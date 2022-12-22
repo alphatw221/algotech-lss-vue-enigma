@@ -56,6 +56,7 @@
         "date" : "Delivery Date",
         "address":"Delivery Address",
         "post_code" : "Post Code",
+        "cellphone":"cellphone number",
         "location" : "Location",
         "pickup" : "Self Pickup",
         "pickup_address":"Pickup Address",
