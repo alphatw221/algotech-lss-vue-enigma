@@ -8,6 +8,7 @@
         "all":"全部"
     },
     "campaign_product_table":{
+        "pinned":"商品置頂",
         "image":"圖片",
         "name":"名稱",
         "type":"模式",
@@ -34,7 +35,7 @@
    
     "edit_product_modal":{
         "edit_campaign_product":"編輯活動商品",
-
+        "pinned":"商品置頂",
         "image":"圖片",
         "name":"名稱",
         "type":"模式",

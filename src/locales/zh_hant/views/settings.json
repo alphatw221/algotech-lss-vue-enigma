@@ -25,18 +25,24 @@
         "delivery_setting": "物流設定",
         "free_delivery_settings": "免運設定",
         "delivery_method_settings": "物流方式設定",
-        "charge":"基本運費",
+        "charge":"運費",
         "charge_option":"運送方式",
         "add_more_delivery_option":"新增運送方式",
         "replace_charge" : "取代基本運費",
         "on_top_of_charge" : "新增額外運費",
         "title" : "顯示標題",
+        "price":"基礎運費",
         "order_above":"滿額免運：訂單金額滿（$）",
         "minimum":"滿件免運：訂單商品數量滿（件）",
         "store":{
                 "collection":"自行取貨",
                 "pickup_store":"取貨門市／地點",
                 "pickup_address":"取貨地址"
+        },
+        "own_delivery": {
+            "is_cvs": "是否為超商",
+            "turn_on_cvs_map": "選擇超商地圖",
+            "cvs_map": "超商地圖"
         },
         "errors":{
             "Value_is_required":"此欄位必填",
@@ -149,7 +155,8 @@
         "enabled":"啟用",
         "update":"更新",
         "free_delivery_settings_update": "免運設定更新",
-        "delivery_method_settings_update": "物流方式設定更新"      
+        "delivery_method_settings_update": "物流方式設定更新",
+        "turn_on_cvs_map": "開啟超商地圖"   
     },
 
 

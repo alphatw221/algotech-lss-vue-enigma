@@ -5,20 +5,32 @@
 
 		<!-- Delivery charge setting-->
 		<div class="col-span-12 sm:col-start-1 flex flex-col gap-3"> 
-			<div class="flex flex-col flex-wrap">
-				<label class="text-base whitespace-nowrap text-lg font-medium">{{$t('create_campaign.delivery_form.delivery_charge')}}</label>
-				<input 
-					class="w-full form-control"
-					type="text" 
-					v-model="props.campaign.meta_logistic.delivery_charge"
-					@blur="props.v.meta_logistic.delivery_charge.$touch()"
-				/>
-				<label class="text-danger text-[12px] " 
-					v-for="error,index in props.v.meta_logistic.delivery_charge.$errors"
-					:key="index"
-					>
-					{{ $t(`create_campaign.delivery_form.errors.${error.$validator}`) }}
-				</label>
+			<label class="text-base whitespace-nowrap text-lg font-medium">{{$t('create_campaign.delivery_form.delivery_charge')}}</label>
+			<div class="flex flex-row flex-wrap gap-5">
+				
+				<div class="flex flex-col"> 
+					<label class="w-fit text-base whitespace-nowrap">{{ $t('settings.delivery.title') }}</label>
+					<input 
+						class="w-32 form-control h-[35px] sm:h-[42px]"
+						type="text" 
+						v-model="props.campaign.meta_logistic.title"
+					/>
+				</div>
+				<div class="flex flex-col">
+					<label class="w-fit text-base whitespace-nowrap">{{ $t('settings.delivery.price') }}</label>
+					<input 
+						class="w-full form-control"
+						type="text" 
+						v-model="props.campaign.meta_logistic.delivery_charge"
+						@blur="props.v.meta_logistic.delivery_charge.$touch()"
+					/>
+					<label class="text-danger text-[12px] " 
+						v-for="error,index in props.v.meta_logistic.delivery_charge.$errors"
+						:key="index"
+						>
+						{{ $t(`create_campaign.delivery_form.errors.${error.$validator}`) }}
+					</label>
+				</div>
 			</div>
 			
 			<div class="flex flex-col flex-wrap">
@@ -135,6 +147,17 @@
 					</label>
 				</div>
 				
+				<div>
+                    <input  
+                        class="w-10 h-10 form-control"
+                        type="checkbox" 
+                        :placeholder="$t('settings.delivery_form.express_charge')"
+                        v-model="option.is_cvs"
+                    />
+                    <label class="text-[16px] ml-2" 
+                        >{{ $t("settings.delivery_form.turn_on_cvs_map") }}
+                    </label>                    
+                </div>
 
 				<button 
 					class="btn btn-danger inline-block text-base w-full sm:w-24 ml-auto h-[42px]" 

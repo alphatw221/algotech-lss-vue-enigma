@@ -50,17 +50,20 @@
         "name" : "Name",
         "phone" : "Phone",
         "email" : "Email",
+        "cellphone":"Cellphone",
         "method" : "Delivery Method",
         "default":"Default",
         "delivery" : "Delivery",
         "date" : "Delivery Date",
         "address":"Delivery Address",
         "post_code" : "Post Code",
+        "cellphone":"cellphone number",
         "location" : "Location",
         "pickup" : "Self Pickup",
         "pickup_address":"Pickup Address",
         "pickup_store":"Pickup Location",
-        "additional_delivery_charge" : "Selected Delivery Charge Option"
+        "additional_delivery_charge" : "Selected Delivery Charge Option",
+        "remark":"Remark"
     },
     "payment":{
         "Direct Payment":"Direct Payment",

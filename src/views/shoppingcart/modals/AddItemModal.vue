@@ -1,6 +1,5 @@
 <template>
 	<Modal
-	backdrop="static"
 		size="modal-xl"
 		:show="shoppingCartStore.showAddItemModal"
 		@hidden="shoppingCartStore.showAddItemModal = false"
@@ -25,9 +24,8 @@
 						<div
 							class="file h-full flex flex-col box rounded-md pt-3 pb-5 px-3 sm:px-5 flex-wrap relative zoom-in items-center justify-center" >
 
-							<template v-if="product.description == ''"> 
+							<!-- <template v-if="!['',null,undefined,' '].includes(product.description)">  -->
 								<EyeIcon class="bg-primary opacity-30 rounded-full text-white w-7 h-7 font-bold absolute top-2 right-2 p-1 z-50 hover:opacity-80" @click="openDescription(product)" />
-							</template>
 								<a class="w-4/5 file__icon file__icon--image absolute">
 									<div class="file__icon--image__preview image-fit" v-if="product.image">
 										<img :src="product.image"
@@ -140,11 +138,11 @@ const updateAddOnProducts = ()=>{
 	shoppingCartStore.campaignProducts.forEach(product => {
 		if(!(product.id.toString() in shoppingCartStore.cart.products) && product.type!='lucky_draw'){
 			product.qty=1
-			temp.push(product)
+			if(product.pinned) temp.unshift(product)
+			else temp.push(product)
 		}
 	});
 	addOnProducts.value = temp
-	console.log(addOnProducts.value)
 }
 
 const changeQuantity = (event, index, operation) => {

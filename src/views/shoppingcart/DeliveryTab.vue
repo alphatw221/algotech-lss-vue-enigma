@@ -10,22 +10,27 @@
 
         <TabGroup>
           <TabList class="flex items-center justify-around w-full nav-boxed-tabs grow">
-            <Tab class="w-[95%] h-14 border-[#131c34] lg:w-64 flex" tag="button"
-              @click="select_shipping_method('delivery')">
-              <div class="inline-flex items-center grow place-content-center">
-                <SimpleIcon icon="delivery" :color="deliveryColor" class="block mr-3" width="24" /> 
-                <span class="text-sm lg:text-lg">{{$t('shopping_cart.delivery_tab.home_delivery')}}</span>
-              </div>
-            </Tab>
-            <template v-if="shoppingCartStore.cart.campaign && shoppingCartStore.cart.campaign.meta_logistic.pickup_options">
-                <Tab v-if="shoppingCartStore.cart.campaign.meta_logistic.pickup_options.length !== 0" class="w-[95%] h-14 border-[#131c34] lg:w-64 flex" tag="button"
+            <div> 
+              <Tab class="w-[95%] h-14 border-[#131c34] lg:w-64 flex" tag="button"
+                @click="select_shipping_method('delivery')">
+                <div class="inline-flex items-center grow place-content-center">
+                  <SimpleIcon icon="delivery" :color="deliveryColor" class="block mr-3" width="24" /> 
+                  <span class="text-sm lg:text-lg">{{$t('shopping_cart.delivery_tab.home_delivery')}}</span>
+                </div>
+              </Tab>
+            </div>
+            <div v-show="shoppingCartStore.cart.campaign && !(shoppingCartStore.cart.campaign.meta_logistic.pickup_options.length === 0)">
+              <Tab  
+                class="w-[95%] h-14 border-[#131c34] lg:w-64 flex" tag="button"
                 @click="select_shipping_method('pickup')">
+
                 <div class="inline-flex items-center grow place-content-center">
                   <SimpleIcon icon="store" :color="pickupColor" class="block mr-3" width="24" /> 
                   <span class="text-sm lg:text-lg">{{$t('shopping_cart.delivery_tab.self_pickup')}}</span>
                 </div>
               </Tab>
-            </template>
+            </div>
+
           </TabList>
 
 
@@ -42,19 +47,19 @@
 
                     <!-- Ecpay 店到店 -->
                     <template v-if="(shoppingCartStore.cart.campaign.meta_logistic?.ecpay?.enabled == true)">
-                      <template v-for="(item, key, index) in shoppingCartStore.cart.campaign.meta_logistic?.ecpay?.logistics_sub_type">
-                        <div v-if="item?.enabled == true" class="flex flex-row flex-wrap cursor-pointer px-10 py-3 my-4 border-2 rounded-lg form-check justify-between"
+                      <template v-for="(item, key, index) in shoppingCartStore.cart.campaign.meta_logistic?.ecpay?.logistics_sub_type" :key="key">
+                        <div v-if="item?.enabled == true" class="flex flex-row flex-wrap cursor-pointer px-10 py-5 my-4 border-2 rounded-lg form-check justify-between"
                         :class="{'border-slate-600': shipping_option_index_computed == key}"
                         @click="select_shipping_method('ecpay') & (shipping_option_index_computed = key)"
                         >
                           <div class="ml-2 text-lg">{{ $t(`settings.delivery_form.ecpay.logistics_sub_type.${key}`) }}</div>
-                          <div v-if="key !== 'TCAT'" class="flex flex-row gap-4 h-12 -p-6">
-                            <a class="ml-2 my-auto" @click="get_c2c_map(key)">選擇門市</a>
+                          <div v-if="key !== 'TCAT'" class="flex flex-row gap-4 -p-6">
+                            <a class="ml-2 my-auto" @click="get_c2c_map(key, 'ecpay', key)">選擇門市</a>
                             <!-- <img class="cursor-pointer" src="@/assets/images/lss-img/711.png" @click="get_c2c_map('UNIMARTC2C')"/>  -->
                             <!-- <img class="cursor-pointer" src="@/assets/images/lss-img/Family_Mart.png" @click="get_c2c_map('FAMIC2C')"/>  -->
                           </div>
                           <div class="ml-4 my-auto" v-if="shoppingCartStore.cart.meta?.ecpay_cvs?.logistics_sub_type == key">
-                            <p> {{shoppingCartStore.cart.meta.ecpay_cvs.cvs_store_name}} </p>
+                            <p> {{shoppingCartStore.cart.meta.ecpay_cvs?.cvs_store_name}} </p>
                             
                             <p> {{shoppingCartStore.cart.meta?.ecpay_cvs?.cvs_address}}</p>
                           </div>
@@ -81,7 +86,7 @@
                       :class="{'border-slate-600': shipping_option_index_computed == null}"
                       @click="select_shipping_method('delivery') & (shipping_option_index_computed = null)"
                       >
-                      <div class="ml-2 text-lg">{{$t('shopping_cart.delivery_tab.option.default')}}</div>
+                      <div class="ml-2 text-lg">{{ shoppingCartStore.cart.campaign.meta_logistic?.title != ''? shoppingCartStore.cart.campaign.meta_logistic?.title : $t('shopping_cart.delivery_tab.option.default')}}</div>
                       <div class="ml-auto">
                         <label class="form-check-label">
                         {{ shoppingCartStore.cart.campaign.currency }}
@@ -90,29 +95,38 @@
                       </div>
                     </div>
 
-                    <template
-                      v-if="(shoppingCartStore.cart.campaign.meta_logistic?.is_self_delivery_enabled == true)"
-                      v-for="(option, index) in shoppingCartStore.cart.campaign.meta_logistic.additional_delivery_options"
-                      :key="index"> 
-                      <div class="flex flex-row flex-wrap cursor-pointer px-10 py-6 my-4 border-2 rounded-lg form-check gap-2"
-                        :class="{'border-slate-600': shipping_option_index_computed == index}"
-                        @click="select_shipping_method('delivery') & (shipping_option_index_computed = index)"
-                      >
-                      <div class="ml-2 text-lg">{{ option.title }}</div>
-                        
-                        <template v-if="option.type === '+'">
-                          <label class="form-check-label whitespace-nowrap ml-auto">
-                            {{ shoppingCartStore.cart.campaign.currency }}
-                            {{(Math.floor((parseFloat(option.price) + parseFloat(shoppingCartStore.cart.campaign.meta_logistic.delivery_charge)) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toLocaleString('en-GB')}}
-                            {{shoppingCartStore.cart.campaign.price_unit?$t(`global.price_unit.${shoppingCartStore.cart.campaign.price_unit}`):''}}</label>
-                        </template>
-                        <template v-else>
-                          <label class="form-check-label whitespace-nowrap ml-auto">
-                            {{ shoppingCartStore.cart.campaign.currency }}
-                            {{(Math.floor(parseFloat(option.price) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toLocaleString('en-GB')}}
-                            {{shoppingCartStore.cart.campaign.price_unit?$t(`global.price_unit.${shoppingCartStore.cart.campaign.price_unit}`):''}}</label>
-                        </template>
-                      </div>
+                    <template v-if="(shoppingCartStore.cart.campaign.meta_logistic?.is_self_delivery_enabled == true)"> 
+                      <template
+                        v-for="(option, index) in shoppingCartStore.cart.campaign.meta_logistic.additional_delivery_options"
+                        :key="index"> 
+                        <div class="flex flex-row flex-wrap cursor-pointer px-10 py-6 my-4 border-2 rounded-lg form-check gap-2"
+                          :class="{'border-slate-600': shipping_option_index_computed == index}"
+                          @click="select_shipping_method('delivery') & (shipping_option_index_computed = index)"
+                        >
+                        <div class="ml-2 text-lg">{{ option.title }}</div>
+                          <!--cvs map button-->
+                          <div v-if="(option.is_cvs == true) && (option?.cvs_key)" class="flex flex-row gap-4 -p-6">
+                            <a class="ml-2 my-auto" @click="get_c2c_map(option?.cvs_key, 'delivery', index)">選擇門市</a>
+                          </div>
+                          <div class="ml-4 my-auto" v-if="shoppingCartStore.cart.meta?.ecpay_cvs?.logistics_sub_type == option?.cvs_key">
+                            <p> {{shoppingCartStore.cart.meta.ecpay_cvs?.cvs_store_name}} </p>
+                            
+                            <p> {{shoppingCartStore.cart.meta?.ecpay_cvs?.cvs_address}}</p>
+                          </div>
+                          <template v-if="option.type === '+'">
+                            <label class="form-check-label whitespace-nowrap ml-auto">
+                              {{ shoppingCartStore.cart.campaign.currency }}
+                              {{(Math.floor((parseFloat(option.price) + parseFloat(shoppingCartStore.cart.campaign.meta_logistic.delivery_charge)) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toLocaleString('en-GB')}}
+                              {{shoppingCartStore.cart.campaign.price_unit?$t(`global.price_unit.${shoppingCartStore.cart.campaign.price_unit}`):''}}</label>
+                          </template>
+                          <template v-else>
+                            <label class="form-check-label whitespace-nowrap ml-auto">
+                              {{ shoppingCartStore.cart.campaign.currency }}
+                              {{(Math.floor(parseFloat(option.price) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toLocaleString('en-GB')}}
+                              {{shoppingCartStore.cart.campaign.price_unit?$t(`global.price_unit.${shoppingCartStore.cart.campaign.price_unit}`):''}}</label>
+                          </template>
+                        </div>
+                      </template>
                     </template>
 
                     <div class="flex flex-col flex-wrap" v-if="shoppingCartStore.cart.campaign.meta_logistic.delivery_date?.start_at">
@@ -136,7 +150,7 @@
                 <!-- END Delivery Option -->
 
                  <!-- Delivery Address -->
-                <template v-if="showAddressForm()">
+                <template v-if="showAddressForm">
                   <label class="font-medium text-md mt-5">{{$t('shopping_cart.delivery_tab.delivery_info')}}</label>
                   <div class="gap-5 mx-0 intro-y lg:mx-20">
 
@@ -224,15 +238,15 @@
               <label class="font-medium text-md">{{$t('shopping_cart.delivery_tab.option.pickup')}}</label>
               <template v-if="shoppingCartStore.cart.campaign">
                 <template v-for="(option, index) in shoppingCartStore.cart.campaign.meta_logistic.pickup_options" :key="index"> 
-                  <div class="flex flex-row justify-between form-check cursor-pointer px-5 sm:px-10 py-6 border-2 rounded-lg lg:mx-20 z-0 my-5"
+                  <div class="flex flex-row justify-between form-check cursor-pointer px-5 sm:px-10 py-5 border-2 rounded-lg lg:mx-20 z-0 my-5"
                     :class="{'border-slate-600': shipping_option_index_computed == index}"
-                    @click="select_shipping_method('pickup') & (shipping_option_index_computed = index) & pickup_date_range(index)"
+                    @click="select_shipping_method('pickup'); (shipping_option_index_computed = index); pickup_date_range(index);"
                     >
 
                       <div class="flex flex-col sm:flex-row flex-0 w-full"> 
                         <div class="flex flex-col mr-auto">
                           <div class="font-medium flex-0 text-lg ml-2">{{ option.name }}</div>
-                          <div class="font-medium flex-0 ml-2">{{ option.address }}</div>
+                          <div class="flex-0 ml-2">{{ option.address }}</div>
                         </div> 
                         <template v-if="option.start_at !== null && option.end_at !== null"> 
                           <label class="form-check-label flex-0 my-auto">{{new Date(option.start_at).toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"})
@@ -371,14 +385,13 @@
 
       <div class="col-span-12 row-start-1 lg:col-span-4">
         <div class="intro-y">
-          <OrderSummary class="m-0 2xl:m-5" />
+          <OrderSummarySkeleton v-if="props.cartLoading"/>
+          <OrderSummary class="m-0 2xl:m-5" v-else />
         </div>
 
         <div class="col-span-12 mt-5 intro-y box lg:col-span-6">
           <ShoppingCartTableSimple />
         </div>
-
-
 
       </div>
     </div>
@@ -387,29 +400,33 @@
       <button class="mr-auto rounded-full w-fit btn btn-outline-primary" @click="shoppingCartStore.openTab= 1">
         {{$t('shopping_cart.delivery_tab.previous')}}
       </button>
-
-      <button :show="show" v-if="checkoutLoading" class="w-fit btn btn-rounded-primary" >
-        {{$t('shopping_cart.delivery_tab.proceed_to_payment')}}
-        <LoadingIcon icon="three-dots" color="1a202c" class="absolute w-12 h-fit"/>
-      </button>
-      <button :show="show" v-else class="w-fit btn btn-rounded-primary" @click="proceed_to_payment" :disabled="shoppingCartStore.user_subscription.status === sandboxMode">
+      <button :show="show" class="w-fit btn btn-rounded-primary" @click="proceed_to_payment()" :disabled="shoppingCartStore.user_subscription.status === sandboxMode">
         {{$t('shopping_cart.delivery_tab.proceed_to_payment')}}
       </button>
     </div>
+
+    <Modal :show="checkoutLoading" @hidden="!checkoutLoading" class="text-center" backdrop="static">
+        <ModalBody class="">
+          <div class="flex flex-col"> 
+            <p class="text-lg text-primary font-medium"> Payment processing </p>
+            <lottie-player class="mx-auto" src="https://assets10.lottiefiles.com/packages/lf20_vIyvPR.json" loop background="transparent"  speed="1"  style="width: 300px; height: 300px;"   autoplay></lottie-player>
+          </div>
+        </ModalBody>
+    </Modal>
   </div>
 </template>
 
 
 <script setup>
 import OrderSummary from "./OrderSummary.vue";
+import OrderSummarySkeleton from "./skeleton/OrderSummarySkeleton.vue";
 import ShoppingCartTableSimple from "./ShoppingCartTable-simple.vue";
 import { required, minLength, maxLength, email, integer, helpers, requiredUnless } from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";
 
-import { computed, onMounted,onUnmounted, ref, watch, reactive, toRefs } from "vue";
+import { computed, onMounted,onUnmounted, ref, watch, reactive, toRefs, getCurrentInstance } from "vue";
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
 import { useRoute, useRouter } from "vue-router";
-// import { buyer_update_delivery_info } from "@/api_v2/pre_order"
 import { buyer_checkout_cart,buyer_get_cvs_map } from "@/api_v2/cart"
 import { buyer_retrieve_latest_order_shipping_info } from "@/api_v2/order"
 import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout"
@@ -419,6 +436,7 @@ import i18n from "@/locales/i18n"
 const { cookies } = useCookies()
 const route = useRoute();
 const router = useRouter();
+const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
 
 const shoppingCartStore = useShoppingCartStore();
 const layoutStore = useLSSBuyerLayoutStore();
@@ -426,20 +444,24 @@ const twZipcodeStore = useTwZipcodeStore();
 const sandboxMode = ref("test")
 const show = ref(false)
 const checkoutLoading = ref(false)
-const pickupdatePicker = ref(null)
 const date_range = ref({
   start:new Date(),
   end:new Date()
 })
-let webSocket = null
 
-const shipping_option_index = ref('')
+const props = defineProps({
+    cartLoading: {
+        type: Boolean,
+        default: true,
+  },
+})
+
+const shipping_option_index = ref("No")
 const pickup_select_index = ref(null)
 const shipping_info= ref({
 			shipping_option:"",
       shipping_method: "delivery",
       shipping_first_name: "",
-      // shipping_last_name: "",
       shipping_email: "",
       shipping_phone: "",
       shipping_cellphone: "",
@@ -464,6 +486,7 @@ const shipping_info= ref({
 
 const deliveryColor = ref('white')
 const pickupColor = ref('#131C34')
+const showAddressForm = ref(true)
 
 const areaIndex = ref(null)
 const cityIndex = ref(null)
@@ -489,7 +512,7 @@ const area_computed = computed({
   }
 })
 
-const select_shipping_method = method => {
+const select_shipping_method = (method) => {
   console.log("select_shipping_method", method)
   shipping_method_computed.value=method
   deliveryColor.value = method !== 'pickup'? 'white' :'#131C34'
@@ -506,7 +529,13 @@ const shipping_method_computed = computed({
       shoppingCartStore.shipping_info.shipping_option_index = shipping_option_index.value
     } 
     if (method === "pickup") {
-      shoppingCartStore.shipping_info.shipping_option_index = null
+      if (shoppingCartStore.cart.campaign.meta_logistic?.pickup_options.length > 0) {
+        shoppingCartStore.shipping_info.shipping_option_index = 0
+        shipping_option_index_computed.value = 0
+      } else {
+        shoppingCartStore.shipping_info.shipping_option_index = null
+      }
+      
     }
   }
 })
@@ -518,40 +547,54 @@ const shipping_option_index_computed = computed({
     console.log("set", index)
     shipping_option_index.value = index
     shoppingCartStore.shipping_info.shipping_option_index=index
-    shipping_info.value.pickup_address=shipping_info.value.shipping_method=='pickup'?shoppingCartStore.cart.campaign.meta_logistic.pickup_options[index]?.address : ''
-
-    shipping_info.value.shipping_option=shipping_info.value.shipping_method=='pickup'?shoppingCartStore.cart.campaign.meta_logistic.pickup_options[index]?.name :shipping_info.value.shipping_method=='delivery' && index!=null ? shoppingCartStore.cart.campaign.meta_logistic.additional_delivery_options[index]?.title : ''
-    
-    if(shipping_info.value.shipping_method=='pickup'){
+    // pickup 
+    if (shipping_info.value.shipping_method=='pickup') {
+      shipping_info.value.pickup_address = shoppingCartStore.cart.campaign.meta_logistic.pickup_options[index]?.address
+      shipping_info.value.shipping_option = shoppingCartStore.cart.campaign.meta_logistic.pickup_options[index]?.name
       shipping_info.value.shipping_option_data = JSON.parse(JSON.stringify(shoppingCartStore.cart.campaign.meta_logistic.pickup_options[index]))
-    }
-    // temp for ecpay
-    else if(typeof shipping_option_index.value == 'string'){
-      if(shipping_option_index.value == shoppingCartStore.cart.meta.ecpay_cvs?.logistics_sub_type) {
-        shipping_info.value.shipping_option_data = shoppingCartStore.cart.meta.ecpay_cvs
-        Object.assign(shipping_info.value.shipping_option_data,{'logisticsType':'CVS'})
-      }else{
-        shipping_info.value.shipping_option_data = {'logisticsType':shipping_option_index.value}
-      }
-      Object.assign(shipping_info.value.shipping_option_data,{
-        'type': shoppingCartStore.cart.campaign.meta_logistic[shipping_info.value.shipping_method]["logistics_sub_type"][shipping_option_index.value].type,
-        "price": shoppingCartStore.cart.campaign.meta_logistic[shipping_info.value.shipping_method]["logistics_sub_type"][shipping_option_index.value].delivery_charge,
-      })
-      console.log(shipping_info.value.shipping_option_data)
-    }
-    else{
+      showAddressForm.value = false
+    
+    // delivery
+    } else if (shipping_info.value.shipping_method=='delivery') {
+      shipping_info.value.shipping_option = index != null ? shoppingCartStore.cart.campaign.meta_logistic.additional_delivery_options[index]?.title : ''
       shipping_info.value.shipping_option_data = index == null ? {} : JSON.parse(JSON.stringify(shoppingCartStore.cart.campaign.meta_logistic.additional_delivery_options[index]))
+      if(shipping_option_index.value == shoppingCartStore.cart.meta.ecpay_cvs?.shipping_option_index) {
+        Object.assign(shipping_info.value.shipping_option_data,shoppingCartStore.cart.meta.ecpay_cvs)
+      }
+      if (shoppingCartStore.cart.campaign.meta_logistic.additional_delivery_options[index]?.is_cvs) {
+        showAddressForm.value = false
+      } else {
+        showAddressForm.value = true
+      }
+    
+    // ecpay
+    } else if (shipping_info.value.shipping_method=='ecpay') {
+      if(shipping_option_index.value == shoppingCartStore.cart.meta.ecpay_cvs?.shipping_option_index) {
+        shipping_info.value.shipping_option_data = shoppingCartStore.cart.meta.ecpay_cvs
+      } else {
+        shipping_info.value.shipping_option_data = {}
+      }
+      
+      Object.assign(shipping_info.value.shipping_option_data,{
+        'LogisticsSubType': shipping_option_index.value,
+        'type': shoppingCartStore.cart.campaign.meta_logistic[shipping_info.value.shipping_method]?.logistics_sub_type[shipping_option_index.value].type,
+        "price": shoppingCartStore.cart.campaign.meta_logistic[shipping_info.value.shipping_method]?.logistics_sub_type[shipping_option_index.value].delivery_charge,
+      })
+
+      if (["TCAT"].includes(shipping_option_index.value)) {
+        shipping_info.value.shipping_option_data['logisticsType'] = 'HOME'
+        showAddressForm.value = true
+      } else {
+        shipping_info.value.shipping_option_data['logisticsType'] = 'CVS'
+        showAddressForm.value = false
+      }
     }
+    console.log(shipping_info.value.shipping_option_data)
   }
 })
 
 const isAnonymousUser=cookies.get("login_with")=='anonymousUser'
-const showAddressForm = () => {
-  if (shipping_info.value.shipping_method == "pickup") return true
-  if (shipping_option_index_computed.value == "") return false
-  if (shipping_option_index_computed.value === 'UNIMARTC2C' || shipping_option_index_computed.value === 'FAMIC2C') return false
-  return true
-}
+
 const pickup_date_range = (index) =>{
   date_range.value.start = shoppingCartStore.cart.campaign.meta_logistic.pickup_options[index].start_at
   date_range.value.end = shoppingCartStore.cart.campaign.meta_logistic.pickup_options[index].end_at
@@ -560,6 +603,11 @@ const pickup_date_range = (index) =>{
 }
 
 onMounted(()=>{
+  eventBus.on("changeShippingOption", (payload)=>{
+    shipping_info.value.shipping_method = shoppingCartStore.shipping_info.shipping_method
+    console.log(shoppingCartStore.shipping_info.shipping_option_index)
+    shipping_option_index_computed.value = shoppingCartStore.shipping_info.shipping_option_index
+  })
   if(!isAnonymousUser){
     buyer_retrieve_latest_order_shipping_info(layoutStore.alert).then(res=>{
 
@@ -574,7 +622,9 @@ onMounted(()=>{
   
 })
 
-
+onUnmounted(()=>{
+  eventBus.off('changeShippingOption')
+})
 const exactlength = (param) =>
   helpers.withParams(
     { type: 'exactlength', value: param },
@@ -594,16 +644,30 @@ const specialCharacter = (value) => {
   const special_characters = "^‘`!@#%&*+”<>|_[]"
   return !special_characters.split('').some(char => value.includes(char))
 }
+
+const bytesBtwLength = (min,num) => (value) => {
+  var string; 
+  var len = 0;
+  for(var i=0; i < value.length; i++){
+    string = value.charCodeAt(i);
+   while( string > 0 && string != 32){
+      len++;
+      string = string >> 8;
+   }
+  }
+  if (len > num) return false
+  if (min > len) return false
+  else return true
+}
+
 const reciever_rules = computed(()=>{
     return{
       shipping_first_name: {
         required: helpers.withMessage(i18n.global.t("vulidate.required"), required),
-        maxLength: helpers.withMessage(i18n.global.t("vulidate.exceed_maximum_length", { number:5 }), maxLength(5)),
+        // maxLength: helpers.withMessage(i18n.global.t("vulidate.exceed_maximum_length", { number:5 }), maxLength(5)),
+        bytesBtwLength: helpers.withMessage(i18n.global.t("vulidate.name_between_length", { number:'4-10' }), bytesBtwLength(4,10)),
         specialCharacter: helpers.withMessage(i18n.global.t("vulidate.contains_special_characters") + " ^ ‘ ` ! @ # % & * + ” < > | _ [ ]", specialCharacter)
       },
-      // shipping_last_name: {
-      //   maxLength: helpers.withMessage(i18n.global.t("vulidate.exceed_maximum_length", { number:10 }), maxLength(10)),
-      // },
       shipping_phone: {
         integer: helpers.withMessage(i18n.global.t("vulidate.only_integer"), integer),
         requiredIf: helpers.withMessage(i18n.global.t("vulidate.required_either_one"), 
@@ -635,16 +699,15 @@ const delivery_rules = computed(()=>{
   return{
     shipping_address_1: {
       required: helpers.withMessage(i18n.global.t("vulidate.required"), required),
-      minLength: helpers.withMessage(i18n.global.t("vulidate.least_minimum_length", { number:3 }), minLength(3)), 
-      maxLength: helpers.withMessage(i18n.global.t("vulidate.exceed_maximum_length", { number:24 }), maxLength(24)),
+      bytesBtwLength: helpers.withMessage(i18n.global.t("vulidate.invalid_address"), bytesBtwLength(4,60)),
     },
     shipping_location: {
       required: helpers.withMessage(i18n.global.t("vulidate.required"), required),
-      exactlength: helpers.withMessage(i18n.global.t("vulidate.exact_number_length", {number:3}), exactlength(3)),
+      // exactlength: helpers.withMessage(i18n.global.t("vulidate.exact_number_length", {number:3}), exactlength(3)),
     },
     shipping_region: {
       required: helpers.withMessage(i18n.global.t("vulidate.required"), required),
-      exactlength: helpers.withMessage(i18n.global.t("vulidate.exact_number_length", {number:3}), exactlength(3)),
+      // exactlength: helpers.withMessage(i18n.global.t("vulidate.exact_number_length", {number:3}), exactlength(3)),
     },
     shipping_postcode: {
       integer: helpers.withMessage(i18n.global.t("vulidate.only_integer"), integer),
@@ -657,8 +720,8 @@ const delivery_rules = computed(()=>{
 const reciever_validate = useVuelidate(reciever_rules, shipping_info);
 const delivery_validate = useVuelidate(delivery_rules, shipping_info);
 
-const get_c2c_map = (storeType) =>{
-  const cvsdata = {'LogisticsSubType':storeType} //UNIMARTC2C or FAMIC2C
+const get_c2c_map = (storeType, shipping_method, shipping_option_index) =>{
+  const cvsdata = {'LogisticsSubType':storeType, 'shipping_method': shipping_method, 'shipping_option_index': shipping_option_index} //UNIMARTC2C or FAMIC2C
   buyer_get_cvs_map(route.params.cart_oid,cvsdata).then(
     res=>{
       const form = document.createElement('form');
@@ -696,21 +759,30 @@ const get_c2c_map = (storeType) =>{
 const proceed_to_payment = () =>{
   
   if(shipping_info.value.shipping_method !== 'pickup'){
-    if(shipping_option_index.value === ''){
+    if(shipping_option_index_computed.value === 'No'){
       layoutStore.alert.showMessageToast('選擇運送方式')
       return
     }
 
-    else if(shipping_info.value.shipping_option_data.logisticsType ==='UNIMARTC2C' ||shipping_info.value.shipping_option_data.logisticsType ==='FAMIC2C'){
+    else if(shipping_info.value.shipping_option_data['logisticsType'] == 'CVS' && !shipping_info.value.shipping_option_data['cvs_store_id']){
       layoutStore.alert.showMessageToast('選取店到店門市')
       return
     }
   }
-  if (["UNIMARTC2C", "FAMIC2C"].includes(shipping_option_index.value)) {
+  if (shipping_info.value.shipping_method === 'pickup' && shipping_option_index.value === null){
+    layoutStore.alert.showMessageToast('選擇取貨店鋪')
+      return
+  }
+
+  // pickup, ecpay cvs, self delivery csv. These options doesn't need validate delivery address
+  if ((["UNIMARTC2C", "FAMIC2C"].includes(shipping_option_index.value)) || 
+  (shipping_info.value.shipping_method === 'delivery' && shoppingCartStore.cart.campaign.meta_logistic.additional_delivery_options[shipping_option_index.value]?.is_cvs == true) || 
+  (shipping_info.value.shipping_method === 'pickup')) {
     shipping_info.value.shipping_location = ''
     shipping_info.value.shipping_region = ''
     shipping_info.value.shipping_address_1 = ''
     shipping_info.value.shipping_postcode = ''
+
   } else {
     delivery_validate.value.$touch();
     if (delivery_validate.value.$invalid && shipping_info.value.shipping_option_data.logisticsType !== 'CVS'){
@@ -739,7 +811,6 @@ const proceed_to_payment = () =>{
     checkoutLoading.value = false
   })
   .catch(err=>{checkoutLoading.value = false})
-  
   
 }
 

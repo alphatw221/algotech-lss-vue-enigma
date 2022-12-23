@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-wrap">
+  <div class="flex flex-wrap" :class="{'pulse': cartLoading==true}">
     <div class="w-full calch">
       <!-- BEGIN Tab List-->
       <ul class="flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row">
@@ -53,11 +53,11 @@
 
           <div class="tab-content tab-space">
             <!-- BEGIN My Cart Tab -->
-              <MyCartTab />
+              <MyCartTab :cartLoading="cartLoading"/>
             <!-- END My Cart Tab -->
 
             <!-- BEGIN Delivery Tab -->
-              <DeliveryTab/>
+              <DeliveryTab :cartLoading="cartLoading"/>
             <!-- END Delivery Tab-->
           </div>
         </div>
@@ -66,7 +66,7 @@
     </div>
     <WishListModal :isAnonymousUser="isAnonymousUser"/>
     <ItemDescriptionModal />
-    <AddItemModal/>
+    <AddItemModal :cartLoading="cartLoading"/>
   </div>
 </template>
 
@@ -94,9 +94,11 @@ const router = useRouter();
 const shoppingCartStore = useShoppingCartStore()
 const buyerLayoutStore = useLSSBuyerLayoutStore();
 const i18n = getCurrentInstance().appContext.config.globalProperties.$i18n
+const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
 const btnOne = ref('white')
 const btnTwo = ref('#334155')
 const { cookies } = useCookies()
+const cartLoading = ref(true)
 const toggleTabs = tabNumber => {
   shoppingCartStore.openTab = tabNumber
   router.push({query:{tab:tabNumber}})
@@ -113,11 +115,15 @@ onMounted(()=>{
         shoppingCartStore.product_categories.forEach(productCategory => {
           shoppingCartStore.productCategoryDict[productCategory.id.toString()]=productCategory
         }); 
+        if (shoppingCartStore.cart.meta?.ecpay_cvs?.shipping_option_index && shoppingCartStore.cart.meta?.ecpay_cvs?.shipping_method) {
+          shoppingCartStore.shipping_info.shipping_method = shoppingCartStore.cart.meta?.ecpay_cvs?.shipping_method
+          shoppingCartStore.shipping_info.shipping_option_index = shoppingCartStore.cart.meta?.ecpay_cvs?.shipping_option_index
+          eventBus.emit("changeShippingOption")
+        }
         buyerLayoutStore.sellerInfo = res.data.user_subscription
-        console.log(buyerLayoutStore.sellerInfo)
-        console.log(shoppingCartStore.cart)
         i18n.locale = res.data.campaign.lang
         Object.keys(shoppingCartStore.cart.products).length == 0 ? shoppingCartStore.showAddItemModal = true : shoppingCartStore.showAddItemModal = false
+        cartLoading.value = false
       }
   )
 
@@ -177,5 +183,18 @@ watch(computed(()=>shoppingCartStore.openTab),()=>{
 
 .calch{
   min-height: calc(100vh - 130px);
+}
+
+.pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+
+    @keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: .5;
+    }
+    }
 }
 </style>
