@@ -86,39 +86,25 @@ const handlePayment=()=>{
     }else if(props.payment.handle.type=='submitForm'){
         const getCredential = paymentEndPoints[props.payment.handle.endpoint]
         getCredential(route.params.order_oid, layoutStore.alert).then(res=>{
-            console.log(res.data)
-            // const params = res.data.data
-            
-            // document.body.innerHTML = params
-            // document.getElementById("data_set").submit();
 
             const form = document.createElement('form');
-            form.setAttribute("id", "data_set");
+            form.setAttribute("id", "data_set");    //??
             form.method = 'post';
-            form.action = res.data.action;
-            const params = res.data.data
+            form.action = res.data.url;
+            const params = res.data.params
             for (const key in params) {
                 if (params.hasOwnProperty(key)) {
-                    const hiddenField = document.createElement('input');
-                    hiddenField.type = 'hidden';
-                    hiddenField.name = key;
-                    hiddenField.value = params[key];
+                    const input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = key;
+                    input.value = params[key];
 
-                form.appendChild(hiddenField);
+                form.appendChild(input);
                 }
             }
 
-            document.body.appendChild(form);
+            document.body.appendChild(form); //??
             form.submit();
-
-            // for (const [key, value] of Object.entries(res.credential)) {
-            //     $('<input>').attr({
-            //         type: 'hidden',
-            //         name: key,
-            //         value: value
-            //     }).appendTo(this.first_data_hidden_form);
-            // }
-            // this.first_data_hidden_form.find('input[type=submit]').click();
 
         })
         
