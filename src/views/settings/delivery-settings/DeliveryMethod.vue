@@ -106,7 +106,7 @@
 
 <script setup>
 
-import { computed, onMounted, ref, watch, provide, reactive, toRefs ,defineProps} from "vue";
+import { computed, onMounted, ref, watch, provide, reactive, toRefs } from "vue";
 import { useRoute, useRouter } from "vue-router";
 // import {paymentEndPoints} from "@/api_v2/payment";
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
@@ -157,9 +157,10 @@ onMounted(() => {
 
 
 const updateDelivery = () => {
-    // console.log('log',logisticData.value)
+    console.log('log',logisticData.value)
     seller_update_delivery({'ecpay':logisticData.value}, sellerStore.alert).then(res=>{
         sellerStore.userInfo = res.data
+        console.log(sellerStore.userInfo)
         sellerStore.notification.showMessageToast(i18n.global.t('settings.update_successfully'))
     })
 }

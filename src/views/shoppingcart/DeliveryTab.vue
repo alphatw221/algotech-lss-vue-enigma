@@ -86,7 +86,7 @@
                       :class="{'border-slate-600': shipping_option_index_computed == null}"
                       @click="select_shipping_method('delivery') & (shipping_option_index_computed = null)"
                       >
-                      <div class="ml-2 text-lg">{{$t('shopping_cart.delivery_tab.option.default')}}</div>
+                      <div class="ml-2 text-lg">{{ shoppingCartStore.cart.campaign.meta_logistic?.title != ''? shoppingCartStore.cart.campaign.meta_logistic?.title : $t('shopping_cart.delivery_tab.option.default')}}</div>
                       <div class="ml-auto">
                         <label class="form-check-label">
                         {{ shoppingCartStore.cart.campaign.currency }}
@@ -433,7 +433,6 @@ import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout"
 import { useTwZipcodeStore } from "@/stores/tw-zipcode"
 import { useCookies } from 'vue3-cookies'
 import i18n from "@/locales/i18n"
-import { ModalHeader } from "../../global-components/modal";
 const { cookies } = useCookies()
 const route = useRoute();
 const router = useRouter();

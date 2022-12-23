@@ -293,7 +293,6 @@ const computedShippingCost = computed(()=>{
           shippingCost =  Number(meta_logistic.ecpay.logistics_sub_type[shoppingCartStore.shipping_info.shipping_option_index].delivery_charge)
         }
       }
-      
     }
   }
   return shippingCost

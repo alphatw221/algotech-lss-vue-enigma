@@ -29,6 +29,7 @@
         "replace_charge" : "Replace delivery charge",
         "on_top_of_charge" : "On top of delivery charge",
         "title" : "Display Name",
+        "price":"default price",
         "order_above":"Free Delivery for Order Above($)",
         "minimum":"Free Delivery for Minimum Order Qty",
         "store":{
