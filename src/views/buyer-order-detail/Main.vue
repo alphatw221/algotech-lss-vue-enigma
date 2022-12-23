@@ -225,7 +225,6 @@ const detailLoading = ref(true)
 
 const buyerDetails = ref([
     {name:'name',value:'shipping_first_name'},
-    {name:'phone',value:'shipping_phone'},
     {name:'cellphone',value:'shipping_cellphone'},
     {name:'email',value:'shipping_email'},
     {name:'remark',value:'shipping_remark'}

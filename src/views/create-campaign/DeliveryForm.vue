@@ -155,10 +155,21 @@
                         v-model="option.is_cvs"
                     />
                     <label class="text-[16px] ml-2" 
-                        >{{ $t("settings.delivery_form.turn_on_cvs_map") }}
+                        >{{ $t("settings.delivery.own_delivery.is_cvs") }}
                     </label>                    
                 </div>
-
+				<div>
+                    <select 
+                        :disabled="option.is_cvs !== true"
+                        class="flex-1 w-full rounded-lg form-select sm:form-select-lg sm:w-fit"
+                        v-model="option.cvs_key"
+                    >   
+                        <option :value="undefined">{{ $t('settings.delivery.own_delivery.turn_on_cvs_map') }}</option>
+                        <template v-for="(cvs_option, option_index) in csvOptions" :key="option_index">
+                            <option :value="cvs_option.key">{{ $t('settings.delivery.own_delivery.cvs_map')+":"+cvs_option.name }}</option>
+                        </template>
+                    </select>
+                </div>
 				<button 
 					class="btn btn-danger inline-block text-base w-full sm:w-24 ml-auto h-[42px]" 
 					@click="deleteDelivery(index)"
@@ -349,6 +360,22 @@ const props = defineProps({
     campaign: Object,
 	v:Object
 });
+
+const csvOptions = ref([
+    {
+        "key": "FAMIC2C", "name": "全家店到店"
+    },
+    {
+        "key": "UNIMARTC2C", "name": "7-11店到店"
+    },
+    {
+        "key":"HILIFEC2C", "name":"萊爾富店到店"
+
+    },
+    {
+        "key":"OKMARTC2C", "name":"OK店到店"
+    }
+])
 
 const addDelivery = () =>{
     props.campaign.meta_logistic.additional_delivery_options.unshift(Object.assign({},additional_delivery_option))
