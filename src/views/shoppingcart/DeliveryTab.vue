@@ -50,7 +50,8 @@
                       <template v-for="(item, key, index) in shoppingCartStore.cart.campaign.meta_logistic?.ecpay?.logistics_sub_type" :key="key">
                         <div v-if="item?.enabled == true" class="flex flex-row flex-wrap cursor-pointer px-10 py-5 my-4 border-2 rounded-lg form-check justify-between"
                         :class="{'border-slate-600': shipping_option_index_computed == key}"
-                        @click="select_shipping_method('ecpay') & (shipping_option_index_computed = key)"
+
+                        @click="select_shipping_method('ecpay')& (shipping_option_index_computed = key)"
                         >
                           <div class="ml-2 text-lg">{{ $t(`settings.delivery_form.ecpay.logistics_sub_type.${key}`) }}</div>
                           <div v-if="key !== 'TCAT'" class="flex flex-row gap-4 -p-6">
@@ -511,7 +512,7 @@ const shipping_method_computed = computed({
   ,set:method=>{
     shipping_info.value.shipping_method=method
     shoppingCartStore.shipping_info.shipping_method=method        //order summary compute this
-    if (method !== "pickup") {
+    if (method !== "pickup" && method !== "ecpay") {
       shoppingCartStore.shipping_info.shipping_option_index = deliveryCurrentChosenOption.value
       shipping_option_index_computed.value = deliveryCurrentChosenOption.value
     } 
@@ -543,7 +544,7 @@ const shipping_option_index_computed = computed({
       showAddressForm.value = false
     
     // delivery
-    } else if (shipping_info.value.shipping_method=='delivery') {
+    } else if (shipping_info.value.shipping_method=='delivery' && typeof index !== 'string') {
       shipping_info.value.shipping_option = index != null ? shoppingCartStore.cart.campaign.meta_logistic.additional_delivery_options[index]?.title : ''
       shipping_info.value.shipping_option_data = index == null ? {} : JSON.parse(JSON.stringify(shoppingCartStore.cart.campaign.meta_logistic.additional_delivery_options[index]))
       if(shipping_option_index.value == shoppingCartStore.cart.meta.ecpay_cvs?.shipping_option_index) {
@@ -562,7 +563,6 @@ const shipping_option_index_computed = computed({
       } else {
         shipping_info.value.shipping_option_data = {}
       }
-      
       Object.assign(shipping_info.value.shipping_option_data,{
         'LogisticsSubType': shipping_option_index.value,
         'type': shoppingCartStore.cart.campaign.meta_logistic[shipping_info.value.shipping_method]?.logistics_sub_type[shipping_option_index.value].type,
