@@ -87,7 +87,7 @@
                       :class="{'border-slate-600': shipping_option_index_computed == null}"
                       @click="select_shipping_method('delivery') & (shipping_option_index_computed = null)"
                       >
-                      <div class="ml-2 text-lg">{{ shoppingCartStore.cart.campaign.meta_logistic?.title != ''? shoppingCartStore.cart.campaign.meta_logistic?.title : $t('shopping_cart.delivery_tab.option.default')}}</div>
+                      <div class="ml-2 text-lg">{{ !['',' ',undefined,null].includes(shoppingCartStore.cart.campaign.meta_logistic?.title) ? shoppingCartStore.cart.campaign.meta_logistic?.title : $t('shopping_cart.delivery_tab.option.default')}}</div>
                       <div class="ml-auto">
                         <label class="form-check-label">
                         {{ shoppingCartStore.cart.campaign.currency }}
