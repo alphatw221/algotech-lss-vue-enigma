@@ -94,7 +94,7 @@ const router = useRouter();
 const shoppingCartStore = useShoppingCartStore()
 const buyerLayoutStore = useLSSBuyerLayoutStore();
 const i18n = getCurrentInstance().appContext.config.globalProperties.$i18n
-
+const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
 const btnOne = ref('white')
 const btnTwo = ref('#334155')
 const { cookies } = useCookies()
@@ -115,9 +115,12 @@ onMounted(()=>{
         shoppingCartStore.product_categories.forEach(productCategory => {
           shoppingCartStore.productCategoryDict[productCategory.id.toString()]=productCategory
         }); 
+        if (shoppingCartStore.cart.meta?.ecpay_cvs?.logistics_sub_type) {
+          shoppingCartStore.shipping_info.shipping_method = "ecpay"
+          shoppingCartStore.shipping_info.shipping_option_index = shoppingCartStore.cart.meta?.ecpay_cvs?.logistics_sub_type
+          eventBus.emit("changeShippingOption")
+        }
         buyerLayoutStore.sellerInfo = res.data.user_subscription
-        console.log(buyerLayoutStore.sellerInfo)
-        console.log(shoppingCartStore.cart)
         i18n.locale = res.data.campaign.lang
         Object.keys(shoppingCartStore.cart.products).length == 0 ? shoppingCartStore.showAddItemModal = true : shoppingCartStore.showAddItemModal = false
         cartLoading.value = false
