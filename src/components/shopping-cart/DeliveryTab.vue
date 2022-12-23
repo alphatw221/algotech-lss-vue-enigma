@@ -21,11 +21,7 @@
                       class="form-control   col-span-8 lg:col-span-4"
                       placeholder=""
                       v-model="store.contact_info.shipping_email" />
-                    <label for="regular-form-2" class="form-label col-span-4 lg:col-span-2">Phone</label>
-                    <input id="regular-form-2" type="text"
-                      class="form-control   col-span-8 lg:col-span-4"
-                      placeholder=""
-                      v-model="store.contact_info.shipping_phone" />
+                    
                   </div>
 
                   <div class="intro-y flex flex-col sm:flex-row items-center mt-8">

@@ -140,10 +140,6 @@
                             <option :value="cvs_option.key">{{ $t('settings.delivery.own_delivery.cvs_map')+":"+cvs_option.name }}</option>
                         </template>
                     </select>
-                    <!-- <label class="block text-danger text-[12px]" 
-                        v-for="error, index in v.additional_delivery_options.$each.$response.$errors[index].type"
-                        :key="index"
-                        >{{ $t(`settings.delivery.errors.${error.$message.replace(/\s/g, "_")}`) }}</label> -->
                 </div>
                 
                 <button 
