@@ -38,8 +38,8 @@
 
             <a class="mx-auto item-center text-[16px] mt-8 font-medium" @click="router.push({ name: 'password-forgot' })">{{ $t('login.forgot_password') }}</a>
 
-            <div class="flex flex-col items-center mt-3 font-medium">
-                <div class="text-[16px]">{{ $t('login.no_account') }}<a href="https://share.hsforms.com/1sclKwJe_QCaqxyzSgbk6kAd0w75" class="ml-1">{{ $t('login.create_one') }}</a></div>
+            <div class="flex flex-col items-center my-3 font-medium">
+                <div class="text-[16px]">{{ $t('login.no_account') }}<a  @click="router.push({name:'trial-register'})" class="ml-1">{{ $t('login.create_one') }}</a></div>
             </div>
             <!-- <div class="flex flex-col items-center my-5">
                 <FacebookLoginButton />

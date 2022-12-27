@@ -125,6 +125,19 @@
                 
             </div>
         </div>
+        <Modal :show="showModal" backdrop="static" @hidden="hideModal()">
+            <ModalBody class="p-10 text-center">
+                <div class="flex flex-col gap-2 justify-center mx-0 sm:mx-10">
+                    <CheckCircleIcon class="text-green-700 w-full h-24"/>
+                    <p class="text-lg">{{ $t('register.confirm.thankyou1') }} <br/> {{ $t('register.confirm.thankyou2') }}</p>
+                    <div class="flex-row justify-start text-left"  
+                        v-for="(value,key) in confirmationInfo" :key="key">
+                        <label> {{$t(`register.confirm.` +  key) }} : <span class="ml-3 font-medium text-[#660000]"> {{value}}</span> </label>
+                    </div>
+                    <button class="w-32 btn btn-outline-primary dark:border-darkmode-400 mt-2 mx-auto" @click="toLogin()">前往登入頁面</button>
+                </div>
+            </ModalBody>
+        </Modal>
     </div>
     
     </template>
@@ -144,25 +157,23 @@
     const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
     const showModal = ref(false)
     const ready = ref(true)
+    const showPassword = ref(false)
 
     const countryCodeList = ref([
-        {value:'TW',number:'886'},{value:'US',number:'1'},{value:'MY',number:'60'},
-        {value:'AU',number:'61'},{value:'ID',number:'62'},{value:'PH',number:'63'},{value:'SG',number:'65'},
-        {value:'TH',number:'66'},{value:'JP',number:'81'},{value:'KR',number:'82'},{value:'VN',number:'84'},
-        {value:'CN',number:'86'}
+        {value:'TW',number:'886'},{value:'MY',number:'60'},{value:'ID',number:'62'},{value:'PH',number:'63'},{value:'SG',number:'65'},{value:'VN',number:'84'}
     ])
-    
-    onMounted(()=>{
-        
-        if (navigator.userAgent.toLowerCase().indexOf('chrome') < 0 && navigator.userAgent.toLowerCase().indexOf('safari') < 0 ) {
-            showReminder.value=true
-        }
-    })
+
     const router = useRouter()
-    const app_i18n = getCurrentInstance().appContext.config.globalProperties.$i18n
     const currentUrl = ref(window.location.href)
-    const showReminder = ref(false)
-    const showPassword = ref(false)
+
+    const hideModal = ()=>{
+        showModal.value = false
+    }
+
+    const toLogin =()=>{
+        hideModal()
+        router.push({name: 'login-page'})
+    }
 
     const registerData = ref({
         plan:'trial',
@@ -201,11 +212,7 @@
     const v = useVuelidate(registerRules, registerData);
 
 
-    const copyLink = ()=>{
-        navigator.clipboard.writeText(currentUrl.value).then(()=>{
-            alert('copied!')
-        })
-    }
+    const confirmationInfo = ref([])
     
     const register = ()=>{ 
 
@@ -218,7 +225,8 @@
         ready.value= false
         user_register_trial(registerData.value.countryCode,registerData.value).then(res=>{
             ready.value= true
-            console.log(res.data)
+            confirmationInfo.value = res.data 
+            showModal.value = true
         }).catch(ready.value= true)
     }
     
