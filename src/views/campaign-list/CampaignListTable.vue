@@ -227,16 +227,14 @@
       </tbody>
     </table>
   </div>
-  <div class="flex flex-wrap items-center intro-y sm:flex-row sm:flex-nowrap mb-10">
-    <Page 
-          class="mx-auto my-3" 
-          :total="dataCount"
-          :page-size="page_size"
-          show-sizer :page-size-opts="[10,20,50,100]" 
-          @on-change="changePage"
-          @on-page-size-change="changePageSize"
-        />
-    </div>
+  <Page 
+  class="mx-auto my-3 flex flex-row flex-wrap justify-center gap-1 mb-10"
+        :total="dataCount"
+        :page-size="page_size"
+        show-sizer :page-size-opts="[10,20,50,100]" 
+        @on-change="changePage"
+        @on-page-size-change="changePageSize"
+      />
 </template>
 
 <script setup>

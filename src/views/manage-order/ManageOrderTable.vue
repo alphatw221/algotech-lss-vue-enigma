@@ -237,7 +237,8 @@
 </div>
 
     <div class="flex flex-wrap items-center intro-y sm:flex-row sm:flex-nowrap">
-        <Page class="mx-auto my-3" 
+        <Page 
+            class="mx-auto my-3 flex flex-row flex-wrap justify-center gap-1 mb-10"
             show-sizer :page-size-opts="[10,20,50,100]" 
             :total="manageOrderStore.data_count[props.tableStatus]" 
             :page-size="page_size" 

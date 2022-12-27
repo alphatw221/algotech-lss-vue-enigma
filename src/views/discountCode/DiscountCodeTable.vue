@@ -142,7 +142,8 @@
 		</table>
 	</div>
 	<div class="flex flex-wrap items-center intro-y sm:flex-row sm:flex-nowrap mb-10 sm:mb-0">
-		<Page class="mx-auto my-3" 
+		<Page 
+			class="mx-auto my-3 flex flex-row flex-wrap justify-center gap-1 mb-10" 
 			:total="totalCount" 
 			:page-size="page_size" 
 			@on-change="changePage" 

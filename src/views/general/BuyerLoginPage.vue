@@ -17,7 +17,7 @@
                         <GoogleLoginButton block role='buyer'/>
                         <!-- <ContinueWithoutLoginButton block/> -->
                     </div>
-                    <Row v-if="showReminder"><p class="mt-10 ml-4 mr-4 text-lg text-center text-danger">Oops! your browser is not supported, please open the Shopping Cart Link below on Safari or Chrome</p></Row>
+                    <Row v-if="showReminder"><p class="mt-10 ml-4 mr-4 text-lg text-center text-danger">{{$t('shopping_cart.login.err_login')}}</p></Row>
                     <div v-if="showReminder" class="items-center mt-4 text-center shopping-cart-link-block" >
                         <a class="inline-block shopping-cart-link-item" @click="copyLink()">{{currentUrl}}</a>
                         <a class="inline-block text-black shopping-cart-link-item"  @click="copyLink()">

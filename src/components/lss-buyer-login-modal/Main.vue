@@ -33,7 +33,7 @@
           </div>
           <div v-if="showReminder">
             <p class="text-danger text-center mt-5 md:mt-5 text-sm lg:text-lg mr-4 ml-4">
-              Oops! your browser is not supported, please open the Shopping Cart Link below on Safari or Chrome</p>
+              {{$t('shopping_cart.login.err_login')}}</p>
           </div>
           <div v-if="showReminder" class="mt-4 block text-center" style="word-wrap:break-word" >
               <a class="text-center mx-4 break-all" @click="copyLink()">{{currentUrl}}</a>

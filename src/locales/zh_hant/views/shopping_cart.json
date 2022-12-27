@@ -34,6 +34,7 @@
         "address_err":"必填",
         "state_err":"必填",
         "postal_code_err":"必填",
+        "name_placeholder":"中文 2~5 個字, 英文 4~10 個字",
 
         "option":{
             "delivery":"選擇運送方式",
@@ -115,7 +116,8 @@
     "login":{
         "guest_login":"以訪客身份結帳",
         "continue":"繼續",
-        "social_login":"快速登入"
+        "social_login":"快速登入",
+        "err_login":"抱歉! 本站不支援您目前使用的瀏覽器登入，請使用 Safari 或 Chrome 重新開啟以下連結"
     },
     "wishlist_modal":{
         "title":"當產品重新上架時請通知我",

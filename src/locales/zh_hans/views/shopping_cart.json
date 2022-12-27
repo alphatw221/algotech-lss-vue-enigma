@@ -111,7 +111,8 @@
     "login":{
         "guest_login":"以访客身份结帐",
         "continue":"继续",
-        "social_login":"快速登入"
+        "social_login":"快速登入",
+        "err_login":"抱歉! 本站不支援您目前使用的浏览器登入，请使用 Safari 或 Chrome 重新开启以下连结"
     },
     "wishlist_modal":{
         "title":"当产品重新上架时请通知我",
