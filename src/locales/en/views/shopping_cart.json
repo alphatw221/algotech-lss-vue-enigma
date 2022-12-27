@@ -18,7 +18,7 @@
         "phone_err":"Phone number is required",
         "Value is not a valid email address":"Value is not a valid email address",
         "Value is required":"Value is required",
-
+        "name_placeholder":"4~10 charactors",
         "shipping_info":"Shipping Information",
         "home_delivery":"Home Delivery",
         "self_pickup":"Self Pickup",

@@ -290,7 +290,7 @@
             <div class="col-span-8 lg:col-span-4">
               <input id="regular-form-2" type="text"
                 class="col-span-8 form-control lg:col-span-4 full-name" 
-                placeholder="中文 2~5 個字, 英文 4~10 個字"
+                :placeholder="$t('shopping_cart.delivery_tab.name_placeholder')"
                 :class="{ 'border-danger': reciever_validate.shipping_first_name.$error }"
                 v-model.trim="reciever_validate.shipping_first_name.$model" @blur="reciever_validate.shipping_first_name.$touch"/>
                 <template v-for="(error, index) in reciever_validate.shipping_first_name.$errors" :key="index">
@@ -577,7 +577,7 @@ const shipping_option_index_computed = computed({
         showAddressForm.value = false
       }
     }
-    console.log(shipping_info.value.shipping_option_data)
+    // console.log(shipping_info.value.shipping_option_data)
   }
 })
 
@@ -773,7 +773,7 @@ const proceed_to_payment = () =>{
     layoutStore.alert.showMessageToast(i18n.global.t('shopping_cart.invalid_user_info'))
     return
   }
-  console.log(shipping_info.value)
+  // console.log(shipping_info.value)
   checkoutLoading.value = true
   buyer_checkout_cart(route.params.cart_oid, {shipping_data:shipping_info.value, points_used:shoppingCartStore.points_used}, layoutStore.alert)
   .then(res=>{

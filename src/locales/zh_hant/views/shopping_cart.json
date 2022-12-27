@@ -34,6 +34,7 @@
         "address_err":"必填",
         "state_err":"必填",
         "postal_code_err":"必填",
+        "name_placeholder":"中文 2~5 個字, 英文 4~10 個字",
 
         "option":{
             "delivery":"選擇運送方式",
