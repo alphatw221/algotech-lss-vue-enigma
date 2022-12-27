@@ -291,7 +291,7 @@
             <div class="col-span-8 lg:col-span-4">
               <input id="regular-form-2" type="text"
                 class="col-span-8 form-control lg:col-span-4 full-name" 
-                placeholder="中文 2~5 個字, 英文 4~10 個字"
+                :placeholder="$t('shopping_cart.delivery_tab.name_placeholder')"
                 :class="{ 'border-danger': reciever_validate.shipping_first_name.$error }"
                 v-model.trim="reciever_validate.shipping_first_name.$model" @blur="reciever_validate.shipping_first_name.$touch"/>
                 <template v-for="(error, index) in reciever_validate.shipping_first_name.$errors" :key="index">
@@ -577,7 +577,7 @@ const shipping_option_index_computed = computed({
         showAddressForm.value = false
       }
     }
-    console.log(shipping_info.value.shipping_option_data)
+    // console.log(shipping_info.value.shipping_option_data)
   }
 })
 
@@ -607,7 +607,6 @@ onMounted(()=>{
       show.value = true
     })
   }
-  
 })
 
 onUnmounted(()=>{
@@ -617,15 +616,17 @@ const exactlength = (param) =>
   helpers.withParams(
     { type: 'exactlength', value: param },
     (value) => {
-      if (value.length === 0) return true
-      return value.length === param
+      var ecpay_enabled = shoppingCartStore.cart.campaign.meta_logistic.ecpay.enabled
+      if (value.length !== param && ecpay_enabled) return false
+      else return true
     }
 )
 const twCellPhoneBeginning = (value) => {
+  var ecpay_enabled = shoppingCartStore.cart.campaign.meta_logistic.ecpay.enabled
   if (value.length === 0) return true
-  if (value[0] !== "0") return false
+  if (value[0] !== "0" && ecpay_enabled) return false
   if (value.length === 1) return true
-  if (value[1] !== "9") return false
+  if (value[1] !== "9" && ecpay_enabled) return false
   return true
 }
 const specialCharacter = (value) => {
@@ -772,7 +773,7 @@ const proceed_to_payment = () =>{
     layoutStore.alert.showMessageToast(i18n.global.t('shopping_cart.invalid_user_info'))
     return
   }
-  console.log(shipping_info.value)
+  // console.log(shipping_info.value)
   checkoutLoading.value = true
   buyer_checkout_cart(route.params.cart_oid, {shipping_data:shipping_info.value, points_used:shoppingCartStore.points_used}, layoutStore.alert)
   .then(res=>{

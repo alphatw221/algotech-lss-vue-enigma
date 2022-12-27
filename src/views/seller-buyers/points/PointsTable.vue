@@ -75,7 +75,7 @@
     "
   >
     <Page
-      class="mx-auto my-3"
+    class="mx-auto my-3 flex flex-row flex-wrap justify-center gap-1"
       :total="dataCount"
       :page-size="pageSize"
       @on-change="changePage"

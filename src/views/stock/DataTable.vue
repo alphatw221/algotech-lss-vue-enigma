@@ -189,15 +189,13 @@
 			</tbody>
 		</table> 
 	</div>
-	<div class="flex flex-wrap items-center col-span-12 intro-y sm:flex-row sm:flex-nowrap mb-10">
-		<Page 
-			class="mx-auto my-3"
-			:total="dataCount" 
-			show-sizer :page-size-opts="[10,20,50,100]" 
-			:page-size="pageSize" 
-			@on-change="changePage"
-			@on-page-size-change="changePageSize" />
-	</div> 
+	<Page 
+	class="mx-auto my-3 flex flex-row flex-wrap justify-center gap-1 mb-10"
+		:total="dataCount" 
+		show-sizer :page-size-opts="[10,20,50,100]" 
+		:page-size="pageSize" 
+		@on-change="changePage"
+		@on-page-size-change="changePageSize" />
 </template>
 
 <script setup>
@@ -525,14 +523,15 @@ thead th{
 		padding-left: 0px !important;
 	}
 
-	td:nth-of-type(2):before {
-		content: '';
+	td:nth-of-type(3):before {
+		display:none; 
 	}
-	td:nth-of-type(2) {
+	td:nth-of-type(3) {
 		display:inline-flex;
 		justify-content: center;
 		min-height: 35px !important;
 		width: 100% !important;
+		text-align: center !important;
 		padding-left: 0px !important;
 		color: theme("colors.primary");
 		font-weight: 600;
