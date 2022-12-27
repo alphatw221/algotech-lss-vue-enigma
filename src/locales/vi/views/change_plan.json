@@ -9,7 +9,8 @@
         "lite":"Lite",
         "standard":"Standard",
         "premium":"Premium",
-        "dealer":"Nhà bán hàng"
+        "dealer":"Nhà bán hàng",
+        "admin":"Quản trị viên"
     },
 
     "step_1":{

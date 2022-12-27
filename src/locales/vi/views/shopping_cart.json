@@ -36,7 +36,8 @@
         "option":{
             "delivery":"Tùy chọn giao hàng",
             "default":"Mặc định",
-            "pickup":"Tùy chọn nhận hàng"
+            "pickup":"Tùy chọn nhận hàng",
+            "c2c":"Store to Store"
         },
         "note":"Phiếu giao hàng và thu tiền",
         "remark":"Ghi chú",
@@ -71,7 +72,9 @@
         "promo_discount": "Giảm giá từ mã giảm giá",
         "enter_promo":"Vui lòng nhập mã giảm giá",
         "promo_apply":"Mã giảm giá Sakura %{code} được áp dụng",
-        "referr_code":"Chia sẻ mã giới thiệu"
+        "referr_code":"Chia sẻ mã giới thiệu",
+        "promo_login":"Vui lòng đăng nhập mạng xã hội để sử dụng mã khuyến mãi",
+        "points_redemption":"Đổi điểm"
         
     },
     "add_item":{

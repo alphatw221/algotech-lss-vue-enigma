@@ -6,15 +6,15 @@
         </div>
         <div class="flex flex-wrap">
             <div class="w-1/4 whitespace-nowrap">{{$t('order_detail.delivery.name')}}</div>
-            <div class="sm:w-3/4">{{ store.order.shipping_first_name }}{{ store.order.shipping_last_name }}</div>
+            <div class="sm:w-3/4">{{ store.order.shipping_first_name }}</div>
         </div>
         <div class="flex flex-wrap mt-4 pt-4 border-t border-slate-200/60">
             <div class="w-1/4 whitespace-nowrap">{{$t('shopping_cart.delivery_tab.email')}}</div>
             <div class="w-3/4">{{ store.order.shipping_email }}</div>
         </div>
         <div class="flex flex-wrap mt-4 pt-4 border-t border-slate-200/60">
-            <div class="w-1/4 whitespace-nowrap">{{$t('shopping_cart.delivery_tab.phone')}}</div>
-            <div class="w-3/4">{{ store.order.shipping_phone }}</div>
+            <div class="w-1/4 whitespace-nowrap">{{$t('shopping_cart.delivery_tab.cell_phone')}}</div>
+            <div class="w-3/4">{{ store.order.shipping_cellphone }}</div>
         </div>
         <div class="flex flex-wrap mt-4 pt-4 border-t border-slate-200/60">
             <div class="lg:w-1/4 w-3/4 whitespace-nowrap">{{$t('order_detail.delivery.method')}}</div>

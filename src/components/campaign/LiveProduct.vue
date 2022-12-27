@@ -1,7 +1,6 @@
 <template>
     <div
-        class="box mt-2 min-h-[30%] w-full max-h-screen
-            md:min-h-[40%] md:h-[45vh] 
+        class="box mt-2 min-h-[40vh] w-full max-h-screen
             2xl:h-full">
         <div class="flex flex-col h-full"> 
 
@@ -37,9 +36,11 @@
                         </DropdownToggle>
                         <DropdownMenu class="w-48">
                             <DropdownContent>
-                                <DropdownItem @click="store.showInstantlyAddProductModal = true">
-                                    {{$t('campaign_live.product.instantly')}}
-                                </DropdownItem>
+                                <template v-if="!store.campaign.supplier">
+                                    <DropdownItem @click="store.showInstantlyAddProductModal = true">
+                                        {{$t('campaign_live.product.instantly')}}
+                                    </DropdownItem>
+                                </template>
                                 <DropdownItem @click="store.showAddProductFromStockModal = true">
                                     {{$t('campaign_live.product.from_stock')}}
                                 </DropdownItem>
@@ -49,8 +50,8 @@
                 </template>
             </div>
 
-            <div class="shrink-0 overflow-auto  h-[80%] 2xl:h-[91%]">
-                <table class="table table-sm">
+            <div class="shrink-0 overflow-auto  h-[85%] 2xl:h-[91%]">
+                <table class="table table-sm -mt-1">
                     <thead class="table-dark">
                         <tr class="relative">
                             <th class="whitespace-nowrap bg-dark md:hidden">
@@ -63,12 +64,20 @@
                                     {{ $t(`campaign_live.product.modal_column.`+column.name) }}
                                 </th>
                             </template>
+                            <template v-else-if="column.name == 'price'"> 
+                                <th
+                                    class="whitespace-nowrap bg-dark text-right">
+                                    {{ $t(`campaign_live.product.modal_column.`+column.name) }}
+                                </th>
+                            </template>
                             <template v-else> 
                                 <th
                                     class="whitespace-nowrap bg-dark">
                                     {{ $t(`campaign_live.product.modal_column.`+column.name) }}
                                 </th>
                             </template>
+                            
+
                                 
                             </template>
                             <th class="whitespace-nowrap bg-dark lgAct">
@@ -95,10 +104,10 @@
                                 </div>
                             </td>
 
-                            <td><img data-action="zoom" :src="product.image" class="w-10 h-10 image-fit" /></td>
+                            <!-- <td><img data-action="zoom" :src="product.image" class="w-10 h-10 image-fit" /></td> -->
                             
                             <td>
-                                <span class="mr-0.5"> {{[index+1].toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false})}} </span>  
+                                <span class="mr-0.5 font-semibold"> {{[index+1].toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false})}}.</span>
                                 {{ product.name }}</td>
                             <template v-if="product.type === 'lucky_draw'">
                                 <td class="font-medium"> *{{$t('lucky_draw.winner_modal.prize')}}*</td>
@@ -113,9 +122,12 @@
                             </td>
                             <!-- currency_sign reference from user_subscription -->
                             <td v-if="store.campaign">
-                                {{ store.campaign.currency }}
-                                {{ (Math.floor(product.price * (10 ** store.campaign.decimal_places)) / 10 ** store.campaign.decimal_places).toLocaleString('en-US')}}
-                                {{ store.campaign.price_unit?$t(`global.price_unit.${store.campaign.price_unit}`):''}}
+                                <div class="text-right">
+                                    {{ store.campaign.currency }}
+                                    {{ (Math.floor(product.price * (10 ** store.campaign.decimal_places)) / 10 ** store.campaign.decimal_places).toLocaleString('en-US')}}
+                                    {{ store.campaign.price_unit?$t(`global.price_unit.${store.campaign.price_unit}`):''}}
+                                </div>
+                                
                             </td>
                             <td class="">
                                 <div class="m-auto form-check form-switch w-fit">
@@ -152,7 +164,6 @@
 
 import { seller_list_campaign_product } from '@/api_v2/campaign_product';
 import { seller_toggle_campaign_product_active, seller_toggle_campaign_product_overbook } from '@/api_v2/campaign_product';
-// import AddProductFromStock from './modals/AddProductFromStockModal.vue';
 import { useCampaignDetailStore } from "@/stores/lss-campaign-detail";
 import { useRoute, useRouter } from "vue-router";
 import { computed, onMounted, ref, watch, onUnmounted, getCurrentInstance } from "vue";
@@ -168,7 +179,7 @@ const store = useCampaignDetailStore()
 
 
 const product_columns = [
-    { name: "null", key: "image" },
+    // { name: "null", key: "image" },
     { name: "name", key: "name" },
     { name: "order_code", key: "order_code" },
     { name: "cart_sold_left", key: "Sold_Left" },
@@ -181,6 +192,7 @@ const product_columns = [
 onMounted(() => {
         seller_list_campaign_product(route.params.campaign_id, 'all', layoutStore.alert).then(res => {
             store.campaignProducts = res.data
+            console.log(store.campaign)
         })
     }
 )

@@ -19,8 +19,9 @@
         },
         "search_bar":{
                 "search":"搜尋訂單編號／買家帳號",
+                "search_product":"搜尋訂單編號/買家/商品/代碼",
                 "filter":"篩選",
-                "export" : "匯出訂單"
+                "export" : "匯出"
         },
         "table":{
                 "direct_payment":"轉帳付款",
@@ -47,7 +48,7 @@
                 "guest": "訪客",
                 "payment_status":"付款狀態",
                 "delivery_status":"運送狀態",
-                "updated_at":"最后更新",
+                "updated_at":"最後更新時間",
                 "product_img":"",
                 "product_name":"商品名稱",
                 "order_code":"下單代碼",

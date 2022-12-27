@@ -12,7 +12,8 @@
         "connect_platform":"社群平台",
         "discount_code":"优惠代码",
         "manage_order":"订单管理",
-        "buyers":"买家"
+        "buyers":"买家管理",
+        "order_overview":"订单总览"
 
     },
     "bread_crumb":{
@@ -20,7 +21,7 @@
         "campaign-list":"销售活动列表",
         "campaign-live":"销售活动",
         "manage-order":"订单管理",
-        "order-detail":"订单明细",
+        "order-detail":"订单详情",
         "cart-detail":"购物车明细",
         "settings":"设定",
         "localization":"在地化",
@@ -45,12 +46,13 @@
         "plans":"方案报表",
         "licenses":"执照",
         "sellers":"卖家",
-        "buyers":"买家",
+        "buyers":"买家管理",
         "lucky-draw-list":"抽奖工具",
         "create-lucky-draw":"建立抽奖",
         "report":"报告",
         "orders": "历史订单",
-        "points": "点数"
+        "points": "点数",
+        "order-overview":"订单总览"
     },
     "top_bar":{
         "profile":"会员资讯",
@@ -70,9 +72,9 @@
         "join_now": "立即加入",
         "dismiss": "略过"
     },
-    "test_mode": "测试模式",
+    "test_mode": "正式模式",
     "switch_mode_confirmation": {
-        "message": "一旦切换到正式模式则无法更改",
+        "message": "一旦切换为正式模式，系统无法再回到测试模式",
         "switch": "切换"
     }
 }

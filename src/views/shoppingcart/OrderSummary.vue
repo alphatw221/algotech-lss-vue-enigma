@@ -58,7 +58,7 @@
             v-model="discount_code"
             @keydown.enter.prevent="promoCheck()"
             />
-            <button class="input-group-text h-[35px]" @click="promoCheck()">{{$t('shopping_cart.order_summary.enter')}}</button>
+            <button class="input-group-text h-[35px] w-16" @click="promoCheck()">{{$t('shopping_cart.order_summary.enter')}}</button>
             <XIcon v-if="shoppingCartStore.cart.discount != 0 && shoppingCartStore.cart.campaign||false" class="mt-auto w-6 h-6 text-slate-400 cursor-pointer my-auto ml-2" @click="promoDelete()"/>
           </div>
       </div>
@@ -67,7 +67,7 @@
       <!-- POINTS INPUT -->
       <div class="flex flex-row flex-wrap justify-between mt-2" v-if="shoppingCartStore.cart.campaign?.meta_point?.enable">
         <div>
-          <div class="w-fit my-auto whitespace-nowrap">Points Redemption</div>
+          <div class="w-fit my-auto whitespace-nowrap">{{$t('shopping_cart.order_summary.points_redemption')}}</div>
           <div class="w-fit my-auto whitespace-nowrap text-danger">({{computedWalletPointsLeft}} points)</div>
         </div>
         
@@ -173,9 +173,6 @@
       </div>
     </div>
 
-  
-
-
     <!-- ADD_MORE_ITEMS NEXT BUTTON -->
     <div class="flex gap-3 mt-5" v-if="shoppingCartStore.openTab === 1">
       <button
@@ -189,11 +186,10 @@
   </div>
   <Modal :show="showModal" backdrop="static">
       <ModalBody class="p-10 text-center">
-          <div class="mt-1">
-              <label for="regular-form-2" class="form-label" style="font-size: 1.2rem;">Please social login to use promo code</label>
-          </div>
-          <div class="">
-              <button class="w-32 btn dark:border-darkmode-400 mt-7" @click="showModal =false; showLoginModal()">OK</button>
+          <div class="flex flex-col gap-2 justify-center">
+              <AlertOctagonIcon class="text-danger w-full h-32"/>
+              <label for="regular-form-2" class="form-label font-medium text-danger" style="font-size: 1.2rem;">{{$t('shopping_cart.order_summary.promo_login')}}</label>
+              <button class="w-32 btn btn-outline-danger dark:border-darkmode-400 mt-2 mx-auto" @click="showModal =false; showLoginModal()">OK</button>
           </div>
       </ModalBody>
   </Modal>
@@ -222,10 +218,11 @@ const layoutStore = useLSSBuyerLayoutStore();
 const showModal = ref(false)
 const isAnonymousUser=cookies.get("login_with")=='anonymousUser'
 
+
 const computedCartSubtotal = computed(()=>{
   var subtotal = 0
-  Object.entries(shoppingCartStore.cart.products||{}).forEach(([key, value])=>{
-    subtotal += ((shoppingCartStore.campaignProductDict[key]?.price||0)*value )
+  Object.entries(shoppingCartStore.cart.products||{}).forEach(([key, qty])=>{
+    subtotal += ((shoppingCartStore.campaignProductDict[key]?.price||0)*qty )
   })
   return subtotal
 })
@@ -244,7 +241,6 @@ const computedShippingCost = computed(()=>{
       const logisticCategories = {}
       var applyCategoryLogistic = false
       Object.entries(shoppingCartStore.cart.products).forEach(([key, value])=>{
-
         if(value>0 && shoppingCartStore.campaignProductDict?.[key]?.categories?.length===1 && shoppingCartStore.campaignProductDict?.[key]?.categories[0] in shoppingCartStore.productCategoryDict){
           
           if(logisticCategories?.[shoppingCartStore.campaignProductDict?.[key]?.categories[0]]){
@@ -277,8 +273,8 @@ const computedShippingCost = computed(()=>{
       if(applyCategoryLogistic)return shippingCost
       //----------------default logistic setting-------------------------------------
       shippingCost = Number(meta_logistic.delivery_charge || 0)
-
-      if(typeof shoppingCartStore.shipping_info.shipping_option_index=='number'){
+      if (shoppingCartStore.shipping_info.shipping_method == 'delivery') {
+        if(typeof shoppingCartStore.shipping_info.shipping_option_index=='number'){
         if (meta_logistic.additional_delivery_options[shoppingCartStore.shipping_info.shipping_option_index].type== '+'){
           shippingCost += Number(meta_logistic.additional_delivery_options[shoppingCartStore.shipping_info.shipping_option_index].price)
         }
@@ -286,15 +282,26 @@ const computedShippingCost = computed(()=>{
           shippingCost =  Number(meta_logistic.additional_delivery_options[shoppingCartStore.shipping_info.shipping_option_index].price)
         }
       }
+      }
+      //----------------ecpay logistic setting-------------------------------------
+      else if (shoppingCartStore.shipping_info.shipping_method == 'ecpay') {
+        if (meta_logistic.ecpay.logistics_sub_type[shoppingCartStore.shipping_info.shipping_option_index].type== '+'){
+          shippingCost += Number(meta_logistic.ecpay.logistics_sub_type[shoppingCartStore.shipping_info.shipping_option_index].delivery_charge)
+        }
+        else if(meta_logistic.ecpay.logistics_sub_type[shoppingCartStore.shipping_info.shipping_option_index].type == '='){
+          shippingCost =  Number(meta_logistic.ecpay.logistics_sub_type[shoppingCartStore.shipping_info.shipping_option_index].delivery_charge)
+        }
+      }
     }
   }
   return shippingCost
 })
-
+const productTotalQuantity = ref(0)
 const computedIsMultipleShippingCostApplied = computed(()=>{  //temp
 
   const logisticCategories = {}
   Object.entries(shoppingCartStore.cart?.products||[]).forEach(([key, value])=>{
+    productTotalQuantity.value += value
     if(value>0 && shoppingCartStore.campaignProductDict?.[key]?.categories?.length===1 && shoppingCartStore.campaignProductDict?.[key]?.categories[0] in shoppingCartStore.productCategoryDict){
       const productCategory = shoppingCartStore.productCategoryDict[shoppingCartStore.campaignProductDict?.[key]?.categories[0]]
       if(productCategory?.meta_logistic?.enable_flat_rate == true){
@@ -330,7 +337,7 @@ const computedSubtotalOverFreeDeliveryThreshold = computed(()=>{
 })
 
 const computedItemsOverFreeDeliveryThreshold = computed(()=>{
-  return shoppingCartStore.cart.campaign?.meta_logistic?.is_free_delivery_for_how_many_order_minimum ? Object.keys(shoppingCartStore.cart?.products||{}).length >= shoppingCartStore.cart.campaign?.meta_logistic?.free_delivery_for_how_many_order_minimum : false
+  return shoppingCartStore.cart.campaign?.meta_logistic?.is_free_delivery_for_how_many_order_minimum ? productTotalQuantity.value >= shoppingCartStore.cart.campaign?.meta_logistic?.free_delivery_for_how_many_order_minimum : false
 })
 
 

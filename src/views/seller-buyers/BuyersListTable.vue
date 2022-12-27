@@ -1,11 +1,30 @@
 <template>
-  <div class="overflow-x-hidden sm:overflow-auto sm:h-[62vh] mt-4">
+  <LoadingTable  v-if="(showBuyersLoading == true)" :column="tableColumns" :tableName="'buyers'" theadColor="#E2E8F0"/> 
+  <div v-else-if="(showBuyersLoading == false)" 
+    class="overflow-x-hidden sm:overflow-auto sm:h-[62vh] mt-4">
     <table class="table -mt-3 table-report">
       <thead>
         <tr>
           <th class="text-center whitespace-nowrap" v-for="column in tableColumns" :key="column.key">
-            <template v-if="column.name">
-              {{ $t(`buyers.table_column.`+column.name) }}
+            <template v-if="column.key === 'customer_name'">
+              <div class="text-left">
+                  {{ $t(`buyers.table_column.`+column.name) }}
+              </div>
+            </template>
+            <template v-if="column.key === 'email'">
+              <div class="text-left">
+                  {{ $t(`buyers.table_column.`+column.name) }}
+              </div>
+            </template>
+            <template v-else-if="column.key === 'order_history'">
+              <div class="text-center">
+                  {{ $t(`buyers.table_column.`+column.name) }}
+              </div>
+            </template>
+            <template v-else-if="column.key === 'points'">
+              <div class="text-center">
+                  {{ $t(`buyers.table_column.`+column.name) }}
+              </div>
             </template>
             
           </th>
@@ -13,16 +32,11 @@
       </thead>
       <tbody>
         <tr v-for="(buyer, index) in buyers" :key="index" class="intro-x">
-          <td v-if="showBuyersLoading"
-						class="h-[300px] items-center relative tdDot"
-						:colspan="tableColumns.length +1" >
-						<LoadingIcon icon="three-dots" color="1a202c" class="absolute w-[60px] h-[60px] right-[50%] top-[50%] translate-x-1/2"/>
-					</td>
           <template v-for="column in tableColumns" :key="column.key">
-            <td v-if="column.key == 'customer_name'" class="w-fit text-center">
+            <td v-if="column.key == 'customer_name'" class="w-fit">
               {{ buyer.name }}
             </td>
-            <td v-if="column.key == 'email'" class="w-fit text-center" :data-content="$t('buyers.table_column.' + column.key)">
+            <td v-if="column.key == 'email'" class="w-fit" :data-content="$t('buyers.table_column.' + column.key)">
               {{ buyer.email }}
             </td>
             <td v-if="column.key == 'customer_img'" class="text-left w-5 w-fit">
@@ -55,8 +69,7 @@
               <a class="flex items-center justify-center" @click="toBuyerPoints(buyer)">
                 <span class="mr-3 sm:hidden"> {{$t('buyers.table_column.points')}}</span>
                 <Tippy  :content="$t('buyers.table_column.points')" :options="{ theme: 'light' }">
-                  <!-- <font-awesome-icon icon="fa-solid fa-list-check" class="self-center w-8 h-[24px]"/>  -->
-                  <StarIcon color="#2d8cf0" width="30" height="32" />
+                  <SimpleIcon color="#2d8cf0" icon="point" width="30" height="32" />
                 </Tippy> 
               </a>
             </td>
@@ -67,7 +80,7 @@
   </div>
   <div class="flex flex-wrap items-center intro-y sm:flex-row sm:flex-nowrap">
     <Page 
-          class="mx-auto my-3" 
+    class="mx-auto my-3 flex flex-row flex-wrap justify-center gap-1 mb-10"
           :total="dataCount"
           :page-size="page_size"
           show-sizer :page-size-opts="[10,20,50,100]" 
@@ -82,13 +95,12 @@ import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import { list_buyers } from "@/api_v2/user_subscription"
 import {defineProps, onMounted, onUnmounted, getCurrentInstance, ref, defineEmits, computed} from 'vue'
 import { useRoute, useRouter } from "vue-router";
-
+import LoadingTable from '@/components/lss-skeleton/table/LoadingTable.vue'
 
 
 import unbound from "/src/assets/images/lss-img/noname.png"
 import dom from "@left4code/tw-starter/dist/js/dom";
 import i18n from "@/locales/i18n"
-import SimpleIcon from "../../global-components/lss-svg-icons/SimpleIcon.vue";
 
 const route = useRoute();
 const router = useRouter();
@@ -156,7 +168,7 @@ const changePageSize = (pageSize)=>{
     }
 
 const toBuyerOrderHistory = (buyer_data)=>{
-  router.push({name:'seller-buyers-order-history',params:{'buyer_id':buyer_data.id}})
+  router.push({name:'seller-buyers-order-history',params:{'buyer_id':buyer_data.id}}) 
 }
 
 const toBuyerPoints = (buyer_data) => {

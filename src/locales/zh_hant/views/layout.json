@@ -11,15 +11,16 @@
         "localization":"本地化",
         "connect_platform":"社群平台",
         "discount_code":"優惠代碼",
-        "manage_order":"訂單管理",
-        "buyers":"買家"
+        "manage_order":"訂單總覽",
+        "buyers":"買家管理",
+        "order_overview":"訂單總覽"
     },
     "bread_crumb":{
         "stock":"商品管理",
         "campaign-list":"銷售活動列表",
         "campaign-live":"銷售活動",
         "manage-order":"訂單管理",
-        "order-detail":"訂單明細",
+        "order-detail":"訂單詳情",
         "cart-detail":"購物車明细",
         "settings":"設定",
         "localization":"本地化",
@@ -44,12 +45,13 @@
         "plans":"方案報表",
         "licenses":"執照",
         "sellers":"賣家",
-        "buyers":"買家",
+        "buyers":"買家管理",
         "lucky-draw-list":"抽獎工具",
         "create-lucky-draw":"建立抽獎",
         "report":"報告",
         "orders": "歷史訂單",
-        "points": "點數"
+        "points": "點數",
+        "order-overview":"訂單總覽"
     },
     "top_bar":{
         "profile":"會員資訊",
@@ -69,9 +71,9 @@
         "join_now": "立即加入",
         "dismiss": "略過"
     },
-    "test_mode": "測試模式",
+    "test_mode": "正式模式",
     "switch_mode_confirmation": {
-        "message": "一旦切換到正式模式則無法更改",
+        "message": "一旦切換為正式模式，系統無法再回到測試模式",
         "switch": "切換"
     }
 }

@@ -24,7 +24,7 @@
         "max_order_amount":"单次限购数量",
         "category":"商品分类",
         "categories":"商品分类",
-        "price":"价格",
+        "price":"售价",
         "customer_editable":"允许顾客修改",
         "customer_removable":"允许顾客删除",
         "oversell":"允许超卖",
@@ -47,7 +47,7 @@
             "max_order_amount_grater_than_qty":"不得大于商品数量",
             "assign_qty_required":"商品数量必填",
             "please_enter_integer": "请输入整数",
-            "price_invalid":"输入价格无效"
+            "price_invalid":"输入售价无效"
         }
     },
     "add":"新增",
@@ -55,7 +55,8 @@
     "add_more":"新增更多商品",
     "reset":"清空",
     "confirm":"确认",
-    "invalid":"输入无效"
+    "invalid":"输入无效",
+    "import":"汇入商品"
 
 
    

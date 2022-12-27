@@ -76,7 +76,7 @@
             "qty_invalid":"輸入數量無效",
             "max_order_amount_grater_than_qty":"不得大於商品數量",
             "assign_qty_required":"商品數量必填",
-            "price_invalid":"輸入價錢無效"
+            "price_invalid":"輸入售價無效"
         },
         "invalid":"輸入無效",
         "successed":"新增成功",
@@ -91,7 +91,7 @@
         "manage_order":"訂單管理",
         "table":{
             "order_number" : "訂單編號",
-            "name" : "賣家帳號",
+            "name" : "買家帳號",
             "platform" : "平台",
             "amount" : "金額",
             "view" : "詳情",

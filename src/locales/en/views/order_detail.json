@@ -42,28 +42,34 @@
         "price_exceed":"Price exceed subtotal",
         "update" : "Update",
         "display_name": "Display Name",
-        "amount": "Amount"
+        "amount": "Amount",
+        "sub_after_discount": "Subtotal after discount"
     },
     "delivery":{
         "information" : "Delivery Information",
         "name" : "Name",
         "phone" : "Phone",
         "email" : "Email",
+        "cellphone":"Cellphone",
         "method" : "Delivery Method",
         "default":"Default",
         "delivery" : "Delivery",
         "date" : "Delivery Date",
         "address":"Delivery Address",
         "post_code" : "Post Code",
+        "cellphone":"cellphone number",
         "location" : "Location",
         "pickup" : "Self Pickup",
         "pickup_address":"Pickup Address",
         "pickup_store":"Pickup Location",
-        "additional_delivery_charge" : "Selected Delivery Charge Option"
+        "additional_delivery_charge" : "Selected Delivery Charge Option",
+        "remark":"Remark"
     },
     "payment":{
         "Direct Payment":"Direct Payment",
         "direct_payment":"Direct Payment",
+        "hitpay":"Hitpay",
+        "paypal":"Paypal",
         "ecpay":"ECpay",
         "pay_mongo":"PayMongo",
         "rapyd":"Rapyd",

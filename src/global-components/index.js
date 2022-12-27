@@ -5,9 +5,11 @@ import Litepicker from "./litepicker/Main.vue";
 import Tippy from "./tippy/Main.vue";
 import TippyContent from "./tippy-content/Main.vue";
 import TomSelect from "./tom-select/Main.vue";
-import LoadingIcon from "./loading-icon/Main.vue";
 import TinySlider from "./tiny-slider/Main.vue";
 import ClassicEditor from "./ckeditor/ClassicEditor.vue";
+
+// ICONS
+import LoadingIcon from "./loading-icon/Main.vue";
 import Comments from "./lss-svg-icons/Comments.vue";
 import SimpleIcon from "./lss-svg-icons/SimpleIcon.vue"
 import PlatformIcon from "./lss-svg-icons/PlatformIcon.vue" 

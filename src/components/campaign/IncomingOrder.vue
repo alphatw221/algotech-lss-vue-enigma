@@ -1,6 +1,5 @@
 <template>
-    <div class="box mt-2 min-h-[50%] w-full max-h-screen
-            md:min-h-[40%] md:h-[42vh] 
+    <div class="box mt-2 min-h-[45vh] w-full max-h-screen
             2xl:h-full">
         <div class="h-full flex flex-col">
             <!-- <div class="flex w-full m-3"> 
@@ -58,35 +57,8 @@
                                 <tr >
                                     <td>#{{ cart.id }}</td>
                                     <td>
-                                        <div v-if="cart.platform === 'facebook'" class="w-8 h-8 image-fit mx-auto">
-                                            <div class="w-10 h-10 image-fit">
-                                                <img src="/src/assets/images/lss-img/facebook.png" />
-                                            </div>
-                                        </div>
-                                        <div v-else-if="cart.platform === 'instagram'" class="w-8 h-8 image-fit mx-auto">
-                                            <div class="w-10 h-10 image-fit">
-                                                <img src="/src/assets/images/lss-img/instagram.png" />
-                                            </div>
-                                        </div>
-                                        <div v-else-if="cart.platform === 'youtube'" class="w-8 h-8 image-fit mx-auto">
-                                            <div class="w-10 h-10 image-fit">
-                                                <img src="/src/assets/images/lss-img/youtube.png" />
-                                            </div>
-                                        </div>
-                                        <div v-else-if="cart.platform === 'twitch'" class="w-8 h-8 image-fit mx-auto">
-                                            <div class="w-10 h-10 image-fit">
-                                                <img src="/src/assets/images/lss-img/twitch.png" />
-                                            </div>
-                                        </div>
-                                        <div v-else-if="cart.platform === 'tiktok'" class="w-8 h-8 image-fit mx-auto">
-                                            <div class="w-10 h-10 image-fit">
-                                                <img src="/src/assets/images/lss-img/tiktok_black_bg.png" />
-                                            </div>
-                                        </div>
-                                        <div v-else class="w-8 h-8 image-fit mx-auto">
-                                            <div class="w-10 h-10 image-fit">
-                                                <img src='/src/assets/images/lss-icon/express_Icon.svg' >
-                                            </div>
+                                        <div  class="h-10 w-10 image-fit mx-auto">
+                                            <img class="object-cover" :src="platformImg(cart)" />
                                         </div>
                                     </td>
                                     <td class="text-[12px]">
@@ -100,13 +72,17 @@
                                     </td>  -->
                                     <!-- <td>{{campaignDetailStore.campaignProductDict[campaign_product_id]?.name}}</td> -->
                                     <td >
-                                        <div class="flex flex-col h-fit mt-3">
-                                            <img :src="campaignDetailStore.campaignProductDict[campaign_product_id]?.image" class="h-8 object-cover"/>
+                                        <div class="flex flex-col my-auto">
+                                            <div class="mx-auto border-2 border-white product rounded-lg mt-1"> 
+                                                <img :src="campaignDetailStore.campaignProductDict[campaign_product_id]?.image" 
+                                                class="object-cover h-10 w-14 rounded-lg"/>
+                                            </div>
+
                                             <template v-if="campaignDetailStore.campaignProductDict[campaign_product_id]?.type === 'lucky_draw'">
-                                                <td class="font-medium"> *{{$t('lucky_draw.winner_modal.prize')}}*</td>
+                                                <span class="font-medium -mb-1"> *{{$t('lucky_draw.winner_modal.prize')}}*</span>
                                             </template>
                                             <template v-else> 
-                                                <span class="mx-auto font-medium"> {{campaignDetailStore.campaignProductDict[campaign_product_id]?.order_code}}</span> 
+                                                <span class="mx-auto font-medium -mb-1"> {{campaignDetailStore.campaignProductDict[campaign_product_id]?.order_code}}</span> 
                                             </template>
                                         </div>
                                     </td>
@@ -121,12 +97,12 @@
                                                     :options="{ theme: 'light' }"
                                                     :content="$t('tooltips.campaign_live.view_icon')" 
                                                 > 
-                                                    <SimpleIcon icon="viewOrder" color="#334155" @click="routeToDetailPage(cart)"  class="sm:mx-auto w-6" width="24" height="23" />
+                                                    <SimpleIcon icon="viewOrder" color="#2d8cf0" @click="routeToDetailPage(cart)"  class="sm:mx-auto w-6" width="24" height="23" />
                                                 </Tippy> 
                                             </a>
                                             <a  @click="copyCartLink(cart)">
                                                 <Tippy  :content="$t('tooltips.manage_order.link_icon')" :options="{ theme: 'light' }"> 
-                                                    <SimpleIcon icon="share" color="#334155" class="sm:mx-auto w-6" width="24" height="23" />
+                                                    <SimpleIcon icon="share" color="#2d8cf0" class="sm:mx-auto w-6" width="24" height="23" />
                                                 </Tippy>
                                             </a>
                                         </div>
@@ -184,6 +160,12 @@ import { useRoute, useRouter } from "vue-router";
 import { onMounted, onUnmounted, ref, getCurrentInstance, computed, watch } from "vue";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 
+import platform_facebook_icon from '@/assets/images/lss-img/facebook.png'
+import platform_youtube_icon from '@/assets/images/lss-img/youtube.png'
+import platform_instagram_icon from '@/assets/images/lss-img/instagram.png'
+import platform_twitch_icon from '@/assets/images/lss-img/twitch.png'
+import platform_tiktok_icon from '@/assets/images/lss-img/tiktok.png'
+import platform_none from '@/assets/images/lss-icon/express_Icon.svg'
 
 const layoutStore = useLSSSellerLayoutStore()
 const router = useRouter()
@@ -208,6 +190,18 @@ const incoming_order_columns= [
     { name: "null", key: "detail" },
 ]
 
+const platformImg = (cart) =>{
+    // var imgrul = '/src/assets/images/lss-img/'
+    // if(cart.platform) return imgrul + cart.platform + '.png'
+    // else return '/src/assets/images/lss-icon/express_Icon.svg'
+
+    if(cart.platform=='facebook')return platform_facebook_icon
+    if(cart.platform==='youtube')return platform_youtube_icon
+    if(cart.platform==='instagram')return platform_instagram_icon
+    if(cart.platform==='twitch')return platform_twitch_icon
+    if(cart.platform==='tiktok')return platform_tiktok_icon
+    return platform_none
+}
 // const product_columns = [
 //     { name: "null", key: null },
 //     { name: "image", key: "image" },
@@ -288,4 +282,7 @@ const copyCartLink = (cart) => {
 	cursor: pointer;
 }
 
+.product{
+    box-shadow: 0px 0px 2px rgba(61, 61, 61, 0.801);
+}
 </style>

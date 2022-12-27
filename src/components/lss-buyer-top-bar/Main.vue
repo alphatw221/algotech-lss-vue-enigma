@@ -9,17 +9,6 @@
   >
     <div class="h-full w-full flex justify-between items-center">
 
-
-
-      <!-- BEGIN: Hamburger -->
-        <!-- <a @click="toggleMobileMenu()" >
-          <AlignJustifyIcon
-            class="w-7 h-7 text-white transform md:hidden intro-x ml-4 mb-1 hover:text-slate-300"
-          />
-        </a> -->
-      <!-- END: Hamburger -->
-
-      <!-- BEGIN: Logo -->
         <a href="" class="logo -intro-x block
           w-20
           sm:w-24
@@ -28,9 +17,9 @@
           xl:ml-5
         ">
           <img
-            alt="Enigma Tailwind HTML Admin Template"
+            alt="Logo"
             class="logo__image mb-1"
-            src="@/assets/images/lss-logo/LSS_logo_words_white.png"
+            :src="userLogo"
           />
           <!-- <span class="logo__text text-white text-lg ml-3 mt-2"> LiveShowSeller </span> -->
         </a>
@@ -119,21 +108,12 @@
                 </div>
               </DropdownHeader>
               <DropdownDivider class="border-white/[0.08]" />
-              <!-- <DropdownItem class="dropdown-item hover:bg-white/5">
-                <UserIcon class="w-4 h-4 mr-2" /> Profile</DropdownItem
-              >
-              <DropdownItem class="dropdown-item hover:bg-white/5">
-                <EditIcon class="w-4 h-4 mr-2" /> Add Account</DropdownItem
-              >
-              <DropdownItem class="dropdown-item hover:bg-white/5">
-                <LockIcon class="w-4 h-4 mr-2" /> Reset Password</DropdownItem
-              > -->
 
               <DropdownItem class="dropdown-item hover:bg-white/5 " @click="router.push('/buyer/orders');dom('.dropdown-menu').removeClass('show')">
                 <ShoppingBagIcon class="w-4 h-4 mr-2" /> {{$t('layout.top_bar.order_history')}}</DropdownItem
               >
               <DropdownItem class="dropdown-item hover:bg-white/5 " @click="router.push('/buyer/points');dom('.dropdown-menu').removeClass('show')">
-                <StarIcon class="w-4 h-4 mr-2" /> {{$t('layout.top_bar.points')}}</DropdownItem
+                <SimpleIcon color="#2d8cf0" icon="point" class="w-4 h-4 mr-2 opacity-80" /> {{$t('layout.top_bar.points')}}</DropdownItem
               >
               <DropdownDivider class="border-white/[0.08]" />
 
@@ -143,7 +123,7 @@
               <DropdownDivider class="border-white/[0.08]" /> -->
 
               <DropdownItem class="dropdown-item hover:bg-white/5" @click="logout()" v-if="!isAnonymousUser">
-                <ToggleRightIcon class="w-4 h-4 mr-2" /> {{$t('layout.top_bar.logout')}}</DropdownItem
+                <ToggleRightIcon class="w-4 h-4 mr-2 text-[#2d8cf0]" /> {{$t('layout.top_bar.logout')}}</DropdownItem
               >
             </DropdownContent>
           </DropdownMenu>
@@ -162,6 +142,7 @@ import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout";
 import { useRoute, useRouter } from "vue-router";
 import { useCookies } from "vue3-cookies";
 import dom from "@left4code/tw-starter/dist/js/dom";
+import lssLogo from "@/assets/images/lss-logo/LSS_logo_words_white.png";
 
 const route = useRoute();
 const router = useRouter();
@@ -172,6 +153,9 @@ const toggleMobileMenu = ()=>{
   buyerLayoutStore.showMobileMenu = !buyerLayoutStore.showMobileMenu
 }
 
+const userLogo = computed(() => {
+  return buyerLayoutStore.sellerInfo?.meta_store?.shopping_cart_icon ? buyerLayoutStore.sellerInfo.meta_store.shopping_cart_icon : lssLogo
+})
 
 const isAnonymousUser = cookies.get('login_with')=='anonymousUser'
 const userAvatar = computed(() => {
@@ -196,6 +180,7 @@ const showLoginModal = ()=>{
   buyerLayoutStore.showLoginModal=true
 }
 const searchDropdown = ref(false);
+
 const showSearchDropdown = () => {
   searchDropdown.value = true;
 };

@@ -23,7 +23,6 @@ export const useShoppingCartStore = defineStore("buyerShoppingCart", {
 		orderDetail: ref({}),
 		contact_info: ref({
 			shipping_first_name: "",
-			shipping_last_name: "",
 			shipping_email: "",
 			shipping_phone: "",
 		}),   
@@ -41,7 +40,8 @@ export const useShoppingCartStore = defineStore("buyerShoppingCart", {
 		points_used: ref(0),
 		buyerWallet: ref({
 			points:0
-		})
+		}),
+		cvs_map: ref({})
 
 	}),
 });

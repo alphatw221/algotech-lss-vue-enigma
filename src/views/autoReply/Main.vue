@@ -1,8 +1,7 @@
 <template>
-<div>
-    <div class="flex flex-col sm:px-5 sm:h-fit">
-        <div class="flex-col flex gap-3 flex-wrap sm:flex-row justify-center sm:justify-between">
-            <div class="flex items-center mx-auto sm:mx-20 lg:pt-5 mt-3 lg:pb-4 intro-y lg:pt-5 mt-3">
+    <div class="flex flex-col sm:h-fit">
+        <div class="flex-col flex gap-3 my-3 flex-wrap sm:flex-row justify-center sm:justify-between">
+            <div class="flex items-center mx-auto sm:mx-20 lg:pt-5 intro-y">
                 <h2 class="text-xl sm:text-2xl sm:mx-0 font-medium">{{ $t('auto_reply.title') }}</h2>
                 <Tippy 
                     class="rounded-full w-fit whitespace-wrap ml-1 my-auto tippy-mobile" 
@@ -23,7 +22,6 @@
         </div>
     </div>
     <CreateEditModalVue />
-</div>
 </template>
 
 <script setup>

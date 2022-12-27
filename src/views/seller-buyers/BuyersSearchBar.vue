@@ -1,6 +1,6 @@
 <template>
   <form>
-      <div class="flex content-end justify-start gap-3 mr-auto -mt-3 justify-items-stretch sm:mt-0">
+      <div class="flex content-end justify-start gap-3 mr-auto justify-items-stretch">
           <!-- <div class="items-center w-fit sm:mr-4 flex-col sm:flex-row"> -->
               <!-- <label class="mr-2 w-14 xl:w-auto"> -->
               <!-- <label class="mr-2 whitespace-nowrap">

@@ -3,7 +3,7 @@
 		<table class="table -mt-3 table-report min-h-[300px]">
 			<thead>
 				<tr>
-					<th class="whitespace-normal lg:whitespace-nowrap text-center text-[16px]" v-for="column in computedTableColumns" :key="column.key">
+					<th class="whitespace-normal text-left lg:whitespace-nowrap text-[16px]" v-for="column in computedTableColumns" :key="column.key">
 						<template v-if="column.key === 'check'">
 							<input 
 								class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" 
@@ -11,11 +11,31 @@
 								@change="selectAllStock($event)"
 							/>
 						</template>
+						<template v-else-if="column.key === 'image'">
+							<div class="text-center">{{ $t(`stock.table_column.`+column.name) }}</div>
+						</template>
+							<div v-else-if="column.key === 'price'" class="row flex  justify-end">
+								<div class="text-right">{{ $t(`stock.table_column.`+column.name) }}</div>
+								<template v-if="column.sortable === true">
+									<template v-if="sortBy[0] === '-' && sortBy.substr(1,column.key.length) === column.key" > 
+										<ChevronsUpIcon class="ml-3 h-5 w-5 text-white bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis(column.key, '')" />
+										<XIcon class="w-5 h-5 text-slate-400 cursor-pointer" @click="cancelSortBy()"/>
+									</template> 
+									<template v-else-if="sortBy === column.key" > 
+										<ChevronsDownIcon class="ml-3 h-5 w-5 text-white bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis(column.key, '-')" />
+										<XIcon class="w-5 h-5 text-slate-400 cursor-pointer" @click="cancelSortBy()"/>
+									</template> 
+									<template v-else> 
+										<ChevronDownIcon class="ml-3 h-5 w-5 text-black bg-null opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis(column.key, '-')" />
+									</template>
+								</template>
+							</div>
 						<template v-else-if="column.key === 'edit'">
 							{{ '' }}
 						</template>
+						
 
-						<div v-else class="flex justify-center"> 
+						<div v-else class="flex justify-start"> 
 							{{ $t(`stock.table_column.`+column.name) }}
 							<template v-if="column.sortable === true">
 								<template v-if="sortBy[0] === '-' && sortBy.substr(1,column.key.length) === column.key" > 
@@ -79,11 +99,11 @@
 								v-model="product.check"
 								@click="selectStock(product, $event)"
 							/>
-						</td>
+						</td> 
 						<td v-else-if="column.key === 'image'" class="w-fit text-[12px] lg:w-18 lg:text-sm 2xl:w-32 imgtd" :data-content="$t(`stock.table_column.${column.key}`)">
 							<div class="flex justify-center">
 								<div class="w-20 h-20 image-fit zoom-in lg:w-12 lg:h-12 " v-if="product.image">
-									<img 
+									<img
 										class="w-full rounded-lg"
 										:src= "product.image"
 										data-action="zoom"
@@ -109,7 +129,7 @@
 							<div class="">{{product[column.key]}}</div> 
 						</td> -->
 
-						<td v-else-if="column.key === 'qty'" class="w-full sm:w-32 text-center" :data-content="$t(`stock.table_column.${column.key}`)">
+						<td v-else-if="column.key === 'qty'" class="w-full sm:w-32 text-left" :data-content="$t(`stock.table_column.${column.key}`)">
 							{{product[column.key]}}
 						</td>
 
@@ -160,7 +180,7 @@
 							</div>
 						</td>
 
-						<td v-else class="text-center" :data-content="$t(`stock.table_column.${column.key}`)">
+						<td v-else class="text-left" :data-content="$t(`stock.table_column.${column.key}`)">
 							{{product[column.key]}}
 						</td>
 
@@ -169,15 +189,13 @@
 			</tbody>
 		</table> 
 	</div>
-	<div class="flex flex-wrap items-center col-span-12 intro-y sm:flex-row sm:flex-nowrap mb-10">
-		<Page 
-			class="mx-auto my-3"
-			:total="dataCount" 
-			show-sizer :page-size-opts="[10,20,50,100]" 
-			:page-size="pageSize" 
-			@on-change="changePage"
-			@on-page-size-change="changePageSize" />
-	</div> 
+	<Page 
+	class="mx-auto my-3 flex flex-row flex-wrap justify-center gap-1 mb-10"
+		:total="dataCount" 
+		show-sizer :page-size-opts="[10,20,50,100]" 
+		:page-size="pageSize" 
+		@on-change="changePage"
+		@on-page-size-change="changePageSize" />
 </template>
 
 <script setup>
@@ -214,6 +232,7 @@ const computedTableColumns = computed(()=>{
 		{ name: "category", key: "categories" },
 		{ name: "remark", key: "remark"},
 		{ name: "qty", key: "qty", sortable:true },
+		{ name: "price_ori", key:"price_ori", sortable:true },
 		{ name: "price", key: "price", sortable:true },
 		{ name: "wishlist", key:"wishlist"},
 		{ name: "", key: "edit" },]
@@ -274,9 +293,10 @@ onUnmounted(()=>{
 const search = ()=>{
 	showCommentLoding.value = true
 	stockProducts.value = []
-	var _pageSize, _currentPage, _searchColumn, _keyword, _productStatus, _productType, _categoryID, _exclude, _sortBy, _toastify;
+	var _support_stock_user_subscription_id, _pageSize, _currentPage, _searchColumn, _keyword, _productStatus, _productType, _categoryID, _exclude, _sortBy, _toastify;
 
 	search_product(
+		_support_stock_user_subscription_id="",
 		_pageSize=pageSize.value, 
 		_currentPage=currentPage.value, 
 		_searchColumn=searchColumn.value, 
@@ -296,7 +316,7 @@ const search = ()=>{
 			}
 			stockProducts.value = response.data.results
 			showCommentLoding.value = false
-			// console.log(stockProducts.value)
+			console.log(stockProducts.value)
 		}
 	)
 }
@@ -480,6 +500,7 @@ thead th{
 	}
 
 	td:before {
+		content: attr(data-content);
 		position: absolute;
 		left: 15px;
 		width: 45%; 
@@ -502,60 +523,31 @@ thead th{
 		padding-left: 0px !important;
 	}
 
-	td:nth-of-type(2):before {
-		content: '';
+	td:nth-of-type(3):before {
+		display:none; 
 	}
-	td:nth-of-type(2) {
+	td:nth-of-type(3) {
 		display:inline-flex;
 		justify-content: center;
 		min-height: 35px !important;
 		width: 100% !important;
+		text-align: center !important;
 		padding-left: 0px !important;
 		color: theme("colors.primary");
 		font-weight: 600;
 		font-size: 16px !important;
 	}
 
-	td:nth-of-type(3):before {
-		content: attr(data-content);
-		 }
-
-	td:nth-of-type(4):before {
-		content: attr(data-content);
-	}
-	td:nth-of-type(5):before {
-		content: attr(data-content);
-	}
-	
-	.category:before {
-		content: attr(data-content);
-	}
-	td:nth-of-type(6):before {
-		content: attr(data-content);
-	}
 	td:nth-of-type(6){
 		white-space: normal !important;
 		width: 100% !important;
 	}
 
-	td:nth-of-type(7):before {
-		content: attr(data-content);
-		 
-	}
 	.wishlist{
 		display:inline-flex;
 		justify-content: flex-end;
 		width: 100% !important;
 	}
-	.wishlist:before {
-		content: attr(data-content);
-		 
-	}
-
-	td:nth-of-type(8):before {
-		content: attr(data-content);
-		 }
-
 	.edit{
 		position: absolute !important;
         top:0;

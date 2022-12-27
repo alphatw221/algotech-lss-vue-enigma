@@ -9,7 +9,9 @@
         "lite":"Lite",
         "standard":"Standard",
         "premium":"Premium",
-        "dealer":"Dealer"
+        "dealer":"Dealer",
+        "admin":"Admin",
+        "kol":"KOL"
     },
 
     "step_1":{

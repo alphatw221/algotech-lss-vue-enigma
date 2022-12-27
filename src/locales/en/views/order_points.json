@@ -5,9 +5,10 @@
         "earning":"Earning",
         "spending":"Spending"
     },
-    "table":{
+    "table_column":{
+        "null":"",
         "date":"Date",
-        "change_reason":"Point Change Reason",
+        "change_reason":"Reason／History Entry",
         "earned":"Points Earned",
         "used":"Points Used",
         "discount":"Discount",

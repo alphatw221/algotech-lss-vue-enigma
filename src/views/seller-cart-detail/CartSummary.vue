@@ -266,7 +266,7 @@ const computedShippingCost = computed(()=>{
       if(productCategory?.meta_logistic?.is_free_delivery_for_order_above_price){
         var category_products_subtotal = 0
         objects.forEach(object=>{
-          category_products_subtotal += (shoppingCartStore.campaignProductDict?.[object.campaignProductId].price * object.qty)
+          category_products_subtotal += (campaignDetailStore.campaignProductDict?.[object.campaignProductId].price * object.qty)
         })
         is_category_product_subtotal_above = category_products_subtotal > productCategory?.meta_logistic?.free_delivery_for_order_above_price|0 
       }

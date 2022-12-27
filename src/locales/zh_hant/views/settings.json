@@ -1,4 +1,9 @@
 {
+    "categorys":{
+        "general":"基本設定",
+        "payment":"金流",
+        "logistic":"物流"
+    },
     "settings" : "專頁設定",
     "client_id" : "Client ID",
     "secret" : "Secret",
@@ -18,19 +23,26 @@
     "delivery":{
         "delivery":"物流",
         "delivery_setting": "物流設定",
-        "charge":"基本運費",
+        "free_delivery_settings": "免運設定",
+        "delivery_method_settings": "物流方式設定",
+        "charge":"運費",
         "charge_option":"運送方式",
         "add_more_delivery_option":"新增運送方式",
-        "add_delivery_option":"新增運送方式",
         "replace_charge" : "取代基本運費",
         "on_top_of_charge" : "新增額外運費",
-        "title" : "Display Name",
+        "title" : "顯示標題",
+        "price":"基礎運費",
         "order_above":"滿額免運：訂單金額滿（$）",
         "minimum":"滿件免運：訂單商品數量滿（件）",
         "store":{
                 "collection":"自行取貨",
                 "pickup_store":"取貨門市／地點",
                 "pickup_address":"取貨地址"
+        },
+        "own_delivery": {
+            "is_cvs": "是否為超商",
+            "turn_on_cvs_map": "選擇超商地圖",
+            "cvs_map": "超商地圖"
         },
         "errors":{
             "Value_is_required":"此欄位必填",
@@ -101,8 +113,30 @@
             "Value_is_required":"此欄位必填"
         }
     },
-
     "delivery_form":{
+        "delivery_titles":{
+            "own_delivery":"自訂物流",
+            "store_pickup":"自取/面交",
+            "ecpay":"綠界金/物流"
+        },
+        "ecpay":{
+            "merchant_id":"商店代號",
+            "hash_key":"Hash Key",
+            "hash_iv":"Hash IV", 
+            "return_store_id":"退回原寄件門市代號",
+            "sender_name":"寄件人姓名",
+            "sender_phone":"聯絡電話",
+            "sender_zip_code":"郵遞區號",
+            "sender_address":"地址",
+            "shipping_way":"運送方式",
+            "pickup_pay":"允許貨到付款",
+            "logistics_sub_type":{
+                "TCAT":"宅配 黑貓宅急便",
+                "FAMIC2C":"超商取貨 全家",
+                "UNIMARTC2C":"超商取貨 7-11",
+                "delivery_charge": "運費"
+            }
+        },
         "delivery_detail":"物流設定",
         "delivery_charge":"基本運費",
         "free_delivery_for_order_above":"滿額免運：訂單金額滿（$）",
@@ -117,7 +151,12 @@
         "pickup_store":"取貨門市/地點",
         "pickup_address":"自取地址",
         "express_service_name": "例如：離島、當日送達......",
-        "express_charge": "增加/取代金額"
+        "express_charge": "增加/取代金額",
+        "enabled":"啟用",
+        "update":"更新",
+        "free_delivery_settings_update": "免運設定更新",
+        "delivery_method_settings_update": "物流方式設定更新",
+        "turn_on_cvs_map": "開啟超商地圖"   
     },
 
 
@@ -125,15 +164,16 @@
         "payment":"金流"
     },
     "notes":{
-        "title":"客製化留言設定",
+        "title":"客製化訊息",
         "notes":"一般",
         "delivery_note":"運送須知",
         "special_note":"購物須知",
         "confirmation_note":"訂單確認訊息",
         "discard":"取消",
         "save":"儲存",
-        "update": "儲存",
-        "modify":"編輯"
+        "update": "更新",
+        "modify":"編輯",
+        "custom_note":"客製化訊息"
     },
     "localization":{
         "title": "購物車設定",
@@ -144,7 +184,8 @@
             "ID":"印尼",
             "IN":"印度",
             "TW":"台灣",
-            "VN":"越南"
+            "VN":"越南",
+            "MY":"馬來西亞"
         },
         "currency_symbol":"幣別設定",
         "seller_language":"賣家語言",
@@ -166,11 +207,9 @@
         "choose_price_unit":"選擇最小貨幣單位",
         "priceOptions":{
             "1":"預設",
-            "1000":"K",
-            "1000000":"M"
+            "1000":"K (1,000)",
+            "1000000":"M (1,000,000)"
         }
-
-
 
     },
     "platform":{
@@ -201,22 +240,22 @@
         "reach_channel_limt_message": "您已到達最大綁定平台數量"
     },
     "points":{
-        "title":"積分設定",
+        "title":"會員點數設定",
         "enable":"啟用",
-        "point_validity":"積分有效期 (月)",
-        "unlimited":"無限制",
+        "point_validity":"點數使用期限",
         "month":"月",
-        "reward_table":"獎勵積分表",
-        "redemption":"積分兌換率",
-        "points":"點",
-        "description":"積分註解",
+        "unlimited":"無限制",
+        "reward_table":"點數換算設定",
+        "redemption":"點數折抵設定",
+        "points":"點數",
+        "description":"點數使用方式說明",
         "add":"新增"
     },
     "messages":{
-        "title":"客製化留言設定",
-        "added":"成功加入購物車",
-        "updated":"狀態更新",
-        "deleted":"已將商品從購物車刪除",
+        "title":"客製化留言/私訊設定",
+        "added":"商品成功加入購物車",
+        "updated":"商品狀態已更新",
+        "deleted":"商品已從購物車刪除",
         "insufficient_inv":"商品庫存不足",
         "facebook_buttons":"Facebook顯示按鈕設定",
         "enable":"啟用"

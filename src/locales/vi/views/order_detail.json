@@ -7,9 +7,9 @@
     "pay":"Tiến hành thanh toán",
     "complete" : "Hoàn thành",
     "review" : "Đang kiểm tra",
-    "pending_confirmation": "Pending confirmation",
+    "pending_confirmation": "Chờ xác nhận",
     "proceed" : "Đang kiểm tra",
-    "shipping out":"Shipping Out",
+    "shipping out":"Đang giao hàng",
     "table":{
         "product" : "Sản phẩm",
         "price" : "Giá bán",
@@ -37,7 +37,8 @@
         "price_exceed":"Giá giảm đang vượt quá tổng giá trị đơn hàng",
         "update" : "Cập nhật      ",
         "display_name": "Hiển thị tên",
-        "amount": "Số Lượng"
+        "amount": "Số Lượng",
+        "sub_after_discount": "Tổng sau khi chiết khấu"
     },
     "delivery":{
         "information" : "Thông tin giao hàng",
@@ -59,6 +60,8 @@
     "payment":{
         "direct_payment":"Thanh toán trực tiếp",
         "Direct Payment":"Thanh toán trực tiếp",
+        "hitpay":"Hitpay",
+        "paypal":"Paypal",
         "ecpay":"ECpay",
         "pay_mongo":"PayMongo",
         "rapyd":"Rapyd",

@@ -3,7 +3,7 @@
             <ModalBody class="p-10 text-center">
                 <div class="mt-1">
 
-                    <label for="regular-form-2" class="form-label" style="font-size: 1.2rem;" v-if="props.modalType==='create'">{{ $t(`stock.category_manage.create`) }}</label>
+                    <label for="regular-form-2" class="form-label" style="font-size: 1.2rem;" v-if="props.modalType==='create'">{{ $t(`stock.category_manage.create_new_category`) }}</label>
                     <label for="regular-form-2" class="form-label" style="font-size: 1.2rem;" v-else-if="props.modalType==='edit'">{{ $t(`stock.category_manage.edit`) }}</label>
 
                     <div class="text-left">

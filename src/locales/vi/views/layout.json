@@ -12,7 +12,8 @@
         "connect_platform":"Kết nối nền tảng",
         "discount_code":"Mã giảm giá",
         "manage_order":"Quản lý đơn hàng",
-        "buyers":"Buyers"
+        "buyers":"Người mua",
+        "order_overview":"Tổng quan về đơn hàng"
     },
     "bread_crumb":{
         "stock":"Kho hàng",
@@ -44,12 +45,13 @@
         "plans":"Plans",
         "licenses":"Licenses",
         "sellers":"Sellers",
-        "buyers":"Buyers",
+        "buyers":"Người mua",
         "lucky-draw-list":"Rút thăm may mắn",
         "create-lucky-draw":"Tạo rút thăm may mắn",
         "report":"Report",
         "orders": "Lịch sử đặt hàng",
-        "points": "Points"
+        "points": "điểm",
+        "order-overview":"Tổng quan về đơn hàng"
     },
     "top_bar":{
         "profile":"Hồ Sơ",
@@ -57,7 +59,7 @@
         "reset_password":"Thay đổi mật khẩu",
         "logout":"Đăng xuất",
         "order_history":"Lịch sử đặt hàng",
-        "points":"Points"
+        "points":"điểm"
     },
     "upcoming_campaign":{
         "title": "Chiến dịch sắp tới",
@@ -69,9 +71,9 @@
         "join_now": "Bắt đầu ngay",
         "dismiss": "Bỏ qua"
     },
-    "test_mode": "TEST MODE",
+    "test_mode": "Chế độ trực tiếp",
     "switch_mode_confirmation": {
-        "message": "As you switch to production mode, it can not be switched back.",
-        "switch": "switch"
+        "message": "Khi bạn chuyển sang Chế độ trực tiếp, bạn không thể chuyển lại chế độ này.",
+        "switch": "chuyển"
     }
 }

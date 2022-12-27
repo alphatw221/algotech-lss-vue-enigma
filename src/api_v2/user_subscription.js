@@ -26,6 +26,10 @@ export const seller_update_delivery = (data, toastify=null) => {
     return createAxios(toastify).put(`/api/v2/user-subscription/delivery/`,data)
 }
 
+export const unbind_platform_all = (data, toastify=null) => {
+    return createAxios(toastify).put("/api/v2/user-subscription/platform/unbind/all/", data)
+}
+
 export const unbind_platform_instance = (platform_name, platform_instance_id, toastify=null) => {
     return createAxios(toastify).put(`/api/v2/user-subscription/platform/${platform_name}/unbind/?instance_id=${platform_instance_id}`)
 }
@@ -50,9 +54,7 @@ export const sales_report = (start_time, end_time, toastify=null) => {
     return createAxios(toastify).get(`/api/v2/user-subscription/sales_report/?start_time=${start_time}&end_time=${end_time}`)
 }
 
-// export const get_user_subscription_facebook_pages = (data, toastify=null) => {
-//     return createAxios(toastify).get(`/api/user-subscription/facebook_pages/`,data)
-// }
+
 
 export const list_animation = (toastify=null) => {
     return createAxios(toastify).get('/api/v2/user-subscription/list/animation/')
@@ -62,12 +64,33 @@ export const list_buyers = (keyword,page,page_size, toastify=null) => {
     return createAxios(toastify).get(`/api/v2/user-subscription/list/buyers/?keyword=${keyword}&page=${page}&page_size=${page_size}`)
 }
 
-export const retrieve_buyer_history = (buyer_id,points_relative,page,page_size, toastify=null) => {
-    return createAxios(toastify).get(`/api/v2/user-subscription/retrieve/buyers/history/?buyer_id=${buyer_id}&points_relative=${points_relative}&page=${page}&page_size=${page_size}`)
+export const list_buyer_order_history = (buyer_id, page, page_size, toastify=null) => {
+    return createAxios(toastify).get(`/api/v2/user-subscription/list/buyer/${buyer_id}/order/history/?page=${page}&page_size=${page_size}`)
 }
 
+export const list_buyer_point_history = (buyer_id, page, page_size, toastify=null) => {
+    return createAxios(toastify).get(`/api/v2/user-subscription/list/buyer/${buyer_id}/point/history/?page=${page}&page_size=${page_size}`)
+}
 
+export const create_buyer_points_transaction = (buyer_id, page_size=10, data, toastify=null) => {
+    return createAxios(toastify).post(`/api/v2/user-subscription/buyer/${buyer_id}/points/transaction/create/?page_size=${page_size}`, data)
+}
 
+export const update_buyer_points_transaction = (buyer_id, points_transaction_id, page_size=10, data, toastify=null) => {
+    return createAxios(toastify).post(`/api/v2/user-subscription/buyer/${buyer_id}/points/transaction/${points_transaction_id}/update/?page_size=${page_size}`, data)
+}
+
+export const seller_changePlan_payment = (data, toastify=null) =>{
+    return createAxios(toastify).post(`/api/v2/user-subscription/upgrade/intent/`, data);
+}
+
+export const seller_upgrade = (data, toastify=null) =>{
+    return createAxios(toastify).post(`/api/v2/user-subscription/upgrade/`, data);
+}
+
+export const import_customer = (data, toastify=null) =>{
+    return createAxios(toastify).post(`/api/v2/user-subscription/customer/import/`, data);
+}
 
 // ------------------------- DEALER -------------------------------------
 

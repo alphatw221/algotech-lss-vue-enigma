@@ -9,11 +9,11 @@
 
             <div class="grid grid-cols-6" v-show="sellerOrderDetailStore.order.shipping_method">
                 <div class="col-start-1 col-span-2 py-2">{{$t('order_detail.delivery.name')}}</div>
-                <div class="col-start-3 col-span-3 py-2">{{sellerOrderDetailStore.order.shipping_first_name}} {{sellerOrderDetailStore.order.shipping_last_name}}</div>
+                <div class="col-start-3 col-span-3 py-2">{{sellerOrderDetailStore.order.shipping_first_name}}</div>
                 
-                <template v-if="sellerOrderDetailStore.order.shipping_phone">
-                    <div class="col-start-1 col-span-2 py-2">{{$t('order_detail.delivery.phone')}}</div>
-                    <div class="col-start-3 col-span-3 py-2">{{sellerOrderDetailStore.order.shipping_phone}}</div>
+                <template v-if="sellerOrderDetailStore.order.shipping_cellphone">
+                    <div class="col-start-1 col-span-2 py-2">{{$t('order_detail.delivery.cellphone')}}</div>
+                    <div class="col-start-3 col-span-3 py-2">{{sellerOrderDetailStore.order.shipping_cellphone}}</div>
                 </template>
 
                 <template v-if="sellerOrderDetailStore.order.shipping_email">
@@ -45,16 +45,16 @@
                         {{sellerOrderDetailStore.order.shipping_postcode}}
                     </span>
                 </template>
-
-                <span class="col-start-1 col-span-2 py-2">{{$t('order.delivery_status')}}</span>   
-                <span class="col-start-3 col-span-3 py-2">{{$t(`order.delivery_status_options.${sellerOrderDetailStore.order.delivery_status}`)}}</span>
+                
+                <span class="col-start-1 col-span-2 py-2" v-if="!layoutStore.userInfo?.user_subscription?.user_plan?.hide?.order_delivery_status">{{$t('order.delivery_status')}}</span>   
+                <span class="col-start-3 col-span-3 py-2" v-if="!layoutStore.userInfo?.user_subscription?.user_plan?.hide?.order_delivery_status">{{$t(`order.delivery_status_options.${sellerOrderDetailStore.order.delivery_status}`)}}</span>
 
             </div>
 
             
         </div>
         <!-- Remark -->
-        <div class="box p-8 border-2 border-secondary flex flex-col gap-3 mt-2" v-show="sellerOrderDetailStore.order.shipping_remark">
+        <div class="box p-8 border-2 border-secondary flex flex-col gap-3 mt-2" v-show="sellerOrderDetailStore.order.shipping_remark && !layoutStore.userInfo?.user_subscription?.user_plan?.hide?.order_shipping_remark">
             <span class="text-lg">{{$t('order_detail.remark')}}</span>
             <span class="py-2"> {{sellerOrderDetailStore.order.shipping_remark}} </span>
         </div>
@@ -62,8 +62,10 @@
 </template>
 
 <script setup>
+import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import { useSellerOrderStore } from "@/stores/lss-seller-order";
 import { useCampaignDetailStore } from "@/stores/lss-campaign-detail"
 const sellerOrderDetailStore = useSellerOrderStore()
 const campaignDetailStore = useCampaignDetailStore()
+const layoutStore = useLSSSellerLayoutStore()
 </script>

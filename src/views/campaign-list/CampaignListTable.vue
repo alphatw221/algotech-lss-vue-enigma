@@ -5,7 +5,7 @@
         <tr>
           <th class="text-center whitespace-nowrap" v-for="column in tableColumns" :key="column.key">
             <template v-if="column.key === 'stop'"> 
-              <div class="flex align-middle"> 
+              <div class="flex align-middle justify-center"> 
                 <span class="my-auto"> {{ $t(`campaign_list.campaign_list_table.`+column.name) }} </span> 
                 <Tippy 
                   class="rounded-full w-fit whitespace-wrap ml-1 my-auto" 
@@ -17,7 +17,13 @@
                 </Tippy> 
               </div>
             </template>
-            <div v-else-if="column.key === 'title'" class="sm:w-[100px]"> {{ $t(`campaign_list.campaign_list_table.`+column.name) }} </div>
+            <div v-else-if="column.key === 'title'" class="sm:w-[100px] text-left"> {{ $t(`campaign_list.campaign_list_table.`+column.name) }} </div>
+            <template v-else-if="column.key === 'start_at'">
+							<div class="text-left">{{ $t(`campaign_list.campaign_list_table.`+column.name) }}</div>
+						</template>
+            <template v-else-if="column.key === 'end_at'">
+							<div class="text-left">{{ $t(`campaign_list.campaign_list_table.`+column.name) }}</div>
+						</template>
             <template v-else> 
               {{ $t(`campaign_list.campaign_list_table.`+column.name) }}
             </template>
@@ -174,7 +180,9 @@
                       <SimpleIcon icon="edit" color="#2d8cf0" class="mr-1"/>
                       {{$t("campaign_list.campaign_list_table.edit_campaign")}} 
                     </DropdownItem>
-                    <DropdownItem class="w-fit text-center whitespace-nowrap" 
+                    <DropdownItem 
+                      v-if="campaignStatus === 'scheduled'"
+                      class="w-fit text-center whitespace-nowrap" 
                       @click="editCampaignProduct(campaign)"> 
                       <SimpleIcon icon="edit" color="#2d8cf0" class="mr-1"/>
                       {{$t("campaign_list.campaign_list_table.edit_campaign_product")}}  
@@ -204,6 +212,7 @@
                       <div class="ml-1"> {{$t("campaign_list.campaign_list_table.quiz_game")}} </div> 
                     </DropdownItem>
                     <DropdownItem 
+                      v-if="campaignStatus === 'scheduled' || campaignStatus === 'ongoing'"
                       @click="deleteCampaign(campaign)" class="w-fit text-danger whitespace-nowrap">
                       <!-- <font-awesome-icon icon="fa-solid fa-trash-can" class="h-[20px] w-[20px] mr-1"/> -->
                       <SimpleIcon icon="delete" color="#b91c1c" class="mr-1"/>
@@ -218,16 +227,14 @@
       </tbody>
     </table>
   </div>
-  <div class="flex flex-wrap items-center intro-y sm:flex-row sm:flex-nowrap mb-10">
-    <Page 
-          class="mx-auto my-3" 
-          :total="dataCount"
-          :page-size="page_size"
-          show-sizer :page-size-opts="[10,20,50,100]" 
-          @on-change="changePage"
-          @on-page-size-change="changePageSize"
-        />
-    </div>
+  <Page 
+  class="mx-auto my-3 flex flex-row flex-wrap justify-center gap-1 mb-10"
+        :total="dataCount"
+        :page-size="page_size"
+        show-sizer :page-size-opts="[10,20,50,100]" 
+        @on-change="changePage"
+        @on-page-size-change="changePageSize"
+      />
 </template>
 
 <script setup>
@@ -235,7 +242,7 @@ import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import { toggle_stop_checkout, list_campaign, delete_campaign } from "@/api_v2/campaign"
 import {defineProps, onMounted, onUnmounted, getCurrentInstance, ref, defineEmits, computed} from 'vue'
 import { useRoute, useRouter } from "vue-router";
-import { get_user_subscription_facebook_pages, get_user_subscription_instagram_profiles, get_user_subscription_youtube_channels } from "@/api/user_subscription"
+
 import { get_fb_page_profile_picture } from '@/api_v2/facebook'
 import { get_ig_profile_picture } from '@/api_v2/instagram'
 
@@ -249,7 +256,6 @@ import anonymous_profile from "/src/assets/images/lss-img/noname.png"
 import unbound from "/src/assets/images/lss-img/noname.png"
 import dom from "@left4code/tw-starter/dist/js/dom";
 import i18n from "@/locales/i18n"
-import SimpleIcon from "../../global-components/lss-svg-icons/SimpleIcon.vue";
 
 const route = useRoute();
 const router = useRouter();
@@ -387,17 +393,7 @@ const computedUserGotPlatform = computed(()=>{
   // if(layoutStore.userInfo?.user_subscription?.tiktok_accounts?.length||0 != 0) return false
   return true
 })
-// const checkPage = ()=>{
-//   get_user_subscription_facebook_pages(layoutStore.alert).then(res=>{
-//     if(res.data.length !== 0) checkPagePonit.value = false
-//     else get_user_subscription_instagram_profiles(layoutStore.alert).then(res=>{
-//       if(res.data.length !== 0) checkPagePonit.value = false
-//       else get_user_subscription_youtube_channels(layoutStore.alert).then(res=>{
-//         if(res.data.length !== 0) checkPagePonit.value = false
-//       })
-//     })
-//   })
-// }
+
 
 const deleteCampaign = (campaign)=>{
   let yes = confirm(`${i18n.global.t("campaign_list.campaign_list_table.confirm_delete")}`)

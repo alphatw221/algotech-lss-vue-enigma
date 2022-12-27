@@ -5,9 +5,10 @@
         "earning":"Earning",
         "spending":"Spending"
     },
-    "table":{
+    "table_column":{
+        "null":"",
         "date":"日期",
-        "change_reason":"Point Change Reason",
+        "change_reason":"Reason／History Entry",
         "earned":"獲得點數",
         "used":"使用點數",
         "discount":"折扣",

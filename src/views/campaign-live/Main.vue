@@ -1,6 +1,6 @@
 <template>
     <!-- OUTTER BOX -->
-    <div class="flex flex-col md:flex-row gap-3 h-full lg:h-[90vh] mt-10 md:mt-0">
+    <div class="flex flex-col md:flex-row gap-3 h-full lg:h-[88vh] mt-10 md:mt-0">
 
         <!-- BEGIN: Comments -->
         <LiveComments/>
@@ -65,17 +65,6 @@ onMounted(()=>{
         if(sellerStore.commentCapturingCampaignData?.id!=campaignDetailStore.campaign.id) sellerStore.commentCapturingCampaignData = campaignDetailStore.campaign
     }
 
-
-    // retrieve_campaign(route.params.campaign_id, sellerStore.alert).then(res=>{
-	// 	campaignDetailStore.campaign = res.data
-    //     console.log(res.data.end_at)
-    //     let now = new Date()
-    //     let isCapturable = res.data.end_at ? new Date(res.data.end_at) > now : false
-    //     if (isCapturable) {
-    //         console.log("insert capture data")
-    //         if(sellerStore.commentCapturingCampaignData?.id!=res.data.id) sellerStore.commentCapturingCampaignData = res.data
-    //     }
-	// })
     
 })
 

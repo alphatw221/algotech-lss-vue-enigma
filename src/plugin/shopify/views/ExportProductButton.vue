@@ -1,10 +1,10 @@
 <template>
     <div class="relative">
         <button 
-            v-if="userGotPlugin"
+            v-if="hasPlugin"
             @click="exportProduct()"
             type="button"
-            class="h-[35px] w-48 mr-2 sm:mr-0 sm:h-[50px] text-white font-medium shadow-lg btn btn-warning rounded-full mb-5 sm:mb-0 border-[2px] border-slate-100" 
+            class="h-[35px] w-48 mr-2 sm:mr-0 sm:h-[42px] text-white font-medium shadow-lg btn btn-warning rounded-full mb-auto sm:mb-0 border-[2px] border-slate-100" 
             :class="{ 'cursor-not-allowed':processing }"
             >
             <LoadingIcon  v-if="processing" icon="three-dots" color="white" class="absolute h-[30px] w-[30px] sm:w-40 mr-2 sm:mr-0 sm:h-[20px] top-4"/>
@@ -34,14 +34,14 @@ const router = useRouter();
 const store = useLSSSellerLayoutStore();
 
 
-const userGotPlugin = ref(false)
+const hasPlugin = ref(false)
 const processing = ref(false)
 const SHOPIFY = 'shopify'
 
 
 onMounted(()=>{
     if (store.userInfo.user_subscription.user_plan?.plugins?.[SHOPIFY]) {
-        userGotPlugin.value = true
+        hasPlugin.value = true
     }
 })
 

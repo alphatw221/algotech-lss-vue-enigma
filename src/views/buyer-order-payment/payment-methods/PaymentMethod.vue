@@ -1,7 +1,10 @@
 <template>
     <AccordionItem  class="mx-5 " >
         <Accordion class="bg-primary rounded-t-lg" >
-            <div class="text-white mx-5" > {{payment.name}} </div>
+            <div class="text-white mx-5 flex flex-col sm:flex-row" > 
+                <span class="text-xl sm:text-2xl">{{payment.name}}</span> 
+                <span class="my-auto ml-2"> {{ payment.key == "ecpay" ? "(線上匯款/信用卡/超商代碼繳費/超商條碼繳費)" : "" }} </span>
+            </div>
         </Accordion>
         <AccordionPanel class="text-slate-600 dark:text-slate-500 leading-relaxed border-2 border-secondary" >
 
@@ -39,7 +42,7 @@
                         <input type="text"> 
                     </div>
                 </template> -->
-                <button class="btn btn-primary mt-2 mb-5" @click="handlePayment()">{{$t('shopping_cart.payment.pay_with')}} {{props.payment.name}} </button>
+                <button class="btn btn-primary mt-2 mb-5" @click="handlePayment()">{{$t('shopping_cart.payment.go_pay')}}</button>
                 <form method="post" action="https://test.ipg-online.com/connect/gateway/processing" :id="props.payment.key" class="hidden">
                     <input type="submit" value="" class="hidden">
                 </form>
@@ -83,39 +86,25 @@ const handlePayment=()=>{
     }else if(props.payment.handle.type=='submitForm'){
         const getCredential = paymentEndPoints[props.payment.handle.endpoint]
         getCredential(route.params.order_oid, layoutStore.alert).then(res=>{
-            console.log(res.data)
-            // const params = res.data.data
-            
-            // document.body.innerHTML = params
-            // document.getElementById("data_set").submit();
 
             const form = document.createElement('form');
-            form.setAttribute("id", "data_set");
+            form.setAttribute("id", "data_set");    //??
             form.method = 'post';
-            form.action = res.data.action;
-            const params = res.data.data
+            form.action = res.data.url;
+            const params = res.data.params
             for (const key in params) {
                 if (params.hasOwnProperty(key)) {
-                    const hiddenField = document.createElement('input');
-                    hiddenField.type = 'hidden';
-                    hiddenField.name = key;
-                    hiddenField.value = params[key];
+                    const input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = key;
+                    input.value = params[key];
 
-                form.appendChild(hiddenField);
+                form.appendChild(input);
                 }
             }
 
-            document.body.appendChild(form);
+            document.body.appendChild(form); //??
             form.submit();
-
-            // for (const [key, value] of Object.entries(res.credential)) {
-            //     $('<input>').attr({
-            //         type: 'hidden',
-            //         name: key,
-            //         value: value
-            //     }).appendTo(this.first_data_hidden_form);
-            // }
-            // this.first_data_hidden_form.find('input[type=submit]').click();
 
         })
         

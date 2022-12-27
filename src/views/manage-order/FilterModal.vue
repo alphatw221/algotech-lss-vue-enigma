@@ -9,10 +9,10 @@
                 <h2 class="font-medium text-base mr-auto text-xl">
                         {{$t('manage_order.filter_modal.filter')}}
                 </h2>
-                <button id="tabulator-html-filter-go" type="button" class="flex-none text-[18px] btn btn-primary w-fit mr-3"
-                    @click="filter()">
+                <!-- <button id="tabulator-html-filter-go" type="button" class="flex-none text-[18px] btn btn-primary w-fit mr-3"
+                    @click="filterSubmit()">
                     {{$t('manage_order.filter_modal.apply')}}
-                </button>
+                </button> -->
                 <XIcon class="w-8 h-8 ml-2" @click="clickXButton()"/>
             </ModalHeader>
         <ModalBody class="w-full h-full">
@@ -28,7 +28,14 @@
                                     'btn-rounded-primary' : type_key === 'delivery_status_options', 
                                     'btn-rounded-success' : type_key === 'payment_status_options', 
                                     'btn-rounded-warning' : type_key === 'platform_options'}">
-                            <HashIcon class="w-4 h-4 mr-2" /> {{$t(`order.${type_key}.${tag_key}`)}}
+                            <HashIcon class="w-4 h-4 mr-2" /> 
+                            <template v-if="type_key=='platform_options' && tag_key ==''"> 
+                                {{$t(`order.${type_key}.expressCart`)}}
+                            </template>
+                            <template v-else> 
+                                {{$t(`order.${type_key}.${tag_key}`)}}
+                            </template>
+                           
                             <XIcon class="w-4 h-4 ml-2" @click="removeFilterTag(type_key,tag_key)"/>
                         </button>
                     </div>
@@ -74,6 +81,13 @@
 
                 </div>
             </div>
+            <div class="justify-right">
+
+                <button id="tabulator-html-filter-go" type="button" class="flex text-[18px] btn btn-primary w-fit mr-3 text-right"
+                    @click="filterSubmit()">
+                    {{$t('manage_order.filter_modal.apply')}}
+                </button>
+            </div>
         </ModalBody>
     </Modal>
 </template>
@@ -82,10 +96,11 @@ import { ref, provide, onMounted, onUnmounted, getCurrentInstance, computed } fr
 import { useManageOrderStore } from "@/stores/lss-manage-order";
 import { useLSSPaymentMetaStore } from '@/stores/lss-payment-meta';
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
+import { helper as $h } from "@/utils/helper";
 import i18n from "@/locales/i18n"
 
 const paymentStore = useLSSPaymentMetaStore()
-const sellerStore = useLSSSellerLayoutStore()
+const sellerLayoutStore = useLSSSellerLayoutStore()
 
 const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
@@ -98,8 +113,8 @@ const props = defineProps({
 
 const computedPaymentOptions = computed(()=>{
     const payments = []
-    if(!sellerStore.userInfo.user_subscription) return payments
-    const meta_country = sellerStore.userInfo.user_subscription.meta_country
+    if(!sellerLayoutStore.userInfo.user_subscription) return payments
+    const meta_country = sellerLayoutStore.userInfo.user_subscription.meta_country
     const paymentKeySet = new Set()
     meta_country.activated_country.forEach( country => { paymentStore[country].forEach( key => paymentKeySet.add(key) ) } )
     paymentKeySet.forEach(key => {
@@ -130,16 +145,28 @@ const paymentStatusOptions =[
 ] 
 
 
-const platformOptions = [
-    {name:"Facebook",key:"facebook"},
-    {name:"Youtube",key:"youtube"},
-    {name:"Instagram",key:"instagram"},
-]
+const platformOptions = computed(() => {
+    let content = []
+    let platforms = [...sellerLayoutStore.userInfo.user_subscription.user_plan?.activated_platform]
+    platforms.forEach(value=>{
+        content.push({
+            "key":value,
+            "name": $h.capitalizeFirstLetter(value)
+        })
+    })
+    // express cart means no platform, keep key empty
+    content.push({
+        "key": "",
+        "name": "Express Cart"
+    })
+    return content
+})
+
 const filterData = ref({"payment_method_options":{}, "delivery_status_options":{}, "payment_status_options":{}, "platform_options":{}})
 
 
-const filter = ()=>{
-
+const filterSubmit = ()=>{
+    console.log(filterData.value)
     eventBus.emit(props.filterEventBusName,filterData.value)
     hideFilterModal()
 }

@@ -110,7 +110,7 @@ const campaignData = ref({
 	},
 	meta_payment:{}
 })
-
+const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
 watch(computed(()=>dateTimePicker.value),()=>{
 	campaignData.value.start_at = dateTimePicker.value.start
 	campaignData.value.end_at = dateTimePicker.value.end
@@ -120,7 +120,7 @@ const sellerStore = useLSSSellerLayoutStore()
 onMounted(() => {
 	if(!sellerStore.userInfo.user_subscription) return
 	
-	if (sellerStore.userInfo.user_subscription.meta_payment.length) {
+	if (sellerStore.userInfo.user_subscription.meta_logistic.length) {
 		campaignData.value.meta_logistic = JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_logistic))
 	}
 	if (sellerStore.userInfo.user_subscription.meta_payment.length) {

@@ -55,7 +55,7 @@
 	</div>
   <div class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap items-center">
     <Page
-      class="mx-auto my-3"
+    class="mx-auto my-3 flex flex-row flex-wrap justify-center gap-1 mb-10"
       :total="dataCount"
       :page-size="pageSize"
       @on-change="changePage"
@@ -65,7 +65,7 @@
 </template>
 
 <script setup>
-import { retrieve_buyer_history } from '@/api_v2/user_subscription';
+import { list_buyer_order_history } from '@/api_v2/user_subscription';
 import { computed, onMounted, provide, ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { get_order_oid } from "@/api_v2/order"
@@ -111,7 +111,7 @@ const changePageSize = pageSize => {
 const getOrderHistoryListData = ()=>{
   ready.value= false
 
-	retrieve_buyer_history(buyer_id, false, currentPage.value, pageSize.value, layoutStore.alert).then(response => {
+	list_buyer_order_history(buyer_id, currentPage.value, pageSize.value, layoutStore.alert).then(response => {
     layoutStore.buyer = response.data.results ? response.data.results[0].buyer : response.data[0].buyer
 		dataCount.value = response.data.count ? response.data.count : response.data.length
 		orders.value = response.data.results ? response.data.results : response.data

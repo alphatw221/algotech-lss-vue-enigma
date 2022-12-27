@@ -1,6 +1,7 @@
 {
     "page_title": "Buyers",
     "table_column": {
+        "null":"",
         "customer_name": "Buyer Name",
         "type": "Type",
         "email": "Email",
@@ -8,7 +9,17 @@
         "points": "Points"
     },
     "buyer_point": {
-        "points": "Points"
+        "points": "Points",
+        "adjust_point":"Manually Adjust Points",
+        "adjust_point_modal":{
+            "title":"Manually Adjust Points",
+            "current_points":"Current Points：",
+            "type":"Type",
+            "points":"Points",
+            "reason":"Reason／History Entry",
+            "expired_at":"Expiry Date",
+            "save":"Save"
+        }
     },
     "search_bar":{
         "title": "Title",

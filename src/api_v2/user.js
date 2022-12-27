@@ -26,7 +26,7 @@ export const seller_login_with_google = (data, toastify=null) =>{
 }
 
 export const get_seller_account = () =>{
-    return createAxiosWithoutInterceptor().get(`/api/v2/user/seller/account/`);
+    return createAxios().get(`/api/v2/user/seller/account/`);
 }
 
 export const seller_change_password = (data, toastify=null) => {
@@ -67,6 +67,13 @@ export const dealer_verify_code = (data, toastify=null) => {
     return createAxios(toastify).post(`/api/v2/user/dealer/verify_code/`,data);
 };
 
+export const buyer_orders_history = (page, page_size, user_subscription_id=null, toastify=null) => {
+    return createAxios(toastify).get(`/api/v2/user/buyer/order/history/?user_subscription_id=${user_subscription_id}&page=${page}&page_size=${page_size}`)
+}
+
+export const buyer_points_history = (page, page_size, user_subscription_id=null, toastify=null) => {
+    return createAxios(toastify).get(`/api/v2/user/buyer/points/history/?user_subscription_id=${user_subscription_id}&page=${page}&page_size=${page_size}`)
+}
 
 
 

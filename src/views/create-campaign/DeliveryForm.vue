@@ -5,20 +5,32 @@
 
 		<!-- Delivery charge setting-->
 		<div class="col-span-12 sm:col-start-1 flex flex-col gap-3"> 
-			<div class="flex flex-col flex-wrap">
-				<label class="text-base whitespace-nowrap text-lg font-medium">{{$t('create_campaign.delivery_form.delivery_charge')}}</label>
-				<input 
-					class="w-full form-control"
-					type="text" 
-					v-model="props.campaign.meta_logistic.delivery_charge"
-					@blur="props.v.meta_logistic.delivery_charge.$touch()"
-				/>
-				<label class="text-danger text-[12px] " 
-					v-for="error,index in props.v.meta_logistic.delivery_charge.$errors"
-					:key="index"
-					>
-					{{ $t(`create_campaign.delivery_form.errors.${error.$validator}`) }}
-				</label>
+			<label class="text-base whitespace-nowrap text-lg font-medium">{{$t('create_campaign.delivery_form.delivery_charge')}}</label>
+			<div class="flex flex-row flex-wrap gap-5">
+				
+				<div class="flex flex-col"> 
+					<label class="w-fit text-base whitespace-nowrap">{{ $t('settings.delivery.title') }}</label>
+					<input 
+						class="w-32 form-control h-[35px] sm:h-[42px]"
+						type="text" 
+						v-model="props.campaign.meta_logistic.title"
+					/>
+				</div>
+				<div class="flex flex-col">
+					<label class="w-fit text-base whitespace-nowrap">{{ $t('settings.delivery.price') }}</label>
+					<input 
+						class="w-full form-control"
+						type="text" 
+						v-model="props.campaign.meta_logistic.delivery_charge"
+						@blur="props.v.meta_logistic.delivery_charge.$touch()"
+					/>
+					<label class="text-danger text-[12px] " 
+						v-for="error,index in props.v.meta_logistic.delivery_charge.$errors"
+						:key="index"
+						>
+						{{ $t(`create_campaign.delivery_form.errors.${error.$validator}`) }}
+					</label>
+				</div>
 			</div>
 			
 			<div class="flex flex-col flex-wrap">
@@ -135,7 +147,29 @@
 					</label>
 				</div>
 				
-
+				<div>
+                    <input  
+                        class="w-10 h-10 form-control"
+                        type="checkbox" 
+                        :placeholder="$t('settings.delivery_form.express_charge')"
+                        v-model="option.is_cvs"
+                    />
+                    <label class="text-[16px] ml-2" 
+                        >{{ $t("settings.delivery.own_delivery.is_cvs") }}
+                    </label>                    
+                </div>
+				<div>
+                    <select 
+                        :disabled="option.is_cvs !== true"
+                        class="flex-1 w-full rounded-lg form-select sm:form-select-lg sm:w-fit"
+                        v-model="option.cvs_key"
+                    >   
+                        <option :value="undefined">{{ $t('settings.delivery.own_delivery.turn_on_cvs_map') }}</option>
+                        <template v-for="(cvs_option, option_index) in csvOptions" :key="option_index">
+                            <option :value="cvs_option.key">{{ $t('settings.delivery.own_delivery.cvs_map')+":"+cvs_option.name }}</option>
+                        </template>
+                    </select>
+                </div>
 				<button 
 					class="btn btn-danger inline-block text-base w-full sm:w-24 ml-auto h-[42px]" 
 					@click="deleteDelivery(index)"
@@ -144,7 +178,7 @@
 		</div>
 
 		<!-- delivery date -->
-		<div class="flex flex-col flex-wrap justify-between col-span-12 col-start-1">
+		<div class="flex flex-col flex-wrap justify-between col-span-12 col-start-1 gap-2">
 			<label for="regular-form-2" class="text-base font-bold form-label my-auto">{{$t('create_campaign.delivery_form.delivery_date')}}</label>
 			<div class="flex flex-col flex-wrap gap-3 mt-5 sm:flex-row sm:mt-0 z-50">
 				<v-date-picker class="" 
@@ -155,12 +189,20 @@
 					:min-date='new Date()'
 					>
 					<template v-slot="{ inputValue, inputEvents }">
-						<div class="flex items-center justify-center">
-						<input :value="inputValue.start" v-on="inputEvents.start"
-							class="form-control border h-[42px] px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300" />
-						<ChevronsRightIcon class="w-8 h-8 m-1" />
-						<input :value="inputValue.end" v-on="inputEvents.end" disabled
-							class="form-control border h-[42px] px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300" />
+						<div class="flex items-center justify-center gap-1">
+							<div class="flex flex-col relative">
+								<p> From</p>
+								<input :value="inputValue.start" v-on="inputEvents.start"
+								class="form-control border h-[42px] px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300" />
+								<CalendarIcon class="hidden sm:block absolute right-2 bottom-2.5 text-slate-600"/>
+							</div> 
+							<ChevronsRightIcon class="w-8 h-8 mt-auto mb-1" />
+							<div class="flex flex-col relative">
+								<p> To</p>
+								<input :value="inputValue.end" v-on="inputEvents.end" disabled
+								class="form-control border h-[42px] px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300" />
+								<CalendarIcon class="hidden sm:block absolute right-2 bottom-2.5 text-slate-600"/> 
+							</div>
 						</div>
 					</template>
 				</v-date-picker>
@@ -228,12 +270,18 @@
 							:min-date='new Date()'
 							>
 							<template v-slot="{ inputValue, inputEvents }">
-								<div class="flex items-center justify-center">
-								<input :value="inputValue.start" v-on="inputEvents.start"
-									class="form-control border h-[42px] px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300" />
-								<ChevronsRightIcon class="w-8 h-8 m-1" />
-								<input :value="inputValue.end" v-on="inputEvents.end" disabled
-									class="form-control border h-[42px] px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300" />
+								<div class="flex items-center justify-start gap-1">
+									<div class="flex flex-col relative">
+										<input :value="inputValue.start" v-on="inputEvents.start"
+										class="form-control border h-[42px] px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300" />
+										<CalendarIcon class="hidden sm:block absolute right-2 bottom-2.5 text-slate-600"/>
+									</div> 
+									<ChevronsRightIcon class="w-8 h-8 mt-auto mb-1" />
+									<div class="flex flex-col relative">
+										<input :value="inputValue.end" v-on="inputEvents.end" disabled
+										class="form-control border h-[42px] px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300" />
+										<CalendarIcon class="hidden sm:block absolute right-2 bottom-2.5 text-slate-600"/> 
+									</div>
 								</div>
 							</template>
 						</v-date-picker>
@@ -302,6 +350,7 @@ const deliverydatePicker = ref({
 	start:new Date(),
 	end:new Date()
 })
+const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
 const pickupdatePicker = ref([])
 onMounted(()=>{
 	ready.value=true
@@ -311,6 +360,22 @@ const props = defineProps({
     campaign: Object,
 	v:Object
 });
+
+const csvOptions = ref([
+    {
+        "key": "FAMIC2C", "name": "全家店到店"
+    },
+    {
+        "key": "UNIMARTC2C", "name": "7-11店到店"
+    },
+    {
+        "key":"HILIFEC2C", "name":"萊爾富店到店"
+
+    },
+    {
+        "key":"OKMARTC2C", "name":"OK店到店"
+    }
+])
 
 const addDelivery = () =>{
     props.campaign.meta_logistic.additional_delivery_options.unshift(Object.assign({},additional_delivery_option))

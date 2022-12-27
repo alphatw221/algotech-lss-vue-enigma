@@ -1,18 +1,31 @@
 <template>
 	<!-- BEGIN Container -->
 	<div :class="{'p-4 box': templateInModal !=true}">
-		<div class="flex flex-row items-center h-fit lg:mt-3 pb-4">
-			<h2 class="text-xl sm:text-2xl mx-auto sm:mx-0 font-medium -mt-2">{{$t('assign_product.assign_product')}}</h2>
 
-			<FileUploadButton 
-				class="ml-auto"
+		<div class="flex flex-col sm:flex-row items-center h-fit lg:mt-3 pb-4">
+			<h2 class="text-xl sm:text-2xl mx-auto sm:mx-0 font-medium">{{$t('assign_product.assign_product')}}</h2>
+
+			<!-- <div class="ml-5 flex flex-row items-center"  v-if="layoutStore.userInfo.user_subscription.meta_store?.support_stock_user_subscriptions">
+				<h2 class="text-xl sm:text-2xl mx-auto sm:mx-0 font-medium"> From</h2>
+				<select 
+					class="form-select ml-2 h-[35px] sm:h-[42px] w-[150px]"
+					v-model="campaignDetailStore.campaign.supplier"
+					@change="getSubscriptionStock()"
+				>
+					<option value="">{{$t(`assign_product.stock_origin.own`)}}</option>
+					<option v-for="subscription,index in layoutStore.userInfo.user_subscription.meta_store?.support_stock_user_subscriptions" :key="index" :value="subscription.user_subscription_id">{{ subscription.name }}</option>
+				</select>
+			</div> -->
+			<!-- <FileUploadButton 
+				class="ml-auto mx-1 text-sm sm:w-40 h-[35px] sm:h-[42px] text-white btn btn-rounded text-[#ff9505] bg-[#fefce8] font-medium shadow-lg btn color-[#f59e0b] border-[#fcd34d] hover:bg-[#fef6e8] border-[2px] border-slate-100 shadow-lg"
 				button_id="import_campaign_product"
 				accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
 				:multiple="false"
 				:uploadFunction = "importCampaignProduct"
 			>
-				Import Product
-			</FileUploadButton>
+			<template class="hidden sm:block"><span class="mr-1 text-lg font-bold text-[#ff9505] inline-block align-middle"><ArrowDownIcon class="" /></span> {{$t('assign_product.import')}} </template>
+			<template class="block sm:hidden"> <ArrowDownIcon class="w-8 h-8" /> </template>
+			</FileUploadButton> -->
 		</div>
 		
 		
@@ -32,7 +45,7 @@
 						@change="filterProducts()"
 					>
 						<option :value="''">{{$t(`assign_product.search_bar.all`)}}</option>
-						<option v-for="product_category,index in layoutStore.userInfo.user_subscription.product_categories" :key="index" :value="product_category.id">{{ product_category.name }}</option>
+						<option v-for="product_category,index in productCategories" :key="index" :value="product_category.id">{{ product_category.name }}</option>
 					</select>
 				</div>
 				<!-- <div class="flex-2 flex-wrap flex items-center flex-col w-fit" >
@@ -66,6 +79,16 @@
 						{{$t('assign_product.search_bar.reset')}}
 					</button> -->
 				</div>
+				<FileUploadButton 
+					class="mt-auto mx-1 text-sm sm:w-40 h-[35px] sm:h-[42px] text-white btn btn-rounded text-[#ff9505] bg-[#fefce8] font-medium shadow-lg btn color-[#f59e0b] border-[#fcd34d] hover:bg-[#fef6e8] border-[2px] border-slate-100 shadow-lg"
+					button_id="import_campaign_product"
+					accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+					:multiple="false"
+					:uploadFunction = "importCampaignProduct"
+				>
+				<template class="hidden sm:block"><span class="mr-1 text-lg font-bold text-[#ff9505] inline-block align-middle"><ArrowDownIcon class="" /></span> {{$t('assign_product.import')}} </template>
+				<template class="block sm:hidden"> <ArrowDownIcon class="w-8 h-8" /> </template>
+				</FileUploadButton>
 			</div>   
 			<!-- END SearchBar -->
 
@@ -81,7 +104,7 @@
 								</th>
 								<th 
 									class="whitespace-normal truncate hover:text-clip text-center" 
-									v-for="column in tableColumns" :key="column.key">
+									v-for="column in computedColumns" :key="column.key">
 
 									{{$t(`assign_product.product_table.${column.key}`)}}
 									<!-- <input v-if="column.key=='oversell'" class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" type="checkbox" v-model="allProductOversellEnable" @change="selectAllStockProduct($event)"/>
@@ -101,7 +124,7 @@
 										type="checkbox" v-model="product.check" @click="clickStockProductCheckbox(product, $event)"/>
 								</td>
 
-								<template v-for="column in tableColumns" :key="column.key" class="text-[14px]">
+								<template v-for="column in computedColumns" :key="column.key" class="text-[14px]">
 
 									<td v-if="column.key === 'image'" >
 										<div class="flex items-center justify-center imgtd">
@@ -147,7 +170,7 @@
 										<div class="place-content-end relative w-full md:w-24 lg:place-content-center">
 
 											
-											<input class="form-control w-full text-right" min="1" type="number" v-model="product[column.key]" />
+											<input class="form-control w-full text-right" min="1" type="number" v-model="product[column.key]" :disabled="disableButton"/>
 										</div>
 									</td>
 
@@ -167,10 +190,18 @@
 										<select
 											class="form-select w-auto mt-0 "
 											v-model="product[column.key]"
+											:disabled="disableButton"
 										>
 											<option v-for="(type, index) in product_type" :key="index" :value="type.value">{{$t(`assign_product.product_table.types.${type.value}`)}}</option>
 										</select> 
 									</td> 
+
+									<td v-else-if=" column.key === 'pinned'  " class="pinned" :data-content="$t(`assign_product.product_table.${column.key}`)">
+										<div class="md:min-w-[40px] sm:text-center"> 
+											<input class="form-control form-check-input w-[1.2rem] h-[1.2rem] my-auto" type="checkbox" v-model="product[column.key]" v-if="product.type=='product' "/>
+											<div v-else class="w-[1.2rem] h-[1.2rem] dash sm:mx-auto">-</div>
+										</div>
+									</td>
 
 									<td v-else-if="column.key === 'oversell' " class="editable" :data-content="$t(`assign_product.product_table.${column.key}`)">
 										<div class="md:min-w-[40px] sm:text-center">
@@ -197,8 +228,8 @@
 										<!-- <div class="w-full lg:w-fit lg:text-sm whitespace-nowrap"> ${{product[column.key]}} </div> -->
 										<div class="flex place-content-end relative w-full p-0 md:w-32 lg:place-content-center">
 											<span class="my-auto mr-1 text-[12px]" v-if="campaignDetailStore.campaign"> {{campaignDetailStore.campaign.currency}} </span> 
-											<input class="form-control w-[100%] text-right p-0" min="1" type="number" v-model="product[column.key]" />
-											<span class="my-auto mr-1 text-[12px]" v-if="campaignDetailStore.campaign"> {{campaignDetailStore.campaign.price_unit?$t(`global.price_unit.${campaignDetailStore.campaign.price_unit}`):''}} </span>
+											<input class="form-control w-full text-right p-1" min="1" type="number" v-model="product[column.key]"  :placeholder="product[column.key]"/>
+											<span class="my-auto text-[12px]" v-if="campaignDetailStore.campaign"> {{campaignDetailStore.campaign.price_unit?$t(`global.price_unit.${campaignDetailStore.campaign.price_unit}`):''}} </span>
 										</div>
 									</td>
 
@@ -213,17 +244,16 @@
 					
 					
 				</div>
-				<div class="intro-y flex flex-row flex-wrap sm:flex-nowrap items-center justify-between">
-					<Page 
-						class="mx-auto my-3" 
-						:total="dataCount"
-						:page-size="pageSize"
-						show-sizer :page-size-opts="[10,20,50,100]" 
-						@on-change="changePage"
-						@on-page-size-change="changePageSize"
-					/>
-					
-				</div> 
+
+				<Page 
+					class="mx-auto my-3 flex flex-row flex-wrap justify-center gap-1" 
+					:total="dataCount"
+					:page-size="pageSize"
+					show-sizer :page-size-opts="[10,20,50,100]" 
+					@on-change="changePage"
+					@on-page-size-change="changePageSize"
+				/>
+
 				<div class="flex items-center justify-end my-5 mb-14">
 					<button v-if="route.name == 'assign-product'" type="button" class="btn btn-secondary inline-flex w-20 md:w-32 shadow-md ml-auto mr-1 md:mr-5" @click="router.push({name: 'campaign-list'})">{{$t('assign_product.skip')}}</button>
 					<button type="button" class="btn btn-primary inline-flex w-20 md:w-32 shadow-md mr-1 md:mr-5" @click="openTab='confirm'">{{$t('assign_product.add')}}</button>
@@ -246,7 +276,7 @@
 								<th class="w-10"></th>
 								<th 
 									class="whitespace-normal truncate hover:text-clip text-center" 
-									v-for="column in tableColumns" :key="column.key">
+									v-for="column in computedColumns" :key="column.key">
 									{{$t(`assign_product.product_table.${column.key}`)}}
 								</th>
 							</tr>
@@ -260,7 +290,7 @@
 								<td class="w-10">
 									<input class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto selectCheck" type="checkbox" checked @click="clickSelectedProductCheckbox(product, product_index, $event)"/>
 								</td>
-								<template v-for="column in tableColumns" :key="column.key" class="text-[14px]">
+								<template v-for="column in computedColumns" :key="column.key" class="text-[14px]">
 
 									<td v-if="column.key === 'image'">
 										<div class="flex items-center justify-center">
@@ -294,7 +324,7 @@
 										:class="{' h-12' : errorMessages[product_index][column.key] }">
 										<div class="place-content-end relative w-full md:w-24 lg:place-content-center">
 
-											<input class="form-control w-full text-right" min="1" type="number" v-model="product[column.key]" />
+											<input class="form-control w-full text-right" min="1" type="number" v-model="product[column.key]"  :disabled="disableButton"/>
 											<div class="text-danger absolute z-10 -bottom-5 right-0 sm:right-auto sm:left-0 whitespace-nowrap z-10" v-if="errorMessages[product_index]&& errorMessages[product_index][column.key]">{{  $t(`assign_product.product_table.errors.${errorMessages[product_index][column.key]}`)}}</div>
 										</div>
 									</td>
@@ -319,12 +349,19 @@
 											<select
 												class="form-select w-[100%]"
 												v-model="product[column.key]"
+												:disabled="disableButton"
 											>
 												<option v-for="(type, index) in product_type" :key="index" :value="type.value">{{$t(`assign_product.product_table.types.${type.value}`)}}</option>
 											</select> 
 											<div class="text-danger absolute z-10 -bottom-5 right-0 sm:right-auto sm:left-0 whitespace-nowrap z-10" v-if="errorMessages[product_index]&& errorMessages[product_index][column.key]">{{  $t(`assign_product.product_table.errors.${errorMessages[product_index][column.key]}`)}}</div>
 										</div>
 									</td> 
+									<td v-else-if=" column.key === 'pinned'  " class="pinned" :data-content="$t(`assign_product.product_table.${column.key}`)">
+										<div class="md:min-w-[40px] sm:text-center"> 
+											<input class="form-control form-check-input w-[1.2rem] h-[1.2rem] my-auto" type="checkbox" v-model="product[column.key]" v-if="product.type=='product' "/>
+											<div v-else class="w-[1.2rem] h-[1.2rem] dash sm:mx-auto">-</div>
+										</div>
+									</td>
 									<td v-else-if=" column.key === 'oversell'  " class="removable" :data-content="$t(`assign_product.product_table.${column.key}`)">
 										<div class="md:min-w-[40px] sm:text-center"> 
 											<input class="form-control form-check-input w-[1.2rem] h-[1.2rem] my-auto" type="checkbox" v-model="product[column.key]" v-if="product.type=='product' "/>
@@ -351,8 +388,8 @@
 										<!-- <div class="w-full lg:w-fit lg:text-sm whitespace-nowrap"> ${{product[column.key]}} </div> -->
 										<div class="flex place-content-end relative w-full md:w-32 lg:place-content-center">
 											<span class="my-auto mr-1 text-[12px]" v-if="campaignDetailStore.campaign"> {{campaignDetailStore.campaign.currency}} </span> 
-											<input class="form-control w-[100%] text-right p-0" min="1" type="number" v-model="product[column.key]" />
-											<span class="my-auto mr-1 text-[12px]" v-if="campaignDetailStore.campaign"> {{campaignDetailStore.campaign.price_unit?$t(`global.price_unit.${campaignDetailStore.campaign.price_unit}`):''}} </span>
+											<input class="form-control w-full text-right p-1" min="1" type="number" v-model="product[column.key]" :placeholder="product[column.key]" />
+											<span class="my-auto text-[12px]" v-if="campaignDetailStore.campaign"> {{campaignDetailStore.campaign.price_unit?$t(`global.price_unit.${campaignDetailStore.campaign.price_unit}`):''}} </span>
 											<div class="text-danger absolute z-10 -bottom-5 right-0 sm:right-auto sm:left-0 whitespace-nowrap z-10" v-if="errorMessages[product_index]&& errorMessages[product_index][column.key]">{{  $t(`assign_product.product_table.errors.${errorMessages[product_index][column.key]}`)}}</div>
 										</div>
 									</td>
@@ -394,38 +431,47 @@ import FileUploadButton from "@/components/file-upload-button/Main.vue"
 
 const campaignDetailStore = useCampaignDetailStore()
 
-
 const props = defineProps({
     productType: String,
 	templateInModal:Boolean,
 })
 
-const tableColumns = ref([
-    { name: "Product", key: "image" },
-    { name: "", key: "name" },
-    { name: "Type", key: "type" },
-    { name: "Order Code", key: "order_code" },
-	{ name: "Stock QTY", key: "qty" },
-	{ name: "QTY for Campaign", key: "assign_qty" },
-	{ name: "Max QTY/Order", key: "max_order_amount" },
-    { name: "Price", key: "price" },
-	{ name: "Oversell", key: "oversell" },
-	{ name: "Editable", key: "customer_editable" },
-	{ name: "Deletable", key: "customer_removable" },
-	{ name: "Category", key: "categories" },
-	
-])
+const disableButton = computed(()=>{
+	if(campaignDetailStore.campaign.supplier) return true
+	else return false
+})
 
+const computedColumns = computed(()=>{
+	var columns = [
+		{ name: "Product", key: "image" },
+		{ name: "", key: "name" },
+		{ name: "Type", key: "type" },
+		{ name: "Order Code", key: "order_code" },
+		{ name: "Stock QTY", key: "qty" },
+		{ name: "QTY for Campaign", key: "assign_qty" },
+		{ name: "Max QTY/Order", key: "max_order_amount" },
+		{ name: "Price", key: "price" },
+		{ name: "Oversell", key: "oversell" },
+		{ name: "Editable", key: "customer_editable" },
+		{ name: "Deletable", key: "customer_removable" },
+		{ name: "Pinned", key:"pinned"},
+		{ name: "Category", key: "categories" },
+	]
+	if(campaignDetailStore.campaign.meta?.stock_subscription_id){
+		columns = columns.filter(column=>column.key!='oversell')
+		columns = columns.filter(column=>column.key!='qty')
+	}
+	return columns
+})
 
 const layoutStore = useLSSSellerLayoutStore();
-
 
 const route = useRoute();
 const router = useRouter();
 
 const openTab = ref('select')
 const currentPage = ref(1)
-const pageSize = ref(50)
+const pageSize = ref(20)
 const totalPage = ref(1)
 const dataCount = ref(0)
 
@@ -436,7 +482,7 @@ const staticDir = import.meta.env.VITE_GOOGLE_STORAGE_STATIC_DIR
 const selectedCategory = ref('')
 const searchField = ref('name')
 const searchKeyword = ref('')
-const productCategories = ref([{value:'', name:'All'}])
+// const productCategories = ref([{value:'', name:'All'}])
 
 const product_type = [{value:'product',name:'Product'},{value:'lucky_draw',name:'Lucky Draw'}]
 
@@ -460,23 +506,32 @@ const campaignProductOrderCodeDict = ref({})
 let isSelectedProductsValid=false
 
 onMounted(() => {
+	getCampaignProductDict()
+	search()
+	
 	if(props.templateInModal){
-		eventBus.on('show_assign_product_view',()=>{getCampaignProductDict();search();})
+		eventBus.on('show_assign_product_view',()=>{
+			getCampaignProductDict()
+			search();
+		})
 		eventBus.on('hide_assign_product_view',()=>{clearAllData();})
 		return
 	}
-	getCampaignProductDict()
-	getCampaignDetail()
-	search()
+	
 })
-
 onUnmounted(()=>{
 	eventBus.off('show_assign_product_view')
 	eventBus.off('hide_assign_product_view')
 })
 
 const getCampaignProductDict=()=>{get_campaign_product_order_code_dict(route.params.campaign_id, layoutStore.alert).then(res=>{campaignProductOrderCodeDict.value = res.data})}
-
+const productCategories = computed(() => {
+	if (campaignDetailStore.campaign.supplier) {
+		return campaignDetailStore.campaign.supplier.product_categories
+	} else {
+		return layoutStore.userInfo.user_subscription.product_categories
+	}
+})
 const updateStockProducts = ()=>{
     stockProducts.value.forEach((product,stockProductIndex) => {
         if(product.id.toString() in selectedProductDict.value){ 
@@ -534,6 +589,7 @@ const checkIfValid = ()=>{
 }
 
 
+
 watch(computed(()=>stockProducts.value),updateStockProducts)
 
 watch(computed(()=>selectedProducts.value),checkIfValid,{deep:true})
@@ -558,7 +614,6 @@ const selectedProductRemovable = (product_index, event)=>{if(event.target.checke
 const selectedProductEditable = (product_index, event)=>{if(!event.target.checked)selectedProducts.value[product_index].customer_removable=false}
 
 const updateSelectedProductDict = ()=>{
-	
     selectedProductDict.value = {}
     selectedProducts.value.forEach((selectedProduct,index)=>{
 		selectedProductDict.value[selectedProduct.id.toString()]=index
@@ -566,6 +621,7 @@ const updateSelectedProductDict = ()=>{
 	console.log('updateSelectedProductDict')
 	console.log(selectedProductDict.value)
 }
+
 
 const selectStockProduct = (stockProduct) =>{
 	console.log('selectStockProduct')
@@ -580,6 +636,7 @@ const selectStockProduct = (stockProduct) =>{
 const clickStockProductCheckbox = (stockProduct, event) =>{
 	console.log('clickStockProductCheckbox')
 	console.log(event.target.checked)
+	// console.log(stockProduct)
     if(event.target.checked && !(stockProduct.id.toString() in selectedProductDict.value)){
         errorMessages.value.push({})
         selectedProducts.value.push( stockProduct )
@@ -652,9 +709,10 @@ const filterProducts = ()=>{
 
 const search = () => {
 	console.log('selectedProductDict')
-	console.log(selectedProductDict.value)
-	var _pageSize, _currentPage, _searchColumn, _keyword, _productStatus, _productType, _category, _exclude, _sortBy, _toastify;
+	// console.log(selectedProductDict.value)
+	var _support_stock_user_subscription_id, _pageSize, _currentPage, _searchColumn, _keyword, _productStatus, _productType, _category, _exclude, _sortBy, _toastify;
 	search_product(
+		_support_stock_user_subscription_id=campaignDetailStore.campaign.supplier?.id,
 		_pageSize=pageSize.value,
 		_currentPage=currentPage.value, 
 		_searchColumn=searchField.value, 
@@ -666,25 +724,13 @@ const search = () => {
 		_sortBy='',
 		_toastify=layoutStore.alert)
 	.then(response => {
-		// console.log('data_count')
-		// console.log(response.data.count)
 		dataCount.value = response.data.count;
-		// if (response.data.count != undefined) {
-        //   dataCount.value = response.data.count;
-        //   const _totalPage = Math.ceil(response.data.count / pageSize.value);
-        //   totalPage.value = _totalPage == 0 ? 1 : _totalPage;
-		//   console.log('totalPage')
-		// 	console.log(totalPage.value)
-		// 	totalPage.value = 3
-        // }
 		stockProducts.value = response.data.results
-		// console.log(stockProducts.value = response.data.results)
-		// proudct default value
-		stockProducts.value.forEach(product => {
+		stockProducts.value.forEach((product,index) => {
 			if (!(product.id.toString() in selectedProductDict.value)){
 				product.type = ['', null, undefined].includes(product.type) ? 'product' : product.type
 				product.oversell = false
-				product.assign_qty = product.qty
+				product.assign_qty = campaignDetailStore.campaign.supplier? 100:product.qty
 				product.customer_editable = true
 				product.customer_removable = false
 			}
@@ -719,8 +765,9 @@ const submitData = ()=>{
         layoutStore.alert.showMessageToast(i18n.global.t('assign_product.invalid'))
         return
     }
-	console.log(selectedProducts.value)
+	// console.log('selected',selectedProducts.value)
 	seller_bulk_create_campaign_products(route.params.campaign_id, selectedProducts.value, layoutStore.alert).then(res=>{
+		// console.log(res.data)
 		if(props.templateInModal){
 			campaignDetailStore.campaignProducts = res.data
 			
@@ -741,11 +788,6 @@ const submitData = ()=>{
 		}
 	})
 }
-const getCampaignDetail = ()=>{
-	retrieve_campaign(route.params.campaign_id, layoutStore.alert).then(res=>{
-		campaignDetailStore.campaign = res.data
-	}) 
-}
 
 
 const clearAllData = ()=>{
@@ -757,7 +799,7 @@ const clearAllData = ()=>{
     selectedProductDict.value = {}
     openTab.value = 'select'
     currentPage.value = 1
-    pageSize.value=50
+    pageSize.value=20
     dataCount.value =0
 	totalPage.value = 1
 	campaignProductOrderCodeDict.value = {}
@@ -779,6 +821,7 @@ const importCampaignProduct = file =>{
 		
     })
 }
+
 </script>
 
 
@@ -868,6 +911,7 @@ thead th{
     }
 
     td:before {
+		content: attr(data-content);
         position: absolute;
         min-height: 40px;
         left: 6px;
@@ -982,6 +1026,14 @@ thead th{
         margin-top: 0px !important;
     }
     .removable{
+        min-height: 25px !important;
+		padding-right: 10px !important;
+    }
+	.pinned:before {
+        content: attr(data-content);
+        margin-top: 0px !important;
+    }
+    .pinned{
         min-height: 25px !important;
 		padding-right: 10px !important;
     }

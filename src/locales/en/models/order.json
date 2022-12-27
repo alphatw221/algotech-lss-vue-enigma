@@ -47,6 +47,28 @@
     "platform_options":{
         "facebook":"Facebook",
         "youtube":"Youtube",
-        "instagram":"Instagram"
-    }
+        "instagram":"Instagram",
+        "tiktok":"Tiktok",
+        "expressCart":"Express Cart"
+    },
+    "id": "Order ID",
+    "created_at": "Order Date",
+    "customer_name": "Customer Name",
+    "shipping_name": "Receiver Name",
+    "shipping_phone": "Receiver Phone",
+    "shipping_email": "Receiver Email",
+    "shipping_method":"Shipping Method",
+    "shipping_option":"Shipping Option",
+    "shipping_address_1":"Shipping Address 1",
+    "shipping_location":"Location",
+    "shipping_region":"Region",
+    "shipping_postcode":"Postcode",
+    "pick_up_store":"Pick up Store",
+    "pickup_address":"Pick up Address",
+    "shipping_remark":"Remark",
+    "last_five_digit":"Payment Record",
+    "order_product_name":"Product Name",
+    "order_product_price":"Product Price",
+    "order_product_qty":"Qty",
+    "order_product_subtotal":"Subtotal"
  }

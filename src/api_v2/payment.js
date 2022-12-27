@@ -18,7 +18,7 @@ const get_first_data_credential = (order_oid, toastify=null) => {
 }
 
 const get_ecpay_credential = (order_oid, toastify=null) => {
-    return createAxios(toastify).get(`/api/v2/payment/ecpay/credential/?order_oid=${order_oid}`)
+    return createAxios(toastify).get(`/api/v2/payment/ecpay/gateway/?order_oid=${order_oid}`)
 }
 
 const get_pay_mongo_gateway = (order_oid, toastify=null) => {
