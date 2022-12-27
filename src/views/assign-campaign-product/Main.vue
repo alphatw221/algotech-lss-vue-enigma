@@ -509,11 +509,7 @@ let isSelectedProductsValid=false
 onMounted(() => {
 	getCampaignProductDict()
 	search()
-	// retrieve_campaign(route.params.campaign_id, layoutStore.alert).then(res=>{
-	// 	console.log(res.data)
-	// 	campaignDetailStore.campaign = res.data
-	// 	return search()
-	// })
+	
 	if(props.templateInModal){
 		eventBus.on('show_assign_product_view',()=>{
 			getCampaignProductDict()

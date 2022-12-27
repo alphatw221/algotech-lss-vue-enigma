@@ -200,12 +200,14 @@ import MessageSettings from '@//views/settings/general-settings/MessageSettings.
 
 
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
+import { useCampaignDetailStore } from '@/stores/lss-campaign-detail';
 import { useLSSPaymentMetaStore } from '@/stores/lss-payment-meta';
 import { useRoute, useRouter } from "vue-router";
 import { create_campaign, retrieve_campaign, update_campaign } from '@/api_v2/campaign';
 
 
 const sellerStore = useLSSSellerLayoutStore()
+const campaignDetailStore = useCampaignDetailStore();
 const paymentMetaStore = useLSSPaymentMetaStore()
 
 const route = useRoute()
@@ -438,7 +440,8 @@ const createCampaign = ()=>{
 
 
 	create_campaign(formData, sellerStore.alert).then(response => {
-
+		console.log("create campaign", response.data)
+		campaignDetailStore.campaign = response.data
 		router.push({name:'assign-product', params:{'campaign_id': response.data.id}})
 	})
 
