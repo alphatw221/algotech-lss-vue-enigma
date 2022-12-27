@@ -79,7 +79,7 @@
         "enter":"Enter",
         "promo_apply":"Discount Code %{code} is Applied",
         "referr_code":"Share Referral Code",
-        "promo_login":"Please social login to use promo code",
+        "promo_login":"Please login to use promo code",
         "points_redemption":"Points Redemption"
     },
     "add_item":{
@@ -116,7 +116,8 @@
     "login":{
         "guest_login":"Login as a guest",
         "continue":"Continue",
-        "social_login":"Social Login"
+        "social_login":"Social Login",
+        "err_login":"Oops! your browser is not supported, please open the Shopping Cart Link below on Safari or Chrome."
     },
     "wishlist_modal":{
         "title":"Notify me if the product becomes available again",

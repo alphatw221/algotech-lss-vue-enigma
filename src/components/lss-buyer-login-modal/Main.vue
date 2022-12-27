@@ -67,7 +67,7 @@ import { useRoute, useRouter } from "vue-router"
 import { ref, onMounted, onUnmounted, defineProps, defineEmits} from 'vue'
 import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout";
 const layoutStore = useLSSBuyerLayoutStore();
-const showReminder = ref(false)
+const showReminder = ref(true)
 const currentUrl = ref(window.location.href)
 
 const continueAsGuest = ()=>{
