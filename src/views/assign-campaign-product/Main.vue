@@ -881,11 +881,6 @@ thead th{
         opacity: .8;
     }
 
-	.ivu-page-options{
-		margin-top: 5px !important;
-		padding-top: 5px !important;
-	}
-
     .checkboxWord {
         display: block;
     }
