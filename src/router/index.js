@@ -454,6 +454,11 @@ const routes = [
         },
       },
       {
+        path: "search/:campaign_id?/cart/tiktok",
+        name: "buyer-search-tiktok-cart-page",
+        component: () => import('@/views/buyer-search-tiktok-cart/Main.vue'),
+      },
+      {
         path: "recaptcha/:type?/:object_id?",
         name: "buyer-recaptcha-page",
         component: () => import('@/views/buyer-recaptcha/Main.vue'),
