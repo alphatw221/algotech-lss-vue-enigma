@@ -607,7 +607,6 @@ onMounted(()=>{
       show.value = true
     })
   }
-  
 })
 
 onUnmounted(()=>{
@@ -617,15 +616,20 @@ const exactlength = (param) =>
   helpers.withParams(
     { type: 'exactlength', value: param },
     (value) => {
-      if (value.length === 0) return true
-      return value.length === param
+      var ecpay_enabled = shoppingCartStore.cart.campaign.meta_logistic.ecpay.enabled
+      console.log(ecpay_enabled)
+      console.log(value.length)
+      console.log(param)
+      if (value.length !== param && ecpay_enabled) return false
+      else return true
     }
 )
 const twCellPhoneBeginning = (value) => {
+  var ecpay_enabled = shoppingCartStore.cart.campaign.meta_logistic.ecpay.enabled
   if (value.length === 0) return true
-  if (value[0] !== "0") return false
+  if (value[0] !== "0" && ecpay_enabled) return false
   if (value.length === 1) return true
-  if (value[1] !== "9") return false
+  if (value[1] !== "9" && ecpay_enabled) return false
   return true
 }
 const specialCharacter = (value) => {
