@@ -617,9 +617,6 @@ const exactlength = (param) =>
     { type: 'exactlength', value: param },
     (value) => {
       var ecpay_enabled = shoppingCartStore.cart.campaign.meta_logistic.ecpay.enabled
-      console.log(ecpay_enabled)
-      console.log(value.length)
-      console.log(param)
       if (value.length !== param && ecpay_enabled) return false
       else return true
     }
