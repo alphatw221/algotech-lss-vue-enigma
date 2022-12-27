@@ -186,11 +186,10 @@
   </div>
   <Modal :show="showModal" backdrop="static">
       <ModalBody class="p-10 text-center">
-          <div class="mt-1">
-              <label for="regular-form-2" class="form-label" style="font-size: 1.2rem;">{{$t('shopping_cart.order_summary.promo_login')}}</label>
-          </div>
-          <div class="">
-              <button class="w-32 btn dark:border-darkmode-400 mt-7" @click="showModal =false; showLoginModal()">OK</button>
+          <div class="flex flex-col gap-2 justify-center">
+              <AlertOctagonIcon class="text-danger w-full h-32"/>
+              <label for="regular-form-2" class="form-label font-medium text-danger" style="font-size: 1.2rem;">{{$t('shopping_cart.order_summary.promo_login')}}</label>
+              <button class="w-32 btn btn-outline-danger dark:border-darkmode-400 mt-2 mx-auto" @click="showModal =false; showLoginModal()">OK</button>
           </div>
       </ModalBody>
   </Modal>
