@@ -1,4 +1,19 @@
 {   
+    "trial_register":{
+        "trial_signup":"註冊免費方案",
+        "subtitle":"免費",
+        "email":"電子信箱",
+        "first_name":"名字",
+        "last_name":"姓氏",
+        "country_code":"國碼",
+        "phone":"電話號碼",
+        "password":"密碼",
+        "confirm_password":"密碼確認",
+        "register":"註冊",
+        "back_to_login":"回到登入頁面",
+        "password_placeholder":"8-20 字元",
+        "code_options":"（%{country}）　＋%{number}"
+    },
     "tab":{
         "basic_info":"基本資料",
         "payment":"付款",

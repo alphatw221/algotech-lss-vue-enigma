@@ -10,7 +10,7 @@
         <img src="/src/assets/images/login-page/mobile_login_robot_hand.svg"  class="sm:hidden absolute top-1/4 right-20 z-10 -translate-y-1/3 rotate-3" />    
         <div class="flex relative flex-col items-center p-10 text-center z-0 center w-full h-3/4 sm:h-fit sm:w-[375px] right-50 top-1/4 sm:top-0 sm:translate-y-1/3 abosolute bg-white sm:opacity-95">
             <img src="/src/assets/images/lss-logo/LSS_logo_words.png" class="w-[200px]" />
-            <h3 class="text-[1.8rem] mx-auto my-10 font-medium" >{{ $t('login.seller')}}{{ $t('login.login') }}</h3>
+            <h3 class="text-[1.8rem] mx-auto my-6 font-medium" >{{ $t('login.seller')}}{{ $t('login.login') }}</h3>
             <form class="w-full flex-col flex gap-5 z-10">
                 <div class="relative"> 
                     <MailIcon class="absolute w-6 h-6 top-3 left-3 z-10 text-slate-400"/>
@@ -57,7 +57,7 @@ import { seller_general_login } from '@/api_v2/user';
 import FacebookLoginButton from '@/components/button/FacebookLoginButton.vue';
 import GoogleLoginButton from '@/components/button/GoogleLoginButton.vue';
 import { useLSSSellerLayoutStore } from '../../stores/lss-seller-layout';
-import {ref, onMounted, onBeforeMount, computed, getCurrentInstance } from 'vue'
+import {ref, onMounted, computed, getCurrentInstance } from 'vue'
 import {useRoute, useRouter} from 'vue-router'
 
 // import { useVuelidate } from "@vuelidate/core";
@@ -66,9 +66,6 @@ import {useRoute, useRouter} from 'vue-router'
 import { useCookies } from "vue3-cookies";
 const { cookies } = useCookies();
 
-onBeforeMount (()=>{
-    document.querySelector('body').setAttribute('style', 'padding-left: 0; padding-right: 0; overflow: hidden; height:100vh;')
-})
   
 onMounted(()=>{
     
