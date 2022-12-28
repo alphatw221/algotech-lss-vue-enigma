@@ -1,12 +1,12 @@
 <template>
-    <div class="py-5 sm:p-10 sm:py-5">
-        <div>
+    <div class="py-5 sm:p-5">
+        <div class="flex flex-row justify-start">
             <input 
-                class="form-check-input w-[1.5rem] h-[1.5rem]" 
+                class="form-check-input w-[1.5rem] h-[1.5rem] my-auto" 
                 type="checkbox" 
                 v-model="deliverySettings.is_self_delivery_enabled"
             />
-            <label class="ml-3 form-label">{{ $t('settings.delivery_form.enabled') }}</label>
+            <label class="ml-3 form-label my-auto">{{ $t('settings.delivery_form.enabled') }}</label>
         </div>
         <div class="flex flex-col gap-1 text-base my-5 intro-y sm:gap-3 -z-50">
             <div class="flex flex-col mt-2 text-[16px] gap-2"> 
