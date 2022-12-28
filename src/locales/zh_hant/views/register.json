@@ -1,4 +1,20 @@
 {   
+    "trial_register":{
+        "trial_signup":"註冊免費方案",
+        "subtitle":"免費",
+        "email":"電子信箱",
+        "first_name":"名字",
+        "last_name":"姓氏",
+        "country_code":"國碼",
+        "phone":"電話號碼",
+        "password":"密碼",
+        "confirm_password":"密碼確認",
+        "register":"註冊",
+        "back_to_login":"回到登入頁面",
+        "password_placeholder":"8-20 字元",
+        "code_options":"（%{country}）　＋%{number}",
+        "success_register":"您的帳號已成功註冊!"
+    },
     "tab":{
         "basic_info":"基本資料",
         "payment":"付款",
@@ -110,6 +126,7 @@
     },
     "confirm":{
         "succeeded":"付款完成",
+        "Customer Name":"姓名",
         "Email":"電子郵件",
         "Customer":"姓名",
         "Password":"密碼",
@@ -118,7 +135,9 @@
         "Subscription Period":"訂閱期限",
         "Subscription End Date":"方案期限",
         "download":"下載電子收據",
-        "thankyou":"感謝您的註冊，您的帳號已啟用！請使用您的電子信箱登入" 
+        "thankyou":"感謝您的註冊，您的帳號已啟用！請使用您的電子信箱登入", 
+        "thankyou1":"感謝您的註冊，您的帳號已啟用！", 
+        "thankyou2":"請使用您的電子信箱登入" 
     },
     "invalid_data":"輸入資料無效",
     "input_err":"輸入錯誤",
