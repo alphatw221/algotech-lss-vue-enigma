@@ -228,8 +228,8 @@
 										<!-- <div class="w-full lg:w-fit lg:text-sm whitespace-nowrap"> ${{product[column.key]}} </div> -->
 										<div class="flex place-content-end relative w-full p-0 md:w-32 lg:place-content-center">
 											<span class="my-auto mr-1 text-[12px]" v-if="campaignDetailStore.campaign"> {{campaignDetailStore.campaign.currency}} </span> 
-											<input class="form-control w-[100%] text-right p-0" min="1" type="number" v-model="product[column.key]"  :placeholder="product[column.key]"/>
-											<span class="my-auto mr-1 text-[12px]" v-if="campaignDetailStore.campaign"> {{campaignDetailStore.campaign.price_unit?$t(`global.price_unit.${campaignDetailStore.campaign.price_unit}`):''}} </span>
+											<input class="form-control w-full text-right p-1" min="1" type="number" v-model="product[column.key]"  :placeholder="product[column.key]"/>
+											<span class="my-auto text-[12px]" v-if="campaignDetailStore.campaign"> {{campaignDetailStore.campaign.price_unit?$t(`global.price_unit.${campaignDetailStore.campaign.price_unit}`):''}} </span>
 										</div>
 									</td>
 
@@ -244,17 +244,16 @@
 					
 					
 				</div>
-				<div class="intro-y flex flex-row flex-wrap sm:flex-nowrap items-center justify-between">
-					<Page 
-						class="mx-auto my-3" 
-						:total="dataCount"
-						:page-size="pageSize"
-						show-sizer :page-size-opts="[10,20,50,100]" 
-						@on-change="changePage"
-						@on-page-size-change="changePageSize"
-					/>
-					
-				</div> 
+
+				<Page 
+					class="mx-auto my-3 flex flex-row flex-wrap justify-center gap-1" 
+					:total="dataCount"
+					:page-size="pageSize"
+					show-sizer :page-size-opts="[10,20,50,100]" 
+					@on-change="changePage"
+					@on-page-size-change="changePageSize"
+				/>
+
 				<div class="flex items-center justify-end my-5 mb-14">
 					<button v-if="route.name == 'assign-product'" type="button" class="btn btn-secondary inline-flex w-20 md:w-32 shadow-md ml-auto mr-1 md:mr-5" @click="router.push({name: 'campaign-list'})">{{$t('assign_product.skip')}}</button>
 					<button type="button" class="btn btn-primary inline-flex w-20 md:w-32 shadow-md mr-1 md:mr-5" @click="openTab='confirm'">{{$t('assign_product.add')}}</button>
@@ -389,8 +388,8 @@
 										<!-- <div class="w-full lg:w-fit lg:text-sm whitespace-nowrap"> ${{product[column.key]}} </div> -->
 										<div class="flex place-content-end relative w-full md:w-32 lg:place-content-center">
 											<span class="my-auto mr-1 text-[12px]" v-if="campaignDetailStore.campaign"> {{campaignDetailStore.campaign.currency}} </span> 
-											<input class="form-control w-[100%] text-right p-0" min="1" type="number" v-model="product[column.key]" :placeholder="product[column.key]" />
-											<span class="my-auto mr-1 text-[12px]" v-if="campaignDetailStore.campaign"> {{campaignDetailStore.campaign.price_unit?$t(`global.price_unit.${campaignDetailStore.campaign.price_unit}`):''}} </span>
+											<input class="form-control w-full text-right p-1" min="1" type="number" v-model="product[column.key]" :placeholder="product[column.key]" />
+											<span class="my-auto text-[12px]" v-if="campaignDetailStore.campaign"> {{campaignDetailStore.campaign.price_unit?$t(`global.price_unit.${campaignDetailStore.campaign.price_unit}`):''}} </span>
 											<div class="text-danger absolute z-10 -bottom-5 right-0 sm:right-auto sm:left-0 whitespace-nowrap z-10" v-if="errorMessages[product_index]&& errorMessages[product_index][column.key]">{{  $t(`assign_product.product_table.errors.${errorMessages[product_index][column.key]}`)}}</div>
 										</div>
 									</td>
@@ -472,7 +471,7 @@ const router = useRouter();
 
 const openTab = ref('select')
 const currentPage = ref(1)
-const pageSize = ref(50)
+const pageSize = ref(20)
 const totalPage = ref(1)
 const dataCount = ref(0)
 
@@ -509,11 +508,7 @@ let isSelectedProductsValid=false
 onMounted(() => {
 	getCampaignProductDict()
 	search()
-	// retrieve_campaign(route.params.campaign_id, layoutStore.alert).then(res=>{
-	// 	console.log(res.data)
-	// 	campaignDetailStore.campaign = res.data
-	// 	return search()
-	// })
+	
 	if(props.templateInModal){
 		eventBus.on('show_assign_product_view',()=>{
 			getCampaignProductDict()
@@ -804,7 +799,7 @@ const clearAllData = ()=>{
     selectedProductDict.value = {}
     openTab.value = 'select'
     currentPage.value = 1
-    pageSize.value=50
+    pageSize.value=20
     dataCount.value =0
 	totalPage.value = 1
 	campaignProductOrderCodeDict.value = {}
@@ -916,6 +911,7 @@ thead th{
     }
 
     td:before {
+		content: attr(data-content);
         position: absolute;
         min-height: 40px;
         left: 6px;
@@ -1030,6 +1026,14 @@ thead th{
         margin-top: 0px !important;
     }
     .removable{
+        min-height: 25px !important;
+		padding-right: 10px !important;
+    }
+	.pinned:before {
+        content: attr(data-content);
+        margin-top: 0px !important;
+    }
+    .pinned{
         min-height: 25px !important;
 		padding-right: 10px !important;
     }

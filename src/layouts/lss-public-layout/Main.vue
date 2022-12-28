@@ -55,6 +55,14 @@ const browserLangToVueLang = ref({
     "vi": "vi"
 })
 
+onBeforeMount (()=>{
+    document.querySelector('body').setAttribute('style', 'padding-left: 0; padding-right: 0;')
+    if(window.innerHeight > 800){
+        document.querySelector('body').setAttribute('style', 'padding-left: 0; padding-right: 0; overflow: hidden; height:100vh;')
+    }
+    
+})
+
 onMounted(() => {
   setLanguage();
 })
@@ -63,6 +71,8 @@ const companyName = import.meta.env.VITE_COMPANY_NAME
 const homeUrl = import.meta.env.VITE_HOME_URL
 const termsUrl = import.meta.env.VITE_TERMS_OF_SERVICE_URL
 const privacyPolicyUrl = import.meta.env.VITE_PRIVACY_POLICY_URL
+
+
 
 const setLanguage = ()=>{
     console.log(window.navigator.language)

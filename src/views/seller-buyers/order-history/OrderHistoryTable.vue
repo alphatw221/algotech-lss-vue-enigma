@@ -55,7 +55,7 @@
 	</div>
   <div class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap items-center">
     <Page
-      class="mx-auto my-3"
+    class="mx-auto my-3 flex flex-row flex-wrap justify-center gap-1 mb-10"
       :total="dataCount"
       :page-size="pageSize"
       @on-change="changePage"

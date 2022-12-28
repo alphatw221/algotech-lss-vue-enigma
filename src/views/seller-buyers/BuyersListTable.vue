@@ -80,7 +80,7 @@
   </div>
   <div class="flex flex-wrap items-center intro-y sm:flex-row sm:flex-nowrap">
     <Page 
-          class="mx-auto my-3" 
+    class="mx-auto my-3 flex flex-row flex-wrap justify-center gap-1 mb-10"
           :total="dataCount"
           :page-size="page_size"
           show-sizer :page-size-opts="[10,20,50,100]" 

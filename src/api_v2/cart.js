@@ -49,6 +49,11 @@ export const buyer_get_cvs_map = (cart_oid,data, toastify=null) => {
     return createAxios(toastify).post(`/api/v2/cart/buyer/cvs_map/${cart_oid}/`,data)
 }
 
+export const buyer_search_tiktok_cart = (recaptcha_token, campaign_id, customer_name, toastify=null) => {
+    return createAxios(toastify).get(`/api/v2/cart/buyer/search/${campaign_id}/tiktok?recaptcha_token=${recaptcha_token}&customer_name=${customer_name}`)
+}
+
+
 
 //-------------------------------seller----------------------------------
 export const seller_retrieve_cart = (cart_id, toastify=null) => {

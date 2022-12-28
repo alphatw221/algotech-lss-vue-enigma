@@ -9,14 +9,27 @@
             <label class="ml-3 form-label">{{ $t('settings.delivery_form.enabled') }}</label>
         </div>
         <div class="flex flex-col gap-1 text-base my-5 intro-y sm:gap-3 -z-50">
-            <div class="flex flex-col mt-2 text-[16px]"> 
-                <label class="w-full mr-1 text-base whitespace-nowrap">{{ $t('settings.delivery.charge') }}</label>
-                <input 
-                    class="w-full form-control h-[35px] sm:h-[42px]"
-                    type="number" 
-                    v-model="deliverySettings.delivery_charge"
-                    @blur="v.delivery_charge.$touch()"
-                />
+            <div class="flex flex-col mt-2 text-[16px] gap-2"> 
+                <label class="w-fit text-base whitespace-nowrap">{{ $t('settings.delivery.charge') }}</label>
+                <div class="flex flex-row gap-5">
+                    <div class="flex flex-col"> 
+                        <label class="w-fit text-base whitespace-nowrap">{{ $t('settings.delivery.title') }}</label>
+                        <input 
+                            class="w-32 form-control h-[35px] sm:h-[42px]"
+                            type="text" 
+                            v-model="deliverySettings.title"
+                        />
+                    </div>
+                    <div class="flex flex-col"> 
+                        <label class="w-fit text-base whitespace-nowrap">{{ $t('settings.delivery.price') }}</label>
+                        <input 
+                            class="w-full form-control h-[35px] sm:h-[42px]"
+                            type="number" 
+                            v-model="deliverySettings.delivery_charge"
+                            @blur="v.delivery_charge.$touch()"
+                        />
+                    </div>
+                </div>
                 
             </div>
             <!-- <div class="flex flex-row flex-wrap gap-5 justify-between mb-5 lg:w-5/6">
@@ -127,10 +140,6 @@
                             <option :value="cvs_option.key">{{ $t('settings.delivery.own_delivery.cvs_map')+":"+cvs_option.name }}</option>
                         </template>
                     </select>
-                    <!-- <label class="block text-danger text-[12px]" 
-                        v-for="error, index in v.additional_delivery_options.$each.$response.$errors[index].type"
-                        :key="index"
-                        >{{ $t(`settings.delivery.errors.${error.$message.replace(/\s/g, "_")}`) }}</label> -->
                 </div>
                 
                 <button 
@@ -197,6 +206,7 @@ const csvData = ref({})
 
 const deliverySettings = reactive({
     delivery_charge : 0,
+    title: '',
     is_self_delivery_enabled: false,
     is_additional_delivery_charge : true,
     additional_delivery_options: [],

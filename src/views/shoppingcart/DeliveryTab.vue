@@ -50,7 +50,8 @@
                       <template v-for="(item, key, index) in shoppingCartStore.cart.campaign.meta_logistic?.ecpay?.logistics_sub_type" :key="key">
                         <div v-if="item?.enabled == true" class="flex flex-row flex-wrap cursor-pointer px-10 py-5 my-4 border-2 rounded-lg form-check justify-between"
                         :class="{'border-slate-600': shipping_option_index_computed == key}"
-                        @click="select_shipping_method('ecpay') & (shipping_option_index_computed = key)"
+
+                        @click="select_shipping_method('ecpay')& (shipping_option_index_computed = key)"
                         >
                           <div class="ml-2 text-lg">{{ $t(`settings.delivery_form.ecpay.logistics_sub_type.${key}`) }}</div>
                           <div v-if="key !== 'TCAT'" class="flex flex-row gap-4 -p-6">
@@ -86,7 +87,7 @@
                       :class="{'border-slate-600': shipping_option_index_computed == null}"
                       @click="select_shipping_method('delivery') & (shipping_option_index_computed = null)"
                       >
-                      <div class="ml-2 text-lg">{{$t('shopping_cart.delivery_tab.option.default')}}</div>
+                      <div class="ml-2 text-lg">{{ !['',' ',undefined,null].includes(shoppingCartStore.cart.campaign.meta_logistic?.title) ? shoppingCartStore.cart.campaign.meta_logistic?.title : $t('shopping_cart.delivery_tab.option.default')}}</div>
                       <div class="ml-auto">
                         <label class="form-check-label">
                         {{ shoppingCartStore.cart.campaign.currency }}
@@ -290,7 +291,7 @@
             <div class="col-span-8 lg:col-span-4">
               <input id="regular-form-2" type="text"
                 class="col-span-8 form-control lg:col-span-4 full-name" 
-                placeholder="中文 2~5 個字, 英文 4~10 個字"
+                :placeholder="$t('shopping_cart.delivery_tab.name_placeholder')"
                 :class="{ 'border-danger': reciever_validate.shipping_first_name.$error }"
                 v-model.trim="reciever_validate.shipping_first_name.$model" @blur="reciever_validate.shipping_first_name.$touch"/>
                 <template v-for="(error, index) in reciever_validate.shipping_first_name.$errors" :key="index">
@@ -334,20 +335,7 @@
               </template>
           </div>
           
-          <label for="regular-form-2" class="col-span-4 form-label lg:col-span-2 my-auto">{{$t('shopping_cart.delivery_tab.phone')}}</label>
-          <div class="col-span-8 lg:col-span-4">
-          <input id="regular-form-2" type="tel"
-            class="form-control"
-            :class="{ 'border-danger': reciever_validate.shipping_phone.$error }"
-            placeholder="ex: 02xxxxxxxx"
-            v-model.trim="reciever_validate.shipping_phone.$model" />
-            <template v-for="(error, index) in reciever_validate.shipping_phone.$errors" :key="index">
-              <label class="mt-2 text-danger">
-                {{ error.$message }}
-              </label>
-              <br/>
-            </template>
-          </div>
+          
           <label for="regular-form-2" class="col-span-4 form-label lg:col-span-2 my-auto">{{$t('shopping_cart.delivery_tab.cell_phone')}}</label>
           <div class="col-span-8 lg:col-span-4">
           <input id="regular-form-2" type="tel"
@@ -433,7 +421,6 @@ import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout"
 import { useTwZipcodeStore } from "@/stores/tw-zipcode"
 import { useCookies } from 'vue3-cookies'
 import i18n from "@/locales/i18n"
-import { ModalHeader } from "../../global-components/modal";
 const { cookies } = useCookies()
 const route = useRoute();
 const router = useRouter();
@@ -456,7 +443,6 @@ const props = defineProps({
         default: true,
   },
 })
-
 const shipping_option_index = ref("No")
 const pickup_select_index = ref(null)
 const shipping_info= ref({
@@ -464,7 +450,6 @@ const shipping_info= ref({
       shipping_method: "delivery",
       shipping_first_name: "",
       shipping_email: "",
-      shipping_phone: "",
       shipping_cellphone: "",
       shipping_gender: "",
       shipping_company: "",
@@ -519,6 +504,7 @@ const select_shipping_method = (method) => {
   deliveryColor.value = method !== 'pickup'? 'white' :'#131C34'
   pickupColor.value = method == 'pickup'? 'white' :'#131C34'
 }
+const deliveryCurrentChosenOption = ref(null)
 const shipping_method_computed = computed({
   get:()=>{
     return shipping_info.value.shipping_method
@@ -526,11 +512,13 @@ const shipping_method_computed = computed({
   ,set:method=>{
     shipping_info.value.shipping_method=method
     shoppingCartStore.shipping_info.shipping_method=method        //order summary compute this
-    if (method !== "pickup") {
-      shoppingCartStore.shipping_info.shipping_option_index = shipping_option_index.value
+    if (method !== "pickup" && method !== "ecpay") {
+      shoppingCartStore.shipping_info.shipping_option_index = deliveryCurrentChosenOption.value
+      shipping_option_index_computed.value = deliveryCurrentChosenOption.value
     } 
     if (method === "pickup") {
       if (shoppingCartStore.cart.campaign.meta_logistic?.pickup_options.length > 0) {
+        deliveryCurrentChosenOption.value = shipping_option_index.value != "No" ? shipping_option_index.value : null
         shoppingCartStore.shipping_info.shipping_option_index = 0
         shipping_option_index_computed.value = 0
       } else {
@@ -556,7 +544,7 @@ const shipping_option_index_computed = computed({
       showAddressForm.value = false
     
     // delivery
-    } else if (shipping_info.value.shipping_method=='delivery') {
+    } else if (shipping_info.value.shipping_method=='delivery' && typeof index !== 'string') {
       shipping_info.value.shipping_option = index != null ? shoppingCartStore.cart.campaign.meta_logistic.additional_delivery_options[index]?.title : ''
       shipping_info.value.shipping_option_data = index == null ? {} : JSON.parse(JSON.stringify(shoppingCartStore.cart.campaign.meta_logistic.additional_delivery_options[index]))
       if(shipping_option_index.value == shoppingCartStore.cart.meta.ecpay_cvs?.shipping_option_index) {
@@ -575,7 +563,6 @@ const shipping_option_index_computed = computed({
       } else {
         shipping_info.value.shipping_option_data = {}
       }
-      
       Object.assign(shipping_info.value.shipping_option_data,{
         'LogisticsSubType': shipping_option_index.value,
         'type': shoppingCartStore.cart.campaign.meta_logistic[shipping_info.value.shipping_method]?.logistics_sub_type[shipping_option_index.value].type,
@@ -590,7 +577,7 @@ const shipping_option_index_computed = computed({
         showAddressForm.value = false
       }
     }
-    console.log(shipping_info.value.shipping_option_data)
+    // console.log(shipping_info.value.shipping_option_data)
   }
 })
 
@@ -620,7 +607,6 @@ onMounted(()=>{
       show.value = true
     })
   }
-  
 })
 
 onUnmounted(()=>{
@@ -630,15 +616,17 @@ const exactlength = (param) =>
   helpers.withParams(
     { type: 'exactlength', value: param },
     (value) => {
-      if (value.length === 0) return true
-      return value.length === param
+      var ecpay_enabled = shoppingCartStore.cart.campaign.meta_logistic.ecpay.enabled
+      if (value.length !== param && ecpay_enabled) return false
+      else return true
     }
 )
 const twCellPhoneBeginning = (value) => {
+  var ecpay_enabled = shoppingCartStore.cart.campaign.meta_logistic.ecpay.enabled
   if (value.length === 0) return true
-  if (value[0] !== "0") return false
+  if (value[0] !== "0" && ecpay_enabled) return false
   if (value.length === 1) return true
-  if (value[1] !== "9") return false
+  if (value[1] !== "9" && ecpay_enabled) return false
   return true
 }
 const specialCharacter = (value) => {
@@ -662,37 +650,24 @@ const bytesBtwLength = (min,num) => (value) => {
 }
 
 const reciever_rules = computed(()=>{
-    return{
-      shipping_first_name: {
-        required: helpers.withMessage(i18n.global.t("vulidate.required"), required),
-        // maxLength: helpers.withMessage(i18n.global.t("vulidate.exceed_maximum_length", { number:5 }), maxLength(5)),
-        bytesBtwLength: helpers.withMessage(i18n.global.t("vulidate.name_between_length", { number:'4-10' }), bytesBtwLength(4,10)),
-        specialCharacter: helpers.withMessage(i18n.global.t("vulidate.contains_special_characters") + " ^ ‘ ` ! @ # % & * + ” < > | _ [ ]", specialCharacter)
-      },
-      shipping_phone: {
-        integer: helpers.withMessage(i18n.global.t("vulidate.only_integer"), integer),
-        requiredIf: helpers.withMessage(i18n.global.t("vulidate.required_either_one"), 
-          requiredUnless(function() {
-            return shipping_info.value.shipping_cellphone !== ""
-          })
-        ),
-        maxLength: helpers.withMessage(i18n.global.t("vulidate.exceed_maximum_length", { number:10 }), maxLength(10)),
-      },
-      shipping_cellphone: {
-        integer: helpers.withMessage(i18n.global.t("vulidate.only_integer"), integer),
-        requiredIf: helpers.withMessage(i18n.global.t("vulidate.required_either_one"), 
-          requiredUnless(function() {
-            return shipping_info.value.shipping_phone !== ""
-          })
-        ),
-        cellphoneLength: helpers.withMessage(i18n.global.t("vulidate.exact_number_length", {number:10}), exactlength(10)),
-        twCellPhoneBeginning: helpers.withMessage(i18n.global.t("vulidate.tw_cellphone_begining"), twCellPhoneBeginning)
-      },
-      shipping_email: {
-        required: helpers.withMessage(i18n.global.t("vulidate.required"), required),
-        email: helpers.withMessage(i18n.global.t("vulidate.invalid_email"), email),
-        maxLength: helpers.withMessage(i18n.global.t("vulidate.exceed_maximum_length", { number:100 }), maxLength(100)),
-      }
+  return{
+    shipping_first_name: {
+      required: helpers.withMessage(i18n.global.t("vulidate.required"), required),
+      // maxLength: helpers.withMessage(i18n.global.t("vulidate.exceed_maximum_length", { number:5 }), maxLength(5)),
+      bytesBtwLength: helpers.withMessage(i18n.global.t("vulidate.name_between_length", { number:'4-10' }), bytesBtwLength(4,10)),
+      specialCharacter: helpers.withMessage(i18n.global.t("vulidate.contains_special_characters") + " ^ ‘ ` ! @ # % & * + ” < > | _ [ ]", specialCharacter)
+    },
+    shipping_cellphone: {
+      integer: helpers.withMessage(i18n.global.t("vulidate.only_integer"), integer),
+      required: helpers.withMessage(i18n.global.t("vulidate.required"), required),
+      cellphoneLength: helpers.withMessage(i18n.global.t("vulidate.exact_number_length", {number:10}), exactlength(10)),
+      twCellPhoneBeginning: helpers.withMessage(i18n.global.t("vulidate.tw_cellphone_begining"), twCellPhoneBeginning)
+    },
+    shipping_email: {
+      required: helpers.withMessage(i18n.global.t("vulidate.required"), required),
+      email: helpers.withMessage(i18n.global.t("vulidate.invalid_email"), email),
+      maxLength: helpers.withMessage(i18n.global.t("vulidate.exceed_maximum_length", { number:100 }), maxLength(100)),
+    }
   }
 });
 
@@ -759,20 +734,19 @@ const get_c2c_map = (storeType, shipping_method, shipping_option_index) =>{
 
 const proceed_to_payment = () =>{
   
-  if(shipping_info.value.shipping_method !== 'pickup'){
-    if(shipping_option_index_computed.value === 'No'){
-      layoutStore.alert.showMessageToast('選擇運送方式')
-      return
-    }
-
-    else if(shipping_info.value.shipping_option_data['logisticsType'] == 'CVS' && !shipping_info.value.shipping_option_data['cvs_store_id']){
-      layoutStore.alert.showMessageToast('選取店到店門市')
-      return
-    }
+  if(shipping_info.value.shipping_method !== 'pickup' && shipping_option_index_computed.value === 'No'){
+    layoutStore.alert.showMessageToast('選擇運送方式')
+    return
   }
-  if (shipping_info.value.shipping_method === 'pickup' && shipping_option_index.value === null){
+
+  if (shipping_info.value.shipping_method === 'pickup' && shipping_option_index.value === 'No'){
     layoutStore.alert.showMessageToast('選擇取貨店鋪')
       return
+  }
+
+  if((shipping_info.value.shipping_option_data['logisticsType'] == 'CVS' || shipping_info.value.shipping_option_data['is_cvs']) && !shipping_info.value.shipping_option_data['cvs_store_id']){
+    layoutStore.alert.showMessageToast('選取店到店門市')
+    return
   }
 
   // pickup, ecpay cvs, self delivery csv. These options doesn't need validate delivery address
@@ -799,7 +773,7 @@ const proceed_to_payment = () =>{
     layoutStore.alert.showMessageToast(i18n.global.t('shopping_cart.invalid_user_info'))
     return
   }
-  console.log(shipping_info.value)
+  // console.log(shipping_info.value)
   checkoutLoading.value = true
   buyer_checkout_cart(route.params.cart_oid, {shipping_data:shipping_info.value, points_used:shoppingCartStore.points_used}, layoutStore.alert)
   .then(res=>{
