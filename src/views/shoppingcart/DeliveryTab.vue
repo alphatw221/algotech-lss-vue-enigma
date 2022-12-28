@@ -396,7 +396,7 @@
     <Modal :show="checkoutLoading" @hidden="!checkoutLoading" class="text-center" backdrop="static">
         <ModalBody class="">
           <div class="flex flex-col"> 
-            <p class="text-lg text-primary font-medium"> Payment processing </p>
+            <p class="text-lg text-primary font-medium"> {{$t('shopping_cart.delivery_tab.processing')}} </p>
             <lottie-player class="mx-auto" src="https://assets10.lottiefiles.com/packages/lf20_vIyvPR.json" loop background="transparent"  speed="1"  style="width: 300px; height: 300px;"   autoplay></lottie-player>
           </div>
         </ModalBody>

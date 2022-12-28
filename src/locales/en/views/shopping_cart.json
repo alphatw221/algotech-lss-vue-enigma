@@ -47,7 +47,8 @@
         "note":"Delivery and Collection Note",
         "remark":"Remark",
         "previous":"Previous",
-        "proceed_to_payment":"Proceed to Payment"
+        "proceed_to_payment":"Proceed to Payment",
+        "processing":"Payment processing"
     },
     "table":{
         "update":"Update",

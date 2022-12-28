@@ -3,6 +3,7 @@
         <div class="text-2xl text-base text-center my-5"> {{$t('order_detail.order')}} </div>
 
         <div class="grid grid-cols-12 gap-5">
+            
             <!-- ORDER_SHIPPING_INFO_CARD -->
             <div class="col-span-12 lg:col-span-6 2xl:col-span-6">
                 <div class="w-full mx-2 ">
@@ -38,18 +39,22 @@
             
             <!-- ORDER_DELIVERY_PAYMENT_INFO_CARD -->
             <div class="col-span-12 lg:col-span-6 2xl:col-span-6">
-                <div class="box p-6 border-2 border-secondary"> 
+                <div class="box p-6 border-2 border-secondary h-full"> 
                     <div class="flex mb-4 dark:border-darkmode-400">
                         <span class="text-lg">{{$t('order_detail.order_info')}}</span>   
                     </div>
-                    <div class="grid grid-cols-6 gap-2">
-                        <div class="col-start-1 col-span-2 py-2">{{$t('order_detail.payment.method')}}</div>
-                        <div class="col-start-3 col-span-3 py-2" v-if="buyerOrderStore.order.payment_method">{{ buyerOrderStore.order.payment_method == 'direct_payment' ? `${$t('order_detail.payment.Direct Payment')} - ${buyerOrderStore.order.meta.account_mode}` : $t(`order_detail.payment.${buyerOrderStore.order.payment_method}`) }}</div>
-                        <template v-if="buyerOrderStore.order.meta">
-                            <div class="col-start-1 col-span-2 py-2" v-if="buyerOrderStore.order.meta.InvoiceNumber">發票號碼</div>
-                            <div class="col-start-3 col-span-3 py-2" v-if="buyerOrderStore.order.meta.InvoiceNumber">{{buyerOrderStore.order.meta.InvoiceNumber}}</div>
+                    <div class="grid grid-cols-6 gap-3">
+
+                        <div class="col-start-1 col-span-2">{{$t('order_detail.payment.method')}}</div>
+                        <div class="col-start-3 col-span-3" v-if="buyerOrderStore.order.payment_method">
+                            {{ buyerOrderStore.order.payment_method == 'direct_payment' ? `${$t('order_detail.payment.Direct Payment')} - ${buyerOrderStore.order.meta.account_mode}` : $t(`order_detail.payment.${buyerOrderStore.order.payment_method}`) }}</div>
+                        
+                        <template v-if="buyerOrderStore.order.meta?.InvoiceNumber">
+                            <div class="col-start-1 col-span-2">{{$t('order_detail.payment.invoice')}}</div>
+                            <div class="col-start-3 col-span-3">{{buyerOrderStore.order.meta.InvoiceNumber}}</div>
                         </template>
-                        <template v-if="buyerOrderStore.order.payment_method">
+
+                        <template v-if="buyerOrderStore.order.payment_method == 'direct_payment'">
                             <div class="col-start-1 col-span-2 py-3">{{$t('order_detail.payment.last_five_digits')}}</div>
                             <div v-if="buyerOrderStore.order.meta.last_five_digit == '' && !buyerOrderStore.order.meta.receipt_image" class="col-start-3 col-span-3 py-3">{{$t('order_detail.payment.no_record')}} </div>
                             <div v-else class="col-start-3 col-span-3 py-3">{{buyerOrderStore.order.meta.last_five_digit}}</div>
@@ -65,31 +70,36 @@
                             </div>
                         </template>
                         
-                        <div class="col-start-1 col-span-2 py-3">{{$t('order.payment_status')}}</div>
-                        <div class="col-start-3 col-span-3 py-3">{{$t(`order.payment_status_options.${buyerOrderStore.order.payment_status}`)}}</div>
+                        <div class="col-start-1 col-span-2 ">{{$t('order.payment_status')}}</div>
+                        <div class="col-start-3 col-span-3">{{$t(`order.payment_status_options.${buyerOrderStore.order.payment_status}`)}}</div>
+
+                        <template v-if="!buyerOrderStore.user_subscription?.user_plan?.hide?.order_delivery_status"> 
+                            <div class="col-start-1 col-span-2">{{$t('order.delivery_status')}}</div>
+                            <div class="col-start-3 col-span-3">{{$t(`order.delivery_status_options.${buyerOrderStore.order.delivery_status}`)}}</div>
+                        </template>
 
                         <template v-if="buyerOrderStore.order.shipping_method === 'pickup'">
-                            <div class="col-start-1 col-span-2 py-2">{{$t('order_detail.delivery.information')}}</div>
-                            <div class="col-start-3 col-span-3 py-2">{{$t('order_detail.delivery.pickup')}}
+                            <div class="col-start-1 col-span-2">{{$t('order_detail.delivery.information')}}</div>
+                            <div class="col-start-3 col-span-3">{{$t('order_detail.delivery.pickup')}}
                                 {{buyerOrderStore.order.shipping_date_time!==null?'('+new Date(buyerOrderStore.order.shipping_date_time).toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric",hour: '2-digit', minute: '2-digit'})+')':''}}
                             </div>
 
-                            <div class="col-start-1 col-span-2 py-2">{{$t('order_detail.delivery.pickup_store')}}</div>
-                            <div class="col-start-3 col-span-3 py-2">{{buyerOrderStore.order?.shipping_option_data?.name}}</div> 
+                            <div class="col-start-1 col-span-2">{{$t('order_detail.delivery.pickup_store')}}</div>
+                            <div class="col-start-3 col-span-3">{{buyerOrderStore.order?.shipping_option_data?.name}}</div> 
 
                             
-                            <div class="col-start-1 col-span-2 py-2">{{$t('order_detail.delivery.pickup_address')}}</div>
-                            <div class="col-start-3 col-span-3 py-2">{{buyerOrderStore.order?.shipping_option_data?.address}}</div>
+                            <div class="col-start-1 col-span-2">{{$t('order_detail.delivery.pickup_address')}}</div>
+                            <div class="col-start-3 col-span-3">{{buyerOrderStore.order?.shipping_option_data?.address}}</div>
 
                         </template>
                         <template v-else-if="buyerOrderStore.order.shipping_method === 'delivery'">
-                            <div class="col-start-1 col-span-2 py-3">{{$t('order_detail.delivery.information')}}</div>
-                            <div class="col-start-3 col-span-3 py-3">{{$t('order_detail.delivery.delivery')}}：{{ buyerOrderStore.order.shipping_option_data?.title|| $t('order_detail.delivery.default') }}
+                            <div class="col-start-1 col-span-2">{{$t('order_detail.delivery.information')}}</div>
+                            <div class="col-start-3 col-span-3">{{$t('order_detail.delivery.delivery')}}：{{ buyerOrderStore.order.shipping_option_data?.title|| $t('order_detail.delivery.default') }}
                                 {{buyerOrderStore.order.shipping_date_time!==null?'('+new Date(buyerOrderStore.order.shipping_date_time).toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric",hour: '2-digit', minute: '2-digit'})+')':''}}
                             </div>
 
-                            <div class="col-start-1 col-span-2 py-3">{{$t('order_detail.delivery.address')}}</div>
-                            <div class="col-start-3 col-span-3 py-3">
+                            <div class="col-start-1 col-span-2">{{$t('order_detail.delivery.address')}}</div>
+                            <div class="col-start-3 col-span-3">
                                 {{buyerOrderStore.order.shipping_address_1}} ,
                                 {{buyerOrderStore.order.shipping_location}} ,
                                 {{buyerOrderStore.order.shipping_region}} ,
@@ -97,9 +107,20 @@
                                 
                             </div>
                         </template>
-
-                        <div class="col-start-1 col-span-2 py-3" v-if="!buyerOrderStore.user_subscription?.user_plan?.hide?.order_delivery_status">{{$t('order.delivery_status')}}</div>
-                        <div class="col-start-3 col-span-3 py-3" v-if="!buyerOrderStore.user_subscription?.user_plan?.hide?.order_delivery_status">{{$t(`order.delivery_status_options.${buyerOrderStore.order.delivery_status}`)}}</div>
+                        <template v-else-if="buyerOrderStore.order.shipping_method === 'ecpay'"> 
+                            <template v-if="buyerOrderStore.order.shipping_option_data.logisticsType == 'CVS'"> 
+                                <div class="col-start-1 col-span-5 sm:col-span-2">{{$t('order_detail.delivery.cvs')}}</div>
+                                <div class="col-start-2 col-span-5 sm:col-start-3 sm:col-span-4">{{ buyerOrderStore.order.shipping_option_data?.cvs_store_name }}</div>
+                                <div class="col-start-2 col-span-5 sm:col-start-3 sm:col-span-4 -my-2">{{ buyerOrderStore.order.shipping_option_data?.cvs_address }}</div>
+                            </template>
+                            <template v-else> 
+                                <div class="col-start-1 col-span-2">{{$t('order_detail.delivery.address')}}</div>
+                                <div class="col-start-3 col-span-4">
+                                    {{buyerOrderStore.order.shipping_postcode}} 
+                                    {{buyerOrderStore.order.shipping_region}}, {{buyerOrderStore.order.shipping_location}}, {{buyerOrderStore.order.shipping_address_1}}
+                                </div>
+                            </template>
+                        </template>
                     </div>
                 </div>
             </div>
@@ -239,7 +260,7 @@ onMounted(() => {
             buyerOrderStore.user_subscription = JSON.parse(JSON.stringify(res.data.user_subscription))
             i18n.locale = res.data.campaign.lang
             detailLoading.value = false
-            // console.log(res.data)
+            console.log(buyerOrderStore.user_subscription)
         }
     )
 })
