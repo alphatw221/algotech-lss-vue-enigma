@@ -1,4 +1,20 @@
 {   
+    "trial_register":{
+        "trial_signup":"Free Trial Sign Up",
+        "subtitle":"No payment required.",
+        "email":"Email",
+        "first_name":"First Name",
+        "last_name":"Last Name",
+        "country_code":"Country Code",
+        "phone":"Phone Number",
+        "password":"Passoword",
+        "confirm_password":"Confirm Password",
+        "register":"Register",
+        "back_to_login":"back to Login Page",
+        "password_placeholder":"8-20 digits",
+        "code_options":"（%{country}）　＋%{number}",
+        "success_register":"Account Registration Successed!"
+    },
     "tab":{
         "basic_info":"Basic Info",
         "payment":"Payment",
@@ -112,14 +128,18 @@
         "succeeded":"Payment succeeded",
         "Email":"Email",
         "Customer":"Customer Name",
+        "Customer Name":"Customer Name",
         "Password":"Password",
         "Your Plan":"Your Plan",
         "Target Country": "Target Country",
         "Subscription Period":"Subscription Period",
         "Subscription End Date":"Subscription End Date",
         "download":"Download Receipt",
-        "thankyou":"Thank you for your payment. Your plan has been changed!" 
+        "thankyou":"Thank you for your payment. Your plan has been changed!", 
+        "thankyou1":"Your account has been activated!",
+        "thankyou2":"Please sign in with your email address."
     },
+    
     "invalid_data":"Invalid Submission",
     "input_err":"Input Error",
     "input_required":"Input Required",

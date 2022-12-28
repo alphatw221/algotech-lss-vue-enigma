@@ -379,6 +379,17 @@ const routes = [
     path: "/seller/web",
     component: LSSPublicLayout,
     children: [
+      
+      {
+        path: "register",
+        name: "registration-page",
+        component: () => import('@/views/seller-registration/Main.vue')
+      },
+      {
+        path: "trial-register",
+        name: "trial-register",
+        component: () => import('@/views/seller-registration/TrialSignUp.vue')
+      },
       {
         path: "login",
         name: "login-page",
@@ -396,11 +407,6 @@ const routes = [
         component: () => import('@/views/password-reset/Main.vue')
       },
       {
-        path: "register",
-        name: "registration-page",
-        component: () => import('@/views/seller-registration/Main.vue')
-      },
-      {
         path: "/dealer/login",
         name: "dealer-login",
         beforeEnter: checkDealerLogin,
@@ -416,12 +422,6 @@ const routes = [
         name: "easystore-authorize",
         component: () => import('@/plugin/easy-store/views/AuthorizationPage.vue')
       },
-      {
-        path: "test2",
-        name: "test2",
-        component: Test2
-      },
-
       
     ],
   },

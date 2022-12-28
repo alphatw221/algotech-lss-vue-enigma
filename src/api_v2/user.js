@@ -57,6 +57,10 @@ export const user_register_with_ecpay = (countryCode,data, toastify=null) =>{
     return createAxios(toastify).post(`/api/v2/user/register/${countryCode}/ecpay/`,data);
 }
 
+export const user_register_trial = (countryCode,data, toastify=null) =>{
+    return createAxios(toastify).post(`/api/v2/user/register/${countryCode}/trial/`,data);
+}
+
 
 
 export const dealer_login = (data, toastify=null) => {
