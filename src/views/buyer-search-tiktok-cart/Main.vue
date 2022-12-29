@@ -18,7 +18,7 @@
                     
                     <div class="flex w-full h-full lg:p-10 mx-auto">
                         <div class="flex flex-col gap-3 justify-center mx-auto lg:ml-16 relative"> 
-                            <label class="">輸入您的抖音名稱（暱稱）以帶入 +1 商品</label>
+                            <label class="">輸入您的抖音使用者名稱（暱稱）以帶入 +1 商品</label>
                             <input type="text" v-model="customerName" class="rounded-lg w-[300px] h-[42px]">
                             <button class="btn btn-primary w-fit px-5 mx-auto sm:ml-auto" @click="searchTiktokCart()">確認</button>
 
@@ -38,7 +38,7 @@
                                 :href="`${baseURL}/buyer/recaptcha/blank/${route.params.campaign_id}/`"> 前往選購</a>
                     </div>
                 </div>
-                <img src="@/assets/images/lss-img/Tiktok_name_exp.png" class="fixed h-[270px] bottom-12 left-[104px] hidden lg:block"/>
+                <!-- <img src="@/assets/images/lss-img/Tiktok_name_exp.png" class="fixed h-[270px] bottom-12 left-[104px] hidden lg:block"/> -->
             </div>
             <div class="absolute text-[32px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 hidden lg:block"> 
                 <lable class="text-slate-600 font-bold h-10 w-10 bg-slate-100 "> 或</lable>
