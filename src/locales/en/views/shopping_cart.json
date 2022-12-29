@@ -88,7 +88,8 @@
         "select_products":"Select Products",
         "add":"Add",
         "wishlist":"Notify Me",
-        "description": "Product details"
+        "description": "Product details",
+        "out_of_stock":"Store Product Sold Out"
     },
     "payment":{
         "shipping_summary":"Shipping Summary",

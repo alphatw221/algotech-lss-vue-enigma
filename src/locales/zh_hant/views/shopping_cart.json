@@ -86,7 +86,8 @@
         "select_products":"加購商品",
         "add":"加入",
         "wishlist":"到貨通知",
-        "description": "商品說明"
+        "description": "商品說明",
+        "out_of_stock":"商城沒有可銷售商品"
     },
     "payment":{
         "shipping_summary":"收件資訊",

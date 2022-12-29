@@ -46,8 +46,6 @@
                 <!-- BEGIN Delivery Option -->
                 <label class="font-medium text-md mt-5">{{$t('shopping_cart.delivery_tab.option.delivery')}}</label>
                 <div class="gap-5 mx-0 intro-y lg:mx-20">
-                  <template v-if="shoppingCartStore.cart.campaign">
-
                     <!-- Ecpay 店到店 -->
                     <template v-if="(shoppingCartStore.cart.campaign.meta_logistic?.ecpay?.enabled == true)">
                       <template v-for="(item, key, index) in shoppingCartStore.cart.campaign.meta_logistic?.ecpay?.logistics_sub_type" :key="key">
@@ -152,7 +150,6 @@
                         </template>
                       </v-date-picker>
                     </div>
-                  </template>
                 </div>
                 <!-- END Delivery Option -->
 
@@ -265,7 +262,7 @@
                         </template>
                     </div>
                   </div>
-
+                </template>
                 <template v-if="shoppingCartStore.cart.campaign.meta_logistic?.pickup_options[pickup_select_index]?.start_at"> 
                   <label class="font-medium text-md whitespace-nowrap">{{$t('shopping_cart.delivery_tab.pickup_date')}}</label>
                     <!-- pickup time-->
@@ -285,7 +282,6 @@
                     </v-date-picker>
                   </div>
                 </template>
-              </template>
             </TabPanel>
             <!-- END Pickup Panel -->
           </TabPanels>
