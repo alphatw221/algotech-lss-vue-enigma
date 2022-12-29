@@ -209,7 +209,7 @@
                         :content="$t('tooltips.campaign_list.instant_cart')" 
                         > 
                         <div class="whitespace-nowrap flex"> 
-                          <SimpleIcon icon="express_cart" color="#2d8cf0" class="mr-1"/>
+                          <SimpleIcon icon="tiktok_cart" color="#2d8cf0" class="mr-1"/>
                           {{$t("campaign_list.campaign_list_table.tiktok_cart")}}  </div> 
                       </Tippy> 
                     </DropdownItem>

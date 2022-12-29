@@ -21,7 +21,7 @@
                         <div class="flex flex-col gap-3 justify-center mx-auto lg:ml-16 relative"> 
                             <label class="text-xl font-medium"> 進入您的專屬購物車</label>
                             <label class="text-lg font-bold mt-3"> 方式一</label>
-                            <button class="tiktok-login-btn shadow-lg" @click="bindPage">登入TikTok帳號</button>
+                            <button class="tiktok-login-btn shadow-lg"><a class="text-white hover:text-white" :href="`${baseURL}/api/v2/tiktok/${route.params.campaign_id}/cart?message`"> 登入TikTok帳號 </a></button>
                             <label class="text-lg font-bold mt-3"> 方式二</label>
                             <label class="mx-auto">輸入您的TikTok使用者名稱（暱稱）</label>
                             <div class="flex flex-row h-[42px]"> 
