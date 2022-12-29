@@ -19,15 +19,18 @@
                     
                     <div class="flex w-full h-full lg:p-10 mx-auto">
                         <div class="flex flex-col gap-3 justify-center mx-auto lg:ml-16 relative"> 
-                            <label class="text-xl font-medium absolute top-0 left-0"> 帶入 +1 商品</label>
-                            <label class="mx-auto">輸入您的抖音使用者名稱（暱稱）</label>
+                            <label class="text-xl font-medium"> 進入您的專屬購物車</label>
+                            <label class="text-lg font-bold mt-3"> 方式一</label>
+                            <button class="tiktok-login-btn shadow-lg" @click="bindPage">登入TikTok帳號</button>
+                            <label class="text-lg font-bold mt-3"> 方式二</label>
+                            <label class="mx-auto">輸入您的TikTok使用者名稱（暱稱）</label>
                             <div class="flex flex-row h-[42px]"> 
                                 <input type="text" v-model="customerName" class="rounded-l-lg w-full h-[42px] border-primary ">
                                 <button class="btn btn-primary w-fit px-5 rounded-l-none whitespace-nowrap" @click="searchTiktokCart()">確認</button>
                             </div>
                             <a class="mx-auto underline text-slate-600 my-2" @click="showModal=true"> 找不到暱稱?</a>
 
-                            <button class="tiktok-login-btn shadow-lg mt-10" @click="bindPage">登入TikTok帳號</button>
+                            
                         </div>
                     </div>
                     <div class="flex justify-center w-full border-t-2 border-slate-500 dark:border-darkmode-400 my-8 lg:hidden">
