@@ -23,7 +23,7 @@
                     
                     <div class="flex w-full h-full lg:p-10 mx-auto">
                         <div class="flex flex-col gap-3 justify-center mx-auto lg:ml-16 relative"> 
-                            <label class="text-xl font-medium"> 進入您的專屬購物車</label>
+                            <label class="text-xl font-medium text-center lg:text-left"> 進入您的專屬購物車</label>
                             <label class="text-lg font-bold mt-3"> 方式一</label>
 
                             <a class="tiktok-login-btn shadow-lg flex justify-center" :href="`${serverDomain}/api/v2/tiktok/${route.params.campaign_id}/cart?message`"><p class="my-auto">登入TikTok帳號</p>  </a>
@@ -147,12 +147,14 @@ const retrieveCampaign = ()=>{
 
 
 <style lang="scss" scoped>
+@import '@/assets/scss/main.scss';
 
 .tiktok-login-btn { 
     border: 1px solid rgb(5, 0, 10);
     background-color: #020003;
     padding: auto;
     min-width: 300px;
+    min-height: 42px;
     height: 42px;
     border-radius: 42px 42px; 
     color: white;
@@ -161,10 +163,6 @@ const retrieveCampaign = ()=>{
     font-size: 16px;
 }
 
-$color: #65a3ff;
-$delay: .15s;
-$size: 15px;
-$bullets: 4;
 
 .loading{
   position: absolute;
@@ -186,6 +184,31 @@ $bullets: 4;
     
   }
 }
+
+@media only screen and (max-width: 760px),
+(min-device-width: 769px) and (max-device-width: 769px) {
+    .loading{
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  
+  .bullet{
+    position: absolute;
+    padding: $size/4;
+    border-radius: 50%;
+    background: $color;
+    animation: animIn 1.5s ease-in-out 0s infinite;
+    
+    $i: 0s;
+    @for $level from 0 to $bullets {
+      &:nth-child(#{$level + 1}) { animation-delay: $i; }
+      $i: $i + $delay;
+    }
+    
+  }
+}
+}
+
         
 @keyframes animIn {
   0% {

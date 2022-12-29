@@ -201,6 +201,7 @@
                       </Tippy> 
                     </DropdownItem>
                     <DropdownItem 
+                      v-if="layoutStore.userInfo.user_subscription.user_plan.activated_platform.includes('tiktok')"
                       @click="copyURL('tiktok',campaign)" class="w-fit whitespace-nowrap"> 
                       <Tippy 
                         class="whitespace-nowrap w-full" 
@@ -267,6 +268,7 @@ import twitch_platform from "/src/assets/images/lss-img/twitch.png"
 import tiktok_platform from "/src/assets/images/lss-img/tiktok_black_bg.png"
 import anonymous_profile from "/src/assets/images/lss-img/noname.png"
 import unbound from "/src/assets/images/lss-img/noname.png"
+
 import dom from "@left4code/tw-starter/dist/js/dom";
 import i18n from "@/locales/i18n"
 
