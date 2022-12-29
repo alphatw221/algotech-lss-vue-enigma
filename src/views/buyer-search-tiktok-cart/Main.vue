@@ -40,7 +40,7 @@
                     </div>
                     <div class="flex w-full h-full lg:p-10 mx-auto ">
                         <div class="flex flex-col gap-3 justify-center mx-auto relative w-[300px]"> 
-                            <label class="text-xl font-medium absolute top-0 left-0">直接選購商品</label>
+                            <label class="text-xl font-medium mb-5 lg:mb-0 lg:absolute top-0 left-0">直接選購商品</label>
                             <a class="btn btn-primary px-5 w-fit mx-auto hover:text-white"  
                                 :href="`${baseURL}/buyer/recaptcha/blank/${route.params.campaign_id}/`"> 前往選購</a>
                             
@@ -50,11 +50,11 @@
                 <!-- <img src="@/assets/images/lss-img/Tiktok_name_exp.png" class="fixed h-[270px] bottom-12 left-[104px] hidden lg:block"/> -->
             </div>
             <div class="absolute text-[32px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 hidden lg:block"> 
-                <lable class="text-slate-600 font-bold h-12 w-12 bg-slate-100 "> 或</lable>
+                <lable class="text-slate-500 font-bold h-12 w-12 bg-slate-100 "> 或</lable>
             </div>
         </template>
 
-        <div class="g-recaptcha absolute bottom-10 right-10 z-50"
+        <div class="g-recaptcha absolute bottom-0 lg:bottom-10 right-10 z-50"
             :data-sitekey="siteKey"
             data-callback="recaptchaCallBack"
             data-size="invisible"
