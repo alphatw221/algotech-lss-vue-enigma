@@ -5,7 +5,7 @@
 		@hidden="shoppingCartStore.showAddItemModal = false"
 		:slideOver="true"
 	>
-		<ModalBody class="p-5 relative h-[100vh]" >
+		<ModalBody class="p-5 relative min-h-[100vh]" >
 			<a @click="shoppingCartStore.showAddItemModal = !shoppingCartStore.showAddItemModal" class="absolute right-0 top-0 mt-3 mr-3">
                 <XIcon class="w-8 h-8 text-slate-400" />
             	</a>

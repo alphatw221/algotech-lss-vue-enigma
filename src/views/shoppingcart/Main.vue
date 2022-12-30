@@ -49,7 +49,7 @@
       <!-- END Tab List-->
 
       <div class="box relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg">
-        <div class="px-4 py-5 flex-auto">
+        <div class="p-10 flex-auto">
 
           <div class="tab-content tab-space">
             <!-- BEGIN My Cart Tab -->
