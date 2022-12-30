@@ -384,7 +384,7 @@ const editCampaignProduct = campaign=>{
 }
 const copyURL = (type,campaign)=>{
 
-  text = type=='express'? `${baseURL}/buyer/recaptcha/blank/${campaign.id}`: `lss.tw/${campaign.id}`
+  text = type=='express'? `${baseURL}/buyer/recaptcha/blank/${campaign.id}`: `${baseURL}/buyer/search/${campaign.id}/cart/tiktok`
   navigator.clipboard.writeText(text).then(()=>{
       layoutStore.notification.showMessageToast(i18n.global.t("campaign_list.copied"))
   })
