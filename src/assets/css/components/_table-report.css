@@ -3,7 +3,7 @@
         border-spacing: 0 10px; 
         @apply border-separate;
         th {
-            @apply border-b-0;
+            @apply border-b-0 pt-3;
         }
         td {
             @apply bg-white border-b-0 dark:bg-darkmode-600;
