@@ -24,6 +24,7 @@
         "self_pickup":"Self Pickup",
         "delivery_date":"Delivery Date",
         "pickup_date":"Pickup Date",
+        "select_store":"Select Store",
 
         "delivery_info":"Delivery Information",
         "address_hint": "Enter valid address",
@@ -48,7 +49,7 @@
         "remark":"Remark",
         "previous":"Previous",
         "proceed_to_payment":"Proceed to Payment",
-        "processing":"Payment processing"
+        "processing":"Processing to Payment．．．"
     },
     "table":{
         "update":"Update",
@@ -81,7 +82,12 @@
         "promo_apply":"Discount Code %{code} is Applied",
         "referr_code":"Share Referral Code",
         "promo_login":"Please login to use promo code",
-        "points_redemption":"Points Redemption"
+        "points_redemption":"Points Redemption",
+        "ok":"OK",
+        "point_discount":"Point Discount",
+        "login_for_points":"Login to earn %{points} POINTS from this order",
+        "points_earn":"You could earn %{points} POINTS from this order",
+        "alert":"Alert"
     },
     "add_item":{
         "select_add_ons":"Select add-ons",

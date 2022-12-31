@@ -1,36 +1,32 @@
 <template>
-  <div class="box p-5 sm:m-3 border-2 border-secondary">
-    <div class="flex flex-col">
+  <div class="box p-5 border-2 border-secondary">
+    <div class="flex flex-col gap-4">
       <!-- ORDER SUMMARY -->
-      <div class="flex mb-4 dark:border-darkmode-400">
-        <span class="text-lg">{{$t('shopping_cart.order_summary.order_summary')}}</span>
-      </div>
+      <h2 class="mb-2">{{$t('shopping_cart.order_summary.order_summary')}}</h2>
 
       <!-- SUBTOTAL -->
-      <div class="flex">
-        <div class="mr-auto">{{$t('shopping_cart.order_summary.subtotal')}}</div>
-        <div class="font-medium" v-if="shoppingCartStore.cart.campaign||false">
+      <div class="flex flex-row justify-between">
+        <p>{{$t('shopping_cart.order_summary.subtotal')}}</p>
+        <h4 class="font-medium" v-if="shoppingCartStore.cart.campaign||false">
           {{shoppingCartStore.cart.campaign.currency}} 
           {{(Math.floor(parseFloat(computedCartSubtotal) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toLocaleString('en-GB')}}
           {{shoppingCartStore.cart.campaign.price_unit?$t(`global.price_unit.${shoppingCartStore.cart.campaign.price_unit}`):''}}
-        </div>
+        </h4>
       </div>
 
-      
-
       <!-- DISCOUNT -->
-      <div v-if="shoppingCartStore.cart.discount != 0 && shoppingCartStore.cart.campaign||false" class="flex flex-row justify-between mt-2" >
-        <label class="w-fit my-auto whitespace-nowrap">{{ $t('shopping_cart.order_summary.promo_discount')}} </label>
-        <span class="font-medium text-danger"> 
-          {{shoppingCartStore.cart.campaign.currency}} 
+      <div v-if="shoppingCartStore.cart.discount != 0 && shoppingCartStore.cart.campaign||false" class="flex flex-row justify-between" >
+        <p class="w-fit my-auto whitespace-nowrap">{{ $t('shopping_cart.order_summary.promo_discount')}} </p>
+        <h4 class="font-medium text-danger"> 
+          {{shoppingCartStore.cart.campaign.currency}}
           -{{(Math.floor(parseFloat(shoppingCartStore.cart.discount) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toLocaleString('en-GB')}}
           {{shoppingCartStore.cart.campaign.price_unit?$t(`global.price_unit.${shoppingCartStore.cart.campaign.price_unit}`):''}}
-        </span>
+        </h4>
       </div>
 
       <!-- POINT DISCOUNT -->
-      <div v-if="computedPointDiscount != 0 && shoppingCartStore.cart.campaign||false" class="flex flex-row justify-between mt-2" >
-        <label class="w-fit my-auto whitespace-nowrap">Point Discount</label>
+      <div v-if="computedPointDiscount != 0 && shoppingCartStore.cart.campaign||false" class="flex flex-row justify-between" >
+        <p class="w-fit my-auto whitespace-nowrap">{{$t('shopping_cart.order_summary.point_discount')}}</p>
         <span class="font-medium text-danger"> 
           {{shoppingCartStore.cart.campaign.currency}} 
           -{{(Math.floor(parseFloat(computedPointDiscount) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toLocaleString('en-GB')}}
@@ -39,115 +35,102 @@
       </div>
 
       <!-- SUBTOTAL AFTER DISCOUNT -->
-      <div v-if="(shoppingCartStore.cart.discount != 0 || computedPointDiscount != 0) && shoppingCartStore.cart.campaign||false" class="flex flex-row justify-between mt-2" >
-        <label class="w-fit my-auto whitespace-nowrap">{{$t('cart.subtotal_after_discount')}}</label>
-        <span class="font-medium "> 
+      <div v-if="(shoppingCartStore.cart.discount != 0 || computedPointDiscount != 0) && shoppingCartStore.cart.campaign||false" class="flex flex-row justify-between" >
+        <p class="w-fit my-auto whitespace-nowrap">{{$t('cart.subtotal_after_discount')}}</p>
+        <h4 class="font-medium"> 
           {{shoppingCartStore.cart.campaign.currency}} 
           {{(Math.floor(parseFloat(computedSubtotalAfterDiscount) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toLocaleString('en-GB')}}
           {{shoppingCartStore.cart.campaign.price_unit?$t(`global.price_unit.${shoppingCartStore.cart.campaign.price_unit}`):''}}
-        </span>
+        </h4>
       </div>
 
       <!-- PROMO CODE INPUT -->
-      <div class="flex flex-row flex-wrap justify-between mt-2" v-if="route.query?.tab==2">
-        <label class="w-fit my-auto whitespace-nowrap">{{$t('shopping_cart.order_summary.enter_promo')}}</label>
-          <div class="input-group ml-auto"> 
-            <input
-            type="text"
-            class="form-control sm:w-32 h-[35px] text-right"
-            v-model="discount_code"
-            @keydown.enter.prevent="promoCheck()"
-            />
-            <button class="input-group-text h-[35px] w-16" @click="promoCheck()">{{$t('shopping_cart.order_summary.enter')}}</button>
-            <XIcon v-if="shoppingCartStore.cart.discount != 0 && shoppingCartStore.cart.campaign||false" class="mt-auto w-6 h-6 text-slate-400 cursor-pointer my-auto ml-2" @click="promoDelete()"/>
-          </div>
-      </div>
-      <span v-if="shoppingCartStore.cart?.applied_discount?.code != undefined" class="lg:text-right text-left font-medium text-red-600">{{$t('shopping_cart.order_summary.promo_apply',{ code :shoppingCartStore.cart?.applied_discount?.code})}} </span>
-
-      <!-- POINTS INPUT -->
-      <div class="flex flex-row flex-wrap justify-between mt-2" v-if="shoppingCartStore.cart.campaign?.meta_point?.enable">
-        <div>
-          <div class="w-fit my-auto whitespace-nowrap">{{$t('shopping_cart.order_summary.points_redemption')}}</div>
-          <div class="w-fit my-auto whitespace-nowrap text-danger">({{computedWalletPointsLeft}} points)</div>
+      <template v-if="route.query?.tab==2">
+        <div class="flex flex-row flex-wrap justify-between">
+          <label class="w-fit my-auto whitespace-nowrap">{{$t('shopping_cart.order_summary.enter_promo')}}</label>
+            <div class="input-group ml-auto"> 
+              <input
+              type="text"
+              class="form-control sm:w-32 h-[35px] text-right"
+              v-model="discount_code"
+              @keydown.enter.prevent="promoCheck()"
+              />
+              <button class="input-group-text h-[35px] w-16" @click="promoCheck()">{{$t('shopping_cart.order_summary.enter')}}</button>
+              <XIcon v-if="shoppingCartStore.cart.discount != 0 && shoppingCartStore.cart.campaign||false" class="mt-auto w-6 h-6 text-slate-400 cursor-pointer my-auto ml-2" @click="promoDelete()"/>
+            </div>
         </div>
-        
-          <div class="input-group"> 
-            <input
-              type="number"
-              class="form-control w-32 h-[35px] text-right"
-              v-model="shoppingCartStore.points_used"
-            />
+        <span v-if="shoppingCartStore.cart?.applied_discount?.code != undefined" class="lg:text-right text-left font-medium text-red-600">{{$t('shopping_cart.order_summary.promo_apply',{ code :shoppingCartStore.cart?.applied_discount?.code})}} </span>
+
+        <!-- POINTS INPUT -->
+        <div class="flex flex-row flex-wrap justify-between" v-if="shoppingCartStore.cart.campaign?.meta_point?.enable">
+          <div>
+            <h4 class="w-fit my-auto whitespace-nowrap">{{$t('shopping_cart.order_summary.points_redemption')}}</h4>
+            <h4 class="w-fit my-auto whitespace-nowrap text-danger">({{computedWalletPointsLeft}} points)</h4>
           </div>
-      </div>
+          
+          <input
+            type="number"
+            class="form-control w-32 h-[35px] text-right"
+            v-model="shoppingCartStore.points_used"
+          />
+        </div>
+      </template>
 
       <!-- REFERAL CODE INFO -->
-      <div class="flex justify-between mt-2"  v-for="referalCode, index in shoppingCartStore.referalCodes" :key="index">
+      <div class="flex justify-between"  v-for="referalCode, index in shoppingCartStore.referalCodes" :key="index">
 
-        <label class=" my-auto whitespace-nowrap mr-5">{{$t('shopping_cart.order_summary.referr_code')}}</label>
+        <h4 class=" my-auto whitespace-nowrap mr-5">{{$t('shopping_cart.order_summary.referr_code')}}</h4>
         <button @click="copyURL(referalCode.code+'-'+route.params.cart_oid)"
           class="flex my-auto whitespace-nowrap border-2 border-green-800 rounded-md p-1 px-2 text-green-800 font-medium truncate">{{referalCode.code+'-'+route.params.cart_oid}} 
         </button>
         <!-- <div v-if="referalCode.description" class="my-auto whitespace-nowrap">{{referalCode.description}}</div> -->
-
       </div>
-
 
       <!-- SHIPPING -->
       <template v-if="shoppingCartStore.shipping_info.shipping_method !== 'pickup'">
         
-        <div class="flex mt-4 border-t border-slate-200/60 dark:border-darkmode-400 mt-4
-            pt-4">
+        <div class="flex pt-4 border-t border-slate-200/60 dark:border-darkmode-400">
 
-          <div class="mr-auto">{{$t('shopping_cart.order_summary.shipping')}}</div>
-
-
+          <p class="mr-auto">{{$t('shopping_cart.order_summary.shipping')}}</p>
           <template v-if="shoppingCartStore.cart?.campaign">
 
-            <div class="font-medium" v-if=" shoppingCartStore.cart?.free_delivery || computedSubtotalOverFreeDeliveryThreshold || computedItemsOverFreeDeliveryThreshold ">
+            <h4 class="font-medium" v-if=" shoppingCartStore.cart?.free_delivery || computedSubtotalOverFreeDeliveryThreshold || computedItemsOverFreeDeliveryThreshold ">
               {{shoppingCartStore.cart.campaign.currency}} 
               {{(Math.floor(parseFloat(0) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toLocaleString('en-GB')}}
               {{shoppingCartStore.cart.campaign.price_unit?$t(`global.price_unit.${shoppingCartStore.cart.campaign.price_unit}`):''}}
-            </div>
+            </h4>
 
-            <div class="font-medium" v-else>
+            <h4 class="font-medium" v-else>
               {{shoppingCartStore.cart.campaign.currency}} 
               {{(Math.floor(parseFloat(computedShippingCost) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toLocaleString('en-GB')}}
               {{shoppingCartStore.cart.campaign.price_unit?$t(`global.price_unit.${shoppingCartStore.cart.campaign.price_unit}`):''}}
-            </div>
-
+            </h4>
           </template>
-        
         </div>
-        <div v-if="shoppingCartStore.cart?.free_delivery || computedSubtotalOverFreeDeliveryThreshold || computedItemsOverFreeDeliveryThreshold" class="text-red-600 text-sm">{{$t('shopping_cart.order_summary.free_delivery')}}</div>
-        <div v-else-if="computedIsMultipleShippingCostApplied" class="text-red-600 text-sm">{{$t('cart.multiple_shiupping_included')}}</div>
+        <h4 v-if="shoppingCartStore.cart?.free_delivery || computedSubtotalOverFreeDeliveryThreshold || computedItemsOverFreeDeliveryThreshold" class="text-danger">{{$t('shopping_cart.order_summary.free_delivery')}}</h4>
+        <h4 v-else-if="computedIsMultipleShippingCostApplied" class="text-danger">{{$t('cart.multiple_shiupping_included')}}</h4>
 
       </template>
       
-
-
-
       <!-- ADJUST_PRICE -->
-      <div class="flex mt-4" v-if="shoppingCartStore.cart.adjust_price != 0">
+      <div class="flex" v-if="shoppingCartStore.cart.adjust_price !== 0">
         <div class="mr-auto" v-if="shoppingCartStore.cart.adjust_title">
-          <div>{{ shoppingCartStore.cart.adjust_title }}</div>
-          <div>({{$t('shopping_cart.order_summary.price_adjustment')}})</div>
+          <p>{{ shoppingCartStore.cart.adjust_title }}</p>
+          <h4>({{$t('shopping_cart.order_summary.price_adjustment')}})</h4>
         </div>
-        <div class="mr-auto" v-else>{{$t('shopping_cart.order_summary.price_adjustment')}}</div>
+        <p class="mr-auto" v-else>{{$t('shopping_cart.order_summary.price_adjustment')}}</p>
 
-        <div class="font-medium text-danger" v-if="shoppingCartStore.cart.campaign||false">
-          {{shoppingCartStore.cart.campaign.currency}} 
+        <h4 class="font-medium text-danger" v-if="shoppingCartStore.cart.campaign||false">
+          {{shoppingCartStore.cart.campaign.currency}}
           {{(Math.floor(parseFloat(shoppingCartStore.cart.adjust_price) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toLocaleString('en-GB')}}
           {{shoppingCartStore.cart.campaign.price_unit?$t(`global.price_unit.${shoppingCartStore.cart.campaign.price_unit}`):''}}
-        </div>
+        </h4>
       </div>
 
       <!-- TOTAL -->
       <div
         class="
-          flex flex-col
-          mt-4
-          pt-4
-          gap-2
+          flex flex-col pt-4 gap-2
           border-t border-slate-200/60
           dark:border-darkmode-400
         "
@@ -161,15 +144,14 @@
             {{shoppingCartStore.cart.campaign.price_unit?$t(`global.price_unit.${shoppingCartStore.cart.campaign.price_unit}`):''}}
           </div>
         </div>
-        <div class="text-sky-600 ml-auto" v-if="shoppingCartStore.cart.campaign?.meta_point?.enable">
-          <div v-if="isAnonymousUser">
-            登入結帳以獲得{{computedPointsEarned}} POINTS回饋
-          </div>
-          <div v-else>
-            此筆訂單可以獲得{{computedPointsEarned}} POINTS回饋
-          </div>
-        </div>
-        
+        <h4 class="text-danger ml-auto" v-if="shoppingCartStore.cart.campaign?.meta_point?.enable">
+          <template v-if="isAnonymousUser">
+            {{$t('shopping_cart.order_summary.login_for_points',{points:computedPointsEarned})}}
+          </template>
+          <template v-else>
+            {{$t('shopping_cart.order_summary.points_earn',{points:computedPointsEarned})}}
+          </template>
+        </h4>
       </div>
     </div>
 
@@ -188,7 +170,7 @@
       <ModalBody class="p-10 text-center">
           <div class="flex flex-col gap-5 justify-center font-bold">
               <!-- <AlertOctagonIcon class="text-danger w-full h-32"/> -->
-              <label for="regular-form-2" class="form-label text-danger text-[24px]">提示</label>
+              <label for="regular-form-2" class="form-label text-danger text-[24px]">{{$t('shopping_cart.order_summary.alert')}}</label>
               <SimpleIcon icon="err_bot" color="#E80000" class="w-full h-32 p-3" />
               <label for="regular-form-2" class="form-label text-black text-[20px]">{{$t('shopping_cart.order_summary.promo_login')}}</label>
               <button class="w-32 btn btn-rounded-primary dark:border-darkmode-400 mx-auto" @click="showModal =false; showLoginModal()">{{$t('shopping_cart.order_summary.ok')}}</button>
@@ -488,4 +470,26 @@ const toNext=()=>{
 }
 //  this.eventBus.emit("addPoint");
 </script>
+
+<style scoped>
+
+h2{
+  font-size: 20px; 
+  font-weight: 500; 
+}
+/* 副標 */
+h3{
+  font-size: 16px; 
+  font-weight: 500; 
+}
+
+h4{
+  font-size: 14px; 
+}
+
+p{
+  font-size: 16px; 
+}
+
+</style>
  

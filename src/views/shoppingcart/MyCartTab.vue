@@ -6,9 +6,6 @@
         <div class="overflow-x-auto col-span-12 2xl:col-span-7 2xl:block lg:block sm:block lg:col-span-7">
             <ShoppingCartTable :cartLoading="props.cartLoading"/>
         </div>
-        <!-- <div class="block overflow-x-auto col-span-12 2xl:col-span-7 lg:col-span-7 2xl:hidden lg:hidden sm:hidden">
-            <ShoppingCartTable_mobile />
-        </div>  -->
         <div class="col-span-12 2xl:col-start-8 2xl:col-span-5 lg:col-start-8 lg:col-span-5">
             <OrderSummarySkeleton v-if="props.cartLoading"/>
             <OrderSummary v-else/> 
