@@ -134,17 +134,22 @@
 								{{ qty }}
 							</div>
 						</template>
-						<div class="absolute hidden md:block" 
-							v-show="
-							shoppingCartStore.campaignProductDict[campaign_product_id]?.qty_add_to_cart > shoppingCartStore.campaignProductDict[campaign_product_id]?.qty_for_sale - shoppingCartStore.campaignProductDict[campaign_product_id]?.qty_sold - shoppingCartStore.campaignProductDict[campaign_product_id]?.qty_pending_payment && 
-							!(shoppingCartStore.campaignProductDict[campaign_product_id]?.oversell) &&
-							shoppingCartStore.campaignProductDict[campaign_product_id]?.type === 'product'" style="color:#FF4500">
-							 {{$t('shopping_cart.table.missing_message')}}
-						</div>
+						<template v-if="shoppingCartStore.campaignProductDict[campaign_product_id]?.qty_add_to_cart > (shoppingCartStore.campaignProductDict[campaign_product_id]?.qty_for_sale - shoppingCartStore.campaignProductDict[campaign_product_id]?.qty_sold - shoppingCartStore.campaignProductDict[campaign_product_id]?.qty_pending_payment) 
+							&& !(shoppingCartStore.campaignProductDict[campaign_product_id]?.oversell)
+							&& shoppingCartStore.campaignProductDict[campaign_product_id]?.type === 'product'"> 
+							<p class="absolute hidden sm:block" style="color:#FF4500">
+								{{$t('shopping_cart.table.missing_message')}}
+							</p>
+						</template>
 					</td>
-					<td class="sm:hidden">
-						<div style="color:#FF4500" v-show="shoppingCartStore.campaignProductDict[campaign_product_id]?.qty_add_to_cart >= shoppingCartStore.campaignProductDict[campaign_product_id]?.qty_for_sale && shoppingCartStore.campaignProductDict[campaign_product_id]?.type === 'product'"> {{$t('shopping_cart.table.missing_message')}}</div>
-					</td>
+					<template 
+						v-if="shoppingCartStore.campaignProductDict[campaign_product_id]?.qty_add_to_cart > (shoppingCartStore.campaignProductDict[campaign_product_id]?.qty_for_sale - shoppingCartStore.campaignProductDict[campaign_product_id]?.qty_sold - shoppingCartStore.campaignProductDict[campaign_product_id]?.qty_pending_payment) 
+						 && !(shoppingCartStore.campaignProductDict[campaign_product_id]?.oversell) 
+						 && shoppingCartStore.campaignProductDict[campaign_product_id]?.type === 'product'"> 
+						<td class="sm:hidden" style="color:#FF4500">
+							<h4 class="text-[14px] text-center my-1">{{$t('shopping_cart.table.missing_message')}}</h4>
+						</td>
+					</template>
 					<td class="text-center h-20 tdPrice" :data-content="$t(`shopping_cart.table.price`)">
 						<div class="price whitespace-nowrap"> 
 							{{shoppingCartStore.cart.campaign.currency}} 
@@ -221,6 +226,7 @@ const props = defineProps({
         default: true,
   },
 })
+
 
 const numOfItems = computed(()=>{
 	if(shoppingCartStore.cart.products)return Object.keys(shoppingCartStore.cart.products).length
@@ -356,8 +362,8 @@ const changeQuantity = ( index, operation, campaign_product_id, qty) => {
     display:none;
   }
   td:nth-of-type(4) {
-    position: absolute;
-	bottom:0 !important;
+	padding-left: 0 !important;
+	text-align: center;
   }
   td:nth-of-type(4):before {
     display:none;
@@ -366,6 +372,7 @@ const changeQuantity = ( index, operation, campaign_product_id, qty) => {
   td:nth-of-type(5):before {
     content: attr(data-content);
   }
+
   td:nth-of-type(6):before {
     content: attr(data-content);
   }

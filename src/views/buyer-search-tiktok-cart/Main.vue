@@ -7,7 +7,7 @@
         </div>
 
         <div v-if="recaptchaToken">
-            <label >暱稱</label>
+            <label >您的抖音名稱（暱稱 ）</label>
             <input type="text" v-model="customerName">
             <button class="btn" @click="searchTiktokCart()">確定</button>
         </div>

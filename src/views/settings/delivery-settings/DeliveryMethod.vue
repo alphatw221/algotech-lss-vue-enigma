@@ -1,16 +1,16 @@
 <template>
 
-    <div v-if="ready" class="flex flex-col justify-center text-[16px] px-5">
-        <div class="flex mt-5 lg:mb-5 lg:mt-0">
+    <div v-if="ready" class="flex flex-col justify-center py-5 sm:p-5">
+        <div class="flex flex-row justify-start mt-5 lg:mb-5 lg:mt-0">
             <input 
-                class="form-check-input ml-3 w-[1.5rem] h-[1.5rem]" 
+                class="form-check-input w-[1.5rem] h-[1.5rem] my-auto" 
                 type="checkbox" 
                 v-model="logisticData.enabled"
             />
-            <label class="ml-3 form-label">{{ $t('settings.delivery_form.enabled') }}</label>
+            <label class="ml-3 form-label my-auto">{{ $t('settings.delivery_form.enabled') }}</label>
         </div>
 
-        <div class="my-5 lg:my-0 p-5 rounded-md border-2 border-slate">
+        <div class="my-5 lg:my-0 p-5 rounded-md border-2 border-slate text-[16px] ">
             <div v-if="props.logistic.fields==''"> 
                 Add your {{props.logistic.key}} account
             </div>
@@ -124,8 +124,7 @@ const router = useRouter();
 const logisticData = ref({
     enabled:false,
     allow_pickup_pay:false,
-    logistics_sub_type:{
-    }
+    logistics_sub_type:{}
 })
 const ready = ref(false)
 const disablePickupPay = ref(true)

@@ -1,5 +1,5 @@
 <template>
-    <div class="box p-5 sm:m-3 border-2 border-secondary">
+    <div class="box p-5 border-2 border-secondary">
       <div class="flex flex-col">
         <!-- ORDER SUMMARY -->
         <div class="flex mb-4 dark:border-darkmode-400">

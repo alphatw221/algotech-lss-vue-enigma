@@ -2,7 +2,7 @@
     <AccordionItem  class="mx-5 " >
         <Accordion class="bg-primary rounded-t-lg" >
             <div class="text-white mx-5 flex flex-col sm:flex-row" > 
-                <span class="text-xl sm:text-2xl">{{payment.name}}</span> 
+                <span class="text-[20px]">{{payment.name}}</span> 
                 <span class="my-auto ml-2"> {{ payment.key == "ecpay" ? "(線上匯款/信用卡/超商代碼繳費/超商條碼繳費)" : "" }} </span>
             </div>
         </Accordion>
