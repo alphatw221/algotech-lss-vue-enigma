@@ -5,7 +5,7 @@
 		@hidden="shoppingCartStore.showAddItemModal = false"
 		:slideOver="true"
 	>
-		<ModalBody class="p-5 relative" >
+		<ModalBody class="p-5 relative min-h-[100vh]" >
 			<a @click="shoppingCartStore.showAddItemModal = !shoppingCartStore.showAddItemModal" class="absolute right-0 top-0 mt-3 mr-3">
                 <XIcon class="w-8 h-8 text-slate-400" />
             	</a>
@@ -14,8 +14,10 @@
 					{{ $t(`shopping_cart.add_item.`+addOnTitle) }}
 				</h2>
 			</ModalHeader>
-
-			<div class="intro-y grid grid-cols-12 gap-3 sm:gap-6 mt-5" >
+			<template v-if="addOnProducts.length ==0" >
+				<p class="top-1/2 right-1/2 absolute translate-x-1/2 text-[16px] text-slate-500"> {{ $t(`shopping_cart.add_item.out_of_stock`) }}  </p>
+			</template>
+			<div class="intro-y grid grid-cols-12 gap-3 sm:gap-6 mt-5 relative" >
 				<template v-for="(product, index) in addOnProducts" :key="index"> 
 					<div 
 						class="intro-y col-span-6 sm:col-span-4 md:col-span-3 2xl:col-span-3" 
@@ -142,6 +144,7 @@ const updateAddOnProducts = ()=>{
 		}
 	});
 	addOnProducts.value = temp
+	if(addOnProducts.value.length == 0) shoppingCartStore.showAddItemModal = false
 }
 
 const changeQuantity = (event, index, operation) => {

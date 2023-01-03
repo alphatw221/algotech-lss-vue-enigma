@@ -15,16 +15,12 @@
             <span class="text-base mr-5 break-all">{{$t('order_detail.delivery.email')}} : {{sellerOrderDetail.order.shipping_email}}</span>
         </div>
         <div class="my-auto" >
-            <span class="text-base mr-5">{{$t('order_detail.delivery.phone')}} : {{sellerOrderDetail.order.shipping_phone}}</span>
-        </div>
-        <div class="my-auto" >
             <span class="text-base mr-5">{{$t('order_detail.delivery.cellphone')}} : {{sellerOrderDetail.order?.shipping_cellphone}}</span>
         </div>
         <div class="flex flex-row sm:w-[50%]">
             <div class="my-auto">
                 <span class="text-base"> {{$t('order_detail.order_date')}} : {{new Date(sellerOrderDetail.order.created_at).toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"})}} </span>
             </div>
-            
         </div>
     </div>
     <div class="flex flex-col sm:flex-row justify-between gap-3 h-fit sm:max-h-[50vh]"> 
@@ -89,6 +85,8 @@ onMounted(()=>{
     seller_retrieve_order(route.params.order_id, layoutStore.alert)
     .then(
         res => { sellerOrderDetail.order = res.data
+
+            console.log(sellerOrderDetail.order)
         }
     )
 })

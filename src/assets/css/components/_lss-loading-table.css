@@ -19,6 +19,9 @@
     thead{
         background-color: #fff;
     }
+    th{
+      padding-top: 10px;
+    }
     tbody {
 
       td {

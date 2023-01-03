@@ -35,6 +35,7 @@
         "state_err":"必填",
         "postal_code_err":"必填",
         "name_placeholder":"中文 2~5 個字, 英文 4~10 個字",
+        "select_store":"選擇門市",
 
         "option":{
             "delivery":"選擇運送方式",
@@ -46,7 +47,8 @@
         "note":"運送須知",
         "remark":"備註",
         "previous":"上一步",
-        "proceed_to_payment":"前往付款"
+        "proceed_to_payment":"前往付款",
+        "processing":"前往付款頁面．．．"
     },
     "table":{
         "update":"更新",
@@ -79,14 +81,20 @@
         "promo_apply":"優惠代碼 %{code} 已生效" ,
         "referr_code":"分享推薦碼",
         "promo_login":"登入社群帳號以使用優惠折扣碼",
-        "points_redemption":"點數折抵"
+        "points_redemption":"點數折抵",
+        "ok":"確認",
+        "point_discount":"點數折抵",
+        "login_for_points":"登入結帳以獲得 %{points} POINTS 回饋",
+        "points_earn":"此筆訂單可以獲得 %{points} POINTS 回饋",
+        "alert":"提示"
     },
     "add_item":{
         "select_add_ons":"加入商品",
         "select_products":"加購商品",
         "add":"加入",
         "wishlist":"到貨通知",
-        "description": "商品說明"
+        "description": "商品說明",
+        "out_of_stock":"商城沒有可選購的商品"
     },
     "payment":{
         "shipping_summary":"收件資訊",
@@ -130,6 +138,9 @@
     "update_successfully":"儲存成功",
     "invalid_data":"無效資料",
     "invalid_amount":"無效金額",
+    "invalid_delivery_method":"選擇運送方式",
+    "invalid_pickup_method":"選擇取貨店鋪",
+    "invalid_cvs_store":"選取店到店門市",
     "add_item_success":"成功新增商品",
     "invalid_user_info":"買家資料輸入錯誤",
     "invalid_delivery_info":"運送資料輸入錯誤",
