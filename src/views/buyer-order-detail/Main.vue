@@ -97,15 +97,20 @@
                             <div class="col-start-3 col-span-3">{{$t('order_detail.delivery.delivery')}}：{{ buyerOrderStore.order.shipping_option_data?.title|| $t('order_detail.delivery.default') }}
                                 {{buyerOrderStore.order.shipping_date_time!==null?'('+new Date(buyerOrderStore.order.shipping_date_time).toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric",hour: '2-digit', minute: '2-digit'})+')':''}}
                             </div>
-
-                            <div class="col-start-1 col-span-2">{{$t('order_detail.delivery.address')}}</div>
-                            <div class="col-start-3 col-span-3">
-                                {{buyerOrderStore.order.shipping_address_1}} ,
-                                {{buyerOrderStore.order.shipping_location}} ,
-                                {{buyerOrderStore.order.shipping_region}} ,
-                                {{buyerOrderStore.order.shipping_postcode}} 
-                                
-                            </div>
+                            <template v-if="buyerOrderStore.order.shipping_option_data.is_cvs"> 
+                                <div class="col-start-1 col-span-5 sm:col-span-2">{{$t('order_detail.delivery.cvs')}}</div>
+                                <div class="col-start-2 col-span-5 sm:col-start-3 sm:col-span-4">{{ buyerOrderStore.order.shipping_option_data?.cvs_store_name }}</div>
+                                <div class="col-start-2 col-span-5 sm:col-start-3 sm:col-span-4 -my-2">{{ buyerOrderStore.order.shipping_option_data?.cvs_address }}</div>
+                            </template>
+                            <template v-else> 
+                                <div class="col-start-1 col-span-2">{{$t('order_detail.delivery.address')}}</div>
+                                <div class="col-start-3 col-span-3">
+                                    {{buyerOrderStore.order.shipping_address_1}} ,
+                                    {{buyerOrderStore.order.shipping_location}} ,
+                                    {{buyerOrderStore.order.shipping_region}} ,
+                                    {{buyerOrderStore.order.shipping_postcode}} 
+                                </div>
+                            </template>
                         </template>
                         <template v-else-if="buyerOrderStore.order.shipping_method === 'ecpay'"> 
                             <template v-if="buyerOrderStore.order.shipping_option_data.logisticsType == 'CVS'"> 
