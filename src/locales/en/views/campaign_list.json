@@ -63,7 +63,8 @@
             "history":"Do not Have any History Campaign."
         },
         "click_create_notify": "Click \"+ Create\" to create your first live selling campaign.",
-        "connect_platform":"Connect Platform"
+        "connect_platform":"Connect Platform",
+        "tiktok_cart":"Copy Tiktok Cart Link"
     },
 
     "remind_enter_post_id_modal":{
