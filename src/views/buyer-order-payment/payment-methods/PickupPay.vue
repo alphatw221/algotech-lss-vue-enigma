@@ -14,8 +14,8 @@
                 <p> 店號: </p>
                 <p class="col-span-2">{{store.order.shipping_option_data.cvs_store_id}}</p>
                 <template v-if="store.order.shipping_option_data.cvs_telephone">
-                    <p > 門市名稱: </p>
-                    <p>{{store.order.shipping_option_data.cvs_telephone}}</p>
+                    <p> 門市電話: </p>
+                    <p class="whitespace-nowrap">{{store.order.shipping_option_data.cvs_telephone}}</p>
                 </template>   
                 
                 <button class="col-span-3 w-fit btn btn-primary rounded-lg mt-10 mb-3 ml-auto" @click.once="cash_on_delivery()">

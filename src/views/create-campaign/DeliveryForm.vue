@@ -97,6 +97,42 @@
 			> <u> + {{$t('create_campaign.delivery_form.add_more_delivery_option')}} </u> 
 			</a> -->
 		</div>
+		<!-- delivery date -->
+		<div class="flex flex-col sm:flex-row flex-wrap justify-between col-span-12 col-start-1 gap-2">
+			<div class="flex flex-row gap-2 items-center"> 
+				<input type="checkbox" class="w-[1.5rem] h-[1.5rem] form-control" v-model="useDeliveryDate"/>
+				<label for="regular-form-2" class="text-base font-bold form-label my-auto">{{$t('create_campaign.delivery_form.delivery_date')}}</label>
+			</div>
+			<div 
+				v-show="useDeliveryDate" 
+				class="flex flex-col flex-wrap gap-3 mt-5 sm:flex-row sm:mt-0 z-50 mx-auto">
+				<v-date-picker class="" 
+					v-model="deliverydatePicker" 
+					:timezone="timezone" 
+					:columns="$screens({ default: 1, sm: 2 })" 
+					mode="datetime" is-range is-required is24hr
+					:min-date='new Date()'
+					>
+					<template v-slot="{ inputValue, inputEvents }">
+						<div class="flex items-center justify-center gap-1">
+							<div class="flex flex-col relative">
+								<p> From</p>
+								<input :value="inputValue.start" v-on="inputEvents.start"
+								class="form-control border h-[42px] px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300" />
+								<CalendarIcon class="hidden sm:block absolute right-2 bottom-2.5 text-slate-600"/>
+							</div> 
+							<ChevronsRightIcon class="w-8 h-8 mt-auto mb-1" />
+							<div class="flex flex-col relative">
+								<p> To</p>
+								<input :value="inputValue.end" v-on="inputEvents.end" disabled
+								class="form-control border h-[42px] px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300" />
+								<CalendarIcon class="hidden sm:block absolute right-2 bottom-2.5 text-slate-600"/> 
+							</div>
+						</div>
+					</template>
+				</v-date-picker>
+			</div>
+		</div> 
 		<div v-for="(option, index) in props.campaign.meta_logistic.additional_delivery_options" class="col-span-12" :key="index">
 			<div class="flex flex-col flex-wrap gap-3 mt-5 sm:flex-row sm:mt-0 ">
 
@@ -147,9 +183,9 @@
 					</label>
 				</div>
 				
-				<div>
+				<div class="flex flex-row items-center">
                     <input  
-                        class="w-10 h-10 form-control"
+                        class="w-10 h-10 form-control w-[1.5rem] h-[1.5rem]"
                         type="checkbox" 
                         :placeholder="$t('settings.delivery_form.express_charge')"
                         v-model="option.is_cvs"
@@ -177,37 +213,7 @@
 			</div>
 		</div>
 
-		<!-- delivery date -->
-		<div class="flex flex-col flex-wrap justify-between col-span-12 col-start-1 gap-2">
-			<label for="regular-form-2" class="text-base font-bold form-label my-auto">{{$t('create_campaign.delivery_form.delivery_date')}}</label>
-			<div class="flex flex-col flex-wrap gap-3 mt-5 sm:flex-row sm:mt-0 z-50">
-				<v-date-picker class="" 
-					v-model="deliverydatePicker" 
-					:timezone="timezone" 
-					:columns="$screens({ default: 1, sm: 2 })" 
-					mode="datetime" is-range is-required is24hr
-					:min-date='new Date()'
-					>
-					<template v-slot="{ inputValue, inputEvents }">
-						<div class="flex items-center justify-center gap-1">
-							<div class="flex flex-col relative">
-								<p> From</p>
-								<input :value="inputValue.start" v-on="inputEvents.start"
-								class="form-control border h-[42px] px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300" />
-								<CalendarIcon class="hidden sm:block absolute right-2 bottom-2.5 text-slate-600"/>
-							</div> 
-							<ChevronsRightIcon class="w-8 h-8 mt-auto mb-1" />
-							<div class="flex flex-col relative">
-								<p> To</p>
-								<input :value="inputValue.end" v-on="inputEvents.end" disabled
-								class="form-control border h-[42px] px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300" />
-								<CalendarIcon class="hidden sm:block absolute right-2 bottom-2.5 text-slate-600"/> 
-							</div>
-						</div>
-					</template>
-				</v-date-picker>
-			</div>
-		</div> 
+		<!-- PickUp options-->
 		<div class="flex justify-between col-span-12 col-start-1 mt-5"> 
 			<label for="regular-form-2" class="text-base font-bold form-label my-auto">{{$t('create_campaign.delivery_form.store_collection')}}</label>
 			<button 
@@ -344,6 +350,7 @@ import { end } from '@popperjs/core';
 
 const additional_delivery_option = { title: null, type: null, price: null }
 const branch_option = { name: null, address: null, start_at:null, end_at:null }
+const useDeliveryDate = ref(false)
 const ready = ref(false)
 const get_props = ref(false)
 const deliverydatePicker = ref({

@@ -16,24 +16,30 @@
             <div class="w-1/4 whitespace-nowrap">{{$t('shopping_cart.delivery_tab.cell_phone')}}</div>
             <div class="w-3/4">{{ store.order.shipping_cellphone }}</div>
         </div>
-        <div class="flex flex-wrap mt-4 pt-4 border-t border-slate-200/60">
-            <div class="lg:w-1/4 w-3/4 whitespace-nowrap">{{$t('order_detail.delivery.method')}}</div>
-            <div v-if="store.order.shipping_method === 'pickup'" class="flex lg:w-3/4 w-1/2">{{$t('shopping_cart.payment.pickup')}}</div>
-            <div  v-else-if="store.order.shipping_method === 'delivery'" class="lg:w-3/4">{{$t('shopping_cart.payment.delivery')}}：{{ store.order.shipping_option == '' ? $t('shopping_cart.delivery_tab.option.default') : store.order.shipping_option }}</div>
+        <div
+            v-if="store.order.shipping_method !== 'ecpay'" 
+            class="flex flex-wrap mt-4 pt-4 border-t border-slate-200/60">
+            <div class="w-1/4 whitespace-nowrap">{{$t('order_detail.delivery.method')}}</div>
+            <div v-if="store.order.shipping_method === 'pickup'" class="w-3/4">{{$t('shopping_cart.payment.pickup')}}</div>
+            <div v-else-if="store.order.shipping_method === 'delivery'" class="w-3/4">{{$t('shopping_cart.payment.delivery')}}：{{ store.order.shipping_option == '' ? $t('shopping_cart.delivery_tab.option.default') : store.order.shipping_option }}</div>
         </div>
-
 
         <template v-if="store.order.shipping_method === 'pickup'">        
             <div class="flex flex-wrap mt-4 pt-4 border-t border-slate-200/60"> 
-                <div class="w-1/4 whitespace-nowrap">{{store.order.campaign.meta_logistic.pickup_options[store.order.shipping_option_index]?.name}}</div>
-                <div class="w-3/4">{{store.order.campaign.meta_logistic.pickup_options[store.order.shipping_option_index]?.address}}</div>
+                <div class="w-1/4 whitespace-nowrap">{{store.order?.shipping_option_data?.name}}</div>
+                <div class="w-3/4">{{store.order?.shipping_option_data?.address}}</div>
             </div>
         </template>
-
-        <template v-if="store.order.shipping_method === 'delivery'">
+        <template v-else-if="store.order.shipping_method === 'delivery'">
             <div class="flex flex-row flex-wrap mt-4 pt-4 border-t border-slate-200/60">
-                <div class="lg:w-1/4 whitespace-nowrap">{{$t('shopping_cart.payment.address')}}</div>
-                <div class="lg:w-3/4">
+                <div class="w-1/4 whitespace-nowrap">{{$t('shopping_cart.payment.address')}}</div>
+                <div v-if="store.order.shipping_option_data?.is_cvs"> 
+                <div class="w-3/4">
+                    <div>{{ store.order.shipping_option_data?.cvs_store_name }}</div>
+                    <div>{{ store.order.shipping_option_data?.cvs_address }}</div>
+                </div>
+                </div>
+                <div v-else class="w-3/4">
                     {{store.order.shipping_address_1}} ,
                     {{store.order.shipping_postcode}} ,
                     {{store.order.shipping_region}} ,
@@ -41,6 +47,28 @@
                 </div>
             </div>
         </template>
+        <template v-else-if="store.order.shipping_method === 'ecpay'"> 
+            <template v-if="store.order.shipping_option_data.logisticsType === 'CVS'"> 
+                <div class="flex flex-row flex-wrap mt-4 pt-4 border-t border-slate-200/60">
+                    <div class="w-1/4">{{$t('order_detail.delivery.cvs')}}</div>
+                    <div class="flex flex-col w-3/4">
+                        <div>{{ store.order.shipping_option_data?.cvs_store_name }}</div>
+                        <div>{{ store.order.shipping_option_data?.cvs_address }}</div>
+                    </div>
+                </div>
+            </template>
+            <template v-else> 
+                <div class="flex flex-row flex-wrap mt-4 pt-4 border-t border-slate-200/60">
+                    <div class="w-1/4">{{$t('order_detail.delivery.address')}}</div>
+                    <div class="flex flex-col w-3/4">
+                        {{store.order.shipping_postcode}}
+                        {{store.order.shipping_region}}, {{store.order.shipping_location}}, {{store.order.shipping_address_1}}
+                    </div>
+                </div>
+            </template>
+        </template> 
+        
+       
     </div>
 
 </template>

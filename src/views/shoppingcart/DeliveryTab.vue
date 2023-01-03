@@ -403,7 +403,7 @@
       </button>
       <button 
         :show="show" class="w-fit btn btn-rounded-primary px-5"
-        @click="proceed_to_payment()" :disabled="shoppingCartStore.user_subscription.status === sandboxMode">
+        @click="proceed_to_payment()" :disabled="shoppingCartStore.user_subscription.status === sandboxMode || checkoutLoading">
 
         {{$t('shopping_cart.delivery_tab.proceed_to_payment')}}
 
@@ -598,7 +598,7 @@ const shipping_option_index_computed = computed({
         showAddressForm.value = false
       }
     }
-    // console.log(shipping_info.value.shipping_option_data)
+    console.log(shipping_info.value.shipping_option_data)
   }
 })
 
@@ -764,6 +764,7 @@ const proceed_to_payment = () =>{
     layoutStore.alert.showMessageToast(i18n.global.t('shopping_cart.invalid_pickup_method'))
     return
   }
+  console.log(shipping_info.value)
 
   if((shipping_info.value.shipping_option_data['logisticsType'] == 'CVS' || shipping_info.value.shipping_option_data['is_cvs']) && !shipping_info.value.shipping_option_data['cvs_store_id']){
     layoutStore.alert.showMessageToast(i18n.global.t('shopping_cart.invalid_cvs_store'))

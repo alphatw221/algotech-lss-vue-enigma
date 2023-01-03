@@ -98,7 +98,7 @@
     },
     "payment":{
         "shipping_summary":"收件資訊",
-        "pickup":"自行取货",
+        "pickup":"自行取貨",
         "delivery":"運送",
         "address":"收件地址",
         "pay_with":"付款方式",
