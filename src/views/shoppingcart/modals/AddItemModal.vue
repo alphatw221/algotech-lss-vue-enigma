@@ -138,7 +138,7 @@ watch(computed(()=>shoppingCartStore.cart),()=>{
 const updateAddOnProducts = ()=>{
 	let temp = []
 	shoppingCartStore.campaignProducts.forEach(product => {
-		if(!(product.id.toString() in shoppingCartStore.cart.products) && product.type!='lucky_draw'){
+		if(!(product.id.toString() in shoppingCartStore.cart.products) && product.type!='lucky_draw'  && product.active){
 			product.qty=1
 			temp.push(product)
 		}

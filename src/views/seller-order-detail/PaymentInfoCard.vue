@@ -20,9 +20,16 @@
 
                 <template v-if="sellerOrderDetailStore.order.meta.receipt_image">
                     <span class="col-start-1 col-span-2">{{$t('order_detail.payment.record')}}</span>
-                    <span class="col-start-3 col-span-3">
-                            <Tippy tag="img" :src="sellerOrderDetailStore.order.meta.receipt_image" />
-                    </span>
+                    <div class="col-start-3 col-span-3 w-20 h-20 image-fit zoom-in">
+                        <Tippy
+                        v-if="sellerOrderDetailStore.order.meta.receipt_image"
+                            tag="img"
+                            data-action="zoom"
+                            content="receipt image"
+                            class="rounded-lg"
+                            :src="sellerOrderDetailStore.order.meta.receipt_image"
+                        />
+                    </div>
                 </template>
 
                 <span class="col-start-1 col-span-2">{{$t('order.payment_status')}}</span>   

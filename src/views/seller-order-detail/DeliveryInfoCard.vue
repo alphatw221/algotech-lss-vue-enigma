@@ -37,7 +37,7 @@
                 </template>
                 <template v-else-if="sellerOrderDetailStore.order.shipping_method === 'delivery'">
                     <div class="col-start-1 col-span-2">{{$t('order_detail.delivery.information')}}</div>
-                    <div class="col-start-3 col-span-3">{{$t('order_detail.delivery.delivery')}}：{{ sellerOrderDetailStore.order.shipping_option_data?.title|| $t('order_detail.delivery.default') }}
+                    <div class="col-start-3 col-span-3">{{$t('order_detail.delivery.delivery')}}：{{ buyerOrderStore.order.shipping_option|| $t('order_detail.delivery.default') }}
                         {{sellerOrderDetailStore.order.shipping_date_time!==null?'('+new Date(sellerOrderDetailStore.order.shipping_date_time).toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric",hour: '2-digit', minute: '2-digit'})+')':''}}
                     </div>
                     <template v-if="sellerOrderDetailStore.order.shipping_option_data?.is_cvs"> 
@@ -59,8 +59,9 @@
                 <template v-else-if="sellerOrderDetailStore.order.shipping_method === 'ecpay'"> 
                     <template v-if="sellerOrderDetailStore.order.shipping_option_data.logisticsType == 'CVS'"> 
                         <div class="col-start-1 col-span-5 sm:col-span-2">{{$t('order_detail.delivery.cvs')}}</div>
-                        <div class="col-start-2 col-span-5 sm:col-start-3 sm:col-span-4">{{ sellerOrderDetailStore.order.shipping_option_data?.cvs_store_name }}</div>
-                        <div class="col-start-2 col-span-5 sm:col-start-3 sm:col-span-4 -my-2">{{ sellerOrderDetailStore.order.shipping_option_data?.cvs_address }}</div>
+                        <div class="col-start-2 col-span-5 sm:col-start-3 sm:col-span-4">{{sellerOrderDetailStore.order.shipping_option_data.LogisticsSubType == 'UNIMARTC2C'? '7-11店到店':'全家店到店'}}</div>
+                        <div class="col-start-2 col-span-5 sm:col-start-3 sm:col-span-4 -my-2">{{ sellerOrderDetailStore.order.shipping_option_data?.cvs_store_name }}</div>
+                        <div class="col-start-2 col-span-5 sm:col-start-3 sm:col-span-4 -my-1">{{ sellerOrderDetailStore.order.shipping_option_data?.cvs_address }}</div>
                     </template>
                     <template v-else> 
                         <div class="col-start-1 col-span-2">{{$t('order_detail.delivery.address')}}</div>

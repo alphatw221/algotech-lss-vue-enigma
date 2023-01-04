@@ -4,7 +4,7 @@
         id='comment-capturing-window' 
         @mousedown="startDrag($event)"
         @mouseup="endDrag()"
-        class="fixed bg-[#141414]/95 w-fit block top-20 left-10 z-[51] w-[200px] h-[35px]"
+        class="fixed bg-[#8B0000]/95 w-fit block top-20 left-10 z-[52] w-[200px] h-[35px]"
         v-if="sellerStore.commentCapturingCampaignData.twitch_campaign?.channel_name || sellerStore.commentCapturingCampaignData.tiktok_campaign?.username">
         <DropdownToggle class="flex justify-between w-full h-full px-2 text-white">
                 <label class="font-medium my-auto" > Capture Status</label>
@@ -13,16 +13,16 @@
                     <XIcon class="my-auto w-6 h-6" @click="stopCapturing('all')"/>
                 </div> 
         </DropdownToggle>
-        <DropdownMenu class="w-[200px] bg-[#141414]">
+        <DropdownMenu class="w-[200px] bg-[#8B0000]">
             <DropdownContent
-            class="bg-[#141414] text-white"
+            class="bg-[#8B0000] text-white"
           >
             <DropdownHeader tag="div" class="!font-normal text-white flex font-medium truncate">
                 {{sellerStore.commentCapturingCampaignData.title}}
             </DropdownHeader>
             <div class="w-full border-t border-slate-500/60 dark:border-darkmode-400 border-dashed"></div>
 
-                <DropdownItem class="w-full hover:bg-[#141414] cursor-auto">
+                <DropdownItem class="w-full hover:bg-[#8B0000] cursor-auto">
                     <div class="m-1 text-center text-white flex flex-col gap-3">
                         <div v-if="sellerStore.commentCapturingCampaignData?.tiktok_campaign?.username"
                             class="flex w-full">

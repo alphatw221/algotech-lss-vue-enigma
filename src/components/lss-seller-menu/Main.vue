@@ -13,7 +13,7 @@
           <div class="bar1"></div><div class="bar2"></div><div class="bar3"></div>
         </div> -->
         <ul :class="{'notSimple' : !closeSidebar }">
-          <div v-if="role !== 'supplier'" class="z-[51] pl-3 flex relative my-3 mx-auto py-1 w-fit rounded-xl cursor-pointer hover:bg-slate-100 creatCamp" 
+          <div v-if="role !== 'supplier'" class="z-[51] px-3 flex relative my-3 mx-auto py-1 w-fit rounded-xl cursor-pointer hover:bg-slate-100 creatCamp" 
             :class="[{'bg-slate-100': isCreateCampaign},{'xl:w-[220px]': !closeSidebar}]"
             @click="router.push({name:'create-campaign'})"> 
             <button class="w-10 h-10 xl:mr-3 btn btn-rounded-warning border-[2px] border-slate-100 shadow-lg"

@@ -77,7 +77,7 @@
                     {{ $t('settings.delivery.add_more_delivery_option') }}
                 </button>
 		    </div>
-            <div class="flex flex-col flex-wrap gap-3 mt-5 sm:flex-row sm:mt-0"
+            <div class="flex flex-col flex-wrap gap-3 mt-5 sm:flex-row sm:mt-0 items-center"
                 v-for="(option, index) in deliverySettings.additional_delivery_options" :key="index">
                 <div class="flex flex-col justify-between">
                     <input  
@@ -121,7 +121,7 @@
                 
                 <div>
                     <input  
-                        class="w-10 h-10 form-control"
+                        class="form-control w-[1.5rem] h-[1.5rem]"
                         type="checkbox" 
                         v-model="option.is_cvs"
                     />
@@ -160,7 +160,7 @@
             </button> -->
             <button 
                 class="w-36 ml-5 shadow-md btn btn-primary float-right"
-                @click="updateDelivery"
+                @click="updateOwnDelivery()"
             >
                 {{ $t('settings.delivery_form.delivery_method_settings_update') }}
             </button>
@@ -241,9 +241,10 @@ const additional_delivery_option = { title: null, type: null, price: null, is_cv
 
 onMounted(() => {
     if(!layoutStore.userInfo.user_subscription)return
-
-    Object.assign(deliverySettings,JSON.parse(JSON.stringify(layoutStore.userInfo.user_subscription.meta_logistic)))
-    // deliverySettings = JSON.parse(JSON.stringify(layoutStore.userInfo.user_subscription.meta_logistic))
+    Object.entries(deliverySettings).forEach(([key])=>{
+        deliverySettings[key] = layoutStore.userInfo.user_subscription.meta_logistic[key]
+    })
+    // Object.assign(deliverySettings,JSON.parse(JSON.stringify(layoutStore.userInfo.user_subscription.meta_logistic)))
     props.logistic.fields.forEach(field => {
         if(typeof deliverySettings[field.key]!=field.dataType) deliverySettings[field.key]=field.default
     });
@@ -258,31 +259,28 @@ const deleteDelivery = index=>{
     deliverySettings.additional_delivery_options.splice(index,1)
 }
 
-const updateDelivery = () => {
+const updateOwnDelivery = () => {
+    console.log('OWN')
     v.value.$touch()
     // return
     if(v.value.$invalid){
         layoutStore.alert.showMessageToast("Invalid data")
         return
     }
+    console.log(deliverySettings)
     seller_update_delivery(deliverySettings, layoutStore.alert).then(res=>{
-        layoutStore.userInfo = res.data
+        layoutStore.userInfo.user_subscription.meta_logistic = res.data.user_subscription.meta_logistic
         layoutStore.notification.showMessageToast(i18n.global.t('settings.update_successfully'))
     })
 }
 
-const discardDelivery = () =>{
+// const discardDelivery = () =>{
 
-    // console.log(layoutStore.userInfo.user_subscription.meta_logistic)
-    // return
-    if(!layoutStore.userInfo.user_subscription) return
+//     if(!layoutStore.userInfo.user_subscription) return
+//     Object.assign(deliverySettings,JSON.parse(JSON.stringify(layoutStore.userInfo.user_subscription.meta_logistic)))
 
-    // console.log(layoutStore.userInfo.user_subscription.meta_logistic)
-    // deliverySettings = JSON.parse(JSON.stringify(layoutStore.userInfo.user_subscription.meta_logistic))
-    Object.assign(deliverySettings,JSON.parse(JSON.stringify(layoutStore.userInfo.user_subscription.meta_logistic)))
-
-    fields.forEach(field => {
-        if(typeof deliverySettings[field.key]!=field.dataType) deliverySettings[field.key]=field.default
-    });
-}
+//     fields.forEach(field => {
+//         if(typeof deliverySettings[field.key]!=field.dataType) deliverySettings[field.key]=field.default
+//     });
+// }
 </script>

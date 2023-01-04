@@ -518,7 +518,7 @@ const area_computed = computed({
 const select_shipping_method = (method,type) => {
   if(type == 'tab' && method == shipping_method_computed.value) return 
   if(type == 'tab' && method == 'delivery' && shipping_method_computed.value == 'ecpay') return 
-  console.log("select_shipping_method", method)
+  // console.log("select_shipping_method", method)
   shipping_method_computed.value=method
 }
 
@@ -554,7 +554,7 @@ const shipping_option_index_computed = computed({
   get:()=>{
     return shipping_option_index.value
   },set:index=>{
-    console.log("set", index)
+    // console.log("set", index)
     shipping_option_index.value = index
     shoppingCartStore.shipping_info.shipping_option_index=index
     // pickup 
@@ -598,7 +598,7 @@ const shipping_option_index_computed = computed({
         showAddressForm.value = false
       }
     }
-    console.log(shipping_info.value.shipping_option_data)
+    // console.log(shipping_info.value.shipping_option_data)
   }
 })
 
@@ -637,16 +637,14 @@ const exactlength = (param) =>
   helpers.withParams(
     { type: 'exactlength', value: param },
     (value) => {
-      var ecpay_enabled = shoppingCartStore.cart.campaign.meta_logistic.ecpay.enabled
+      var ecpay_enabled = shoppingCartStore.cart.campaign.meta_logistic.ecpay?.enabled ? true : false
       if (value.length !== param && ecpay_enabled) return false
-      else return true
+      return true
     }
 )
 const twCellPhoneBeginning = (value) => {
-  var ecpay_enabled = shoppingCartStore.cart.campaign.meta_logistic.ecpay.enabled
-  if (value.length === 0) return true
+  var ecpay_enabled = shoppingCartStore.cart.campaign.meta_logistic.ecpay?.enabled ? true : false
   if (value[0] !== "0" && ecpay_enabled) return false
-  if (value.length === 1) return true
   if (value[1] !== "9" && ecpay_enabled) return false
   return true
 }
@@ -764,7 +762,7 @@ const proceed_to_payment = () =>{
     layoutStore.alert.showMessageToast(i18n.global.t('shopping_cart.invalid_pickup_method'))
     return
   }
-  console.log(shipping_info.value)
+  // console.log(shipping_info.value)
 
   if((shipping_info.value.shipping_option_data['logisticsType'] == 'CVS' || shipping_info.value.shipping_option_data['is_cvs']) && !shipping_info.value.shipping_option_data['cvs_store_id']){
     layoutStore.alert.showMessageToast(i18n.global.t('shopping_cart.invalid_cvs_store'))
