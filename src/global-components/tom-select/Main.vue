@@ -39,7 +39,7 @@ const props = defineProps({
   modelValue: {
     type: [String, Number, Array],
     default: "",
-  },
+  }
 });
 
 const emit = defineEmits();
@@ -53,11 +53,10 @@ const computedOptions = computed(() => {
       ...props.options.plugins,
     },
   };
-
   if (Array.isArray(props.modelValue)) {
     options = {
       persist: false,
-      create: true,
+      create: true, //add...
       onDelete: function (values) {
         return confirm(
           values.length > 1
