@@ -57,7 +57,7 @@ const computedOptions = computed(() => {
   if (Array.isArray(props.modelValue)) {
     options = {
       persist: false,
-      create: true,
+      create: false, //add...
       onDelete: function (values) {
         return confirm(
           values.length > 1
