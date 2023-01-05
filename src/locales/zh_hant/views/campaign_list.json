@@ -63,6 +63,7 @@
         "Scheduled" : "預定中",
         "History" : "歷史",
         "Ongoing" : "進行中",
+        "tiktok_cart":"複製TikTok購物連結",
 
         "no_have_campaign":{
             "ongoing":"目前沒有任何進行中的銷售活動",

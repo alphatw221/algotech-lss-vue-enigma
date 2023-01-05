@@ -188,7 +188,7 @@
                       {{$t("campaign_list.campaign_list_table.edit_campaign_product")}}  
                     </DropdownItem>
                     <DropdownItem 
-                      @click="copyURL(campaign)" class="w-fit whitespace-nowrap"> 
+                      @click="copyURL('express',campaign)" class="w-fit whitespace-nowrap"> 
                       <Tippy 
                         class="whitespace-nowrap w-full" 
                         data-tippy-allowHTML="true" 
@@ -198,6 +198,20 @@
                         <div class="whitespace-nowrap flex"> 
                           <SimpleIcon icon="express_cart" color="#2d8cf0" class="mr-1"/>
                           {{$t("campaign_list.campaign_list_table.blank_cart")}}  </div> 
+                      </Tippy> 
+                    </DropdownItem>
+                    <DropdownItem 
+                      v-if="layoutStore.userInfo.user_subscription.user_plan.activated_platform.includes('tiktok')"
+                      @click="copyURL('tiktok',campaign)" class="w-fit whitespace-nowrap"> 
+                      <Tippy 
+                        class="whitespace-nowrap w-full" 
+                        data-tippy-allowHTML="true" 
+                        data-tippy-placement="right" 
+                        :content="$t('tooltips.campaign_list.instant_cart')" 
+                        > 
+                        <div class="whitespace-nowrap flex"> 
+                          <SimpleIcon icon="tiktok_cart" color="#2d8cf0" class="mr-1"/>
+                          {{$t("campaign_list.campaign_list_table.tiktok_cart")}}  </div> 
                       </Tippy> 
                     </DropdownItem>
                     <DropdownItem 
@@ -254,6 +268,7 @@ import twitch_platform from "/src/assets/images/lss-img/twitch.png"
 import tiktok_platform from "/src/assets/images/lss-img/tiktok_black_bg.png"
 import anonymous_profile from "/src/assets/images/lss-img/noname.png"
 import unbound from "/src/assets/images/lss-img/noname.png"
+
 import dom from "@left4code/tw-starter/dist/js/dom";
 import i18n from "@/locales/i18n"
 
@@ -367,8 +382,9 @@ const editCampaignProduct = campaign=>{
   hideDropDown()
 
 }
-const copyURL = (campaign)=>{
-  text = `${baseURL}/buyer/recaptcha/blank/${campaign.id}`;
+const copyURL = (type,campaign)=>{
+
+  text = type=='express'? `${baseURL}/buyer/recaptcha/blank/${campaign.id}`: `${baseURL}/buyer/search/${campaign.id}/cart/tiktok`
   navigator.clipboard.writeText(text).then(()=>{
       layoutStore.notification.showMessageToast(i18n.global.t("campaign_list.copied"))
   })

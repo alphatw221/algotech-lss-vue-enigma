@@ -50,20 +50,20 @@
         "name" : "Name",
         "phone" : "Phone",
         "email" : "Email",
-        "cellphone":"Cellphone",
+        "cellphone":"Cellphone Number",
         "method" : "Delivery Method",
         "default":"Default",
         "delivery" : "Delivery",
         "date" : "Delivery Date",
         "address":"Delivery Address",
         "post_code" : "Post Code",
-        "cellphone":"cellphone number",
         "location" : "Location",
         "pickup" : "Self Pickup",
         "pickup_address":"Pickup Address",
         "pickup_store":"Pickup Location",
         "additional_delivery_charge" : "Selected Delivery Charge Option",
-        "remark":"Remark"
+        "remark":"Remark",
+        "cvs":"店到店取貨資訊："
     },
     "payment":{
         "Direct Payment":"Direct Payment",
@@ -77,7 +77,8 @@
         "information": "Payment Information",
         "record" : "Record",
         "last_five_digits":"Last Five Digits",
-        "no_record":"Payment record has not been attached"
+        "no_record":"Payment record has not been attached",
+        "invoice_number":"Invoice Number"
     },
     "remark" : "Remark",
     "save_remarks" : "Save Remarks",

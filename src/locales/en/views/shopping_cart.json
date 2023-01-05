@@ -24,6 +24,7 @@
         "self_pickup":"Self Pickup",
         "delivery_date":"Delivery Date",
         "pickup_date":"Pickup Date",
+        "select_store":"Select Store",
 
         "delivery_info":"Delivery Information",
         "address_hint": "Enter valid address",
@@ -47,7 +48,8 @@
         "note":"Delivery and Collection Note",
         "remark":"Remark",
         "previous":"Previous",
-        "proceed_to_payment":"Proceed to Payment"
+        "proceed_to_payment":"Proceed to Payment",
+        "processing":"Processing to Payment．．．"
     },
     "table":{
         "update":"Update",
@@ -80,14 +82,20 @@
         "promo_apply":"Discount Code %{code} is Applied",
         "referr_code":"Share Referral Code",
         "promo_login":"Please login to use promo code",
-        "points_redemption":"Points Redemption"
+        "points_redemption":"Points Redemption",
+        "ok":"OK",
+        "point_discount":"Point Discount",
+        "login_for_points":"Login to earn %{points} POINTS from this order",
+        "points_earn":"You could earn %{points} POINTS from this order",
+        "alert":"Alert"
     },
     "add_item":{
         "select_add_ons":"Select add-ons",
         "select_products":"Select Products",
         "add":"Add",
         "wishlist":"Notify Me",
-        "description": "Product details"
+        "description": "Product details",
+        "out_of_stock":"Store Product Sold Out"
     },
     "payment":{
         "shipping_summary":"Shipping Summary",
@@ -130,6 +138,9 @@
     "update_successfully":"Update Successfully",
     "invalid_data":"Invalid data",
     "invalid_amount":"Invalid Amount",
+    "invalid_delivery_method":"Select Delivery Method",
+    "invalid_pickup_method":"Select Pickup Store",
+    "invalid_cvs_store":"Select Pickup Store",
     "add_item_success":"Add Item Success",
     "invalid_user_info":"Invalid User Infomation Input",
     "invalid_delivery_info":"Invalid delivery infomation input",

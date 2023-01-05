@@ -1,7 +1,7 @@
 <template>
     <AccordionItem  class="mx-5 show">
         <Accordion class="rounded-t-lg bg-primary" >
-            <div class="mx-5 text-white text-2xl" v-if="store.order.campaign">{{$t('shopping_cart.payment.direct.title')}}</div>
+            <div class="mx-5 text-white text-[20px]" v-if="store.order.campaign">{{$t('shopping_cart.payment.direct.title')}}</div>
         </Accordion>
 
         <!-- BEGIN Direct Payment -->

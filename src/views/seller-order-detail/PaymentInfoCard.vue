@@ -5,29 +5,28 @@
                 <span class="text-lg"> {{$t('order_detail.payment.information')}}</span>   
             </div>
            
-            <div class="grid grid-cols-6" v-if="sellerOrderDetailStore.order.payment_method">
+            <div class="grid grid-cols-6 gap-3" v-if="sellerOrderDetailStore.order.payment_method">
                 <template v-if="sellerOrderDetailStore.order.payment_method">
-                    <span class="col-start-1 col-span-2 py-2">{{$t('order_detail.payment.method')}}</span>
-                    <span class="col-start-3 col-span-3 py-2">
-                        {{ sellerOrderDetailStore.order.payment_method == 'Direct Payment'||'direct_payment' ? `${$t('order_detail.payment.Direct Payment')} - ${sellerOrderDetailStore.order.meta.account_mode}` : sellerOrderDetailStore.order.payment_method }}</span>
+                    <span class="col-start-1 col-span-2">{{$t('order_detail.payment.method')}}</span>
+                    <span class="col-start-3 col-span-3">
+                        {{ sellerOrderDetailStore.order.payment_method == 'direct_payment' ? `${$t('order_detail.payment.Direct Payment')} - ${sellerOrderDetailStore.order.meta.account_mode}` : $t(`order_detail.payment.${sellerOrderDetailStore.order.payment_method}`) }}</span>
                 </template>
 
-                <template v-if="sellerOrderDetailStore.order">
-                    <span class="col-start-1 col-span-2 py-2">{{$t('order_detail.payment.last_five_digits')}}</span>
-                    <div v-if="sellerOrderDetailStore.order.meta.last_five_digit == '' && !sellerOrderDetailStore.order.meta.receipt_image" class="col-start-3 col-span-3 py-2">{{$t('order_detail.payment.no_record')}} </div>
-                    <span v-else  class="col-start-3 col-span-3 py-2">{{sellerOrderDetailStore.order.meta.last_five_digit}}</span>
+                <template v-if="sellerOrderDetailStore.order.meta?.last_five_digit">
+                    <span class="col-start-1 col-span-2">{{$t('order_detail.payment.last_five_digits')}}</span>
+                    <div v-if="sellerOrderDetailStore.order.meta.last_five_digit == '' && !sellerOrderDetailStore.order.meta.receipt_image" class="col-start-3 col-span-3">{{$t('order_detail.payment.no_record')}} </div>
+                    <span v-else  class="col-start-3 col-span-3">{{sellerOrderDetailStore.order.meta.last_five_digit}}</span>
                 </template>
 
                 <template v-if="sellerOrderDetailStore.order.meta.receipt_image">
-                    <span class="col-start-1 col-span-2 py-2">{{$t('order_detail.payment.record')}}</span>
-                    <span class="col-start-3 col-span-3 py-2">
+                    <span class="col-start-1 col-span-2">{{$t('order_detail.payment.record')}}</span>
+                    <span class="col-start-3 col-span-3">
                             <Tippy tag="img" :src="sellerOrderDetailStore.order.meta.receipt_image" />
                     </span>
                 </template>
 
-                <span class="col-start-1 col-span-2 py-2">{{$t('order.payment_status')}}</span>   
-                <span class="col-start-3 col-span-3 py-2">{{$t(`order.payment_status_options.${sellerOrderDetailStore.order.payment_status}`)}}</span>
-
+                <span class="col-start-1 col-span-2">{{$t('order.payment_status')}}</span>   
+                <span class="col-start-3 col-span-3">{{$t(`order.payment_status_options.${sellerOrderDetailStore.order.payment_status}`)}}</span>
             </div>
         </div>
     </div>
