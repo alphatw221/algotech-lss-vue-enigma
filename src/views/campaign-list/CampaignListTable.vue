@@ -144,11 +144,11 @@
             > 
               <HelpCircleIcon class="w-5 tippy-icon md:hidden tippy-mobile" />
             </Tippy> 
-            <div  v-if="campaignStatus === 'history'" 
+            <!-- <div  v-if="campaignStatus === 'history'" 
               class="flex flex-col justify-center form-check form-switch">
               <input  id="selectCheckbox" class="form-check-input center" type="checkbox" disabled v-model="checkout" />
-            </div>
-            <div v-else
+            </div> -->
+            <div 
               class="flex flex-col justify-center form-check form-switch">
                <input @click="stop_checkout(index, campaign)" class="mr-0 form-check-input" type="checkbox" v-model="campaign.stop_checkout"/>
             </div>
