@@ -88,3 +88,7 @@ export const get_campaign_statistics = (campaign_id, toastify=null) => {
 export const get_campaign_setup_status = (campaign_id, toastify=null) => {
     return createAxios(toastify).get(`/api/v2/campaign/${campaign_id}/setup/status/`)
 }
+
+export const get_short_link = (campaign_id, type, toastify=null) => {
+    return createAxios(toastify).get(`/api/v2/campaign/${campaign_id}/link/short/?type=${type}`)
+}

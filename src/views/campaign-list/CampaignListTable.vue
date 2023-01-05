@@ -251,7 +251,7 @@
 
 <script setup>
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
-import { toggle_stop_checkout, list_campaign, delete_campaign } from "@/api_v2/campaign"
+import { toggle_stop_checkout, list_campaign, delete_campaign, get_short_link } from "@/api_v2/campaign"
 import {defineProps, onMounted, onUnmounted, getCurrentInstance, ref, defineEmits, computed} from 'vue'
 import { useRoute, useRouter } from "vue-router";
 
@@ -391,11 +391,15 @@ const editCampaignProduct = campaign=>{
 
 }
 const copyURL = (type,campaign)=>{
-
-  text = type=='express'? `${baseURL}/buyer/recaptcha/blank/${campaign.id}`: `${baseURL}/buyer/search/${campaign.id}/cart/tiktok`
-  navigator.clipboard.writeText(text).then(()=>{
-      layoutStore.notification.showMessageToast(i18n.global.t("campaign_list.copied"))
+  get_short_link(campaign.id, type, layoutStore.alert).then(res=>{
+    navigator.clipboard.writeText(res.data.link).then(()=>{
+        layoutStore.notification.showMessageToast(i18n.global.t("campaign_list.copied"))
+    })
   })
+  // text = type=='express'? `${baseURL}/buyer/recaptcha/blank/${campaign.id}`: `${baseURL}/buyer/search/${campaign.id}/cart/tiktok`
+  // navigator.clipboard.writeText(text).then(()=>{
+  //     layoutStore.notification.showMessageToast(i18n.global.t("campaign_list.copied"))
+  // })
   hideDropDown()
 }
 
