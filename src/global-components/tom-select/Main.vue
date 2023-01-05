@@ -40,6 +40,10 @@ const props = defineProps({
     type: [String, Number, Array],
     default: "",
   },
+  create:{
+    type:Boolean,
+    default:true,
+  }
 });
 
 const emit = defineEmits();
@@ -53,11 +57,10 @@ const computedOptions = computed(() => {
       ...props.options.plugins,
     },
   };
-
   if (Array.isArray(props.modelValue)) {
     options = {
       persist: false,
-      create: false, //add...
+      create: props.create, //add...
       onDelete: function (values) {
         return confirm(
           values.length > 1
