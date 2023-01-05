@@ -260,7 +260,6 @@ const deleteDelivery = index=>{
 }
 
 const updateOwnDelivery = () => {
-    console.log('OWN')
     v.value.$touch()
     // return
     if(v.value.$invalid){
