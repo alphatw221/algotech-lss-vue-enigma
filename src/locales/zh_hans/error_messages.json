@@ -155,7 +155,7 @@
         "campaign_end_time_not_later_subscription_period": "订阅方案是到 %{datetime_subscription_expired_at} 过期，<br />销售活动的时间不能超过 %{datetime_subscription_expired_at}。"
     },
     "util":{
-        "field_required": "%{field} 是必填",
+        "field_required": "%{field} 必填",
         "no_api_user_found":"找不到此用户",
         "not_activated_user": "此帐号尚未启用",
         "language_not_supported": "尚未支援此语言",

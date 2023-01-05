@@ -260,7 +260,6 @@
 							>
 							{{ $t(`create_campaign.delivery_form.errors.${error.$message.replace(/\s/g, "_")}`) }}
 						</label>
-						
                     </div>
 					<!-- pickup date  -->
 					<div class="flex flex-col flex-wrap  flex-grow-2">
@@ -402,6 +401,10 @@ watch(computed(()=>deliverydatePicker.value),()=>{
 	props.campaign.meta_logistic.delivery_date.start_at = deliverydatePicker.value.start
 	props.campaign.meta_logistic.delivery_date.end_at = deliverydatePicker.value.end
 },{deep:true})
+
+watch(computed(()=>useDeliveryDate.value),()=>{if(!useDeliveryDate.value) deliverydatePicker.value ={start:new Date(),end:new Date()}},{deep:true})
+
+
 
 watch(computed(()=>pickupdatePicker.value),()=>{
 	// console.log(pickupdatePicker.value)

@@ -115,14 +115,13 @@ const searchColumns = ref([{ text: "title", value: "title" }]);
 
 const tableColumns = ref([
   { name: "fan_page", key: "page" },
-  // { name: "Platform", key: "platform" },
   { name: "title", key: "title" },
   { name: "start_at", key: "start_at" },
   { name: "end_at", key: "end_at" },
   { name: "manage_order", key: "manage_order" },
   { name: "stop", key: "stop" },
   // { name: "Order Link", key:"link" },
-  { name: "null", key: "entry" },
+  // { name: "null", key: "entry" },
 ]);
 
 onMounted(()=>{
