@@ -1,5 +1,14 @@
 <template>
-    <div class="py-5 sm:p-10 sm:py-5">
+    <div class="py-5 sm:p-10 sm:p-5">
+        <div class="flex flex-row justify-start mt-5 lg:mb-5 lg:mt-0">
+            <input 
+                class="form-check-input w-[1.5rem] h-[1.5rem] my-auto" 
+                type="checkbox" 
+                v-model="deliverySettings.is_store_pickup_enabled"
+            />
+            <label class="ml-3 form-label my-auto">{{ $t('settings.delivery_form.enabled') }}</label>
+        </div>
+
         <span class="mb-3 text-lg sm:text-xl font-medium leading-none">{{ $t('settings.delivery.store.collection') }}</span>
 
         <div class="flex flex-wrap justify-between my-5"> 
@@ -111,6 +120,7 @@ const layoutStore = useLSSSellerLayoutStore();
 
 const deliverySettings = reactive({
     pickup_options: [],
+    is_store_pickup_enabled:false
 })
 const pickupdatePicker = ref([])
 

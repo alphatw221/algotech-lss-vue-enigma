@@ -2,7 +2,7 @@
 
 <AccordionItem  class="mx-5" >
         <Accordion class="bg-primary rounded-t-lg" >
-            <div class="text-white mx-5 text-xl sm:text-2xl" > 超商貨到付款 </div>
+            <div class="text-white mx-5 text-[20px]" > 超商貨到付款 </div>
         </Accordion>
         <AccordionPanel class="text-slate-600 dark:text-slate-500 leading-relaxed border-2 border-secondary" >
             <div v-if="store.order.campaign" class="grid grid-cols-3 justify-center text-left mx-5 sm:mx-20 text-[16px] gap-1">
@@ -14,8 +14,8 @@
                 <p> 店號: </p>
                 <p class="col-span-2">{{store.order.shipping_option_data.cvs_store_id}}</p>
                 <template v-if="store.order.shipping_option_data.cvs_telephone">
-                    <p > 門市名稱: </p>
-                    <p>{{store.order.shipping_option_data.cvs_telephone}}</p>
+                    <p> 門市電話: </p>
+                    <p class="whitespace-nowrap">{{store.order.shipping_option_data.cvs_telephone}}</p>
                 </template>   
                 
                 <button class="col-span-3 w-fit btn btn-primary rounded-lg mt-10 mb-3 ml-auto" @click.once="cash_on_delivery()">

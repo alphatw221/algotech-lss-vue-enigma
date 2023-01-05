@@ -57,7 +57,8 @@
         "pickup_address":"取貨地點",
         "pickup_store":"取貨店家",
         "additional_delivery_charge" : "選定的運費選項",
-        "cellphone":"手機號碼"
+        "remark":"備註",
+        "cvs":"取貨資訊"
     },
     "payment":{
         "direct_payment":"轉帳付款",
@@ -72,7 +73,8 @@
         "information": "付款資訊",
         "record" : "付款紀錄",
         "last_five_digits":"付款證明",
-        "no_record":"未附付款紀錄"
+        "no_record":"未附付款紀錄",
+        "invoice_number":"發票號碼"
     },
     "remark" : "備註",
     "save_remarks" : "儲存備註",

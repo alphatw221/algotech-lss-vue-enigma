@@ -85,12 +85,12 @@
 							<div class="productName">{{ shoppingCartStore.campaignProductDict[campaign_product_id]?.name }} </div>
 						</div>
 					</td>
-					<td class="text-center" :data-content="$t(`shopping_cart.table.order_code`)">
+					<td class="td_ordercode text-center" :data-content="$t(`shopping_cart.table.order_code`)">
 						<div class="flex items-center"> 
 							<span class="ordercode mx-auto"> {{ shoppingCartStore.campaignProductDict[campaign_product_id]?.order_code }}</span>
 						</div>
 					</td>
-					<td class="text-center h-20" :data-content="$t(`shopping_cart.table.Qty`)">
+					<td class="td_qty text-center h-20" :data-content="$t(`shopping_cart.table.Qty`)">
 						<template v-if="shoppingCartStore.campaignProductDict[campaign_product_id]?.customer_editable && shoppingCartStore.campaignProductDict[campaign_product_id]?.type ==='product'">
 							<div class="flex w-full justify-center">
 								<!-- <div class="absolute -bottom-8 border-slate border-2 rounded-bl-md rounded-r-md p-3 bg-white">
@@ -134,18 +134,23 @@
 								{{ qty }}
 							</div>
 						</template>
-						<div class="absolute hidden md:block" 
-							v-show="
-							shoppingCartStore.campaignProductDict[campaign_product_id]?.qty_add_to_cart > shoppingCartStore.campaignProductDict[campaign_product_id]?.qty_for_sale - shoppingCartStore.campaignProductDict[campaign_product_id]?.qty_sold - shoppingCartStore.campaignProductDict[campaign_product_id]?.qty_pending_payment && 
-							!(shoppingCartStore.campaignProductDict[campaign_product_id]?.oversell) &&
-							shoppingCartStore.campaignProductDict[campaign_product_id]?.type === 'product'" style="color:#FF4500">
-							 {{$t('shopping_cart.table.missing_message')}}
-						</div>
+						<template v-if="shoppingCartStore.campaignProductDict[campaign_product_id]?.qty_add_to_cart > (shoppingCartStore.campaignProductDict[campaign_product_id]?.qty_for_sale - shoppingCartStore.campaignProductDict[campaign_product_id]?.qty_sold - shoppingCartStore.campaignProductDict[campaign_product_id]?.qty_pending_payment) 
+							&& !(shoppingCartStore.campaignProductDict[campaign_product_id]?.oversell)
+							&& shoppingCartStore.campaignProductDict[campaign_product_id]?.type === 'product'"> 
+							<p class="absolute hidden sm:block" style="color:#FF4500">
+								{{$t('shopping_cart.table.missing_message')}}
+							</p>
+						</template>
 					</td>
-					<td class="sm:hidden">
-						<div style="color:#FF4500" v-show="shoppingCartStore.campaignProductDict[campaign_product_id]?.qty_add_to_cart >= shoppingCartStore.campaignProductDict[campaign_product_id]?.qty_for_sale && shoppingCartStore.campaignProductDict[campaign_product_id]?.type === 'product'"> {{$t('shopping_cart.table.missing_message')}}</div>
+					<template 
+						v-if="shoppingCartStore.campaignProductDict[campaign_product_id]?.qty_add_to_cart > (shoppingCartStore.campaignProductDict[campaign_product_id]?.qty_for_sale - shoppingCartStore.campaignProductDict[campaign_product_id]?.qty_sold - shoppingCartStore.campaignProductDict[campaign_product_id]?.qty_pending_payment) 
+						 && !(shoppingCartStore.campaignProductDict[campaign_product_id]?.oversell) 
+						 && shoppingCartStore.campaignProductDict[campaign_product_id]?.type === 'product'"> 
+					<td class="td_missing sm:hidden" style="color:#FF4500">
+						<h4 class="text-[14px] text-center my-1">{{$t('shopping_cart.table.missing_message')}}</h4>
 					</td>
-					<td class="text-center h-20 tdPrice" :data-content="$t(`shopping_cart.table.price`)">
+					</template>
+					<td class="td_price text-center h-20" :data-content="$t(`shopping_cart.table.price`)">
 						<div class="price whitespace-nowrap"> 
 							{{shoppingCartStore.cart.campaign.currency}} 
 							{{(Math.floor(parseFloat(shoppingCartStore.campaignProductDict[campaign_product_id]?.price) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toLocaleString('en-GB')}}
@@ -159,7 +164,7 @@
 							{{shoppingCartStore.cart.campaign.price_unit?$t(`global.price_unit.${shoppingCartStore.cart.campaign.price_unit}`):''}}
 						</div>
 					</td>
-					<td class="table-report__action w-30 h-20">
+					<td class="table-report__action td_delete w-30 h-20">
 					<div class="flex justify-center items-center" v-show="shoppingCartStore.campaignProductDict[campaign_product_id]?.customer_removable && shoppingCartStore.campaignProductDict[campaign_product_id]?.type === 'product'">
 						<a class="flex items-center text-danger" @click="deleteOrderProduct( index, campaign_product_id)">
 						<Trash2Icon class="w-4 h-4 mr-1" /> {{$t('shopping_cart.table.delete')}}
@@ -221,6 +226,7 @@ const props = defineProps({
         default: true,
   },
 })
+
 
 const numOfItems = computed(()=>{
 	if(shoppingCartStore.cart.products)return Object.keys(shoppingCartStore.cart.products).length
@@ -323,6 +329,7 @@ const changeQuantity = ( index, operation, campaign_product_id, qty) => {
     font-weight: bold;
 	text-align: left !important;
 	min-height: 32px !important;
+	content: attr(data-content);
   }
 
   .imgtd{
@@ -333,10 +340,10 @@ const changeQuantity = ( index, operation, campaign_product_id, qty) => {
 	display:none;
   }
 
-  td:nth-of-type(2):before {
+  .td_ordercode:before {
 	display:none;
   }
-  td:nth-of-type(2) {
+  .td_ordercode {
 	padding-left: 0 !important;
 	text-align: center;
   }
@@ -349,31 +356,25 @@ const changeQuantity = ( index, operation, campaign_product_id, qty) => {
 	padding-right: 5px;
 	padding-left: 5px;
   }
-  td:nth-of-type(3) {
+  .td_qty {
 	padding-left: 0 !important;
   }
-  td:nth-of-type(3):before {
+  .td_qty:before {
     display:none;
   }
-  td:nth-of-type(4) {
-    position: absolute;
-	bottom:0 !important;
+
+  .td_missing {
+	padding-left: 0 !important;
+	text-align: center;
   }
-  td:nth-of-type(4):before {
+  .td_missing:before {
     display:none;
   }
  
-  td:nth-of-type(5):before {
-    content: attr(data-content);
-  }
-  td:nth-of-type(6):before {
-    content: attr(data-content);
-  }
-
-  td:nth-of-type(7):before {
+  .td_delete:before {
     display:none; 
   }
-  td:nth-of-type(7){
+  .td_delete{
     padding-left: 0% !important;
 	padding-bottom: 10px !important;
 	min-height: 0 !important;
