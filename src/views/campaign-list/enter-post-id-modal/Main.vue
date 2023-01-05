@@ -210,7 +210,7 @@
           {{$t('campaign_list.enter_post_id_modal.cancel')}}
         </button>
         <button type="button" class="w-32 ml-5 shadow-md btn btn-primary" @click="enterLive()" v-if="ready" :disabled="checking"
-          v-show="campaign.facebook_page || campaign.youtube_channel || campaign.instagram_profile || campaign.twitch_channel">
+          v-show="campaign.facebook_page || campaign.youtube_channel || campaign.instagram_profile || campaign.twitch_channel || ![undefined,''].includes(campaign.tiktok_campaign.username)">
 
           {{$t('campaign_list.enter_post_id_modal.save')}}
         </button>

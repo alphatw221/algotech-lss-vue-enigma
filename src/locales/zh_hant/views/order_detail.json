@@ -58,7 +58,7 @@
         "pickup_store":"取貨店家",
         "additional_delivery_charge" : "選定的運費選項",
         "remark":"備註",
-        "cvs":"店到店取貨資訊："
+        "cvs":"取貨資訊"
     },
     "payment":{
         "direct_payment":"轉帳付款",
