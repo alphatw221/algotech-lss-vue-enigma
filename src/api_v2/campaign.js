@@ -43,6 +43,10 @@ export const retrieve_campaign = (campaign_id, toastify=null) => {
     return createAxios(toastify).get(`api/v2/campaign/${campaign_id}/retrieve/`)
 }
 
+export const buyer_retrieve_campaign = (campaign_id, toastify=null) => {
+    return createAxios(toastify).get(`api/v2/campaign/${campaign_id}/buyer/retrieve`)
+}
+
 export const comment_on_comment = (campaign_id,comment_id,message_text, toastify=null) => {
     return createAxios(toastify).get(`/api/v2/campaign/facebook/comment-on-comment/?campaign_id=${campaign_id}&comment_id=${comment_id}&message=${message_text}`)
 }

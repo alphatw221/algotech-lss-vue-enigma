@@ -4,7 +4,7 @@
             <input 
                 class="form-check-input w-[1.5rem] h-[1.5rem] my-auto" 
                 type="checkbox" 
-                v-model="deliverySettings.is_store_pickup_enabled"
+                v-model="pickupSettings.is_store_pickup_enabled"
             />
             <label class="ml-3 form-label my-auto">{{ $t('settings.delivery_form.enabled') }}</label>
         </div>
@@ -21,7 +21,7 @@
         </div>
 
         <div class="text-sm sm:text-[16px] flex flex-col gap-3 sm:gap-5 my-5">
-            <template v-for="(option, index) in deliverySettings.pickup_options" :key="index">
+            <template v-for="(option, index) in pickupSettings.pickup_options" :key="index">
                 <div class="flex flex-col flex-wrap gap-3 sm:flex-row my-3">
                     <div class="flex flex-col flex-1">
                         <label class="text-base whitespace-nowrap">{{ $t('settings.delivery.store.pickup_store') }}</label> 
@@ -99,7 +99,7 @@
             </button> -->
             <button 
                 class="w-36 ml-5 shadow-md btn btn-primary float-right"
-                @click="updateDelivery"
+                @click="updatePickup()"
             >
                 {{ $t('settings.delivery_form.delivery_method_settings_update') }}
             </button>
@@ -118,7 +118,7 @@ import useVuelidate from '@vuelidate/core'
 
 const layoutStore = useLSSSellerLayoutStore();
 
-const deliverySettings = reactive({
+const pickupSettings = reactive({
     pickup_options: [],
     is_store_pickup_enabled:false
 })
@@ -128,7 +128,7 @@ const props = defineProps({
     logistic: Object,
 });
 
-const deliverySettingsRules = {
+const pickupSettingsRules = {
       pickup_options: {
         $each: helpers.forEach({
             name:{required},
@@ -137,17 +137,20 @@ const deliverySettingsRules = {
       },
     }
 
-const v = useVuelidate(deliverySettingsRules, deliverySettings)
+const v = useVuelidate(pickupSettingsRules, pickupSettings)
 
 const branch_option = { name: null, address: null ,start_at:null,end_at:null}
 
 onMounted(() => {
     if(!layoutStore.userInfo.user_subscription)return
 
-    Object.assign(deliverySettings,JSON.parse(JSON.stringify(layoutStore.userInfo.user_subscription.meta_logistic)))
-    // deliverySettings = JSON.parse(JSON.stringify(layoutStore.userInfo.user_subscription.meta_logistic))
+    Object.entries(pickupSettings).forEach(([key])=>{
+        pickupSettings[key] = layoutStore.userInfo.user_subscription.meta_logistic[key]
+    })
+    // Object.assign(pickupSettings,JSON.parse(JSON.stringify(layoutStore.userInfo.user_subscription.meta_logistic)))
+    // pickupSettings = JSON.parse(JSON.stringify(layoutStore.userInfo.user_subscription.meta_logistic))
     props.logistic.fields.forEach(field => {
-        if(typeof deliverySettings[field.key]!=field.dataType) deliverySettings[field.key]=field.default
+        if(typeof pickupSettings[field.key]!=field.dataType) pickupSettings[field.key]=field.default
     });
 
     update_pickupdatePicker()
@@ -157,24 +160,25 @@ onMounted(() => {
 })
 
 const addBranch = ()=>{
-    deliverySettings.pickup_options.unshift( Object.assign({},branch_option) )
+    pickupSettings.pickup_options.unshift( Object.assign({},branch_option) )
     pickupdatePicker.value.unshift({start:null,end:null})
 }
 const deleteBranch = index=>{
-    deliverySettings.pickup_options.splice(index,1)
+    pickupSettings.pickup_options.splice(index,1)
     pickupdatePicker.value.splice(index,1)
 }
 
-const updateDelivery = () => {
+const updatePickup = () => {
+    console.log('PICKUP')
     v.value.$touch()
     // return
     if(v.value.$invalid){
         layoutStore.alert.showMessageToast("Invalid data")
         return
     }
-    console.log(deliverySettings)
-    seller_update_delivery(deliverySettings, layoutStore.alert).then(res=>{
-        layoutStore.userInfo = res.data
+    console.log(pickupSettings)
+    seller_update_delivery(pickupSettings, layoutStore.alert).then(res=>{
+        layoutStore.userInfo.user_subscription.meta_logistic = res.data.user_subscription.meta_logistic
         layoutStore.notification.showMessageToast(i18n.global.t('settings.update_successfully'))
     })
 }
@@ -188,9 +192,9 @@ watch(computed(()=>layoutStore.userInfo.user_subscription.meta_logistic.pickup_o
 
 watch(computed(()=>pickupdatePicker.value),()=>{
 	// console.log(pickupdatePicker.value)
-	for (let index = 0; index<deliverySettings.pickup_options.length;index++){
-            deliverySettings.pickup_options[index].start_at = pickupdatePicker.value[index].start
-            deliverySettings.pickup_options[index].end_at = pickupdatePicker.value[index].end
+	for (let index = 0; index<pickupSettings.pickup_options.length;index++){
+            pickupSettings.pickup_options[index].start_at = pickupdatePicker.value[index].start
+            pickupSettings.pickup_options[index].end_at = pickupdatePicker.value[index].end
 		}
 	
 },{deep:true})

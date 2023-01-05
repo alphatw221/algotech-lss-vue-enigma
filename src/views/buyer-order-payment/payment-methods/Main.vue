@@ -47,17 +47,17 @@ watch(computed(()=>store.order),()=>{
     })
 })
 
-const cash_on_delivery = () =>{
-  const data = {
-    'is_collection': 'N', //Y or N
-    } 
-    buyer_cash_on_delivery(route.params.order_oid,data).then(
-    res=>{
-        console.log(res.data)
-    }
-  )
+// const cash_on_delivery = () =>{
+//   const data = {
+//     'is_collection': 'N', //Y or N
+//     } 
+//     buyer_cash_on_delivery(route.params.order_oid,data).then(
+//     res=>{
+//         console.log(res.data)
+//     }
+//   )
   
-}
+// }
 
 
 </script>

@@ -9,7 +9,7 @@
     "maximum_digits":"不可超過%{number}個字元",
     "exceed_maximum_length": "字數不可超過%{number}個",
     "bytes_between_length": "接受%{number}字元",
-    "name_between_length": "接受4-10個中文字",
+    "name_between_length": "接受2-5個中文字",
     "address_between_length": "接受%{number}個字元",
     "least_minimum_length": "字數至少要%{number}個",
     "only_integer": "只能填數字",

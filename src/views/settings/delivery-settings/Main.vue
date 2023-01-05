@@ -71,7 +71,7 @@
                     </div>
                 </Tab>
             </TabList>
-            <div class="mt-0 lg:mt-5 lg:px-10 lg:mx-10">  
+            <div class="mt-0 lg:mt-5 lg:px-10 xl:mx-10">  
                 <TabPanels>
                     <TabPanel class="leading-relaxed" v-for="logistic, index in logistics" :key="index">
 
@@ -152,6 +152,7 @@ const freeDeliverySettingsRules = {
 }
 const v = useVuelidate(freeDeliverySettingsRules, freeDeliverySettingsData.value)
 const updateDelivery = () => {
+    // console.log('top',freeDeliverySettingsData.value)
     v.value.$touch()
     // return
     if(v.value.$invalid){
@@ -159,7 +160,7 @@ const updateDelivery = () => {
         return
     }
     seller_update_delivery(freeDeliverySettingsData.value, sellerStore.alert).then(res=>{
-        sellerStore.userInfo = res.data
+        sellerStore.userInfo.user_subscription.meta_logistic = res.data.user_subscription.meta_logistic
         sellerStore.notification.showMessageToast(i18n.global.t('settings.update_successfully'))
     })
 }

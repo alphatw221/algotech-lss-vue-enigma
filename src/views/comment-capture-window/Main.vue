@@ -4,7 +4,7 @@
         id='comment-capturing-window' 
         @mousedown="startDrag($event)"
         @mouseup="endDrag()"
-        class="fixed bg-[#141414]/95 w-fit block top-20 left-10 z-[51] w-[200px] h-[35px]"
+        class="fixed bg-[#800000]/95 w-fit block top-20 left-10 z-[52] w-[200px] h-[35px]"
         v-if="sellerStore.commentCapturingCampaignData.twitch_campaign?.channel_name || sellerStore.commentCapturingCampaignData.tiktok_campaign?.username">
         <DropdownToggle class="flex justify-between w-full h-full px-2 text-white">
                 <label class="font-medium my-auto" > Capture Status</label>
@@ -13,22 +13,22 @@
                     <XIcon class="my-auto w-6 h-6" @click="stopCapturing('all')"/>
                 </div> 
         </DropdownToggle>
-        <DropdownMenu class="w-[200px] bg-[#141414]">
+        <DropdownMenu class="w-[200px] bg-[#4D0000]">
             <DropdownContent
-            class="bg-[#141414] text-white"
+            class="bg-[#4D0000] text-white"
           >
             <DropdownHeader tag="div" class="!font-normal text-white flex font-medium truncate">
                 {{sellerStore.commentCapturingCampaignData.title}}
             </DropdownHeader>
             <div class="w-full border-t border-slate-500/60 dark:border-darkmode-400 border-dashed"></div>
 
-                <DropdownItem class="w-full hover:bg-[#141414] cursor-auto">
+                <DropdownItem class="w-full hover:bg-[#800000] cursor-auto">
                     <div class="m-1 text-center text-white flex flex-col gap-3">
                         <div v-if="sellerStore.commentCapturingCampaignData?.tiktok_campaign?.username"
                             class="flex w-full">
                             <template  v-if="sellerStore.commentCapturingCampaignData?.tiktok_campaign?.status==='error'">
                                 <SimpleIcon icon="alert_full" class="my-auto w-5"/>
-                                <label class="text-[#ff0000] flex-initial text-white my-auto w-32 ml-1">Syncing TikTok Err</label>
+                                <label class="text-white flex-initial text-white my-auto w-32 ml-1">Syncing TikTok Err</label>
                                 <SimpleIcon icon="reset" color="#fff" class="w-6 my-auto ml-auto cursor-pointer" @click="refresh('tiktok')"/>
                             </template>
                             <template v-else-if="sellerStore.commentCapturingCampaignData?.tiktok_campaign?.status==='capturing'">
@@ -126,7 +126,6 @@ const clearOffset = () =>{
 // })
 
 const refresh=(platform) =>{
-
     if(platform == 'tiktok') eventBus.emit('refreshTiktok')
 }
  

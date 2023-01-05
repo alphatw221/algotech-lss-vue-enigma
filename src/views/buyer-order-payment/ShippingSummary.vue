@@ -17,11 +17,14 @@
             <div class="w-3/4">{{ store.order.shipping_cellphone }}</div>
         </div>
         <div
-            v-if="store.order.shipping_method !== 'ecpay'" 
             class="flex flex-wrap mt-4 pt-4 border-t border-slate-200/60">
             <div class="w-1/4 whitespace-nowrap">{{$t('order_detail.delivery.method')}}</div>
             <div v-if="store.order.shipping_method === 'pickup'" class="w-3/4">{{$t('shopping_cart.payment.pickup')}}</div>
-            <div v-else-if="store.order.shipping_method === 'delivery'" class="w-3/4">{{$t('shopping_cart.payment.delivery')}}：{{ store.order.shipping_option == '' ? $t('shopping_cart.delivery_tab.option.default') : store.order.shipping_option }}</div>
+            <div v-else-if="store.order.shipping_method === 'delivery'" class="w-3/4">{{ store.order.shipping_option == '' ? $t('shopping_cart.delivery_tab.option.default') : store.order.shipping_option }}</div>
+            <div v-else-if="store.order.shipping_method === 'ecpay'" class="w-3/4">
+            <template v-if="store.order.shipping_option_data.logisticsType == 'CVS'"> {{ store.order.shipping_option_data.LogisticsSubType == 'UNIMARTC2C'? '7-11店到店':'全家店到店' }}</template>
+            <template v-else>黑貓宅配</template>
+            </div>
         </div>
 
         <template v-if="store.order.shipping_method === 'pickup'">        

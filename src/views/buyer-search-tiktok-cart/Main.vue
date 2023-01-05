@@ -14,7 +14,7 @@
                         <div class="bullet"></div><div class="bullet"></div><div class="bullet"></div>
                     </div>
                 </div>
-                <p class=" my-auto py-2 font-medium text-[1.2rem] lg:text-[1.8rem] z-10 bg-slate-100"> {{campaign?.tiktok_campaign?.username}}</p>
+                <p class=" my-auto py-2 font-medium text-[1.2rem] lg:text-[1.8rem] z-10 bg-slate-100"> {{tiktokStore}}</p>
             </div>
             <div class="h-full w-full xl:w-3/4 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[16px] font-medium text-primary">
                 <div
@@ -93,7 +93,7 @@ import { useRoute, useRouter } from "vue-router";
 import BindTiktokAccountButton from '@/components/button/BindTiktokAccountButton.vue'
 import { useLSSBuyerLayoutStore } from '@/stores/lss-buyer-layout';
 import {buyer_search_tiktok_cart} from '@/api_v2/cart'
-import {retrieve_campaign} from '@/api_v2/campaign'
+import {buyer_retrieve_campaign} from '@/api_v2/campaign'
 
 
 const siteKey = import.meta.env.VITE_RECAPTCHA_SITE_KEY
@@ -109,6 +109,7 @@ const showModal = ref(false)
 const campaign = ref([])
 const recaptchaToken = ref(null)
 const customerName = ref('')
+const tiktokStore = ref('connecting to Tiktok')
 onMounted(()=>{
     loadScript('https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js',()=>{
         showAnimate.value=true
@@ -137,9 +138,11 @@ const searchTiktokCart = ()=>{
 }
 
 const retrieveCampaign = ()=>{
-    retrieve_campaign(route.params.campaign_id).then(res=>{
-        console.log(res.data)
+    buyer_retrieve_campaign(route.params.campaign_id).then(res=>{
+        // console.log(res.data)
         campaign.value = res.data
+
+        tiktokStore.value = ['', ' ', undefined,null].includes(res.data.tiktok_campaign?.username)? 'connecting to Tiktok':res.data.tiktok_campaign.username
     })
 }
 

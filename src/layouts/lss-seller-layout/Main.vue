@@ -163,7 +163,7 @@ const addBindedPlatformToStore = () => {
 
 const removeNotActivatedPlatform = () => {
   const notActivatedPlatform = sellerLayoutStore.bindedPlatform.filter(value => !sellerLayoutStore.userInfo.user_subscription.user_plan?.activated_platform.includes(value))
-  console.log(notActivatedPlatform)
+  // console.log(notActivatedPlatform)
   if (notActivatedPlatform.length) {
     unbind_platform_all({"unbind_platforms": notActivatedPlatform}, sellerLayoutStore.alert)
     .then(response=> {

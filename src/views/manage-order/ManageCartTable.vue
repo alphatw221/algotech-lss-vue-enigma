@@ -108,13 +108,13 @@
                                             <div class="flex-none w-20 h-20 mr-1 sm:mr-1 sm:w-12 sm:h-12 image-fit" v-if="cart.customer_img">
                                                 <img class="rounded-full" :src="cart.customer_img"/>
                                                 <div class="absolute bottom-0 right-0 w-8 h-8 border-2 border-white rounded-full sm:w-5 sm:h-5 dark:border-darkmode-600">
-                                                    <img class="bg-cover rounded-full bg-black" src='/src/assets/images/lss-img/tiktok.png' >
+                                                    <img class="bg-cover rounded-full bg-black" src='/src/assets/images/lss-img/tiktok_black_bg.png' >
                                                 </div>
                                             </div>
                                             <div class="flex-none w-20 h-20 mr-1 sm:mr-1 sm:w-12 sm:h-12 image-fit" v-else>
                                                 <img class="rounded-full" :src="unbound"/>
                                                 <div class="absolute bottom-0 right-0 w-8 h-8 border-2 border-white rounded-full sm:w-5 sm:h-5 dark:border-darkmode-600">
-                                                    <img class="bg-cover rounded-full bg-black" src='/src/assets/images/lss-img/tiktok.png' >
+                                                    <img class="bg-cover rounded-full bg-black" src='/src/assets/images/lss-img/tiktok_black_bg.png' >
                                                 </div>
                                             </div>
                                         </div>
