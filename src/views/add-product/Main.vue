@@ -30,7 +30,7 @@
 					id="crud-form-2"
 					v-model="product.categories"
 					class="w-full"
-					:create="false"
+					:options="{create:false}"
 					multiple
 					v-if="route.params.product_id"
 				>
@@ -40,7 +40,7 @@
 				<TomSelect
 					id="crud-form-2"
 					v-model="product.categories"
-					:create="false"
+					:options="{create:false}"
 					class="w-full"
 					multiple
 					v-else
