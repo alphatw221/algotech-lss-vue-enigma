@@ -142,9 +142,13 @@
               :content="$t('tooltips.campaign_list.stop_checkout')" 
             > <HelpCircleIcon class="w-5 tippy-icon md:hidden tippy-mobile" />
             </Tippy> 
-            <div  class="flex flex-col justify-center form-check form-switch">
-              <input v-if="campaignStatus === 'history'" id="selectCheckbox" class="form-check-input center" type="checkbox" disabled v-model="checkout" />
-              <input v-else @click="stop_checkout(index, campaign)" class="mr-0 form-check-input" type="checkbox" v-model="campaign.stop_checkout"/>
+            <!-- <div  v-if="campaignStatus === 'history'" 
+              class="flex flex-col justify-center form-check form-switch">
+              <input  id="selectCheckbox" class="form-check-input center" type="checkbox" disabled v-model="checkout" />
+            </div> -->
+            <div 
+              class="flex flex-col justify-center form-check form-switch">
+               <input @click="stop_checkout(index, campaign)" class="mr-0 form-check-input" type="checkbox" v-model="campaign.stop_checkout"/>
             </div>
           </td>
           <!-- <td class="justify-center text-center entry w-fit">
