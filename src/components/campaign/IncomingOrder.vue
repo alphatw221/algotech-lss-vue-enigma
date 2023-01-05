@@ -164,7 +164,7 @@ import platform_facebook_icon from '@/assets/images/lss-img/facebook.png'
 import platform_youtube_icon from '@/assets/images/lss-img/youtube.png'
 import platform_instagram_icon from '@/assets/images/lss-img/instagram.png'
 import platform_twitch_icon from '@/assets/images/lss-img/twitch.png'
-import platform_tiktok_icon from '@/assets/images/lss-img/tiktok.png'
+import platform_tiktok_icon from '@/assets/images/lss-img/tiktok_black_bg.png'
 import platform_none from '@/assets/images/lss-icon/express_Icon.svg'
 
 const layoutStore = useLSSSellerLayoutStore()

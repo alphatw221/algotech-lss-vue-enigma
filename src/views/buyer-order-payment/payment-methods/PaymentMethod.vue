@@ -57,6 +57,14 @@
         </AccordionPanel>
 
     </AccordionItem>
+    <Modal :show="uploadPaymentLoading" @hidden="!uploadPaymentLoading" class="text-center" backdrop="static">
+        <ModalBody class="">
+          <div class="flex flex-col"> 
+            <p class="text-lg text-primary font-medium"> {{$t('shopping_cart.payment.processing')}} </p>
+            <LoadingIcon icon="loading_payment"/>
+          </div>
+        </ModalBody>
+    </Modal>
 </template>
 
 <script setup>
@@ -73,7 +81,7 @@ const props = defineProps({
 
 const route = useRoute();
 const router = useRouter();
-
+const uploadPaymentLoading = ref(false)
 
 const handlePayment=()=>{
     if(props.payment.handle.type=='gateway'){
@@ -85,6 +93,7 @@ const handlePayment=()=>{
         })
     }else if(props.payment.handle.type=='submitForm'){
         const getCredential = paymentEndPoints[props.payment.handle.endpoint]
+        uploadPaymentLoading.value= true
         getCredential(route.params.order_oid, layoutStore.alert).then(res=>{
 
             const form = document.createElement('form');
@@ -104,9 +113,9 @@ const handlePayment=()=>{
             }
 
             document.body.appendChild(form); //??
+            uploadPaymentLoading.value= false
             form.submit();
-
-        })
+        }).catch(err=>{ uploadPaymentLoading.value= false})
         
 
     }else{

@@ -103,10 +103,7 @@ onMounted(()=>{
             comment.value = payload.comment
             pageId.value = campaignDetailStore.campaign.facebook_page.page_id
             loopNestComment()
-        }else{
-            layoutStore.alert.showMessageToast("This function is under developing...");
         }
-        
     });
 })
 

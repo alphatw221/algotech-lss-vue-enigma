@@ -94,14 +94,8 @@
                         {{$t('shopping_cart.payment.direct.digits_message')}}
                     </div>
                 </template>
-
-                <button type="button" v-if="uploadReceiptLoading"
-                    class="self-center mx-3 mt-5 w-fit btn btn-rounded-primary lg:self-end 2xl:self-end"
-                    >
-                    {{$t('shopping_cart.payment.direct.complete_order')}}
-                    <LoadingIcon icon="three-dots" color="1a202c" class="absolute w-12 h-5"/>
-                </button>
-                <button type="button" v-else
+                <button type="button"
+                :disabled="uploadReceiptLoading"
                     class="self-center mx-3 mt-5 w-fit btn btn-primary rounded-lg lg:self-end 2xl:self-end"
                     @click="uploadReceipt()">{{$t('shopping_cart.payment.direct.complete_order')}}
                 </button>
@@ -109,6 +103,16 @@
         </AccordionPanel>
 
     </AccordionItem>
+
+    <Modal :show="uploadReceiptLoading" @hidden="!uploadReceiptLoading" class="text-center" backdrop="static">
+        <ModalBody class="">
+          <div class="flex flex-col"> 
+            <p class="text-lg text-primary font-medium"> {{$t('shopping_cart.payment.processing')}} </p>
+            <LoadingIcon icon="loading_payment"/>
+          </div>
+        </ModalBody>
+    </Modal>
+
 </template>
 
 <script setup>

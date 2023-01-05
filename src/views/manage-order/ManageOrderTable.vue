@@ -100,13 +100,11 @@
                                 <div v-else-if="order[column.key] === 'twitch'"
                                     class="w-fit h-fit image-fit">
                                     <div class="flex-none w-20 h-20 mr-1 sm:mr-1 sm:w-12 sm:h-12 image-fit" v-if="order.customer_img">
-                                        <img class="rounded-full" :src="order.customer_img"/>
-                                        <div class="absolute bottom-0 right-0 w-8 h-8 border-2 border-white rounded-full sm:w-5 sm:h-5 dark:border-darkmode-600">
-                                            <img class="bg-cover rounded-full bg-[#6441a5]" src='/src/assets/images/lss-img/twitch.png' >
-                                        </div>
-                                    </div>
-                                    <div class="flex-none w-20 h-20 mr-1 sm:mr-1 sm:w-12 sm:h-12 image-fit" v-else>
-                                        <img class="rounded-full" :src="unbound"/>
+                                        
+                                        <template v-if="order.customer_img"> 
+                                            <img class="rounded-full" :src="order.customer_img"/>
+                                        </template>
+                                        <template v-else> <img class="rounded-full" :src="unbound"/> </template>
                                         <div class="absolute bottom-0 right-0 w-8 h-8 border-2 border-white rounded-full sm:w-5 sm:h-5 dark:border-darkmode-600">
                                             <img class="bg-cover rounded-full bg-[#6441a5]" src='/src/assets/images/lss-img/twitch.png' >
                                         </div>
@@ -115,15 +113,12 @@
                                 <div v-else-if="order[column.key] === 'tiktok'"
                                     class="w-fit h-fit image-fit">
                                     <div class="flex-none w-20 h-20 mr-1 sm:mr-1 sm:w-12 sm:h-12 image-fit" v-if="order.customer_img">
-                                        <img class="rounded-full" :src="order.customer_img"/>
+                                        <template v-if="order.customer_img"> 
+                                            <img class="rounded-full" :src="order.customer_img"/>
+                                        </template>
+                                        <template v-else> <img class="rounded-full" :src="unbound"/> </template>
                                         <div class="absolute bottom-0 right-0 w-8 h-8 border-2 border-white rounded-full sm:w-5 sm:h-5 dark:border-darkmode-600">
-                                            <img class="bg-cover rounded-full bg-black" src='/src/assets/images/lss-img/tiktok.png' >
-                                        </div>
-                                    </div>
-                                    <div class="flex-none w-20 h-20 mr-1 sm:mr-1 sm:w-12 sm:h-12 image-fit" v-else>
-                                        <img class="rounded-full" :src="unbound"/>
-                                        <div class="absolute bottom-0 right-0 w-8 h-8 border-2 border-white rounded-full sm:w-5 sm:h-5 dark:border-darkmode-600">
-                                            <img class="bg-cover rounded-full bg-black" src='/src/assets/images/lss-img/tiktok.png' >
+                                            <img class="bg-cover rounded-full bg-black" src='/src/assets/images/lss-img/tiktok_black_bg.png' >
                                         </div>
                                     </div>
                                 </div>

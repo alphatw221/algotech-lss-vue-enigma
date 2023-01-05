@@ -17,13 +17,7 @@
                 </Tippy> 
               </div>
             </template>
-            <div v-else-if="column.key === 'title'" class="sm:w-[100px] text-left"> {{ $t(`campaign_list.campaign_list_table.`+column.name) }} </div>
-            <template v-else-if="column.key === 'start_at'">
-							<div class="text-left">{{ $t(`campaign_list.campaign_list_table.`+column.name) }}</div>
-						</template>
-            <template v-else-if="column.key === 'end_at'">
-							<div class="text-left">{{ $t(`campaign_list.campaign_list_table.`+column.name) }}</div>
-						</template>
+            <div v-else-if="column.key === 'title' || column.key === 'start_at' || column.key === 'end_at'" class="text-left"> {{ $t(`campaign_list.campaign_list_table.`+column.name) }} </div>
             <template v-else> 
               {{ $t(`campaign_list.campaign_list_table.`+column.name) }}
             </template>
@@ -63,47 +57,52 @@
 					</td> 
 				</tr>
         <tr v-for="(campaign, index) in campaigns" :key="index" class="intro-x">
-          <td class="items-center min-w-12 fan_page">
+          <td class="items-center min-w-12 fan_page" :class="{'cursor-pointer': props.campaignStatus != 'history'}" @click="editPlatform(campaign)">
             <div class="flex justify-center w-full">
-              <div class="border-0 w-14 h-14 flex-0 zoom-in" v-if="campaign.facebook_page !== null">
+              <div class="border-0 w-14 h-14 flex-0 relative" v-if="campaign.facebook_page !== null">
                 <Tippy tag="img" class="border-0 rounded-full" :src="campaign.facebook_page.image" @error="getFacebookPageProfilePicture(campaign.facebook_page)"
                   :content="campaign.facebook_page.name" />
                   <div class="absolute bottom-0 right-0 w-5 h-5 border-2 border-white rounded-full dark:border-darkmode-600">
                       <img class="rounded-full bg-[#3c599b]" :src="facebook_platform" >
                   </div>
               </div>
-              <div class="w-14 h-14 flex-0 zoom-in" v-if="campaign.instagram_profile !== null">
+              <div class="w-14 h-14 flex-0 relative" v-if="campaign.instagram_profile !== null">
                 <Tippy tag="img" class="rounded-full " :src="campaign.instagram_profile.image" @error="getInstagramProfilePicture(campaign.instagram_profile)"
                   :content="campaign.instagram_profile.name" />
                 <div class="absolute bottom-0 right-0 w-5 h-5 border-2 border-white rounded-full dark:border-darkmode-600">
                       <img class="rounded-full bg-[#d63376]" :src="instagram_platform" >
                   </div>
               </div>
-              <div class="w-14 h-14 flex-0 zoom-in" v-if="campaign.youtube_channel !== null">
+              <div class="w-14 h-14 flex-0 relative" v-if="campaign.youtube_channel !== null">
                 <Tippy tag="img" class="rounded-full" :src="campaign.youtube_channel.image"
                   :content="campaign.youtube_channel.name" />
                   <div class="absolute bottom-0 right-0 w-5 h-5 border-2 border-white rounded-full dark:border-darkmode-600">
                       <img class="rounded-full bg-[#f70000]" :src="youtube_platform" >
                   </div>
               </div>
-              <div class="w-14 h-14 flex-0 zoom-in" v-if="campaign.twitch_channel !== null">
+              <div class="w-14 h-14 flex-0 relative" v-if="campaign.twitch_channel !== null">
                 <Tippy tag="img" class="rounded-full" :src="campaign.twitch_channel.image"
                   :content="campaign.twitch_channel.name" />
                   <div class="absolute bottom-0 right-0 w-5 h-5 border-2 border-white rounded-full dark:border-darkmode-600">
                       <img class="rounded-full bg-[#f70000]" :src="twitch_platform" >
                   </div>
               </div>
-              <div class="w-14 h-14 flex-0 zoom-in" v-if="campaign.tiktok_campaign.username">
+              <div class="w-14 h-14 flex-0 cursor-normal relative" v-if="campaign.tiktok_campaign.username">
                 <Tippy tag="img" class="rounded-full" :src="anonymous_profile"
                   :content="campaign.tiktok_campaign.username" />
                   <div class="absolute bottom-0 right-0 w-5 h-5 border-2 border-white rounded-full dark:border-darkmode-600">
                       <img class="rounded-full bg-[#0f0f0f]" :src="tiktok_platform" >
                   </div>
               </div>
+              <template 
+                v-if="campaign.twitch_channel == null && campaign.facebook_page == null && campaign.instagram_profile == null 
+                && campaign.youtube_channel == null && !campaign.tiktok_campaign.username">
+                <SimpleIcon icon="edit" color="#131C34" width="22" height="18"/>
+              </template>
             </div>
           </td>
           <td class="text-left title w-fit">
-            {{ campaign.title }}
+            <button @click="enterCampaign(index)"><a>{{ campaign.title }}</a></button>
           </td>
           <td class="w-5 text-center startDate" :data-content="$t('campaign_list.campaign_list_table.start_at')">
             <div class="my-2 sm:my-0 sm:w-fit whitespace-nowrap">{{ new Date(campaign.start_at).toLocaleTimeString('en-us', {
@@ -141,19 +140,18 @@
               data-tippy-allowHTML="true" 
               data-tippy-placement="right" 
               :content="$t('tooltips.campaign_list.stop_checkout')" 
-            > 
-              <HelpCircleIcon class="w-5 tippy-icon md:hidden tippy-mobile" />
+            > <HelpCircleIcon class="w-5 tippy-icon md:hidden tippy-mobile" />
             </Tippy> 
-            <div  v-if="campaignStatus === 'history'" 
+            <!-- <div  v-if="campaignStatus === 'history'" 
               class="flex flex-col justify-center form-check form-switch">
               <input  id="selectCheckbox" class="form-check-input center" type="checkbox" disabled v-model="checkout" />
-            </div>
-            <div v-else
+            </div> -->
+            <div 
               class="flex flex-col justify-center form-check form-switch">
                <input @click="stop_checkout(index, campaign)" class="mr-0 form-check-input" type="checkbox" v-model="campaign.stop_checkout"/>
             </div>
           </td>
-          <td class="justify-center text-center entry w-fit">
+          <!-- <td class="justify-center text-center entry w-fit">
             <button 
               v-if="campaignStatus === 'history'"
               class="w-full sm:w-24 mr-1 btn btn-elevated-rounded-pending h-[42px]" @click="clickEntry(index)">
@@ -164,7 +162,7 @@
               class="w-full sm:w-24 mr-1 btn btn-elevated-rounded-pending h-[42px]" @click="clickEntry(index)">
               {{$t('campaign_list.campaign_list_table.live_on')}}
             </button>
-          </td>
+          </td> -->
           <td
             v-if="campaignStatus === 'ongoing' || campaignStatus === 'scheduled'" 
             class="text-center moreTools w-fit">
@@ -201,7 +199,7 @@
                       </Tippy> 
                     </DropdownItem>
                     <DropdownItem 
-                      v-if="layoutStore.userInfo.user_subscription.user_plan.activated_platform.includes('tiktok')"
+                      v-if="campaign.tiktok_campaign?.username"
                       @click="copyURL('tiktok',campaign)" class="w-fit whitespace-nowrap"> 
                       <Tippy 
                         class="whitespace-nowrap w-full" 
@@ -345,19 +343,29 @@ const changePageSize = (pageSize)=>{
       search();
     }
 
-const clickEntry = (index)=>{
+const enterCampaign = (index)=>{
   const campaign = campaigns.value[index]
-  // console.log(index)
-  if(props.campaignStatus === 'history'){
-    router.push({name:'campaign-live',params:{'campaign_id':campaign.id}, query:{'status':props.campaignStatus}})
-    return
-  }
-  else if (campaign.facebook_campaign.post_id !== '' || campaign.instagram_campaign.live_media_id !== '' || campaign.youtube_campaign.live_video_id !== '' || campaign.twitch_campaign.channel_name !== '' || campaign.tiktok_campaign.username !== '') {
-    router.push({name:'campaign-live',params:{'campaign_id':campaign.id}, query:{'status':props.campaignStatus}})
-    return
-  }
+  router.push({name:'campaign-live',params:{'campaign_id':campaign.id}, query:{'status':props.campaignStatus}})
+}
+
+const editPlatform = (campaign)=>{
+  if(props.campaignStatus == 'history') return
   eventBus.emit('showRemindEnterPostIDModal',{ 'tableName': props.tableName, 'campaign':campaign})
 }
+
+// const clickEntry = (index)=>{
+//   const campaign = campaigns.value[index]
+//   console.log(index)
+//   if(props.campaignStatus === 'history'){
+//     router.push({name:'campaign-live',params:{'campaign_id':campaign.id}, query:{'status':props.campaignStatus}})
+//     return
+//   }
+//   else if (campaign.facebook_campaign.post_id !== '' || campaign.instagram_campaign.live_media_id !== '' || campaign.youtube_campaign.live_video_id !== '' || campaign.twitch_campaign.channel_name !== '' || campaign.tiktok_campaign.username !== '') {
+//     router.push({name:'campaign-live',params:{'campaign_id':campaign.id}, query:{'status':props.campaignStatus}})
+//     return
+//   }
+//   eventBus.emit('showRemindEnterPostIDModal',{ 'tableName': props.tableName, 'campaign':campaign})
+// }
 
 const stop_checkout = (index, campaign)=>{
       toggle_stop_checkout(campaign.id, layoutStore.alert).then(res=>{
@@ -445,6 +453,10 @@ const getInstagramProfilePicture = (instagram_profile) => {
 a .dropdown-item{
   padding-top: 0 !important;
   padding-bottom: 0 !important;
+}
+
+.tippy-box :deep(.tippy-content){
+  max-width: 500px !important;
 }
 
 td {

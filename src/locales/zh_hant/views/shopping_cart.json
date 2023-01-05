@@ -20,7 +20,7 @@
         "shipping_info":"運送資訊",
         "home_delivery":"運送",
         "self_pickup":"自行取貨",
-        "delivery_date":"運送日期",
+        "delivery_date":"指定運送日期",
         "pickup_date":"取貨日期",
 
         "delivery_info":"收件地址",
@@ -98,7 +98,7 @@
     },
     "payment":{
         "shipping_summary":"收件資訊",
-        "pickup":"自行取货",
+        "pickup":"自行取貨",
         "delivery":"運送",
         "address":"收件地址",
         "pay_with":"付款方式",
@@ -119,7 +119,8 @@
             "information": "匯款資訊",
             "upload_record":"上傳付款證明",
             "or":"或"
-        }
+        },
+        "processing":"訂單處理中．．．請勿刷新頁面"
     },
     "login":{
         "guest_login":"以訪客身份結帳",

@@ -95,7 +95,7 @@
         <div class="flex text-[14px]">
              <button 
                 class="btn btn-primary w-36 shadow-md ml-auto mt-7 "
-                @click="updateDelivery()"
+                @click="updateDeliveryMethod()"
             > 
                 {{ $t('settings.delivery_form.delivery_method_settings_update') }} 
             </button>
@@ -150,16 +150,16 @@ onMounted(() => {
             })
         }
     });
-    console.log('logisticData',logisticData.value)
+    // console.log('logisticData',logisticData.value)
     ready.value = true
 })
 
 
-const updateDelivery = () => {
+const updateDeliveryMethod = () => {
+    console.log('ecPay')
     console.log('log',logisticData.value)
     seller_update_delivery({'ecpay':logisticData.value}, sellerStore.alert).then(res=>{
-        sellerStore.userInfo = res.data
-        console.log(sellerStore.userInfo)
+        sellerStore.userInfo.user_subscription.meta_logistic = res.data.user_subscription.meta_logistic
         sellerStore.notification.showMessageToast(i18n.global.t('settings.update_successfully'))
     })
 }

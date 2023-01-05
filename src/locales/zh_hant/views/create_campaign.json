@@ -31,7 +31,7 @@
 
         "pickup_store":"取貨門市／地點",
         "pickup_address":"自取地址",
-        "delivery_date":"運送日期",
+        "delivery_date":"指定運送日期",
         "pickup_date":"取貨日期",
         "errors":{
             "Value_is_required":"此欄位必填",
