@@ -15,7 +15,8 @@
 
     "delivery_form":{
         "delivery_detail":"Delivery Details",
-        "delivery_charge":"Delivery Charge",
+        "delivery_charge":"Own Delivery",
+        "enabled_delivery_charge":"Enable Own Delivery",
         "free_delivery_for_order_above":"Free Delivery for Order Above($)",
         "free_delivery_for_minimum_order":"Free Delivery for Minimum Order Qty",
         "add_more_delivery_option":"Add New Option",
@@ -27,6 +28,7 @@
         "delete":"Delete",
 
         "store_collection":"Self Pickup",
+        "enabled_store_collection":"Enable Self Pickup",
 
         "pickup_store":"Pickup Location",
         "pickup_address":"Pickup Address",

@@ -637,13 +637,13 @@ const exactlength = (param) =>
   helpers.withParams(
     { type: 'exactlength', value: param },
     (value) => {
-      var ecpay_enabled = shoppingCartStore.cart.campaign.meta_logistic.ecpay?.enabled ? true : false
+      var ecpay_enabled = shoppingCartStore.cart.campaign.meta_logistic?.ecpay?.enabled ? true : false
       if (value.length !== param && ecpay_enabled) return false
       return true
     }
 )
 const twCellPhoneBeginning = (value) => {
-  var ecpay_enabled = shoppingCartStore.cart.campaign.meta_logistic.ecpay?.enabled ? true : false
+  var ecpay_enabled = shoppingCartStore.cart.campaign.meta_logistic?.ecpay?.enabled ? true : false
   if (value[0] !== "0" && ecpay_enabled) return false
   if (value[1] !== "9" && ecpay_enabled) return false
   return true
