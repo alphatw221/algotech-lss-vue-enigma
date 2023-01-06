@@ -55,13 +55,15 @@ const onMessageHandler = msg=>{
     date.setMilliseconds(0)
     const created_hour = Math.floor((date.getTime())/1000)
     
-
+    console.log(msg)
+    
     const data = {
         id:msg.userId+'_'+msg.comment+'_'+created_hour,  //
         platform:'tiktok',
         message:msg.comment,
         customer_id:msg.userId, //
-        customer_name:msg.nickname,
+        customer_name:msg.uniqueId,
+        customer_nickname:msg.nickname,
         image:msg.profilePictureUrl,
         // created_time:created_time
     }
@@ -109,4 +111,34 @@ const closeConnection = ()=>{
     if(tiktok_connector.value)tiktok_connector.value.disconnect()  
     if(uploadIntervalId.value)clearInterval(uploadIntervalId.value)
 }
+
+
+
+
+
+
+
+
+
+
+// comment: "ok行車平安"
+// createTime: "1672984865498"
+// followInfo: {followingCount: 640, followerCount: 45, followStatus: 2, pushStatus: 0}
+// followRole: 2
+// isModerator: false
+// isNewGifter: false
+// isSubscriber: false
+// msgId: "7185414922636413723"
+// nickname: "🐠𝔻ℝ💙麻吉熊"
+// profilePictureUrl:"https://p16-sign-va.tiktokcdn.com/tos-useast2a-avt-0068-giso/7123625429285470235~c5_100x100.webp?x-expires=1673157600&x-signature=7mFfKYa5r26RFXipXIt6Qj0NLMI%3D"
+// secUid : "MS4wLjABAAAAChu7ngZNhA1jwg_4ZRfnKSjWYPWI6uOfELQm_xzAkxNxYujpZYxSDHfF4CQATOW9"
+// topGifterRank : 3
+// uniqueId : "usermut0k52olj"
+// userBadges :  [{…}]
+// userDetails: {createTime: '0', bioDescription: '', profilePictureUrls: Array(3)}
+// userId:  "7123624658130306074"
+
+
 </script>
+
+
