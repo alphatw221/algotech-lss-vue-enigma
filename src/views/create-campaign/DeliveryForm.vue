@@ -2,10 +2,20 @@
 	<div class="box grid grid-cols-12 gap-5 intro-y lg:mx-20 lg:px-40 px-5 py-10 mt-3" v-if="ready">
 		<span class="col-span-12 text-xl font-medium leading-none lg:-mx-6">{{$t('create_campaign.delivery_form.delivery_detail')}}</span>
 		<hr class="col-span-12 -mx-6" />
-
+	
 		<!-- Delivery charge setting-->
 		<div class="col-span-12 sm:col-start-1 flex flex-col gap-3"> 
 			<label class="text-base whitespace-nowrap text-lg font-medium">{{$t('create_campaign.delivery_form.delivery_charge')}}</label>
+
+			<div class="flex flex-row items-center">
+				<input  
+					class="form-control form-check-input w-[1.5rem] h-[1.5rem] mr-1"
+					type="checkbox" 
+					v-model="props.campaign.meta_logistic.is_self_delivery_enabled"
+				/>
+				<label class="text-base whitespace-nowrap text-lg font-medium">{{$t('create_campaign.delivery_form.enabled_delivery_charge')}}</label>
+			</div>
+
 			<div class="flex flex-row flex-wrap gap-5">
 				
 				<div class="flex flex-col"> 
@@ -135,7 +145,6 @@
 		</div> 
 		<div v-for="(option, index) in props.campaign.meta_logistic.additional_delivery_options" class="col-span-12" :key="index">
 			<div class="flex flex-col flex-wrap gap-3 mt-5 sm:flex-row sm:mt-0 ">
-
 				<div>
 					<input  
 						class="flex-1 w-full text-base form-control sm:w-fit"
@@ -228,6 +237,14 @@
 			> <u> + {{$t('create_campaign.delivery_form.add_more_pickup_option')}}  </u> 
 			</a> -->
 		</div>
+		<div class="flex flex-row items-center">
+				<input  
+					class="form-control form-check-input w-[1.5rem] h-[1.5rem] mr-1"
+					type="checkbox" 
+					v-model="props.campaign.meta_logistic.is_store_pickup_enabled"
+				/>
+				<label class="text-base whitespace-nowrap text-lg font-medium">{{$t('create_campaign.delivery_form.enabled_store_collection')}}</label>
+			</div>
 		<div class="grid grid-cols-12 col-span-12 text-base intro-y gap-4 sm:gap-2 2xl:gap-3 z-10">
             <div v-for="(option, index) in props.campaign.meta_logistic.pickup_options" class="col-span-12" :key="index">
 				<div class="flex flex-col flex-wrap gap-3 mt-5 sm:flex-row sm:mt-0 ">
