@@ -48,7 +48,8 @@
         "remark":"備註",
         "previous":"上一步",
         "proceed_to_payment":"前往付款",
-        "processing":"前往付款頁面．．．"
+        "processing":"前往付款頁面．．．",
+        "delivery_method_err":"這個商城沒有提供運送方式，請聯絡商家回報問題。"
     },
     "table":{
         "update":"更新",
