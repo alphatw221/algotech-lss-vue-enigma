@@ -116,9 +116,9 @@ const defaultShippingOptions = ()=>{
     shoppingCartStore.shipping_info.shipping_option_index = null
     eventBus.emit("changeShippingOption")
   }
-  else if(shoppingCartStore.cart.campaign.meta_logistic.ecpay.enabled){
+  else if(shoppingCartStore.cart.campaign.meta_logistic?.ecpay?.enabled){
     // console.log(shoppingCartStore.cart.campaign.meta_logistic.ecpay)
-    let ecpay_options = shoppingCartStore.cart.campaign.meta_logistic.ecpay.logistics_sub_type
+    let ecpay_options = shoppingCartStore.cart.campaign.meta_logistic?.ecpay?.logistics_sub_type
     if(ecpay_options.TCAT.enabled){
       shoppingCartStore.shipping_info.shipping_method = 'ecpay'
       shoppingCartStore.shipping_info.shipping_option_index = 'TCAT'

@@ -9,7 +9,7 @@
             v-if="shoppingCartStore.cart.campaign" 
             class="flex flex-row items-center justify-start w-full nav-boxed-tabs grow gap-2 -mt-4 sm:mt-0">
             <div class="w-1/2"
-              v-if="shoppingCartStore.cart.campaign.meta_logistic.is_self_delivery_enabled || shoppingCartStore.cart.campaign.meta_logistic?.ecpay?.enabled"> 
+              v-if="shoppingCartStore.cart.campaign.meta_logistic?.is_self_delivery_enabled || shoppingCartStore.cart.campaign.meta_logistic?.ecpay?.enabled"> 
               <Tab class="h-14 border-[#131c34] w-48 xl:w-64 flex" tag="button">
                 <div class="inline-flex items-center w-full h-full place-content-center"
                 @click="select_shipping_method('delivery','tab')">
@@ -29,7 +29,13 @@
                 </div>
               </Tab>
             </div>
+            <div class="text-danger mx-auto text-[18px]" 
+            v-if="!shoppingCartStore.cart.campaign.meta_logistic?.is_self_delivery_enabled 
+            && !shoppingCartStore.cart.campaign.meta_logistic?.ecpay?.enabled 
+            && !shoppingCartStore.cart.campaign.meta_logistic?.is_store_pickup_enabled"> 
+            {{$t('shopping_cart.delivery_tab.delivery_method_err')}}</div>
           </TabList>
+         
 
           <TabPanels v-if="shoppingCartStore.cart.campaign" >
 
