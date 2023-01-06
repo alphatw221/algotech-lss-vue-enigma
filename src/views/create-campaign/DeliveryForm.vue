@@ -5,44 +5,6 @@
 	
 		<!-- Delivery charge setting-->
 		<div class="col-span-12 sm:col-start-1 flex flex-col gap-3"> 
-			<label class="text-base whitespace-nowrap text-lg font-medium">{{$t('create_campaign.delivery_form.delivery_charge')}}</label>
-
-			<div class="flex flex-row items-center">
-				<input  
-					class="form-control form-check-input w-[1.5rem] h-[1.5rem] mr-1"
-					type="checkbox" 
-					v-model="props.campaign.meta_logistic.is_self_delivery_enabled"
-				/>
-				<label class="text-base whitespace-nowrap text-lg font-medium">{{$t('create_campaign.delivery_form.enabled_delivery_charge')}}</label>
-			</div>
-
-			<div class="flex flex-row flex-wrap gap-5">
-				
-				<div class="flex flex-col"> 
-					<label class="w-fit text-base whitespace-nowrap">{{ $t('settings.delivery.title') }}</label>
-					<input 
-						class="w-32 form-control h-[35px] sm:h-[42px]"
-						type="text" 
-						v-model="props.campaign.meta_logistic.title"
-					/>
-				</div>
-				<div class="flex flex-col">
-					<label class="w-fit text-base whitespace-nowrap">{{ $t('settings.delivery.price') }}</label>
-					<input 
-						class="w-full form-control"
-						type="text" 
-						v-model="props.campaign.meta_logistic.delivery_charge"
-						@blur="props.v.meta_logistic.delivery_charge.$touch()"
-					/>
-					<label class="text-danger text-[12px] " 
-						v-for="error,index in props.v.meta_logistic.delivery_charge.$errors"
-						:key="index"
-						>
-						{{ $t(`create_campaign.delivery_form.errors.${error.$validator}`) }}
-					</label>
-				</div>
-			</div>
-			
 			<div class="flex flex-col flex-wrap">
 				<label class="form-label text-base text-lg font-medium">
 					<input 
@@ -101,17 +63,22 @@
 			>
 				{{$t('create_campaign.delivery_form.add_more_delivery_option')}}
 			</button>
-			<!-- <a 
-				class="whitespace-nowrap font-medium"
-				@click="addDelivery"
-			> <u> + {{$t('create_campaign.delivery_form.add_more_delivery_option')}} </u> 
-			</a> -->
 		</div>
+
+		<div class="flex flex-row items-center gap-2">
+			<input  
+				class="form-control form-check-input w-[1.5rem] h-[1.5rem]"
+				type="checkbox" 
+				v-model="props.campaign.meta_logistic.is_self_delivery_enabled"
+			/>
+			<label class="text-base whitespace-nowrap text-lg font-medium">{{$t('create_campaign.delivery_form.enabled_delivery_charge')}}</label>
+		</div>
+
 		<!-- delivery date -->
 		<div class="flex flex-col sm:flex-row flex-wrap justify-between col-span-12 col-start-1 gap-2">
 			<div class="flex flex-row gap-2 items-center"> 
-				<input type="checkbox" class="w-[1.5rem] h-[1.5rem] form-control" v-model="useDeliveryDate"/>
-				<label for="regular-form-2" class="text-base font-bold form-label my-auto">{{$t('create_campaign.delivery_form.delivery_date')}}</label>
+				<input type="checkbox" class="form-control form-check-input w-[1.5rem] h-[1.5rem]" v-model="useDeliveryDate"/>
+				<label class="text-base whitespace-nowrap text-lg font-medium">{{$t('create_campaign.delivery_form.delivery_date')}}</label>
 			</div>
 			<div 
 				v-show="useDeliveryDate" 
@@ -143,6 +110,32 @@
 				</v-date-picker>
 			</div>
 		</div> 
+		<div class="flex flex-row flex-wrap gap-5 col-span-12 col-start-1">
+			<div class="flex flex-col"> 
+				<label class="w-fit text-base whitespace-nowrap">{{ $t('settings.delivery.title') }}</label>
+				<input 
+					class="w-32 form-control h-[35px] sm:h-[42px]"
+					type="text" 
+					v-model="props.campaign.meta_logistic.title"
+				/>
+			</div>
+			<div class="flex flex-col">
+				<label class="w-fit text-base whitespace-nowrap">{{ $t('settings.delivery.price') }}</label>
+				<input 
+					class="w-full form-control"
+					type="text" 
+					v-model="props.campaign.meta_logistic.delivery_charge"
+					@blur="props.v.meta_logistic.delivery_charge.$touch()"
+				/>
+				<label class="text-danger text-[12px] " 
+					v-for="error,index in props.v.meta_logistic.delivery_charge.$errors"
+					:key="index"
+					>
+					{{ $t(`create_campaign.delivery_form.errors.${error.$validator}`) }}
+				</label>
+			</div>
+		</div>
+		
 		<div v-for="(option, index) in props.campaign.meta_logistic.additional_delivery_options" class="col-span-12" :key="index">
 			<div class="flex flex-col flex-wrap gap-3 mt-5 sm:flex-row sm:mt-0 ">
 				<div>
@@ -181,7 +174,7 @@
 					<input  
 						class="w-full form-control flex-2 sm:w-fit"
 						type="text" 
-						placeholder="eg : 10"
+						placeholder="delivery price"
 						v-model="option.price"
 					/>
 					<label class="text-danger text-[12px]  block" 
@@ -419,7 +412,7 @@ watch(computed(()=>deliverydatePicker.value),()=>{
 	props.campaign.meta_logistic.delivery_date.end_at = deliverydatePicker.value.end
 },{deep:true})
 
-watch(computed(()=>useDeliveryDate.value),()=>{if(!useDeliveryDate.value) deliverydatePicker.value ={start:new Date(),end:new Date()}},{deep:true})
+watch(computed(()=>useDeliveryDate.value),()=>{if(!useDeliveryDate.value) deliverydatePicker.value ={start:'',end:''}},{deep:true})
 
 
 

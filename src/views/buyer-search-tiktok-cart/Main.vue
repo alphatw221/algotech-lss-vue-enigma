@@ -25,17 +25,14 @@
                         <div class="flex flex-col gap-3 justify-center mx-auto lg:ml-16 relative"> 
                             <label class="text-xl font-medium text-center lg:text-left"> 進入您的專屬購物車</label>
                             <label class="text-lg font-bold mt-3"> 方式一</label>
-
-                            <a class="tiktok-login-btn shadow-lg flex justify-center" :href="`${serverDomain}/api/v2/tiktok/${route.params.campaign_id}/cart?message`"><p class="my-auto">登入TikTok帳號</p>  </a>
-                            <label class="text-lg font-bold mt-3"> 方式二</label>
-                            <label class="">輸入您的TikTok暱稱</label>
+                            <label class="">輸入您的TikTok 使用者名稱/暱稱</label>
                             <div class="flex flex-row h-[42px]"> 
                                 <input type="text" v-model="customerName" class="rounded-l-lg w-full h-[42px] border-primary">
                                 <button class="btn btn-primary w-fit px-5 rounded-l-none whitespace-nowrap" @click="searchTiktokCart()">確認</button>
                             </div>
-                            <a class="mx-auto underline text-slate-600 my-2" @click="showModal=true"> 找不到暱稱?</a>
-
-                            
+                            <a class="mx-auto underline text-slate-600 my-2" @click="showModal=true"> 找不到使用者名稱/暱稱？</a>
+                            <label class="text-lg font-bold mt-0"> 方式二</label>
+                            <a class="tiktok-login-btn shadow-lg flex justify-center" :href="`${serverDomain}/api/v2/tiktok/${route.params.campaign_id}/cart?message`"><p class="my-auto">登入TikTok帳號</p>  </a>
                         </div>
                     </div>
                     <div class="flex justify-center w-full border-t-2 border-slate-500 dark:border-darkmode-400 my-8 lg:hidden">
@@ -77,7 +74,7 @@
                 > <XIcon class="w-8 h-8 text-slate-400" />
                 </a>
             </div>
-            <img src="@/assets/images/lss-img/Tiktok_name_exp.png" class="h-full w-full"/>
+            <img src="@/assets/images/lss-img/Tiktok_name_exp.svg" class="h-full w-full"/>
         </ModalBody>
   </Modal>
     
