@@ -49,7 +49,8 @@
         "remark":"Remark",
         "previous":"Previous",
         "proceed_to_payment":"Proceed to Payment",
-        "processing":"Processing to Payment page．．．"
+        "processing":"Processing to Payment page．．．",
+        "delivery_method_err":"Store did not provid shipping method, Please contact store ownner for support."
     },
     "table":{
         "update":"Update",
