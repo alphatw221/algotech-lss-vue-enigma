@@ -81,7 +81,7 @@
 				<label class="text-base whitespace-nowrap text-lg font-medium">{{$t('create_campaign.delivery_form.delivery_date')}}</label>
 			</div>
 			<div 
-				v-show="useDeliveryDate" 
+				v-if="useDeliveryDate" 
 				class="flex flex-col flex-wrap gap-3 mt-5 sm:flex-row sm:mt-0 z-50 mx-auto">
 				<v-date-picker class="" 
 					v-model="deliverydatePicker" 
@@ -363,8 +363,8 @@ const useDeliveryDate = ref(false)
 const ready = ref(false)
 const get_props = ref(false)
 const deliverydatePicker = ref({
-	start:new Date(),
-	end:new Date()
+	start:'',
+	end:''
 })
 const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
 const pickupdatePicker = ref([])
@@ -410,9 +410,13 @@ watch(computed(()=>props.campaign.meta_logistic.pickup_options),()=>{
 watch(computed(()=>deliverydatePicker.value),()=>{
 	props.campaign.meta_logistic.delivery_date.start_at = deliverydatePicker.value.start
 	props.campaign.meta_logistic.delivery_date.end_at = deliverydatePicker.value.end
+	console.log(props.campaign.meta_logistic.delivery_date)
 },{deep:true})
 
-watch(computed(()=>useDeliveryDate.value),()=>{if(!useDeliveryDate.value) deliverydatePicker.value ={start:'',end:''}},{deep:true})
+watch(computed(()=>useDeliveryDate.value),()=>{
+	if(!useDeliveryDate.value) deliverydatePicker.value ={start:'',end:''}
+	console.log(props.campaign.meta_logistic.delivery_date)
+},{deep:true})
 
 
 
