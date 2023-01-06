@@ -16,7 +16,8 @@
 
     "delivery_form":{
         "delivery_detail":"物流設定",
-        "delivery_charge":"基本運費",
+        "delivery_charge":"自訂運費",
+        "enabled_delivery_charge":"啟用自訂運費",
         "free_delivery_for_order_above":"滿額免運：訂單金額滿（$）",
         "free_delivery_for_minimum_order":"滿件免運：訂單商品數量滿（件）",
         "add_more_delivery_option":"新增運送方式",
@@ -28,6 +29,7 @@
         "delete":"刪除",
 
         "store_collection":"自行取貨",
+        "enabled_store_collection":"啟用自行取貨",
 
         "pickup_store":"取貨門市／地點",
         "pickup_address":"自取地址",

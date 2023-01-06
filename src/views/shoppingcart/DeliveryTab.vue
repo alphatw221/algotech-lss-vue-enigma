@@ -58,7 +58,7 @@
                             </div>
 
                             <h4 id="cvs_info" class="-my-1" v-if="shoppingCartStore.cart.meta?.ecpay_cvs?.logistics_sub_type == key">
-                              {{shoppingCartStore.cart.meta.ecpay_cvs?.cvs_store_name}}<br/>
+                              {{shoppingCartStore.cart.meta?.ecpay_cvs?.cvs_store_name}}<br/>
                               {{shoppingCartStore.cart.meta?.ecpay_cvs?.cvs_address}}
                             </h4>
                           </div>
@@ -116,7 +116,7 @@
                                 <h4>{{$t('shopping_cart.delivery_tab.select_store')}}</h4></a>
                           </div>
                           <h4 id="own_cvs_info" class="-my-1" v-if="shoppingCartStore.cart.meta?.ecpay_cvs?.logistics_sub_type == option?.cvs_key">
-                            {{shoppingCartStore.cart.meta.ecpay_cvs?.cvs_store_name}} <br/>
+                            {{shoppingCartStore.cart.meta?.ecpay_cvs?.cvs_store_name}} <br/>
                             {{shoppingCartStore.cart.meta?.ecpay_cvs?.cvs_address}}
                           </h4>
                         </div>
@@ -568,8 +568,8 @@ const shipping_option_index_computed = computed({
     } else if (shipping_info.value.shipping_method=='delivery' && typeof index !== 'string') {
       shipping_info.value.shipping_option = index != null ? shoppingCartStore.cart.campaign.meta_logistic.additional_delivery_options[index]?.title : shoppingCartStore.cart.campaign.meta_logistic?.title
       shipping_info.value.shipping_option_data = index == null ? {} : JSON.parse(JSON.stringify(shoppingCartStore.cart.campaign.meta_logistic.additional_delivery_options[index]))
-      if(shipping_option_index.value == shoppingCartStore.cart.meta.ecpay_cvs?.shipping_option_index) {
-        Object.assign(shipping_info.value.shipping_option_data,shoppingCartStore.cart.meta.ecpay_cvs)
+      if(shipping_option_index.value == shoppingCartStore.cart.meta?.ecpay_cvs?.shipping_option_index) {
+        Object.assign(shipping_info.value.shipping_option_data,shoppingCartStore.cart.meta?.ecpay_cvs)
       }
       if (shoppingCartStore.cart.campaign.meta_logistic.additional_delivery_options[index]?.is_cvs) {
         showAddressForm.value = false
@@ -579,8 +579,8 @@ const shipping_option_index_computed = computed({
     
     // ecpay
     } else if (shipping_info.value.shipping_method=='ecpay') {
-      if(shipping_option_index.value == shoppingCartStore.cart.meta.ecpay_cvs?.shipping_option_index) {
-        shipping_info.value.shipping_option_data = shoppingCartStore.cart.meta.ecpay_cvs
+      if(shipping_option_index.value == shoppingCartStore.cart.meta?.ecpay_cvs?.shipping_option_index) {
+        shipping_info.value.shipping_option_data = shoppingCartStore.cart.meta?.ecpay_cvs
       } else {
         shipping_info.value.shipping_option_data = {}
       }
@@ -637,13 +637,13 @@ const exactlength = (param) =>
   helpers.withParams(
     { type: 'exactlength', value: param },
     (value) => {
-      var ecpay_enabled = shoppingCartStore.cart.campaign.meta_logistic.ecpay?.enabled ? true : false
+      var ecpay_enabled = shoppingCartStore.cart.campaign.meta_logistic?.ecpay?.enabled ? true : false
       if (value.length !== param && ecpay_enabled) return false
       return true
     }
 )
 const twCellPhoneBeginning = (value) => {
-  var ecpay_enabled = shoppingCartStore.cart.campaign.meta_logistic.ecpay?.enabled ? true : false
+  var ecpay_enabled = shoppingCartStore.cart.campaign.meta_logistic?.ecpay?.enabled ? true : false
   if (value[0] !== "0" && ecpay_enabled) return false
   if (value[1] !== "9" && ecpay_enabled) return false
   return true
