@@ -29,7 +29,11 @@
                 </div>
               </Tab>
             </div>
-            <div class="text-danger mx-auto text-[18px]" v-else> {{$t('shopping_cart.delivery_tab.delivery_method_err')}}</div>
+            <div class="text-danger mx-auto text-[18px]" 
+            v-if="!shoppingCartStore.cart.campaign.meta_logistic?.is_self_delivery_enabled 
+            && !shoppingCartStore.cart.campaign.meta_logistic?.ecpay?.enabled 
+            && !shoppingCartStore.cart.campaign.meta_logistic?.is_store_pickup_enabled"> 
+            {{$t('shopping_cart.delivery_tab.delivery_method_err')}}</div>
           </TabList>
          
 
