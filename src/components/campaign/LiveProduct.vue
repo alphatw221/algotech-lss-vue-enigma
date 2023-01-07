@@ -76,8 +76,6 @@
                                     {{ $t(`campaign_live.product.modal_column.`+column.name) }}
                                 </th>
                             </template>
-                            
-
                                 
                             </template>
                             <th class="whitespace-nowrap bg-dark lgAct">
