@@ -121,7 +121,7 @@
             "upload_record":"Upload Payment Record",
             "or":"or"
         },
-        "processing":"Payment Processing．．．\n Please do not refresh the page"
+        "processing":"Payment Processing，Please do not refresh the page．．．"
     },
     "login":{
         "guest_login":"Login as a guest",

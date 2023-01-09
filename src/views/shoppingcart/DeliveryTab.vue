@@ -146,7 +146,7 @@
                   </template>
 
                   <!-- Delivery Date -->
-                  <template v-if="shoppingCartStore.cart.campaign.meta_logistic.delivery_date?.start_at">
+                  <template v-if="shoppingCartStore.cart.campaign.meta_logistic.delivery_date?.start_at && shipping_info.shipping_method != 'ecpay' && !shipping_info.shipping_option_data?.is_cvs">
                     <h3 class="whitespace-nowrap lg:-mx-10 xl:-mx-20">{{$t('shopping_cart.delivery_tab.delivery_date')}}</h3>
                     <v-date-picker class="z-49" 
                       v-model="shipping_info.shipping_date_time"
@@ -267,7 +267,7 @@
                   <template v-for="(option, index) in shoppingCartStore.cart.campaign.meta_logistic.pickup_options" :key="index"> 
                     <div class="logistic-options border-2 rounded-lg relative"
                       :class="{'border-red-600/90 shadow-sm': shipping_option_index_computed == index}"
-                      @click="select_shipping_method('pickup'); (shipping_option_index_computed = index); pickup_date_range(index);"
+                      @click="select_shipping_method('pickup'); (shipping_option_index_computed = index);"
                       >
                       <CheckSquareIcon v-if="shipping_option_index_computed == index" class="absolute left-3 text-red-800"/>
                       <div class="flex flex-col sm:flex-row flex-0 w-full"> 
@@ -287,7 +287,7 @@
                 </div>
 
                 <!-- pickup time-->
-                <template v-if="shoppingCartStore.cart.campaign.meta_logistic?.pickup_options[pickup_select_index]?.start_at"> 
+                <template v-if="shoppingCartStore.cart.campaign.meta_logistic?.pickup_options[shipping_option_index]?.start_at"> 
                   <label class="font-medium text-md whitespace-nowrap">{{$t('shopping_cart.delivery_tab.pickup_date')}}</label>
                   <div class="flex flex-col flex-wrap lg:mx-20 z-20">
                     <v-date-picker class="z-50" 
@@ -467,7 +467,6 @@ const props = defineProps({
   },
 })
 const shipping_option_index = ref("No")
-const pickup_select_index = ref(null)
 const shipping_info= ref({
 			shipping_option:"",
       shipping_method: "delivery",
@@ -548,6 +547,8 @@ const shipping_method_computed = computed({
         deliveryCurrentChosenOption.value = shipping_option_index.value != "No" ? shipping_option_index.value : null
         shoppingCartStore.shipping_info.shipping_option_index = 0
         shipping_option_index_computed.value = 0
+        date_range.value.start = shoppingCartStore.cart.campaign.meta_logistic.pickup_options[shipping_option_index_computed.value].start_at
+        date_range.value.end = shoppingCartStore.cart.campaign.meta_logistic.pickup_options[shipping_option_index_computed.value].end_at
       } else {
         shoppingCartStore.shipping_info.shipping_option_index = null
       }
@@ -560,13 +561,17 @@ const shipping_option_index_computed = computed({
   get:()=>{
     return shipping_option_index.value
   },set:index=>{
-    // console.log("set", index)
+    console.log("set", index)
+    console.log(shipping_info.value.shipping_method)
     shipping_option_index.value = index
     shoppingCartStore.shipping_info.shipping_option_index=index
     // pickup 
     if (shipping_info.value.shipping_method=='pickup') {
+      shipping_info.value.shipping_date_time =''
       shipping_info.value.pickup_address = shoppingCartStore.cart.campaign.meta_logistic.pickup_options[index]?.address
       shipping_info.value.shipping_option = shoppingCartStore.cart.campaign.meta_logistic.pickup_options[index]?.name
+      date_range.value.start = shoppingCartStore.cart.campaign.meta_logistic.pickup_options[index].start_at
+      date_range.value.end = shoppingCartStore.cart.campaign.meta_logistic.pickup_options[index].end_at
       shipping_info.value.shipping_option_data = JSON.parse(JSON.stringify(shoppingCartStore.cart.campaign.meta_logistic.pickup_options[index]))
       showAddressForm.value = false
     
@@ -609,13 +614,6 @@ const shipping_option_index_computed = computed({
 })
 
 const isAnonymousUser=cookies.get("login_with")=='anonymousUser'
-
-const pickup_date_range = (index) =>{
-  date_range.value.start = shoppingCartStore.cart.campaign.meta_logistic.pickup_options[index].start_at
-  date_range.value.end = shoppingCartStore.cart.campaign.meta_logistic.pickup_options[index].end_at
-  pickup_select_index.value = index
-  // console.log(shoppingCartStore.cart.campaign.meta_logistic)
-}
 
 
 onMounted(()=>{
@@ -778,7 +776,7 @@ const proceed_to_payment = () =>{
   // pickup, ecpay cvs, self delivery csv. These options doesn't need validate delivery address
   if ((["UNIMARTC2C", "FAMIC2C"].includes(shipping_option_index.value)) || 
   (shipping_info.value.shipping_method === 'delivery' && shoppingCartStore.cart.campaign.meta_logistic.additional_delivery_options[shipping_option_index.value]?.is_cvs == true) || 
-  (shipping_info.value.shipping_method === 'pickup')) {
+  (shipping_info.value.shipping_method === 'pickup')|| (shipping_info.value.shipping_method === 'ecpay')) {
     shipping_info.value.shipping_location = ''
     shipping_info.value.shipping_region = ''
     shipping_info.value.shipping_address_1 = ''
@@ -799,7 +797,7 @@ const proceed_to_payment = () =>{
     layoutStore.alert.showMessageToast(i18n.global.t('shopping_cart.invalid_user_info'))
     return
   }
-  // console.log(shipping_info.value)
+  console.log(shipping_info.value)
   checkoutLoading.value = true
   buyer_checkout_cart(route.params.cart_oid, {shipping_data:shipping_info.value, points_used:shoppingCartStore.points_used}, layoutStore.alert)
   .then(res=>{
