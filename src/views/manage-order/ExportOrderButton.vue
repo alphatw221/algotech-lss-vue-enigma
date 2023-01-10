@@ -7,7 +7,7 @@
                     <ChevronDownIcon class="w-5 h-5 text-slate-700" />
                 </DropdownToggle>
                 <DropdownMenu class="pt-2">
-                    <DropdownContent class="w-full text-center">
+                    <DropdownContent class="w-full text-center whitespace-nowrap text-[14px]">
                         <DropdownItem @click="exportOrderDetailReport()">{{$t("order_report.order_detail_report")}}</DropdownItem>
                         <DropdownItem @click="exportSalesReport()">{{$t("order_report.order_sales_report")}}</DropdownItem>
                     </DropdownContent>
