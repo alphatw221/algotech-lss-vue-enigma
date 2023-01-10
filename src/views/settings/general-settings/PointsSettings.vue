@@ -132,7 +132,7 @@
                                     :value="1"
                                     disabled
                                 />
-                                <label class="w-fit whitespace-nowrap form-label text-base my-auto text-[14px] md:text-[16px]">SGD</label>
+                                <label class="w-fit whitespace-nowrap form-label text-base my-auto text-[14px] md:text-[16px]">{{layoutStore.userInfo.user_subscription.currency}}</label>
                                 <ChevronsRightIcon class="my-auto"/>
                                 <input  
                                     class="w-16 md:w-32 form-control flex-1"
@@ -143,7 +143,7 @@
                             </div>
                             <div  class="flex-1 gap-2 flex"> 
                                 <template v-if="index==0">
-                                    <label class="w-fit whitespace-nowrap form-label text-base my-auto text-[14px] md:text-[16px]">—　SGD</label>
+                                    <label class="w-fit whitespace-nowrap form-label text-base my-auto text-[14px] md:text-[16px]">—　{{layoutStore.userInfo.user_subscription.currency}}</label>
                                     <input  
                                     class="w-20 md:w-32 form-control flex-1"
                                     type="text" 
@@ -152,7 +152,7 @@
                                     />
                                 </template>
                                 <template v-else>
-                                    <label class="w-fit whitespace-nowrap form-label text-base my-auto text-[14px] md:text-[16px]">—　SGD</label>
+                                    <label class="w-fit whitespace-nowrap form-label text-base my-auto text-[14px] md:text-[16px]">—　{{layoutStore.userInfo.user_subscription.currency}}</label>
                                     <input  
                                     class="w-20 md:w-32 form-control flex-1"
                                     type="number" 
@@ -160,7 +160,7 @@
                                     />
                                 </template>
                             
-                                <label class="w-fit whitespace-nowrap form-label text-base my-auto text-[14px] md:text-[16px]"> ~ SGD</label>
+                                <label class="w-fit whitespace-nowrap form-label text-base my-auto text-[14px] md:text-[16px]"> ~ {{layoutStore.userInfo.user_subscription.currency}}</label>
                                 <input  
                                     class="w-20 md:w-32 form-control flex-1 "
                                     type="number" 
@@ -188,7 +188,7 @@
                                         :value="1"
                                         disabled
                                     />
-                                    <label class="w-fit whitespace-nowrap form-label text-base my-auto text-[14px] md:text-[16px]">SGD</label>
+                                    <label class="w-fit whitespace-nowrap form-label text-base my-auto text-[14px] md:text-[16px]">{{layoutStore.userInfo.user_subscription.currency}}</label>
                                     <ChevronsRightIcon class="my-auto"/>
                                     <input  
                                         class="w-16 md:w-32 form-control flex-1"
@@ -200,7 +200,7 @@
 
                                 <div  class="flex-1 gap-2 flex"> 
                                     <template v-if="(props.meta_point[field.key]||[]).length">
-                                        <label class="w-fit whitespace-nowrap form-label text-base my-auto text-[14px] md:text-[16px]">—　SGD</label>
+                                        <label class="w-fit whitespace-nowrap form-label text-base my-auto text-[14px] md:text-[16px]">—　{{layoutStore.userInfo.user_subscription.currency}}</label>
                                         <input  
                                         class="w-20 md:w-32 form-control flex-1"
                                         type="number" 
@@ -208,7 +208,7 @@
                                         />
                                     </template>
                                     <template v-else>
-                                        <label class="w-fit whitespace-nowrap form-label text-base my-auto text-[14px] md:text-[16px]">—　SGD</label>
+                                        <label class="w-fit whitespace-nowrap form-label text-base my-auto text-[14px] md:text-[16px]">—　{{layoutStore.userInfo.user_subscription.currency}}</label>
                                         <input  
                                         class="w-20 md:w-32 form-control flex-1"
                                         type="number" 
@@ -216,7 +216,7 @@
                                         disabled
                                         />
                                     </template>
-                                    <label class="w-fit whitespace-nowrap form-label text-base my-auto text-[14px] md:text-[16px]"> ~ SGD</label>
+                                    <label class="w-fit whitespace-nowrap form-label text-base my-auto text-[14px] md:text-[16px]"> ~ {{layoutStore.userInfo.user_subscription.currency}}</label>
                                     <input  
                                         class="w-20 md:w-32 form-control flex-1 "
                                         type="text" 
@@ -251,7 +251,7 @@
                             <ChevronsRightIcon class="my-auto flex-0 w-8"/>
                             
                             <div class="flex flex-1 flex-row gap-3"> 
-                                <label class="w-fit flex-0 whitespace-nowrap form-label text-base my-auto text-[14px] md:text-[16px]"> SGD</label>
+                                <label class="w-fit flex-0 whitespace-nowrap form-label text-base my-auto text-[14px] md:text-[16px]"> {{layoutStore.userInfo.user_subscription.currency}}</label>
                                 <input  
                                     class="w-14 md:w-32 form-control flex-1"
                                     type="number" 

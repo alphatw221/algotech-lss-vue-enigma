@@ -31,6 +31,7 @@
     "basic_info":{
         "plan":"Subscription Plan",
         "plan_options":{
+            "trial":"Trial",
             "lite":"Lite (%{price}/Month)",
             "standard":"Standard (%{price}/Month)",
             "premium":"Premium (start from %{price}/Month)"

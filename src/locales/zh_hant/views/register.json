@@ -21,6 +21,7 @@
         "confirm":"確認訂單"
     },
     "plan":{
+        "trial":"免費試用",
         "lite":"Lite",
         "standard":"Standard",
         "premium":"Premium",

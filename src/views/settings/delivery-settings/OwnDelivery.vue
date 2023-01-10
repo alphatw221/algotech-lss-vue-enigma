@@ -257,7 +257,8 @@ onMounted(() => {
 })
 
 const addDelivery = () =>{
-    deliverySettings.additional_delivery_options.unshift( Object.assign({},additional_delivery_option) )
+    deliverySettings.additional_delivery_options.unshift( Object.assign({},additional_delivery_option.value) )
+    console.log(deliverySettings.additional_delivery_options)
 }
 
 const deleteDelivery = index=>{ 
