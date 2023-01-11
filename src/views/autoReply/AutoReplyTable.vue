@@ -1,5 +1,5 @@
 <template>
-	<div class="flex"> 
+	<div class="flex mt-5 ml-2 sm:m-0"> 
 		<div class="relative"> 
 			<input type="text" class=" mr-2 form-control w-40 lg:w-60 rounded-lg"
 			:placeholder="$t('stock.search_bar.search_holder')" v-model="searchKeyword" @keydown.enter.prevent="getReplyData" />
@@ -24,7 +24,7 @@
 					<th v-for="column in columns" :key="column.key" class="w-fit whitespace-nowrap">
 						<template v-if="column.name === 'check'">
 							<input 
-								class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" 
+								class="form-control form-check-input w-[1.5rem] h-[1.5rem] sm:mr-1 my-auto" 
 								type="checkbox" 
 								@change="selectAllReply($event)"
 							/>
@@ -74,7 +74,7 @@
 					<template v-for="(column, cindex) in columns" :key="cindex">
 						<td class="w-10" v-if="column.key == 'check'">
 							<input 
-								class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto selectCheck" 
+								class="form-control form-check-input w-[1.5rem] h-[1.5rem] sm:mr-1 my-auto selectCheck" 
 								type="checkbox" 
 								v-model="reply.check"
 								@click="selectReply(reply, $event)"

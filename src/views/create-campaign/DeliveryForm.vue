@@ -55,8 +55,8 @@
 			</div> 
 		</div>
 
-		<div class="flex flex-wrap justify-between col-span-12 col-start-1 mt-5">
-			<label for="regular-form-2" class="text-base font-bold form-label my-auto">{{$t('create_campaign.delivery_form.options')}}</label>
+		<div class="flex flex-row flex-wrap justify-between col-span-12 col-start-1 mt-5 gap-3">
+			<label for="regular-form-2" class="text-base font-bold form-label my-auto mr-5">{{$t('create_campaign.delivery_form.options')}}</label>
 			<button 
 				class="inline-block rounded-lg btn btn-primary ml-auto lg:w-48 h-[42px] sm:mt-auto" 
 				@click="addDelivery()"
@@ -77,7 +77,7 @@
 		<!-- delivery date -->
 		<div class="flex flex-col sm:flex-row flex-wrap justify-between col-span-12 col-start-1 gap-2">
 			<div class="flex flex-row gap-2 items-center"> 
-				<input type="checkbox" class="form-control form-check-input w-[1.5rem] h-[1.5rem]" v-model="useDeliveryDate"/>
+				<input type="checkbox" class="form-control form-check-input w-[1.5rem] h-[1.5rem]" v-model="useDeliveryDateComputed"/>
 				<label class="text-base whitespace-nowrap text-lg font-medium">{{$t('create_campaign.delivery_form.delivery_date')}}</label>
 			</div>
 			<div 
@@ -109,7 +109,9 @@
 					</template>
 				</v-date-picker>
 			</div>
-		</div> 
+		</div>
+		
+		<!--default delivery -->
 		<div class="flex flex-row flex-wrap gap-5 col-span-12 col-start-1">
 			<div class="flex flex-col"> 
 				<label class="w-fit text-base whitespace-nowrap">{{ $t('settings.delivery.title') }}</label>
@@ -136,78 +138,85 @@
 			</div>
 		</div>
 		
-		<div v-for="(option, index) in props.campaign.meta_logistic.additional_delivery_options" class="col-span-12" :key="index">
-			<div class="flex flex-col flex-wrap gap-3 mt-5 sm:flex-row sm:mt-0 ">
-				<div>
-					<input  
-						class="flex-1 w-full text-base form-control sm:w-fit"
-						type="text" 
-						placeholder="eg : Delivery Service"
-						v-model="option.title"
-					/>
-					<label class="text-danger text-[12px]  block" 
-						v-for="error,index in props.v.meta_logistic.additional_delivery_options.$each.$response.$errors[index].title"
-						:key="index"
-						>
-						{{ $t(`create_campaign.delivery_form.errors.${error.$message.replace(/\s/g, "_")}`) }}
-					</label>
-				</div>
-
-				<div>
-					<select 
-						class="flex-1 w-full form-select-md sm:form-select-lg rounded-lg sm:w-fit"
-						v-model="option.type"
-					>
-						<option value="+">{{$t('create_campaign.delivery_form.on_top_of_delivery_charge')}}</option>
-						<option value="=">{{$t('create_campaign.delivery_form.replace_delivery_charge')}}</option>
-					</select>
-					<label class="text-danger text-[12px] block" 
-						v-for="error,index in props.v.meta_logistic.additional_delivery_options.$each.$response.$errors[index].type"
-						:key="index"
-						>
-						{{ $t(`create_campaign.delivery_form.errors.${error.$message.replace(/\s/g, "_")}`) }}
-					</label>
-				</div>
-				
-
-				<div>
-					<input  
-						class="w-full form-control flex-2 sm:w-fit"
-						type="text" 
-						placeholder="delivery price"
-						v-model="option.price"
-					/>
-					<label class="text-danger text-[12px]  block" 
-						v-for="error,index in props.v.meta_logistic.additional_delivery_options.$each.$response.$errors[index].price"
-						:key="index"
-						>
-						{{ $t(`create_campaign.delivery_form.errors.${error.$message.replace(/\s/g, "_")}`) }}
-					</label>
-				</div>
-				
-				<div class="flex flex-row items-center">
-                    <input  
-                        class="w-10 h-10 form-control w-[1.5rem] h-[1.5rem]"
-                        type="checkbox" 
-                        :placeholder="$t('settings.delivery_form.express_charge')"
-                        v-model="option.is_cvs"
-                    />
-                    <label class="text-[16px] ml-2" 
-                        >{{ $t("settings.delivery.own_delivery.is_cvs") }}
-                    </label>                    
-                </div>
-				<div>
-                    <select 
-                        :disabled="option.is_cvs !== true"
-                        class="flex-1 w-full rounded-lg form-select sm:form-select-lg sm:w-fit"
-                        v-model="option.cvs_key"
-                    >   
-                        <option :value="undefined">{{ $t('settings.delivery.own_delivery.turn_on_cvs_map') }}</option>
-                        <template v-for="(cvs_option, option_index) in csvOptions" :key="option_index">
-                            <option :value="cvs_option.key">{{ $t('settings.delivery.own_delivery.cvs_map')+":"+cvs_option.name }}</option>
-                        </template>
-                    </select>
-                </div>
+		<div class="col-span-12 flex flex-col flex-wrap gap-3">
+			<div v-for="(option, index) in props.campaign.meta_logistic.additional_delivery_options" :key="index"
+				class="flex flex-col flex-wrap gap-3 mt-5 sm:flex-row sm:mt-0" >
+				<template v-for="(field, fkey, findex) in additional_delivery_option" :key="findex">
+					<template v-if="fkey == 'title'">
+						<div>
+							<input  
+								class="flex-1 w-full text-base form-control sm:w-fit"
+								type="text" 
+								placeholder="eg : Delivery Service"
+								v-model="option.title"
+							/>
+							<label class="text-danger text-[12px]  block" 
+								v-for="error,index in props.v.meta_logistic.additional_delivery_options.$each.$response.$errors[index].title"
+								:key="index"
+								>
+								{{ $t(`create_campaign.delivery_form.errors.${error.$message.replace(/\s/g, "_")}`) }}
+							</label>
+						</div>
+					</template>
+					<template v-if="fkey == 'type'">
+						<div>
+							<select 
+								class="flex-1 w-full form-select-md sm:form-select-lg rounded-lg sm:w-fit"
+								v-model="option.type"
+							>
+								<option value="+">{{$t('create_campaign.delivery_form.on_top_of_delivery_charge')}}</option>
+								<option value="=">{{$t('create_campaign.delivery_form.replace_delivery_charge')}}</option>
+							</select>
+							<label class="text-danger text-[12px] block" 
+								v-for="error,index in props.v.meta_logistic.additional_delivery_options.$each.$response.$errors[index].type"
+								:key="index"
+								>
+								{{ $t(`create_campaign.delivery_form.errors.${error.$message.replace(/\s/g, "_")}`) }}
+							</label>
+						</div>
+					</template>
+					<template v-if="fkey == 'price'">
+						<div>
+							<input  
+								class="w-full form-control flex-2 sm:w-fit"
+								type="text" 
+								placeholder="delivery price"
+								v-model="option.price"
+							/>
+							<label class="text-danger text-[12px]  block" 
+								v-for="error,index in props.v.meta_logistic.additional_delivery_options.$each.$response.$errors[index].price"
+								:key="index"
+								>
+								{{ $t(`create_campaign.delivery_form.errors.${error.$message.replace(/\s/g, "_")}`) }}
+							</label>
+						</div>
+					</template>
+					<template v-if="fkey == 'is_cvs'">
+						<div class="flex flex-row items-center">
+							<input  
+								class="w-10 h-10 form-control w-[1.5rem] h-[1.5rem]"
+								type="checkbox" 
+								:placeholder="$t('settings.delivery_form.express_charge')"
+								v-model="option.is_cvs"
+							/>
+							<label class="text-[16px] ml-2" 
+								>{{ $t("settings.delivery.own_delivery.is_cvs") }}
+							</label>                    
+						</div>
+						<div>
+							<select 
+								:disabled="option.is_cvs !== true"
+								class="flex-1 w-full rounded-lg form-select sm:form-select-lg sm:w-fit"
+								v-model="option.cvs_key"
+							>   
+								<option :value="undefined">{{ $t('settings.delivery.own_delivery.turn_on_cvs_map') }}</option>
+								<template v-for="(cvs_option, option_index) in csvOptions" :key="option_index">
+									<option :value="cvs_option.key">{{ $t('settings.delivery.own_delivery.cvs_map')+":"+cvs_option.name }}</option>
+								</template>
+							</select>
+						</div>
+					</template>
+				</template>
 				<button 
 					class="btn btn-danger inline-block text-base w-full sm:w-24 ml-auto h-[42px]" 
 					@click="deleteDelivery(index)"
@@ -224,11 +233,6 @@
 			>
 				{{$t('create_campaign.delivery_form.add_more_pickup_option')}}
 			</button>
-			<!-- <a 
-				class="whitespace-nowrap font-medium"
-				@click="addBranch()"
-			> <u> + {{$t('create_campaign.delivery_form.add_more_pickup_option')}}  </u> 
-			</a> -->
 		</div>
 		<div class="flex flex-row items-center">
 				<input  
@@ -356,10 +360,8 @@ import { required } from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";
 import { end } from '@popperjs/core';
 
-
-const additional_delivery_option = { title: null, type: null, price: null }
+const layoutStore = useLSSSellerLayoutStore();
 const branch_option = { name: null, address: null, start_at:null, end_at:null }
-const useDeliveryDate = ref(false)
 const ready = ref(false)
 const get_props = ref(false)
 const deliverydatePicker = ref({
@@ -370,12 +372,21 @@ const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
 const pickupdatePicker = ref([])
 onMounted(()=>{
 	ready.value=true
+	update_deliverydatePicker()
 	update_pickupdatePicker()
 })
 const props = defineProps({
     campaign: Object,
 	v:Object
 });
+
+const additional_delivery_option = computed(()=>{
+	var options = { title: null, type: null, price: null}
+	if(layoutStore.userInfo.user_subscription.meta_country.activated_country.includes('TW')){
+		Object.assign(options,{is_cvs:false})
+	}
+	return options
+})
 
 const csvOptions = ref([
     {"key": "FAMIC2C", "name": "全家店到店"},
@@ -384,8 +395,10 @@ const csvOptions = ref([
     {"key":"OKMARTC2C", "name":"OK店到店"}
 ])
 
+
+
 const addDelivery = () =>{
-    props.campaign.meta_logistic.additional_delivery_options.unshift(Object.assign({},additional_delivery_option))
+    props.campaign.meta_logistic.additional_delivery_options.unshift(Object.assign({},additional_delivery_option.value))
 }
 
 const deleteDelivery = index=>{ 
@@ -401,6 +414,18 @@ const deleteBranch = index=>{
 	pickupdatePicker.value.splice(index,1)
 }
 
+const useDeliveryDate = ref(false)
+
+const useDeliveryDateComputed = computed({
+	get:()=>{
+		return useDeliveryDate.value
+	},set:index=>{
+		useDeliveryDate.value = index
+		if(!index) deliverydatePicker.value = {start:'',end:''}
+	}
+})
+
+
 watch(computed(()=>props.campaign.meta_logistic.pickup_options),()=>{
 	if (pickupdatePicker.value.length === 0){
 		update_pickupdatePicker()
@@ -410,13 +435,17 @@ watch(computed(()=>props.campaign.meta_logistic.pickup_options),()=>{
 watch(computed(()=>deliverydatePicker.value),()=>{
 	props.campaign.meta_logistic.delivery_date.start_at = deliverydatePicker.value.start
 	props.campaign.meta_logistic.delivery_date.end_at = deliverydatePicker.value.end
-	console.log(props.campaign.meta_logistic.delivery_date)
+	// console.log(props.campaign.meta_logistic.delivery_date)
 },{deep:true})
 
-watch(computed(()=>useDeliveryDate.value),()=>{
-	if(!useDeliveryDate.value) deliverydatePicker.value ={start:'',end:''}
-	console.log(props.campaign.meta_logistic.delivery_date)
-},{deep:true})
+
+const update_deliverydatePicker = ()=>{
+	let delivery_date = props.campaign.meta_logistic.delivery_date
+
+	deliverydatePicker.value.start = delivery_date?.start_at? delivery_date?.start_at:null
+	deliverydatePicker.value.end = delivery_date?.end_at? delivery_date?.end_at:null
+	if(deliverydatePicker.value.start !== null) useDeliveryDate.value = true
+}
 
 
 
@@ -430,7 +459,6 @@ watch(computed(()=>pickupdatePicker.value),()=>{
 	}
 	
 },{deep:true})
-
 
 const update_pickupdatePicker = ()=>{
     for (let option = 0; option<props.campaign.meta_logistic.pickup_options.length;option++){

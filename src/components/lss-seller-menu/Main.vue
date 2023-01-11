@@ -252,6 +252,7 @@ const isCreateCampaign = computed(()=>{
   .outterContainer{
   /* height: calc(100vh - 70px); */
   height:90vh;
+  background-color: rgb(241,245,249);
   }
 }
 
