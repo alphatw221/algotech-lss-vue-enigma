@@ -81,7 +81,7 @@
                 v-for="(option, index) in deliverySettings.additional_delivery_options" :key="index">
                 <template v-for="(field, fkey, findex) in additional_delivery_option" :key="findex">
                     <template v-if="fkey == 'title'">
-                        <div class="flex flex-col justify-between">
+                        <div class="flex flex-col justify-between w-full sm:w-fit">
                             <input  
                             class="w-full form-control flex-2 sm:w-fit"
                             type="text" 
@@ -96,7 +96,7 @@
                         </div>
                     </template>
                     <template v-if="fkey == 'type'">
-                        <div>
+                        <div class="w-full sm:w-fit">
                                 <select 
                                 class="flex-1 w-full rounded-lg form-select sm:form-select-lg sm:w-fit"
                                 v-model="option.type"
@@ -111,7 +111,7 @@
                         </div>
                     </template>
                     <template v-if="fkey == 'price'">
-                        <div>
+                        <div class="w-full sm:w-fit">
                             <input  
                                 class="w-full form-control flex-2 sm:w-fit"
                                 type="text" 
@@ -125,7 +125,7 @@
                         </div>
                     </template>
                     <template v-if="fkey == 'is_cvs'">
-                        <div>
+                        <div class="w-full sm:w-fit">
                             <input  
                                 class="form-control w-[1.5rem] h-[1.5rem]"
                                 type="checkbox" 
@@ -135,7 +135,7 @@
                                 >{{ $t("settings.delivery.own_delivery.is_cvs") }}
                             </label>                    
                         </div>
-                        <div>
+                        <div class="w-full sm:w-fit">
                             <select 
                                 :disabled="option.is_cvs !== true"
                                 class="flex-1 w-full rounded-lg form-select sm:form-select-lg sm:w-fit"
