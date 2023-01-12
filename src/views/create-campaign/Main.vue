@@ -267,7 +267,8 @@ const campaignData = ref({
 		is_additional_delivery_charge : true,
 		additional_delivery_options: [],
 		pickup_options: [],
-		delivery_note : ''
+		delivery_note : '',
+		delivery_date:{start_at:null,end_at:null}
 	},
 	country:'SG',
 	currency:'USD', 
@@ -388,9 +389,9 @@ onMounted(() => {
 	if (Object.entries(sellerStore.userInfo.user_subscription.meta_logistic).length) {
 		Object.assign(campaignData.value.meta_logistic,JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_logistic)))
 		campaignData.value.meta_logistic.delivery_date = sellerStore.userInfo.user_subscription.meta_logistic?.delivery_date ? sellerStore.userInfo.user_subscription.meta_logistic.delivery_date : {start_at:null,end_at:null}
-	}else campaignData.value.meta_logistic.delivery_date = {start_at:null,end_at:null}
+	}
 	
-	console.log(campaignData.value)
+	// console.log(campaignData.value)
 
 	campaignNotes.value.meta_logistic.delivery_note = sellerStore.userInfo.user_subscription.meta_logistic.delivery_note ? JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_logistic.delivery_note )) : ''
 	campaignNotes.value.meta_payment.special_note = sellerStore.userInfo.user_subscription.meta_payment.special_note ? JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_payment.special_note  )) : ''
@@ -403,7 +404,7 @@ onMounted(() => {
 
 
 const createCampaign = ()=>{
-
+	console.log(typeof campaignData.value.meta_logistic.delivery_charge)
 	v.value.$touch()
 	if (v.value.$invalid) {
 		sellerStore.alert.showMessageToast('Invalid Data')
@@ -438,7 +439,6 @@ const createCampaign = ()=>{
 		const key = campaignData.value.meta_payment.direct_payment.v2_accounts[index].name+'_'+index   
 		formData.append(key,image)
 	});
-
 
 	create_campaign(formData, sellerStore.alert).then(response => {
 		console.log("create campaign", response.data)

@@ -111,10 +111,10 @@
 				<label for="crud-form-1" class="form-label text-base font-medium">{{ $t('stock.add_product_page.quantity') }}</label>
 				<input
 					id="crud-form-1"
-					type="text"
+					type="number"
 					class="w-full form-control"
 					placeholder="Input Qty"
-					v-model="validate.qty.$model"
+					v-model.number="validate.qty.$model"
 					:class="{ 'border-danger text-danger border-2': validate.qty.$error }" 
 				/>
 				<template v-if="validate.qty.$error">
@@ -127,20 +127,20 @@
 				<label for="crud-form-1" class="form-label text-base font-medium">{{ $t('stock.add_product_page.price_ori') }}</label>
 				<input
 					id="crud-form-1"
-					type="text"
+					type="number"
 					class="w-full form-control"
 					:placeholder="$t('stock.add_product_page.price_ori_input')"
-					v-model="product.price_ori"
+					v-model.number="product.price_ori"
 				/>
 			</div>
 			<div class="col-span-12 lg:col-span-6 mt-2">
 				<label for="crud-form-1" class="form-label text-base font-medium">{{ $t('stock.add_product_page.price') }}</label>
 				<input
 					id="crud-form-1"
-					type="text"
+					type="number"
 					class="w-full form-control"
 					:placeholder="$t('stock.add_product_page.price_input')"
-					v-model="validate.price.$model"
+					v-model.number="validate.price.$model"
 					:class="{ 'border-danger text-danger border-2': validate.price.$error }" 
 				/>
 				<template v-if="validate.price.$error">
@@ -208,6 +208,7 @@
 				</div>
 			</div>
 
+			<!-- DESCRIPTION -->
 			<div class="col-span-12 mt-2">
 				<div class="flex justify-between"> 
 					<label for="crud-form-1" class="form-label text-base font-medium">{{ $t('stock.add_product_page.description') }}</label>
@@ -224,6 +225,7 @@
 				</template>
 			</div>
 
+			<!-- REMARK -->
 			<div class="col-span-12 mt-2">
 				<label for="crud-form-1" class="form-label text-base font-medium">{{ $t('stock.add_product_page.remark') }}</label>
 				<textarea
@@ -240,7 +242,7 @@
 				</template>
 			</div>
 
-			
+			<!-- CANCEL/SUBMIT -->
 			<div class="z-50 col-span-12 flex justify-end sm:mt-3">
 				<button class="w-32 bg-white btn dark:border-darkmode-400" @click="cancelButton()">
 					{{ $t('stock.add_product_page.cancel') }}
@@ -332,6 +334,7 @@ onMounted(()=>{
 			res => {
 				product.value = res.data
 				console.log(product.value)
+				if(product.value.description == null ) product.value.description = ''
 				previewImage.value = res.data.image?res.data.image:null
 			}
 		)
@@ -354,7 +357,7 @@ const removeImage = () =>{
 }
 const submit = ()=>{
 
-	console.log(product.value)
+	// console.log(product.value)
 	// return
 	validate.value.$touch();
     if (validate.value.$invalid) {
