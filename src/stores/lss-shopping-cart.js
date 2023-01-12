@@ -31,6 +31,7 @@ export const useShoppingCartStore = defineStore("buyerShoppingCart", {
 		cartProducts:ref([]) ,
 		referalCodes:ref([]),
 
+		applyCategoryLogistic: false,
 		shipping_info: ref({
 			shipping_option:"",
 			shipping_option_index:null,

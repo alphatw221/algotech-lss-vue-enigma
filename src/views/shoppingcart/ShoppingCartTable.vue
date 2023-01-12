@@ -153,14 +153,14 @@
 					<td class="td_price text-center h-20" :data-content="$t(`shopping_cart.table.price`)">
 						<div class="price whitespace-nowrap"> 
 							{{shoppingCartStore.cart.campaign.currency}} 
-							{{(Math.floor(parseFloat(shoppingCartStore.campaignProductDict[campaign_product_id]?.price) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toLocaleString('en-GB')}}
+							{{(Math.floor(parseFloat(shoppingCartStore.campaignProductDict[campaign_product_id]?.price) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toFixed(shoppingCartStore.cart.campaign.decimal_places)}}
 							{{shoppingCartStore.cart.campaign.price_unit?$t(`global.price_unit.${shoppingCartStore.cart.campaign.price_unit}`):''}}
 						</div>
 					</td>
 					<td class="text-center h-20 tdSubtotal" :data-content="$t(`shopping_cart.table.subtotal`)">
 						<div class="price whitespace-nowrap"> 
 							{{shoppingCartStore.cart.campaign.currency}} 
-							{{(Math.floor(parseFloat(qty * shoppingCartStore.campaignProductDict[campaign_product_id]?.price) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toLocaleString('en-GB')}}
+							{{(Math.floor(parseFloat(qty * shoppingCartStore.campaignProductDict[campaign_product_id]?.price) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toFixed(shoppingCartStore.cart.campaign.decimal_places)}}
 							{{shoppingCartStore.cart.campaign.price_unit?$t(`global.price_unit.${shoppingCartStore.cart.campaign.price_unit}`):''}}
 						</div>
 					</td>

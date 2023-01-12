@@ -404,7 +404,6 @@ onMounted(() => {
 
 
 const createCampaign = ()=>{
-	console.log(typeof campaignData.value.meta_logistic.delivery_charge)
 	v.value.$touch()
 	if (v.value.$invalid) {
 		sellerStore.alert.showMessageToast('Invalid Data')
