@@ -1,5 +1,6 @@
 {
     "points":"Points",
+    "customer_purchase":"Purchase",
     "statusButton":{
         "all":"All",
         "earning":"Earning",

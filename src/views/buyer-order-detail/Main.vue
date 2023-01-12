@@ -264,9 +264,10 @@ onMounted(() => {
         res => { 
             buyerOrderStore.order = res.data
             buyerOrderStore.user_subscription = JSON.parse(JSON.stringify(res.data.user_subscription))
+            layoutStore.sellerInfo = res.data.campaign.user_subscription 
             i18n.locale = res.data.campaign.lang
             detailLoading.value = false
-            console.log('xx',res.data)
+            // console.log('xx',res.data)
         }
     )
 })
