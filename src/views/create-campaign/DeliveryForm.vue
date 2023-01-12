@@ -278,7 +278,7 @@
 					<!-- pickup date  -->
 					<div class="flex flex-col flex-wrap  flex-grow-2">
 						<label class="text-base text-lg font-medium whitespace-nowrap">{{$t('create_campaign.delivery_form.pickup_date')}}
-							{{props.campaign.meta_logistic.pickup_options[index].start_at!==null?'( '+new Date(props.campaign.meta_logistic.pickup_options[index].start_at).toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"})
+							{{props.campaign.meta_logistic.pickup_options[index]?.start_at!==null?'( '+new Date(props.campaign.meta_logistic.pickup_options[index]?.start_at).toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"})
 							+'~'+new Date(props.campaign.meta_logistic.pickup_options[index].end_at).toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"})+' )':''}}
 						</label>
                         <v-date-picker class="" 
@@ -445,6 +445,7 @@ const update_deliverydatePicker = ()=>{
 	deliverydatePicker.value.start = delivery_date?.start_at? delivery_date?.start_at:null
 	deliverydatePicker.value.end = delivery_date?.end_at? delivery_date?.end_at:null
 	if(deliverydatePicker.value.start !== null) useDeliveryDate.value = true
+	console.log(props.campaign.meta_logistic.delivery_date)
 }
 
 
