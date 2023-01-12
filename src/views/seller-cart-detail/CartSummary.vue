@@ -311,17 +311,18 @@ const computedTotal = computed(()=>{
   total += computedCartSubtotal.value
   total -= sellerCartStore.cart.discount
   total = Math.max(total, 0)
+  
   // if(!sellerCartStore.cart.free_delivery){
   //   total += sellerCartStore.cart.shipping_cost
   // }
   if(sellerCartStore.cart.free_delivery || computedSubtotalOverFreeDeliveryThreshold.value || computedItemsOverFreeDeliveryThreshold.value){
     //
   }else{
-    total += computedShippingCost.value
+    total += Number(computedShippingCost.value)
   }
-
   total += sellerCartStore.cart.adjust_price
   total += sellerCartStore.cart.tax
+  
   return Math.max(total, 0)
 
 
