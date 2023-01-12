@@ -6,27 +6,11 @@
       <thead>
         <tr>
           <th class="text-center whitespace-nowrap" v-for="column in tableColumns" :key="column.key">
-            <template v-if="column.key === 'customer_name'">
+            <template v-if="column.key !== null">
               <div class="text-left">
                   {{ $t(`buyers.table_column.`+column.name) }}
               </div>
             </template>
-            <template v-if="column.key === 'email'">
-              <div class="text-left">
-                  {{ $t(`buyers.table_column.`+column.name) }}
-              </div>
-            </template>
-            <template v-else-if="column.key === 'order_history'">
-              <div class="text-center">
-                  {{ $t(`buyers.table_column.`+column.name) }}
-              </div>
-            </template>
-            <template v-else-if="column.key === 'points'">
-              <div class="text-center">
-                  {{ $t(`buyers.table_column.`+column.name) }}
-              </div>
-            </template>
-            
           </th>
         </tr>
       </thead>

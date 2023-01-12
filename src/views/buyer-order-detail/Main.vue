@@ -73,7 +73,7 @@
                         <div class="col-start-1 col-span-2 ">{{$t('order.payment_status')}}</div>
                         <div class="col-start-3 col-span-3">{{$t(`order.payment_status_options.${buyerOrderStore.order.payment_status}`)}}</div>
 
-                        <template v-if="!buyerOrderStore.user_subscription?.user_plan?.hide?.order_delivery_status"> 
+                        <template v-if="buyerOrderStore.user_subscription?.user_plan?.hide?.order_delivery_status == false"> 
                             <div class="col-start-1 col-span-2">{{$t('order.delivery_status')}}</div>
                             <div class="col-start-3 col-span-3">{{$t(`order.delivery_status_options.${buyerOrderStore.order.delivery_status}`)}}</div>
                         </template>
@@ -266,7 +266,7 @@ onMounted(() => {
             buyerOrderStore.user_subscription = JSON.parse(JSON.stringify(res.data.user_subscription))
             i18n.locale = res.data.campaign.lang
             detailLoading.value = false
-            console.log(buyerOrderStore.user_subscription)
+            console.log('xx',res.data)
         }
     )
 })

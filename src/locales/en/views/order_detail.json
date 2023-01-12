@@ -63,7 +63,7 @@
         "pickup_store":"Pickup Location",
         "additional_delivery_charge" : "Selected Delivery Charge Option",
         "remark":"Remark",
-        "cvs":"店到店取貨資訊："
+        "cvs":"Pickup Store："
     },
     "payment":{
         "Direct Payment":"Direct Payment",

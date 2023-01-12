@@ -1,7 +1,7 @@
 <template>
-  <div class="relative">
+  <div class="relative ">
      <div id="lss-mobil-side-nav"
-      class="absolute z-50  mr-5 overflow-hidden lss-mobil-side-nav-close top-14 dark:bg-darkmode-500 bg-primary md:hidden">
+      class="absolute z-50 overflow-hidden lss-mobil-side-nav-close top-14 dark:bg-darkmode-500 bg-primary md:hidden">
   
       <!-- BEGIN: Mobile Menu -->
       <div class="mobile-menu">
@@ -166,7 +166,6 @@
   
   <style scoped>
   .lss-mobil-side-nav-show {
-    left:12px;
     height: 100vh;
     transition: 1s;
   }
@@ -179,7 +178,7 @@
   
   #lss-mobil-side-nav {
     /* left: 14px; */
-    width: calc(100vw - 25px);
+    width: calc(100vw - 16px);
     border-radius: 0px 0px 30px 30px;
     /* top: 0; */
     z-index: 51;

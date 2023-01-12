@@ -10,9 +10,9 @@
         </thead>
         <tbody>
           <tr v-for="index in 8 " :key="index">
-            <template v-for="index in props.column.length" :key="index"> 
+            <template v-for="cindex in props.column.length" :key="cindex"> 
               <td :class="{'hidden sm:table-cell': index == 3 ,'hidden md:table-cell': index== 4 ,'hidden xl:table-cell': index > 4}"
-               :data-content="$t(props.tableName + '.table_column.'+ props.column[index-1]?.name)" class="loading"><div class="bar"></div></td>
+               :data-content="$t(props.tableName + '.table_column.'+ props.column[cindex-1]?.name)" class="loading"><div class="bar"></div></td>
             </template>
           </tr>
         </tbody>

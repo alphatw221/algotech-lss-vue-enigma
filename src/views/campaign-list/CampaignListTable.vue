@@ -1,5 +1,5 @@
 <template>
-  <div class="overflow-x-hidden sm:overflow-auto sm:h-[62vh] mt-4">
+  <div class="overflow-hidden sm:overflow-auto sm:h-[62vh] mt-4">
     <table class="table -mt-3 table-report">
       <thead>
         <tr>
@@ -58,7 +58,7 @@
 				</tr>
         <tr v-for="(campaign, index) in campaigns" :key="index" class="intro-x">
           <td class="items-center min-w-12 fan_page" :class="{'cursor-pointer': props.campaignStatus != 'history'}" @click="editPlatform(campaign)">
-            <div class="flex justify-center w-full">
+            <div class="flex justify-center items-center w-full h-full">
               <div class="border-0 w-14 h-14 flex-0 relative" v-if="campaign.facebook_page !== null">
                 <Tippy tag="img" class="border-0 rounded-full" :src="campaign.facebook_page.image" @error="getFacebookPageProfilePicture(campaign.facebook_page)"
                   :content="campaign.facebook_page.name" />
@@ -97,12 +97,12 @@
               <template 
                 v-if="campaign.twitch_channel == null && campaign.facebook_page == null && campaign.instagram_profile == null 
                 && campaign.youtube_channel == null && !campaign.tiktok_campaign.username">
-                <SimpleIcon icon="edit" color="#131C34" width="22" height="18"/>
+                <SimpleIcon icon="edit" color="#131C34" class=" w-[30px] h-[28px] sm:w-[22px] sm:h-[18px]"/>
               </template>
             </div>
           </td>
           <td class="text-left title w-fit">
-            <button @click="enterCampaign(index)"><a>{{ campaign.title }}</a></button>
+            <button @click="enterCampaign(index)"><a class="font-medium sm:font-normal text-[16px] sm:text-[14px]">{{ campaign.title }}</a></button>
           </td>
           <td class="w-5 text-center startDate" :data-content="$t('campaign_list.campaign_list_table.start_at')">
             <div class="my-2 sm:my-0 sm:w-fit whitespace-nowrap">{{ new Date(campaign.start_at).toLocaleTimeString('en-us', {

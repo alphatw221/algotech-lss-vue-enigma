@@ -95,7 +95,7 @@
 									}) 
 								}}
 							</template>
-							<div v-else class="w-full text-black text-center"> - </div>
+							<div v-else class="w-full text-black text-right sm:text-center"> - </div>
 						</td>
 						<td v-else-if="column.key === 'end_at'" class="sm:min-w-32" :class="{'text-danger': new Date() > new Date(discountCode[column.key])}"
 							:data-content="$t(`discount.table.`+column.name) " >
@@ -107,15 +107,11 @@
 									}) 
 								}}
 							</template>
-							<div v-else class="w-full text-black text-center"> - </div>
+							<div v-else class="w-full text-black text-right sm:text-center"> - </div>
 						</td>
 
 						<td v-else-if="column.type === 'action'" class="w-20"
 							:data-content="$t(`discount.table.`+column.name) " >
-							<!-- <EditIcon v-if="column.key == 'edit'" @click="editDiscountCode(discountCode)"
-								class="w-[20px] h-[20px] text-blue-700 mx-auto" />
-							<Trash2Icon v-if="column.key == 'delete'" @click="deleteDiscountCode(discountCode)" 
-								class="w-[20px] h-[20px] text-red-700 mx-auto" /> -->
 							<Dropdown placement="bottom-start">
 								<DropdownToggle role="button" class="block w-5 h-5 mx-auto" href="javascript:;">
 								<MoreHorizontalIcon class="w-5 h-5 text-slate-700" />
@@ -364,9 +360,9 @@ thead th{
         white-space: nowrap;
         font-weight: bold;
         box-shadow: none !important;
-        background-color: white !important;
         text-align: left;
 		content: attr(data-content);
+		color: black;
     }
     .index:before {
         display: none;
@@ -399,8 +395,10 @@ thead th{
 	}
 	.tdDot{
 		display: inline-block;
-		padding-left: 50%!important;
-		transform: translateX(-25%);
+		left: 50%;
+		top:30%;
+		padding-left: 0px !important;
+		transform: translateX(-50%);
 	}
 }
 </style>
