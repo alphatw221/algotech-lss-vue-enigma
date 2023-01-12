@@ -387,9 +387,10 @@ onMounted(() => {
 	//Logistic
 	if (Object.entries(sellerStore.userInfo.user_subscription.meta_logistic).length) {
 		Object.assign(campaignData.value.meta_logistic,JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_logistic)))
-		campaignData.value.meta_logistic.delivery_date = sellerStore.userInfo.user_subscription.meta_logistic.delivery_date?sellerStore.userInfo.user_subscription.meta_logistic.delivery_date:{start_at:null,end_at:null}
-	}
+		campaignData.value.meta_logistic.delivery_date = sellerStore.userInfo.user_subscription.meta_logistic?.delivery_date ? sellerStore.userInfo.user_subscription.meta_logistic.delivery_date : {start_at:null,end_at:null}
+	}else campaignData.value.meta_logistic.delivery_date = {start_at:null,end_at:null}
 	
+	console.log(campaignData.value)
 
 	campaignNotes.value.meta_logistic.delivery_note = sellerStore.userInfo.user_subscription.meta_logistic.delivery_note ? JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_logistic.delivery_note )) : ''
 	campaignNotes.value.meta_payment.special_note = sellerStore.userInfo.user_subscription.meta_payment.special_note ? JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_payment.special_note  )) : ''
