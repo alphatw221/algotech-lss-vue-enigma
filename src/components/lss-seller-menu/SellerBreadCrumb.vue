@@ -11,7 +11,7 @@
             
         </ol>
     </nav>
-    <nav  v-if="historyPath !== 0" aria-label="breadcrumb" class="h-[35px] text-[15px] mobileBack block sm:hidden">
+    <nav  v-if="historyPath > 1" aria-label="breadcrumb" class="h-[35px] text-[15px] mobileBack block sm:hidden">
         <ol class="breadcrumb breadcrumb-dark">
             <li @click="router.back()"><ChevronLeftIcon class="block mx-1 w-[35px] h-[35px] font-bold rounded-full" /></li>
         </ol>
@@ -33,8 +33,6 @@ const breadCrumb = ref([])
 
 onMounted(()=>{
     resolvePath()
-    historyPath.value = window.history.length
-    console.log(historyPath.value)
 })
 
 watch(computed(()=>route.path),()=>{resolvePath()})
@@ -58,6 +56,8 @@ const resolvePath = ()=>{
         isParams = false
     }
     breadCrumb.value = crumb.reverse()
+    historyPath.value += 1
+    // console.log(historyPath.value)
 }
 
 const getParamsDict = ()=>{

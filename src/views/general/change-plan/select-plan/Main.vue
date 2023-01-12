@@ -13,9 +13,17 @@
                         :class="{ 'border-danger text-danger border-2': validate.plan.$error }" 
                         v-model="validate.plan.$model"
                     >
-                        <template v-if="originalPlan==='standard' || originalPlan==='admin'" :value="plan.value" class="w-40"> 
+                        <template v-if="originalPlan==='admin'" :value="plan.value" class="w-40"> 
                             <template v-for="(item, key, index) in getPrice.plans" :key="index">
-                                <option  v-if="['trial', 'lite'].includes(kye) == false" :value="key" class="w-40"> 
+                                <option  :value="key" class="w-40"> 
+                                    {{ $t(`register.basic_info.plan_options.${key}`, {price: `${getPrice.currency} ${(item.price.month).toLocaleString('en-GB')}`}) }}
+                                </option>
+                            </template>
+                        </template>
+
+                        <template v-if="originalPlan==='lite'|| originalPlan === 'standard'" :value="plan.value" class="w-40"> 
+                            <template v-for="(item, key, index) in getPrice.plans" :key="index">
+                                <option  v-if="['trial','kol'].includes(key) == false" :value="key" class="w-40"> 
                                     {{ $t(`register.basic_info.plan_options.${key}`, {price: `${getPrice.currency} ${(item.price.month).toLocaleString('en-GB')}`}) }}
                                 </option>
                             </template>
@@ -23,15 +31,15 @@
 
                         <template v-if="originalPlan==='premium'" :value="plan.value" class="w-40"> 
                             <template v-for="(item, key, index) in getPrice.plans" :key="index">
-                                <option  v-if="['trial', 'lite', 'standard'].includes(kye) == false" :value="key" class="w-40"> 
+                                <option  v-if="['trial','standard','kol'].includes(key) == false" :value="key" class="w-40"> 
                                     {{ $t(`register.basic_info.plan_options.${key}`, {price: `${getPrice.currency} ${(item.price.month).toLocaleString('en-GB')}`}) }}
                                 </option>
                             </template>
                         </template>
 
-                        <template v-if="originalPlan==='trial' || originalPlan==='lite' || originalPlan==='dealer'" :value="plan.value" class="w-40"> 
+                        <template v-if="originalPlan==='trial' || originalPlan==='dealer'" :value="plan.value" class="w-40"> 
                             <template v-for="(item, key, index) in getPrice.plans" :key="index">
-                                <option  v-if="['trial'].includes(kye) == false" :value="key" class="w-40"> 
+                                <option  v-if="['trial','kol'].includes(key) == false" :value="key" class="w-40"> 
                                     {{ $t(`register.basic_info.plan_options.${key}`, {price: `${getPrice.currency} ${(item.price.month).toLocaleString('en-GB')}`}) }}
                                 </option>
                             </template>
@@ -52,7 +60,7 @@
                             :class="{ 'border-danger text-danger border-2': validate.period.$error }" 
                             v-model="validate.period.$model"
                         >
-                        <option v-if=" dayLeft < 30 " 
+                        <option v-if=" dayLeft < 31" 
                             :value="periodOptions[0].value" class="w-40"> 
                             {{ $t(`change_plan.step_1.period_options.month`) }} 
                         </option>

@@ -79,69 +79,76 @@
 		    </div>
             <div class="flex flex-col flex-wrap gap-3 mt-5 sm:flex-row sm:mt-0 items-center"
                 v-for="(option, index) in deliverySettings.additional_delivery_options" :key="index">
-                <div class="flex flex-col justify-between">
-                    <input  
-                    class="w-full form-control flex-2 sm:w-fit"
-                    type="text" 
-                    :placeholder="$t('settings.delivery_form.express_service_name')"
-                    v-model="option.title"
-                    />
-                    <label class="block text-danger text-[12px]" 
-                        v-for="error, index in v.additional_delivery_options.$each.$response.$errors[index].title"
-                        :key="index"
-                        >{{ $t(`settings.delivery.errors.${error.$message.replace(/\s/g, "_")}`) }}</label>
-                    <!-- <label class="block text-danger text-[12px]" v-if="v.additional_delivery_options.$each.$response.$errors[index].title.length">required</label> -->
-                </div>
-                <div>
-                        <select 
-                        class="flex-1 w-full rounded-lg form-select sm:form-select-lg sm:w-fit"
-                        v-model="option.type"
-                    >
-                        <option value="+">{{ $t('settings.delivery.on_top_of_charge') }}</option>
-                        <option value="=">{{ $t('settings.delivery.replace_charge') }}</option>
-                    </select>
-                    <label class="block text-danger text-[12px]" 
-                        v-for="error, index in v.additional_delivery_options.$each.$response.$errors[index].type"
-                        :key="index"
-                        >{{ $t(`settings.delivery.errors.${error.$message.replace(/\s/g, "_")}`) }}</label>
-                </div>
-                
-                <div>
-                    <input  
-                        class="w-full form-control flex-2 sm:w-fit"
-                        type="text" 
-                        :placeholder="$t('settings.delivery_form.express_charge')"
-                        v-model="option.price"
-                    />
-                    <label class="block text-danger text-[12px]" 
-                        v-for="error, index in v.additional_delivery_options.$each.$response.$errors[index].price"
-                        :key="index"
-                        >{{ $t(`settings.delivery.errors.${error.$message.replace(/\s/g, "_")}`) }}</label>                    
-                </div>
-                
-                <div>
-                    <input  
-                        class="form-control w-[1.5rem] h-[1.5rem]"
-                        type="checkbox" 
-                        v-model="option.is_cvs"
-                    />
-                    <label class="text-[16px] ml-2" 
-                        >{{ $t("settings.delivery.own_delivery.is_cvs") }}
-                    </label>                    
-                </div>
-                <div>
-                    <select 
-                        :disabled="option.is_cvs !== true"
-                        class="flex-1 w-full rounded-lg form-select sm:form-select-lg sm:w-fit"
-                        v-model="option.cvs_key"
-                    >   
-                        <option :value="undefined">{{ $t('settings.delivery.own_delivery.turn_on_cvs_map') }}</option>
-                        <template v-for="(cvs_option, option_index) in csvOptions" :key="option_index">
-                            <option :value="cvs_option.key">{{ $t('settings.delivery.own_delivery.cvs_map')+":"+cvs_option.name }}</option>
-                        </template>
-                    </select>
-                </div>
-                
+                <template v-for="(field, fkey, findex) in additional_delivery_option" :key="findex">
+                    <template v-if="fkey == 'title'">
+                        <div class="flex flex-col justify-between w-full sm:w-fit">
+                            <input  
+                            class="w-full form-control flex-2 sm:w-fit"
+                            type="text" 
+                            :placeholder="$t('settings.delivery_form.express_service_name')"
+                            v-model="option.title"
+                            />
+                            <label class="block text-danger text-[12px]" 
+                                v-for="error, index in v.additional_delivery_options.$each.$response.$errors[index].title"
+                                :key="index"
+                                >{{ $t(`settings.delivery.errors.${error.$message.replace(/\s/g, "_")}`) }}</label>
+                            <!-- <label class="block text-danger text-[12px]" v-if="v.additional_delivery_options.$each.$response.$errors[index].title.length">required</label> -->
+                        </div>
+                    </template>
+                    <template v-if="fkey == 'type'">
+                        <div class="w-full sm:w-fit">
+                                <select 
+                                class="flex-1 w-full rounded-lg form-select sm:form-select-lg sm:w-fit"
+                                v-model="option.type"
+                            >
+                                <option value="+">{{ $t('settings.delivery.on_top_of_charge') }}</option>
+                                <option value="=">{{ $t('settings.delivery.replace_charge') }}</option>
+                            </select>
+                            <label class="block text-danger text-[12px]" 
+                                v-for="error, index in v.additional_delivery_options.$each.$response.$errors[index].type"
+                                :key="index"
+                                >{{ $t(`settings.delivery.errors.${error.$message.replace(/\s/g, "_")}`) }}</label>
+                        </div>
+                    </template>
+                    <template v-if="fkey == 'price'">
+                        <div class="w-full sm:w-fit">
+                            <input  
+                                class="w-full form-control flex-2 sm:w-fit"
+                                type="text" 
+                                :placeholder="$t('settings.delivery_form.express_charge')"
+                                v-model="option.price"
+                            />
+                            <label class="block text-danger text-[12px]" 
+                                v-for="error, index in v.additional_delivery_options.$each.$response.$errors[index].price"
+                                :key="index"
+                                >{{ $t(`settings.delivery.errors.${error.$message.replace(/\s/g, "_")}`) }}</label>                    
+                        </div>
+                    </template>
+                    <template v-if="fkey == 'is_cvs'">
+                        <div class="w-full sm:w-fit">
+                            <input  
+                                class="form-control w-[1.5rem] h-[1.5rem]"
+                                type="checkbox" 
+                                v-model="option.is_cvs"
+                            />
+                            <label class="text-[16px] ml-2" 
+                                >{{ $t("settings.delivery.own_delivery.is_cvs") }}
+                            </label>                    
+                        </div>
+                        <div class="w-full sm:w-fit">
+                            <select 
+                                :disabled="option.is_cvs !== true"
+                                class="flex-1 w-full rounded-lg form-select sm:form-select-lg sm:w-fit"
+                                v-model="option.cvs_key"
+                            >   
+                                <option :value="undefined">{{ $t('settings.delivery.own_delivery.turn_on_cvs_map') }}</option>
+                                <template v-for="(cvs_option, option_index) in csvOptions" :key="option_index">
+                                    <option :value="cvs_option.key">{{ $t('settings.delivery.own_delivery.cvs_map')+":"+cvs_option.name }}</option>
+                                </template>
+                            </select>
+                        </div>
+                    </template>
+                </template>
                 <button 
                     class="inline-block w-full h-[42px] ml-auto text-base btn btn-danger sm:rounded-lg sm:w-24" 
                     @click="deleteDelivery(index)"
@@ -170,7 +177,7 @@
 </template>
 
 <script setup>
-import { ref, reactive, onMounted } from 'vue';
+import { ref, reactive, onMounted, computed } from 'vue';
 import { seller_update_delivery } from '@/api_v2/user_subscription'
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 import i18n from '@/locales/i18n';
@@ -181,26 +188,26 @@ import { faLess } from '@fortawesome/free-brands-svg-icons';
 
 const layoutStore = useLSSSellerLayoutStore();
 const csvOptions = ref([
-    {
-        "key": "FAMIC2C", "name": "全家店到店"
-    },
-    {
-        "key": "UNIMARTC2C", "name": "7-11店到店"
-    },
-    {
-        "key":"HILIFEC2C", "name":"萊爾富店到店"
-
-    },
-    {
-        "key":"OKMARTC2C", "name":"OK店到店"
-    }
+    {"key": "FAMIC2C", "name": "全家店到店"},
+    {"key": "UNIMARTC2C", "name": "7-11店到店"},
+    {"key":"HILIFEC2C", "name":"萊爾富店到店"},
+    {"key":"OKMARTC2C", "name":"OK店到店"}
 ])
+
 const cvsOptionColums = ref([
     {"key": "is_enabled", "type":"checkbox", "default": false},
     {"key": "title", "type": "text", "default": ""},
     {"key": "type", "type": "select", "default": "="},
     {"key": "price", "name": "", "type": "number", "default": 0}
 ])
+
+const additional_delivery_option = computed(()=>{
+	var options = { title: null, type: null, price: null}
+	if(layoutStore.userInfo.user_subscription.meta_country.activated_country.includes('TW')){
+		Object.assign(options,{is_cvs:false})
+	}
+	return options
+})
 
 const csvData = ref({})
 
@@ -237,8 +244,6 @@ const deliverySettingsRules = {
 
 const v = useVuelidate(deliverySettingsRules, deliverySettings)
 
-const additional_delivery_option = { title: null, type: null, price: null, is_cvs: false}
-
 onMounted(() => {
     if(!layoutStore.userInfo.user_subscription)return
     Object.entries(deliverySettings).forEach(([key])=>{
@@ -252,7 +257,8 @@ onMounted(() => {
 })
 
 const addDelivery = () =>{
-    deliverySettings.additional_delivery_options.unshift( Object.assign({},additional_delivery_option) )
+    deliverySettings.additional_delivery_options.unshift( Object.assign({},additional_delivery_option.value) )
+    console.log(deliverySettings.additional_delivery_options)
 }
 
 const deleteDelivery = index=>{ 

@@ -3,8 +3,8 @@
     <div class="flex flex-col p-2 font-medium text-sm sm:text-xl">
         <!-- BEGIN: commit box -->
  
-        <div class="flex flex-row items-center sm:px-20 pb-4 intro-y lg:mt-5">
-            <h2 class="text-xl sm:text-2xl mx-auto sm:mx-0 font-medium"> {{$t('settings.default_settings')}}</h2>
+        <div class="flex flex-row items-center justify-center sm:justify-start sm:px-20 pb-4 intro-y lg:mt-5">
+            <h2 class="text-xl sm:text-2xl sm:mx-0 font-medium"> {{$t('settings.default_settings')}}</h2>
             <Tippy 
                 class="rounded-full w-30 whitespace-wrap" 
                 data-tippy-allowHTML="true" 

@@ -36,9 +36,9 @@
 
                 </template>
                 <template v-else-if="sellerOrderDetailStore.order.shipping_method === 'delivery'">
-                    <div class="col-start-1 col-span-2">{{$t('order_detail.delivery.information')}}</div>
-                    <div class="col-start-3 col-span-3">{{$t('order_detail.delivery.delivery')}}：{{ buyerOrderStore.order.shipping_option|| $t('order_detail.delivery.default') }}
-                        {{sellerOrderDetailStore.order.shipping_date_time!==null?'('+new Date(sellerOrderDetailStore.order.shipping_date_time).toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric",hour: '2-digit', minute: '2-digit'})+')':''}}
+                    <div class="col-start-1 col-span-2">{{$t('order_detail.delivery.method')}}</div>
+                    <div class="col-start-3 col-span-3">{{ sellerOrderDetailStore.order?.shipping_option|| $t('order_detail.delivery.default') }}
+                        {{sellerOrderDetailStore.order?.shipping_date_time!==null?'('+new Date(sellerOrderDetailStore.order?.shipping_date_time).toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric",hour: '2-digit', minute: '2-digit'})+')':''}}
                     </div>
                     <template v-if="sellerOrderDetailStore.order.shipping_option_data?.is_cvs"> 
                         <div class="col-start-1 col-span-5 sm:col-span-2">{{$t('order_detail.delivery.cvs')}}</div>

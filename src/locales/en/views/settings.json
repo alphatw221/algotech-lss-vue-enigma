@@ -23,8 +23,10 @@
     "delivery":{
         "delivery":"Delivery",
         "delivery_setting": "Delivery Settings", 
-        "charge":"Delivery Charge",
-        "charge_option":"Delivery Charge Option",
+        "free_delivery_settings": "Free Delivery Settings",
+        "delivery_method_settings": "Logistic Settings",
+        "charge":"Delivery Option",
+        "charge_option":"Delivery Charge Options",
         "add_more_delivery_option":"Add New Option",
         "replace_charge" : "Replace delivery charge",
         "on_top_of_charge" : "On top of delivery charge",
@@ -43,8 +45,12 @@
             "minValue":"Invalid number",
             "required":"This field is Required",
             "integer":"Number must be integer"
+        },
+        "own_delivery": {
+            "is_cvs": "Use Taiwan CVS Map",
+            "turn_on_cvs_map": "Select Map",
+            "cvs_map": "超商地圖"
         }
-        
     },
 
     "payment_form":{
@@ -154,7 +160,10 @@
         "express_service_name": "delivery service name",
         "express_charge": "delivery charge",
         "enabled":"Enabled",
-        "update":"Update"        
+        "update":"Update",        
+        "free_delivery_settings_update": "Update",
+        "delivery_method_settings_update": "Logistic Update",
+        "turn_on_cvs_map": "Turn on TW CVS Map"   
     },
 
     "payment":{

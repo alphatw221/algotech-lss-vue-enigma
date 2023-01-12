@@ -2,9 +2,9 @@
   <!-- BEGIN: Top Bar -->
   <div
     class="lss-buyer-top-bar-boxed sticky top-0 border-b border-white/[0.08]
-    h-[70px] z-[51] px-6 -mx-3 pt-4
-    sm:-mx-8 sm:px-8
-    md:h-[65px] md:-mx-0 md:border-b-0 md:fixed md:inset-x-0 md:px-10 md:bg-gradient-to-b md:from-slate-100 md:to-transparent
+    h-[70px] z-[51] px-6 pt-4
+    sm:px-8
+    md:h-[65px] md:mx-3 md:border-b-0 md:fixed md:inset-x-0 md:px-10 md:bg-gradient-to-b md:from-slate-100 md:to-transparent
     dark:md:from-darkmode-700"
   >
     <div class="h-full w-full flex justify-between items-center">

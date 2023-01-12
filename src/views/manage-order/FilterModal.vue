@@ -81,13 +81,10 @@
 
                 </div>
             </div>
-            <div class="justify-right">
-
-                <button id="tabulator-html-filter-go" type="button" class="flex text-[18px] btn btn-primary w-fit mr-3 text-right"
-                    @click="filterSubmit()">
-                    {{$t('manage_order.filter_modal.apply')}}
-                </button>
-            </div>
+            <button id="tabulator-html-filter-go" type="button" class="flex text-[18px] btn btn-primary w-fit ml-auto mr-3 text-right"
+                @click="filterSubmit()">
+                {{$t('manage_order.filter_modal.apply')}}
+            </button>
         </ModalBody>
     </Modal>
 </template>
@@ -178,10 +175,11 @@ const removeFilterTag = (type_key,tag_key)=>{
 const clickXButton = () =>{
     if(Object.keys(filterData.value.payment_method_options).length || Object.keys(filterData.value.delivery_status_options).length || Object.keys(filterData.value.payment_status_options).length || Object.keys(filterData.value.platform_options).length){
         let yes = confirm(`${i18n.global.t('manage_order.filter_modal.close_alert')}`)
-	    if (yes) filter()
+	    if (yes) {
+            filterSubmit()}
         else hideFilterModal();
     }
-    else hideFilterModal()
+    else filterSubmit()
 }
 
 const hideFilterModal=()=>{

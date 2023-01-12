@@ -1,12 +1,12 @@
 <template>
     <div class="py-5 sm:p-10 sm:p-5">
-        <div class="flex flex-row justify-start mt-5 lg:mb-5 lg:mt-0">
+        <div class="flex flex-row justify-start my-5 lg:mt-0 items-center gap-3">
             <input 
-                class="form-check-input w-[1.5rem] h-[1.5rem] my-auto" 
+                class="form-check-input w-[1.5rem] h-[1.5rem]" 
                 type="checkbox" 
                 v-model="pickupSettings.is_store_pickup_enabled"
             />
-            <label class="ml-3 form-label my-auto">{{ $t('settings.delivery_form.enabled') }}</label>
+            <label class="text-[16px]">{{ $t('settings.delivery_form.enabled') }}</label>
         </div>
 
         <span class="mb-3 text-lg sm:text-xl font-medium leading-none">{{ $t('settings.delivery.store.collection') }}</span>
