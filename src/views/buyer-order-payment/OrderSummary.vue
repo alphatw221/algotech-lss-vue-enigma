@@ -77,7 +77,7 @@
         <div class="mr-auto">{{$t('shopping_cart.order_summary.subtotal')}}</div>
         <div class="font-medium" v-if="store.order.campaign||false">
           {{store.order.campaign.currency}} 
-          {{(Math.floor(parseFloat(store.order.subtotal) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places).toLocaleString('en-GB')}}
+          {{(Math.floor(parseFloat(store.order.subtotal) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places).toFixed(store.order.campaign.decimal_places)}}
           {{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
         </div>
       </div>
@@ -89,7 +89,7 @@
         <label class="w-fit my-auto whitespace-nowrap">{{ $t('shopping_cart.order_summary.promo_discount')}} </label>
         <span class="font-medium text-danger"> 
           {{store.order.campaign.currency}} 
-          -{{(Math.floor(parseFloat(store.order.discount) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places).toLocaleString('en-GB')}}
+          -{{(Math.floor(parseFloat(store.order.discount) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places).toFixed(store.order.campaign.decimal_places)}}
           {{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
         </span>
       </div>
@@ -99,7 +99,7 @@
         <label class="w-fit my-auto whitespace-nowrap">{{$t('cart.subtotal_after_discount')}}</label>
         <span class="font-medium "> 
           {{store.order.campaign.currency}} 
-          {{(Math.floor(parseFloat(Math.max(store.order.subtotal-store.order.discount,0)) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places).toLocaleString('en-GB')}}
+          {{(Math.floor(parseFloat(Math.max(store.order.subtotal-store.order.discount,0)) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places).toFixed(store.order.campaign.decimal_places)}}
           {{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
         </span>
       </div>
@@ -117,13 +117,13 @@
 
           <div class="font-medium" v-if="store.order?.meta?.subtotal_over_free_delivery_threshold || store.order?.meta?.items_over_free_delivery_threshold || store.order?.free_delivery">
             {{store.order.campaign.currency}} 
-            {{(Math.floor(parseFloat(0) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places).toLocaleString('en-GB')}}
+            {{(Math.floor(parseFloat(0) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places).toFixed(store.order.campaign.decimal_places)}}
             {{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
           </div>
 
           <div class="font-medium" v-else>
             {{store.order.campaign.currency}} 
-            {{(Math.floor(parseFloat(store.order.shipping_cost) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places).toLocaleString('en-GB')}}
+            {{(Math.floor(parseFloat(store.order.shipping_cost) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places).toFixed(store.order.campaign.decimal_places)}}
             {{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
           </div>
 
@@ -146,7 +146,7 @@
 
         <div class="font-medium text-danger" v-if="store.order.campaign||false">
           {{store.order.campaign.currency}} 
-          {{(Math.floor(parseFloat(store.order.adjust_price) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places).toLocaleString('en-GB')}}
+          {{(Math.floor(parseFloat(store.order.adjust_price) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places).toFixed(store.order.campaign.decimal_places)}}
           {{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
         </div>
       </div>
@@ -164,7 +164,7 @@
         <div class="mr-auto font-medium text-base">{{$t('shopping_cart.order_summary.total_charge')}}</div>
         <div class="font-medium text-base" v-if="store.order.campaign||false">
           {{store.order.campaign.currency}} 
-          {{(Math.floor(parseFloat(store.order.total) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places).toLocaleString('en-GB')}}
+          {{(Math.floor(parseFloat(store.order.total) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places).toFixed(store.order.campaign.decimal_places)}}
           {{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
         </div>
       </div>
