@@ -10,15 +10,13 @@
     <div class="h-full w-full flex justify-between items-center">
 
         <a href="" class="logo -intro-x block
-          w-20
-          sm:w-24
           md:mr-auto
           md:flex md:w-1/10 md:mx-0
           xl:ml-5
         ">
           <img
             alt="Logo"
-            class="logo__image mb-1"
+            class="logo__image mb-1 max-h-[50px] max-w-[5rem]"
             :src="userLogo"
           />
           <!-- <span class="logo__text text-white text-lg ml-3 mt-2"> LiveShowSeller </span> -->

@@ -125,8 +125,8 @@
 				<label class="w-fit text-base whitespace-nowrap">{{ $t('settings.delivery.price') }}</label>
 				<input 
 					class="w-full form-control"
-					type="text" 
-					v-model="props.campaign.meta_logistic.delivery_charge"
+					type="number" 
+					v-model.number="props.campaign.meta_logistic.delivery_charge"
 					@blur="props.v.meta_logistic.delivery_charge.$touch()"
 				/>
 				<label class="text-danger text-[12px] " 

@@ -761,6 +761,7 @@ const changePageSize = (page_size)=>{
 }
 
 const submitData = ()=>{
+	console.log(isSelectedProductsValid)
     if(!isSelectedProductsValid){
         layoutStore.alert.showMessageToast(i18n.global.t('assign_product.invalid'))
         return

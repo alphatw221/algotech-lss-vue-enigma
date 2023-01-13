@@ -73,7 +73,7 @@
             </template>
 
             <template v-else>
-              {{ order[column.key] }}
+              {{ $t(`order_points.${order[column.key]}`) }}
             </template>
           </td>
         <!-- </template> -->
@@ -108,7 +108,7 @@ import { buyer_retrieve_order_oid } from "@/api_v2/order";
 
 import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout";
 
-import LoadingTable from "./LoadingTable.vue";
+import LoadingTable from '@/components/lss-skeleton/table/LoadingTable.vue'
 
 const layoutStore = useLSSBuyerLayoutStore();
 
@@ -210,10 +210,10 @@ td {
   td {
     border: none;
     border-bottom: 0 !important;
-    position: relative;
-    width: auto;
+    width: 100%;
+    padding-right: 10px !important;
     padding-left: 50% !important;
-    text-align: left !important;
+    text-align: right;
     box-shadow: none !important;
     min-height: 28px;
   }
@@ -224,6 +224,7 @@ td {
     width: 45%;
     padding-right: 10px;
     white-space: nowrap;
+    text-align: left !important;
     font-weight: bold;
     box-shadow: none !important;
   }
