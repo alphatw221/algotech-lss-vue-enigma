@@ -70,7 +70,7 @@
                           </div>
                           <h4 id="option_price" class="whitespace-nowrap ml-auto">
                             <!-- on top delivery charge-->
-                            <template v-if="shoppingCartStore.applyCategoryLogistic"> 
+                            <template v-if="shoppingCartStore.appliedCategoryLogistic"> 
                             </template>
                             <template v-else-if="item.type === '+'">
                                 {{ shoppingCartStore.cart.campaign.currency }}
@@ -91,14 +91,14 @@
 
                   <!-- Default Option -->
                   <div 
-                      v-if="(shoppingCartStore.cart.campaign.meta_logistic?.is_self_delivery_enabled == true) || shoppingCartStore.applyCategoryLogistic"
+                      v-if="(shoppingCartStore.cart.campaign.meta_logistic?.is_self_delivery_enabled == true) || shoppingCartStore.appliedCategoryLogistic"
                       class="logistic-options border-2 rounded-lg relative"
                       :class="{'border-red-600/90 shadow-sm': shipping_option_index_computed == null}"
                       @click="select_shipping_method('delivery') & (shipping_option_index_computed = null)"
                     >
                     <CheckSquareIcon v-if="shipping_option_index_computed == null" class="absolute left-3 text-red-800"/>
                     <p id="default_delivery" class="min-w-[100px] whitespace-nowrap">{{ !['',' ',undefined,null].includes(shoppingCartStore.cart.campaign.meta_logistic?.title) ? shoppingCartStore.cart.campaign.meta_logistic?.title : $t('shopping_cart.delivery_tab.option.default')}}</p>
-                    <template v-if="shoppingCartStore.applyCategoryLogistic"></template>
+                    <template v-if="shoppingCartStore.appliedCategoryLogistic"></template>
                     <h4 v-else class="ml-auto">
                       {{ shoppingCartStore.cart.campaign.currency }}
                       {{(Math.floor(parseFloat(shoppingCartStore.cart.campaign.meta_logistic.delivery_charge) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toFixed(shoppingCartStore.cart.campaign.decimal_places)}}
@@ -132,7 +132,7 @@
 
                         <h4 id="option_price" class="whitespace-nowrap ml-auto">
                           <!-- on top delivery charge-->
-                          <template v-if="shoppingCartStore.applyCategoryLogistic"></template>
+                          <template v-if="shoppingCartStore.appliedCategoryLogistic"></template>
                           <template v-else-if="option.type === '+'">
                             {{ shoppingCartStore.cart.campaign.currency }}
                             {{(Math.floor((parseFloat(option.price) + parseFloat(shoppingCartStore.cart.campaign.meta_logistic.delivery_charge)) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toFixed(shoppingCartStore.cart.campaign.decimal_places)}}
