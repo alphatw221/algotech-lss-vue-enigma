@@ -122,6 +122,16 @@
             "upload_record":"Upload Payment Record",
             "or":"or"
         },
+        "payment_method":{
+            "stripe":"Credit Card - Stripe",
+            "direct_payment":"轉帳付款",
+            "hitpay":"PayNow - Hitpay",
+            "paypal":"Credit Card - Paypal",
+            "ecpay":"綠界金流",
+            "ecpay_cash_on_delivery":"綠界金流_貨到付款",
+            "pay_mongo":"Credit Card - Pay Mongo",
+            "rapyd":"Credit Card - Rapyd"
+        },
         "processing":"Payment Processing, Please do not refresh the page."
     },
     "login":{

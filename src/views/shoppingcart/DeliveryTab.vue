@@ -359,7 +359,7 @@
             </div>
             
             <div class="flex flex-col xl:flex-row gap-1 xl:gap-4 lg:w-1/2 lg:pr-10"> 
-              <p class="flex-2 mt-2 w-24">{{$t('shopping_cart.delivery_tab.cell_phone')}}</p>
+              <p class="flex-2 mt-2 w-24 whitespace-nowrap">{{$t('shopping_cart.delivery_tab.cell_phone')}}</p>
               <div class="flex-1">
                 <input type="tel" 
                   class="form-control " placeholder=""
@@ -377,12 +377,14 @@
 
           </div>
 
-          <div class="flex flex-col gap-6"> 
-            <h3>{{$t('shopping_cart.delivery_tab.note')}}</h3>
-            <p class="p-5 form-control whitespace-pre-line border" placeholder="" v-if="shoppingCartStore.cart.campaign">
-              {{shoppingCartStore.cart.campaign.meta_logistic.delivery_note}} 
-            </p>
-          </div>
+          <template v-if="shoppingCartStore.cart?.campaign?.meta_logistic?.delivery_note">
+            <div class="flex flex-col gap-6"> 
+              <h3>{{$t('shopping_cart.delivery_tab.note')}}</h3>
+              <p class="p-5 form-control whitespace-pre-line border" placeholder="">
+                {{shoppingCartStore.cart.campaign.meta_logistic.delivery_note}} 
+              </p>
+            </div>
+          </template>
           
           <div class="flex flex-col gap-6"
             v-if="!shoppingCartStore.user_subscription?.user_plan?.hide?.order_shipping_remark">

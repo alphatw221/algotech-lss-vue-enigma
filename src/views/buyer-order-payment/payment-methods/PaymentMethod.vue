@@ -2,7 +2,7 @@
     <AccordionItem  class="mx-5 " >
         <Accordion class="bg-primary rounded-t-lg" >
             <div class="text-white mx-5 flex flex-col sm:flex-row" > 
-                <span class="text-[20px]">{{payment.name}}</span> 
+                <span class="text-[20px]">{{$t('shopping_cart.payment.payment_method.' + payment.key)}}</span> 
                 <span class="my-auto ml-2"> {{ payment.key == "ecpay" ? "(線上匯款/信用卡/超商代碼繳費/超商條碼繳費)" : "" }} </span>
             </div>
         </Accordion>
@@ -11,7 +11,7 @@
 
             <div v-if="props.payment.handle.type=='gateway'" class="text-center">
                 <img :src="props.payment.icon" alt="" class="w-48 mx-auto mt-5">
-                <button class="btn btn-primary mt-1 mb-5" @click="handlePayment()">{{$t('shopping_cart.payment.pay_with')}} {{props.payment.name}} </button>
+                <button class="btn btn-primary mt-3 mb-5" @click="handlePayment()">{{$t('shopping_cart.payment.pay_with')}} {{props.payment.name}} </button>
             </div>
 
             <div v-else-if="props.payment.handle.type=='submitForm'" class="text-center">

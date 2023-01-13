@@ -13,7 +13,8 @@
     "expired":"過期",
     "paid":"已付款",
     "awaiting_refund":"待退款",
-    "refunded":"已退款"
+    "refunded":"已退款",
+    "direct_payment":"轉帳付款"
    },
 
    "delivery_status":"物流狀態",
