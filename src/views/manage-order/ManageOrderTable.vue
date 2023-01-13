@@ -387,28 +387,28 @@ const normalFormatOrderReport = () => {
     .then(
         res => {
             const data = res.data.data
-            data.forEach(e => {
-                //payment_method
-                if (e['payment_method']) {
-                    let words_split_list = e['payment_method'].split(" ")
-                    if (words_split_list[0] == "direct_payment") {
-                        words_split_list[0] = i18n.global.t(`order.payment_method_options.direct_payment`)
-                        e['payment_method'] = words_split_list.join(' ')
-                    } else {
-                        e['payment_method'] = i18n.global.t(`order.payment_method_options.${e['payment_method']}`)
-                    }
-                }
-                //payment_status
-                if (e['payment_status']) {
-                    e['payment_status'] = i18n.global.t(`order.payment_status_options.${e['payment_status']}`)
-                }
-            });
+            // data.forEach(e => {
+            //     //payment_method
+            //     if (e['payment_method']) {
+            //         let words_split_list = e['payment_method'].split(" ")
+            //         if (words_split_list[0] == "direct_payment") {
+            //             words_split_list[0] = i18n.global.t(`order.payment_method_options.direct_payment`)
+            //             e['payment_method'] = words_split_list.join(' ')s
+            //         } else {
+            //             e['payment_method'] = i18n.global.t(`order.payment_method_options.${e['payment_method']}`)
+            //         }
+            //     }
+            //     //payment_status
+            //     if (e['payment_status']) {
+            //         e['payment_status'] = i18n.global.t(`order.payment_status_options.${e['payment_status']}`)
+            //     }
+            // });    ??????
             const header = res.data.header
             const displayHeader = res.data.display_header
-            console.log(displayHeader)
-            Object.entries(displayHeader).forEach(([key,value]) => {
-                displayHeader[key] = i18n.global.t(`order.${key}`)
-            });
+            // console.log(displayHeader)
+            // Object.entries(displayHeader).forEach(([key,value]) => {
+            //     displayHeader[key] = i18n.global.t(`order.${key}`)
+            // });   ??????
             const columnSettings = res.data.column_settings
             const displayData = [displayHeader, ...data]
             const workSheet = utils.json_to_sheet(displayData, {header:header, skipHeader:true})
