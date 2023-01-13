@@ -11,7 +11,7 @@
         "last_name":"Last Name",
         "full_name":"Full Name",
         "phone":"Phone",
-        "cell_phone":"Cell Phone",
+        "cell_phone":"Mobile Phone",
         "email":"Email",
         "first_err":"Please enter First Name",
         "last_err":"Please enter Last Name",
@@ -50,7 +50,8 @@
         "previous":"Previous",
         "proceed_to_payment":"Proceed to Payment",
         "processing":"Processing to Payment page．．．",
-        "delivery_method_err":"Store did not provid shipping method, Please contact store ownner for support."
+        "delivery_method_err":"Store did not provid shipping method, Please contact store ownner for support.",
+        "categoryLogistic_applied":"Shipping method provid by Supplier. Please fill out delivery information and process checkout."
     },
     "table":{
         "update":"Update",

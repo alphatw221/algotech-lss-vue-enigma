@@ -188,7 +188,6 @@
         "password": "password"
     },
     "token_not_valid": "You've been logged out.",
-
     "no_api_user_found":"Cannot find this user",
     "not_activated_user": "This account has not been activated",
     "language_not_supported": "This language is not supported yet",

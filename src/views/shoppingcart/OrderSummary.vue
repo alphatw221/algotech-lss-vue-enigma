@@ -9,7 +9,7 @@
         <p>{{$t('shopping_cart.order_summary.subtotal')}}</p>
         <h4 class="font-medium" v-if="shoppingCartStore.cart.campaign||false">
           {{shoppingCartStore.cart.campaign.currency}} 
-          {{(Math.floor(parseFloat(computedCartSubtotal) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toLocaleString('en-GB')}}
+          {{(Math.floor(parseFloat(computedCartSubtotal) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toFixed(shoppingCartStore.cart.campaign.decimal_places)}}
           {{shoppingCartStore.cart.campaign.price_unit?$t(`global.price_unit.${shoppingCartStore.cart.campaign.price_unit}`):''}}
         </h4>
       </div>
@@ -19,7 +19,7 @@
         <p class="w-fit my-auto whitespace-nowrap">{{ $t('shopping_cart.order_summary.promo_discount')}} </p>
         <h4 class="font-medium text-danger"> 
           {{shoppingCartStore.cart.campaign.currency}}
-          -{{(Math.floor(parseFloat(shoppingCartStore.cart.discount) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toLocaleString('en-GB')}}
+          -{{(Math.floor(parseFloat(shoppingCartStore.cart.discount) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toFixed(shoppingCartStore.cart.campaign.decimal_places)}}
           {{shoppingCartStore.cart.campaign.price_unit?$t(`global.price_unit.${shoppingCartStore.cart.campaign.price_unit}`):''}}
         </h4>
       </div>
@@ -29,7 +29,7 @@
         <p class="w-fit my-auto whitespace-nowrap">{{$t('shopping_cart.order_summary.point_discount')}}</p>
         <span class="font-medium text-danger"> 
           {{shoppingCartStore.cart.campaign.currency}} 
-          -{{(Math.floor(parseFloat(computedPointDiscount) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toLocaleString('en-GB')}}
+          -{{(Math.floor(parseFloat(computedPointDiscount) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toFixed(shoppingCartStore.cart.campaign.decimal_places)}}
           {{shoppingCartStore.cart.campaign.price_unit?$t(`global.price_unit.${shoppingCartStore.cart.campaign.price_unit}`):''}}
         </span>
       </div>
@@ -39,7 +39,7 @@
         <p class="w-fit my-auto whitespace-nowrap">{{$t('cart.subtotal_after_discount')}}</p>
         <h4 class="font-medium"> 
           {{shoppingCartStore.cart.campaign.currency}} 
-          {{(Math.floor(parseFloat(computedSubtotalAfterDiscount) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toLocaleString('en-GB')}}
+          {{(Math.floor(parseFloat(computedSubtotalAfterDiscount) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toFixed(shoppingCartStore.cart.campaign.decimal_places)}}
           {{shoppingCartStore.cart.campaign.price_unit?$t(`global.price_unit.${shoppingCartStore.cart.campaign.price_unit}`):''}}
         </h4>
       </div>
@@ -93,16 +93,16 @@
 
           <p class="mr-auto">{{$t('shopping_cart.order_summary.shipping')}}</p>
           <template v-if="shoppingCartStore.cart?.campaign">
-
+            
             <h4 class="font-medium" v-if=" shoppingCartStore.cart?.free_delivery || computedSubtotalOverFreeDeliveryThreshold || computedItemsOverFreeDeliveryThreshold ">
               {{shoppingCartStore.cart.campaign.currency}} 
-              {{(Math.floor(parseFloat(0) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toLocaleString('en-GB')}}
+              {{(Math.floor(parseFloat(0) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toFixed(shoppingCartStore.cart.campaign.decimal_places)}}
               {{shoppingCartStore.cart.campaign.price_unit?$t(`global.price_unit.${shoppingCartStore.cart.campaign.price_unit}`):''}}
             </h4>
 
             <h4 class="font-medium" v-else>
               {{shoppingCartStore.cart.campaign.currency}} 
-              {{(Math.floor(parseFloat(computedShippingCost) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toLocaleString('en-GB')}}
+              {{(Math.floor(parseFloat(computedShippingCost) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toFixed(shoppingCartStore.cart.campaign.decimal_places)}}
               {{shoppingCartStore.cart.campaign.price_unit?$t(`global.price_unit.${shoppingCartStore.cart.campaign.price_unit}`):''}}
             </h4>
           </template>
@@ -122,7 +122,7 @@
 
         <h4 class="font-medium text-danger" v-if="shoppingCartStore.cart.campaign||false">
           {{shoppingCartStore.cart.campaign.currency}}
-          {{(Math.floor(parseFloat(shoppingCartStore.cart.adjust_price) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toLocaleString('en-GB')}}
+          {{(Math.floor(parseFloat(shoppingCartStore.cart.adjust_price) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toFixed(shoppingCartStore.cart.campaign.decimal_places)}}
           {{shoppingCartStore.cart.campaign.price_unit?$t(`global.price_unit.${shoppingCartStore.cart.campaign.price_unit}`):''}}
         </h4>
       </div>
@@ -140,7 +140,7 @@
           <div class="mr-auto font-medium text-base">{{$t('shopping_cart.order_summary.total_charge')}}</div>
           <div class="font-medium text-base w-fit ml-auto" v-if="shoppingCartStore.cart.campaign||false">
             {{shoppingCartStore.cart.campaign.currency}} 
-            {{(Math.floor(parseFloat(computedCartTotal) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toLocaleString('en-GB')}}
+            {{(Math.floor(parseFloat(computedCartTotal) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toFixed(shoppingCartStore.cart.campaign.decimal_places)}}
             {{shoppingCartStore.cart.campaign.price_unit?$t(`global.price_unit.${shoppingCartStore.cart.campaign.price_unit}`):''}}
           </div>
         </div>
@@ -223,7 +223,7 @@ const computedShippingCost = computed(()=>{
 
       //----------------product category logistic setting-------------------------------------
       const logisticCategories = {}
-      var applyCategoryLogistic = false
+      shoppingCartStore.applyCategoryLogistic = false
       Object.entries(shoppingCartStore.cart.products).forEach(([key, value])=>{
         if(value>0 && shoppingCartStore.campaignProductDict?.[key]?.categories?.length===1 && shoppingCartStore.campaignProductDict?.[key]?.categories[0] in shoppingCartStore.productCategoryDict){
           
@@ -239,7 +239,7 @@ const computedShippingCost = computed(()=>{
       Object.entries(logisticCategories).forEach(([productCategoryID, objects])=>{
         const productCategory = shoppingCartStore.productCategoryDict[productCategoryID]
         if(productCategory?.meta_logistic?.enable_flat_rate){
-          applyCategoryLogistic = true
+          shoppingCartStore.applyCategoryLogistic = true
 
           var is_category_product_subtotal_above = false
           if(productCategory?.meta_logistic?.is_free_delivery_for_order_above_price){
@@ -247,25 +247,25 @@ const computedShippingCost = computed(()=>{
             objects.forEach(object=>{
               category_products_subtotal += (shoppingCartStore.campaignProductDict?.[object.campaignProductId].price * object.qty)
             })
-            is_category_product_subtotal_above = category_products_subtotal > productCategory?.meta_logistic?.free_delivery_for_order_above_price|0 
+            is_category_product_subtotal_above = category_products_subtotal > productCategory?.meta_logistic?.free_delivery_for_order_above_price? true:false
           }
-          
 
           shippingCost+=is_category_product_subtotal_above ? 0 : (productCategory?.meta_logistic?.flat_rate||0) 
         }
       })
-      if(applyCategoryLogistic)return shippingCost
+      if(shoppingCartStore.applyCategoryLogistic)return shippingCost
+
       //----------------default logistic setting-------------------------------------
-      shippingCost = Number(meta_logistic.delivery_charge || 0)
+      if(shoppingCartStore.cart.campaign.meta_logistic.is_self_delivery_enabled) shippingCost = Number(meta_logistic.delivery_charge || 0)
       if (shoppingCartStore.shipping_info.shipping_method == 'delivery') {
         if(typeof shoppingCartStore.shipping_info.shipping_option_index=='number'){
-        if (meta_logistic.additional_delivery_options[shoppingCartStore.shipping_info.shipping_option_index].type== '+'){
-          shippingCost += Number(meta_logistic.additional_delivery_options[shoppingCartStore.shipping_info.shipping_option_index].price)
+          if (meta_logistic.additional_delivery_options[shoppingCartStore.shipping_info.shipping_option_index].type== '+'){
+            shippingCost += Number(meta_logistic.additional_delivery_options[shoppingCartStore.shipping_info.shipping_option_index].price)
+          }
+          else if(meta_logistic.additional_delivery_options[shoppingCartStore.shipping_info.shipping_option_index].type == '='){
+            shippingCost =  Number(meta_logistic.additional_delivery_options[shoppingCartStore.shipping_info.shipping_option_index].price)
+          }
         }
-        else if(meta_logistic.additional_delivery_options[shoppingCartStore.shipping_info.shipping_option_index].type == '='){
-          shippingCost =  Number(meta_logistic.additional_delivery_options[shoppingCartStore.shipping_info.shipping_option_index].price)
-        }
-      }
       }
       //----------------ecpay logistic setting-------------------------------------
       else if (shoppingCartStore.shipping_info.shipping_method == 'ecpay') {
@@ -278,14 +278,21 @@ const computedShippingCost = computed(()=>{
       }
     }
   }
+ 
   return shippingCost
 })
-const productTotalQuantity = ref(0)
-const computedIsMultipleShippingCostApplied = computed(()=>{  //temp
 
+const productTotalQuantity = computed(()=>{
+  let qty = 0
+  Object.entries(shoppingCartStore.cart?.products||[]).forEach(([key, value])=>{
+    qty += value
+  })
+  return qty
+})
+
+const computedIsMultipleShippingCostApplied = computed(()=>{  //temp
   const logisticCategories = {}
   Object.entries(shoppingCartStore.cart?.products||[]).forEach(([key, value])=>{
-    productTotalQuantity.value += value
     if(value>0 && shoppingCartStore.campaignProductDict?.[key]?.categories?.length===1 && shoppingCartStore.campaignProductDict?.[key]?.categories[0] in shoppingCartStore.productCategoryDict){
       const productCategory = shoppingCartStore.productCategoryDict[shoppingCartStore.campaignProductDict?.[key]?.categories[0]]
       if(productCategory?.meta_logistic?.enable_flat_rate == true){
@@ -297,13 +304,12 @@ const computedIsMultipleShippingCostApplied = computed(()=>{  //temp
 })
 
 const computedCartTotal = computed(()=>{
-
   let total = 0
+  computedShippingCost.value
   total += computedCartSubtotal.value
   total -= shoppingCartStore.cart.discount||0
   total -= computedPointDiscount.value
   total = Math.max(total, 0)
-
   if(shoppingCartStore.cart.free_delivery || computedSubtotalOverFreeDeliveryThreshold.value || computedItemsOverFreeDeliveryThreshold.value){
     //
   }else{
@@ -311,7 +317,6 @@ const computedCartTotal = computed(()=>{
   }
       
   total += shoppingCartStore.cart.adjust_price
-
   return Math.max(total, 0)
 
 })
