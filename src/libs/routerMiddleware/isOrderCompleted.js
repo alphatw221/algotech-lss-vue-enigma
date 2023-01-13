@@ -12,8 +12,7 @@ export default async (to, from)=>{
 
 
     const response = await buyer_retrieve_order_state(order_oid)
-    if (response.data.status == 'complete' || response.data.payment_method.includes('ecpay')) {
-        console.log('complete')
+    if (response.data.payment_status == 'paid' || response.data.payment_method.includes('ecpay')) {
 
         return `/buyer/order/${order_oid}`
     }
