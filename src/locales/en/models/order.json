@@ -13,7 +13,8 @@
      "expired":"Expired",
      "paid":"Paid",
      "awaiting_refund":"Awaiting Refund",
-     "refunded":"Refunded"
+     "refunded":"Refunded",
+     "direct_payment":"Direct Payment"
     },
     
     "delivery_status":"Delivery Status",
