@@ -1,8 +1,8 @@
 <template>
     <div
-        class="box mt-2 min-h-[40vh] w-full max-h-screen
+        class="box mt-2 min-h-[40vh] w-full max-h-screen pb-5
             2xl:h-full">
-        <div class="flex flex-col h-full"> 
+        <div class="flex flex-col h-full pb-5"> 
 
             <div class="shrink-0 justify-between flex w-full h-16">
                 <h2 class="text-lg font-medium ml-5 my-auto">{{$t('campaign_live.product.product')}}</h2>

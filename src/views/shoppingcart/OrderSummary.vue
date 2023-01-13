@@ -197,8 +197,6 @@ const { cookies } = useCookies();
 const shoppingCartStore = useShoppingCartStore();
 const layoutStore = useLSSBuyerLayoutStore();
 
-// const shippingCost = ref(0)
-// const cartTotal = ref(0)
 const showModal = ref(false)
 const isAnonymousUser=cookies.get("login_with")=='anonymousUser'
 
@@ -213,74 +211,86 @@ const computedCartSubtotal = computed(()=>{
 
 const computedShippingCost = computed(()=>{
   var shippingCost = 0 
-  if(shoppingCartStore.shipping_info.shipping_method=='pickup'){
-    return 0
-  }else{
-    if(!shoppingCartStore.cart?.campaign?.meta_logistic){
-      return 0
-    }else{
-      const meta_logistic = shoppingCartStore.cart?.campaign?.meta_logistic
+  if(shoppingCartStore.shipping_info.shipping_method=='pickup') return 0
+  
+  if(!shoppingCartStore.cart?.campaign?.meta_logistic) return 0
+  
+  const meta_logistic = shoppingCartStore.cart?.campaign?.meta_logistic
 
-      //----------------product category logistic setting-------------------------------------
-      const logisticCategories = {}
-      shoppingCartStore.applyCategoryLogistic = false
-      Object.entries(shoppingCartStore.cart.products).forEach(([key, value])=>{
-        if(value>0 && shoppingCartStore.campaignProductDict?.[key]?.categories?.length===1 && shoppingCartStore.campaignProductDict?.[key]?.categories[0] in shoppingCartStore.productCategoryDict){
-          
-          if(logisticCategories?.[shoppingCartStore.campaignProductDict?.[key]?.categories[0]]){
-            logisticCategories[shoppingCartStore.campaignProductDict?.[key]?.categories[0]].push({campaignProductId:key,qty:value})
-          }else{
-            logisticCategories[shoppingCartStore.campaignProductDict?.[key]?.categories[0]] = [{campaignProductId:key,qty:value},]
-          }
-        }
-      })
+  //----------------product category logistic setting-------------------------------------
+  Object.entries(computedLogisticCategories.value).forEach(([productCategoryID, objects])=>{
+    const productCategory = shoppingCartStore.productCategoryDict[productCategoryID]
+    if(productCategory?.meta_logistic?.enable_flat_rate){
 
-
-      Object.entries(logisticCategories).forEach(([productCategoryID, objects])=>{
-        const productCategory = shoppingCartStore.productCategoryDict[productCategoryID]
-        if(productCategory?.meta_logistic?.enable_flat_rate){
-          shoppingCartStore.applyCategoryLogistic = true
-
-          var is_category_product_subtotal_above = false
-          if(productCategory?.meta_logistic?.is_free_delivery_for_order_above_price){
-            var category_products_subtotal = 0
-            objects.forEach(object=>{
-              category_products_subtotal += (shoppingCartStore.campaignProductDict?.[object.campaignProductId].price * object.qty)
-            })
-            is_category_product_subtotal_above = category_products_subtotal > productCategory?.meta_logistic?.free_delivery_for_order_above_price? true:false
-          }
-
-          shippingCost+=is_category_product_subtotal_above ? 0 : (productCategory?.meta_logistic?.flat_rate||0) 
-        }
-      })
-      if(shoppingCartStore.applyCategoryLogistic)return shippingCost
-
-      //----------------default logistic setting-------------------------------------
-      if(shoppingCartStore.cart.campaign.meta_logistic.is_self_delivery_enabled) shippingCost = Number(meta_logistic.delivery_charge || 0)
-      if (shoppingCartStore.shipping_info.shipping_method == 'delivery') {
-        if(typeof shoppingCartStore.shipping_info.shipping_option_index=='number'){
-          if (meta_logistic.additional_delivery_options[shoppingCartStore.shipping_info.shipping_option_index].type== '+'){
-            shippingCost += Number(meta_logistic.additional_delivery_options[shoppingCartStore.shipping_info.shipping_option_index].price)
-          }
-          else if(meta_logistic.additional_delivery_options[shoppingCartStore.shipping_info.shipping_option_index].type == '='){
-            shippingCost =  Number(meta_logistic.additional_delivery_options[shoppingCartStore.shipping_info.shipping_option_index].price)
-          }
-        }
+      var is_category_product_subtotal_above = false
+      if(productCategory?.meta_logistic?.is_free_delivery_for_order_above_price){
+        var category_products_subtotal = 0
+        objects.forEach(object=>{
+          category_products_subtotal += (shoppingCartStore.campaignProductDict?.[object.campaignProductId].price * object.qty)
+        })
+        is_category_product_subtotal_above = category_products_subtotal > productCategory?.meta_logistic?.free_delivery_for_order_above_price? true:false
       }
-      //----------------ecpay logistic setting-------------------------------------
-      else if (shoppingCartStore.shipping_info.shipping_method == 'ecpay') {
-        if (meta_logistic.ecpay.logistics_sub_type[shoppingCartStore.shipping_info.shipping_option_index].type== '+'){
-          shippingCost += Number(meta_logistic.ecpay.logistics_sub_type[shoppingCartStore.shipping_info.shipping_option_index].delivery_charge)
-        }
-        else if(meta_logistic.ecpay.logistics_sub_type[shoppingCartStore.shipping_info.shipping_option_index].type == '='){
-          shippingCost =  Number(meta_logistic.ecpay.logistics_sub_type[shoppingCartStore.shipping_info.shipping_option_index].delivery_charge)
-        }
+
+      shippingCost+=is_category_product_subtotal_above ? 0 : (productCategory?.meta_logistic?.flat_rate||0) 
+    }
+  })
+  if(appliedCategoryLogistic.value) return shippingCost
+
+  //----------------default logistic setting-------------------------------------
+  if(shoppingCartStore.cart.campaign.meta_logistic.is_self_delivery_enabled) shippingCost = Number(meta_logistic.delivery_charge || 0)
+  
+  if (shoppingCartStore.shipping_info.shipping_method == 'delivery') {
+    if(typeof shoppingCartStore.shipping_info.shipping_option_index=='number'){
+      if (meta_logistic.additional_delivery_options[shoppingCartStore.shipping_info.shipping_option_index].type== '+'){
+        shippingCost += Number(meta_logistic.additional_delivery_options[shoppingCartStore.shipping_info.shipping_option_index].price)
+      }
+      else if(meta_logistic.additional_delivery_options[shoppingCartStore.shipping_info.shipping_option_index].type == '='){
+        shippingCost =  Number(meta_logistic.additional_delivery_options[shoppingCartStore.shipping_info.shipping_option_index].price)
       }
     }
+    return shippingCost
   }
- 
+  
+  //----------------ecpay logistic setting-------------------------------------
+  if (shoppingCartStore.shipping_info.shipping_method == 'ecpay') {
+    if (meta_logistic.ecpay.logistics_sub_type[shoppingCartStore.shipping_info.shipping_option_index].type== '+'){
+      shippingCost += Number(meta_logistic.ecpay.logistics_sub_type[shoppingCartStore.shipping_info.shipping_option_index].delivery_charge)
+    }
+    else if(meta_logistic.ecpay.logistics_sub_type[shoppingCartStore.shipping_info.shipping_option_index].type == '='){
+      shippingCost =  Number(meta_logistic.ecpay.logistics_sub_type[shoppingCartStore.shipping_info.shipping_option_index].delivery_charge)
+    }
+    return shippingCost
+  }
   return shippingCost
 })
+
+const computedLogisticCategories = computed(()=>{
+  let logisticCategories = {}
+  Object.entries(shoppingCartStore.cart.products).forEach(([key, value])=>{
+    if(value>0 && shoppingCartStore.campaignProductDict?.[key]?.categories?.length===1 && shoppingCartStore.campaignProductDict?.[key]?.categories[0] in shoppingCartStore.productCategoryDict){
+      
+      if(logisticCategories?.[shoppingCartStore.campaignProductDict?.[key]?.categories[0]]){
+        logisticCategories[shoppingCartStore.campaignProductDict?.[key]?.categories[0]].push({campaignProductId:key,qty:value})
+      }else{
+        logisticCategories[shoppingCartStore.campaignProductDict?.[key]?.categories[0]] = [{campaignProductId:key,qty:value},]
+      }
+    }
+  })
+  return logisticCategories
+})
+
+const appliedCategoryLogistic = computed(()=>{
+  var applied = false
+  Object.entries(computedLogisticCategories.value).forEach(([productCategoryID, objects])=>{
+    const productCategory = shoppingCartStore.productCategoryDict[productCategoryID]
+    if(productCategory?.meta_logistic?.enable_flat_rate) applied = true
+  })
+  return applied
+})
+
+watch(computed(()=>shoppingCartStore.cart),()=>{shoppingCartStore.appliedCategoryLogistic = appliedCategoryLogistic.value})
+
+
 
 const productTotalQuantity = computed(()=>{
   let qty = 0
@@ -289,6 +299,7 @@ const productTotalQuantity = computed(()=>{
   })
   return qty
 })
+
 
 const computedIsMultipleShippingCostApplied = computed(()=>{  //temp
   const logisticCategories = {}
@@ -300,12 +311,13 @@ const computedIsMultipleShippingCostApplied = computed(()=>{  //temp
       }
     }
   })
+
   return Object.keys(logisticCategories).length>1
 })
 
 const computedCartTotal = computed(()=>{
   let total = 0
-  computedShippingCost.value
+  // computedShippingCost.value
   total += computedCartSubtotal.value
   total -= shoppingCartStore.cart.discount||0
   total -= computedPointDiscount.value

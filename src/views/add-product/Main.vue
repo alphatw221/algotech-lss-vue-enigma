@@ -334,7 +334,7 @@ onMounted(()=>{
 			res => {
 				product.value = res.data
 				console.log(product.value)
-				if(product.value.description == null ) product.value.description = ''
+				product.value.description = product.value?.description ||""
 				previewImage.value = res.data.image?res.data.image:null
 			}
 		)
