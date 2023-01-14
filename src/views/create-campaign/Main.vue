@@ -415,13 +415,11 @@ const createCampaign = ()=>{
 		})
 		return
 	}
-	
-	if(campaignData.value.meta_logistic.delivery_date.start_at && campaignData.value.meta_logistic.delivery_date.options.length <1){
+	if(campaignData.value.meta_logistic.delivery_date.start_at && (campaignData.value.meta_logistic.delivery_date?.options.length ==0 || campaignData.value.meta_logistic.delivery_date?.options == null)){
 		sellerStore.alert.showMessageToast(i18n.global.t('create_campaign.delivery_form.errors.delivery_time_required'))
 		document.querySelector('#lss-content').scrollTo(0,0)
 		return
 	}
-	
 	for (let index = 0; index < campaignData.value.meta_logistic.pickup_options.length; index++){
 		if(campaignData.value.meta_logistic.pickup_options[index].start_at && !campaignData.value.meta_logistic.pickup_options[index].options){
 			sellerStore.alert.showMessageToast(i18n.global.t('create_campaign.delivery_form.errors.pickup_time_required'))

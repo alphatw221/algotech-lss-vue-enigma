@@ -117,7 +117,11 @@
 					>
 					<option v-for=" option, index in optionsStore.deliveryTime" :key="index" :value="option.value"> {{ option.value }} </option> 
 					</TomSelect>
-					<p v-if="useDeliveryDate && props.campaign.meta_logistic.delivery_date.options.length == 0" class="text-danger">required</p>
+					<p 
+						v-if="useDeliveryDate 
+						&& (props.campaign.meta_logistic.delivery_date.options?.length == 0 || props.campaign.meta_logistic.delivery_date.options == null) " 
+						class="text-danger">
+						{{$t('create_campaign.delivery_form.errors.Value_is_required')}}</p>
 				</div>
 			</div>
 		</div>
@@ -330,8 +334,13 @@
 								class="w-full"
 								multiple
 							>
-							<option v-for=" option, index in optionsStore.deliveryTime" :key="index" :value="option.value"> {{ option.value }} </option> 
+								<option v-for=" option, index in optionsStore.deliveryTime" :key="index" :value="option.value"> {{ option.value }} </option> 
 							</TomSelect>
+							<p v-if="
+							props.campaign.meta_logistic.pickup_options[index].start_at && 
+							(props.campaign.meta_logistic?.pickup_options[index]?.options?.length == 0 || props.campaign.meta_logistic.pickup_options[index].options == null)" 
+							class="text-danger">
+							{{$t('create_campaign.delivery_form.errors.Value_is_required')}}</p>
 						</div>
 						<button 
 							class="inline-block sm:hidden w-full rounded-md btn btn-danger sm:ml-auto sm:w-24 h-[42px] mt-auto" 
