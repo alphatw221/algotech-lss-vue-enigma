@@ -263,14 +263,14 @@
         "added":"Successfully Added Product",
         "updated":"Status Updated",
         "deleted":"Product Deleted from Shopping Cart",
-        "insufficient_inv":"Not Enough Product Amount",
+        "insufficient_inv":"Not Enough Product Qty",
         "facebook_buttons":"Process Order Button",
         "enable":"Enable",
         "placeholder":{
             "added":"You successfully added:\n [PRODUCT_NAME] \n\n into your Shopping Cart!\n\n Kindly click View Order and proceed to make payment before cut off time to secure your order.\n[LINK]",
             "updated":"You successfully updated:\n [PRODUCT_NAME] \n\n in your Shopping Cart!\n\n Kindly click View Order and proceed to make payment before cut off time to secure your order.\n[LINK]",
             "deleted":"[PRODUCT_NAME] is been deleted from your Shopping Cart",
-            "insufficient_inv":"[PRODUCT_NAME] amount is insufficient"
+            "insufficient_inv":"[PRODUCT_NAME] is out of stock"
         }
     }
 }

@@ -148,5 +148,6 @@
     "invalid_delivery_info":"運送資料輸入錯誤",
     "checkout_message":"確認前往結帳後，購物車將會被清空",
     "checkout_again":"商品已售完，請重新確認購物車並再次結帳",
-    "wishlist_success":"商品到貨將會通知您"
+    "wishlist_success":"商品到貨將會通知您",
+    "invalid_time_info":"運送日期／時間輸入錯誤"
 }

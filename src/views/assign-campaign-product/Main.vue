@@ -249,7 +249,7 @@
 					class="mx-auto my-3 flex flex-row flex-wrap justify-center gap-1" 
 					:total="dataCount"
 					:page-size="pageSize"
-					show-sizer :page-size-opts="[10,20,50,100]" 
+					show-sizer :page-size-opts="[20,50,100,500,1000]" 
 					@on-change="changePage"
 					@on-page-size-change="changePageSize"
 				/>
@@ -471,7 +471,7 @@ const router = useRouter();
 
 const openTab = ref('select')
 const currentPage = ref(1)
-const pageSize = ref(20)
+const pageSize = ref(100)
 const totalPage = ref(1)
 const dataCount = ref(0)
 

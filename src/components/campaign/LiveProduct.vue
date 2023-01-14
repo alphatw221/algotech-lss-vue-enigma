@@ -7,28 +7,6 @@
             <div class="shrink-0 justify-between flex w-full h-16">
                 <h2 class="text-lg font-medium ml-5 my-auto">{{$t('campaign_live.product.product')}}</h2>
 
-                <!-- TEMP -->
-                <Dropdown placement="bottom-start">
-                <DropdownToggle role="button" class="block w-5 h-5" href="javascript:;">
-                  <span>.</span>
-                </DropdownToggle>
-                <DropdownMenu class="max-w-60 pt-2">
-                  <DropdownContent class="w-44 text-center">
-                    <DropdownItem class="w-fit text-center whitespace-nowrap" 
-                      @click="routeToEditCampaignPage()"> 
-                      <SimpleIcon icon="edit" color="#2d8cf0" class="mr-1"/>
-                      {{$t("campaign_list.campaign_list_table.edit_campaign")}} 
-                    </DropdownItem>
-                    <DropdownItem class="w-fit text-center whitespace-nowrap" 
-                      @click="routeToEditCampaignProductPage()"> 
-                      <SimpleIcon icon="edit" color="#2d8cf0" class="mr-1"/>
-                      {{$t("campaign_list.campaign_list_table.edit_campaign_product")}}  
-                    </DropdownItem>
-                  </DropdownContent>
-                </DropdownMenu>
-              </Dropdown> 
-
-
                 <template v-if="!(route.query.status =='history') && (!layoutStore?.userInfo?.user_subscription?.user_plan?.hide?.add_product_button )">
                     <Dropdown class="inline-block my-auto">
                         <DropdownToggle class="w-40 mr-6 shadow-md btn btn-primary">
@@ -43,6 +21,9 @@
                                 </template>
                                 <DropdownItem @click="store.showAddProductFromStockModal = true">
                                     {{$t('campaign_live.product.from_stock')}}
+                                </DropdownItem>
+                                <DropdownItem @click="routeToEditCampaignProductPage()">
+                                    {{$t('campaign_live.product.edit_campaign_product')}}
                                 </DropdownItem>
                             </DropdownContent>
                         </DropdownMenu>
@@ -222,7 +203,7 @@ const routeToEditCampaignPage = ()=>{
     hideDropDown()
 }
 const routeToEditCampaignProductPage = ()=>{
-    router.push({name:'edit-campaign-product', params: {'campaign_id':route.params.campaign_id}})
+    router.push({name:'edit-campaign-product', params: {'campaign_id':route.params.campaign_id, 'campaign_status':'ongoing'}})
     hideDropDown()
 }
 

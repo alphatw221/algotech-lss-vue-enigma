@@ -22,7 +22,7 @@
         "shipping_info":"Shipping Information",
         "home_delivery":"Home Delivery",
         "self_pickup":"Self Pickup",
-        "delivery_date":"Delivery Date",
+        "delivery_date":"Delivery Date/Time",
         "pickup_date":"Pickup Date",
         "select_store":"Select Store",
 
@@ -88,7 +88,7 @@
         "ok":"OK",
         "point_discount":"Point Discount",
         "login_for_points":"Login to earn %{points} POINTS from this order",
-        "points_earn":"You could earn %{points} POINTS from this order",
+        "points_earn":"You will earned %{points} POINTS from this order",
         "alert":"Alert"
     },
     "add_item":{
@@ -124,7 +124,7 @@
         },
         "payment_method":{
             "stripe":"Credit Card - Stripe",
-            "direct_payment":"轉帳付款",
+            "direct_payment":"Bank Transfer/PayNow(SG)",
             "hitpay":"PayNow - Hitpay",
             "paypal":"Credit Card - Paypal",
             "ecpay":"綠界金流",
@@ -159,5 +159,7 @@
     "invalid_delivery_info":"Invalid delivery infomation input",
     "checkout_message":"Are you sure you want to process check out? Your shopping cart will be cleared.",
     "checkout_again":"Product Out Of Stock, Please confirm your shopping Cart and checkout again",
-    "wishlist_success":"WishList Sign Up Successfully"
+    "wishlist_success":"WishList Sign Up Successfully",
+    "not_lower_qty":"Cannot be lower than current quantity",
+    "invalid_time_info":"Invlod Delivery Date/Time"
 }

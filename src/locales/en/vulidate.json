@@ -1,6 +1,8 @@
 {
-    "required":"required",
+    "required":"Required",
+    "maxLength":" Exceed max Length",
     "requiredIf":"required",
+    "MinValue":"below minimum value",
     "invalid_email":"invalid email format",
     "invalid_address":"invalid address format",
     "invalid_cellphone":"invalid cellphone format",

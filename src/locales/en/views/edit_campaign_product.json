@@ -19,7 +19,7 @@
         "price":"Price",
         "customer_editable":"Editable",
         "customer_removable":"Removable",
-        "edit":"Action",
+        "edit":"Edit",
         "delete":"Delete",
         "oversell":"Oversell",
         "types":{

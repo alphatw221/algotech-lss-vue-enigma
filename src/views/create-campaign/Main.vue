@@ -9,7 +9,7 @@
 					<div class="col-span-12 col-start-1 sm:col-span-6">
 						<div class="flex flex-col">
 							<div class="flex">
-								<label class="w-fit my-auto text-base form-label font-medium">{{$t('create_campaign.title')}}</label>
+								<label id="title" class="w-fit my-auto text-base form-label font-medium">{{$t('create_campaign.title')}}</label>
 								<Tippy 
 									class="rounded-full w-fit whitespace-wrap ml-1 my-auto" 
 									data-tippy-allowHTML="true" 
@@ -176,14 +176,14 @@
 				<NotesForm :campaignNotes="campaignNotes" :class="category" />
 			</template>
 		</template>
-	<div class="box shadow-none col-span-12 flex justify-end lg:mx-20 lg:px-40 py-10 mt-3">
-		<button class="w-32 bg-white btn dark:border-darkmode-400" @click="$router.push({ name: 'campaign-list' })">
-			{{$t('create_campaign.cancel')}}
-		</button>
-		<button class="w-32 ml-5 mr-4 shadow-md btn btn-primary" @click="createCampaign()">
-			{{$t('create_campaign.create')}}
-		</button>
-	</div>
+		<div class="box shadow-none col-span-12 flex justify-end lg:mx-20 lg:px-40 py-10 mt-3">
+			<button class="w-32 bg-white btn dark:border-darkmode-400" @click="$router.push({ name: 'campaign-list' })">
+				{{$t('create_campaign.cancel')}}
+			</button>
+			<button class="w-32 ml-5 mr-4 shadow-md btn btn-primary" @click="createCampaign()">
+				{{$t('create_campaign.create')}}
+			</button>
+		</div>
 	</div>
 </template>  
 
@@ -191,6 +191,7 @@
 import { ref, watch, onMounted, computed, watchEffect } from 'vue';
 import { required, minLength, maxLength, helpers, numeric, requiredIf, decimal, integer, minValue } from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";
+import i18n from "@/locales/i18n"
 
 import PaymentForm from './payment-form/Main.vue'
 import DeliveryForm from './DeliveryForm.vue';
@@ -268,7 +269,7 @@ const campaignData = ref({
 		additional_delivery_options: [],
 		pickup_options: [],
 		delivery_note : '',
-		delivery_date:{start_at:null,end_at:null}
+		delivery_date:{start_at:null,end_at:null, options:[]}
 	},
 	country:'SG',
 	currency:'USD', 
@@ -310,7 +311,7 @@ const computedCategory = computed(()=>{
 })
 const campaignDataRules = computed(() => {
 	let rules = { 	
-		title: { required, minLength: minLength(1), maxLength: maxLength(255) },
+		title: { required, maxLength: maxLength(50) },
 		meta_logistic:{
 			delivery_charge:{required, decimal, minValue:minValue(0)},
 			free_delivery_for_order_above_price:{required:requiredIf(()=>{ return campaignData.value.meta_logistic.is_free_delivery_for_order_above_price==true }), decimal, minValue:minValue(0.01)},
@@ -388,7 +389,7 @@ onMounted(() => {
 	//Logistic
 	if (Object.entries(sellerStore.userInfo.user_subscription.meta_logistic).length) {
 		Object.assign(campaignData.value.meta_logistic,JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_logistic)))
-		campaignData.value.meta_logistic.delivery_date = sellerStore.userInfo.user_subscription.meta_logistic?.delivery_date ? sellerStore.userInfo.user_subscription.meta_logistic.delivery_date : {start_at:null,end_at:null}
+		campaignData.value.meta_logistic.delivery_date = sellerStore.userInfo.user_subscription.meta_logistic?.delivery_date ? sellerStore.userInfo.user_subscription.meta_logistic.delivery_date : {start_at:null,end_at:null, options:[]}
 	}
 	
 	// console.log(campaignData.value)
@@ -406,16 +407,27 @@ onMounted(() => {
 const createCampaign = ()=>{
 	v.value.$touch()
 	if (v.value.$invalid) {
-		sellerStore.alert.showMessageToast('Invalid Data')
-
-		//back to top when err
-		document.querySelector('#lss-content').scrollTo(0, -70)
-		// var err
-		// v.value.$errors.forEach( err=>{
-		// 	console.log(err)
-		// 	sellerStore.alert.showMessageToast(err.$uid)
-		// })
+		v.value.$errors.forEach( err=>{
+			console.log(err)
+			sellerStore.alert.showMessageToast( err.$property + ' is ' + i18n.global.t('vulidate.' + err.$validator))
+			// var topOfElement = document.getElementById(err.$property).offsetTop + 70;
+			document.querySelector('#lss-content').scrollTo(0,0)
+		})
 		return
+	}
+	
+	if(campaignData.value.meta_logistic.delivery_date.start_at && campaignData.value.meta_logistic.delivery_date.options.length <1){
+		sellerStore.alert.showMessageToast(i18n.global.t('create_campaign.delivery_form.errors.delivery_time_required'))
+		document.querySelector('#lss-content').scrollTo(0,0)
+		return
+	}
+	
+	for (let index = 0; index < campaignData.value.meta_logistic.pickup_options.length; index++){
+		if(campaignData.value.meta_logistic.pickup_options[index].start_at && !campaignData.value.meta_logistic.pickup_options[index].options){
+			sellerStore.alert.showMessageToast(i18n.global.t('create_campaign.delivery_form.errors.pickup_time_required'))
+			document.querySelector('#lss-content').scrollTo(0,0)
+			return
+		}
 	}
 
 	campaignData.value.meta_logistic.delivery_note = campaignNotes.value.meta_logistic.delivery_note

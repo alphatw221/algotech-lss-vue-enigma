@@ -144,7 +144,7 @@
 			:page-size="page_size" 
 			@on-change="changePage" 
 			@on-page-size-change="changePageSize"
-			show-sizer :page-size-opts="[10,20,50,100]" 
+			show-sizer :page-size-opts="[20,50,100,500,1000]" 
 			/>
 	</div>
 
@@ -178,7 +178,7 @@ const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBu
 
 const currentPage = ref(1);
 const totalPage = ref(1);
-const pageSize = ref(10);
+const pageSize = ref(50);
 const totalCount = ref(0);
 
 const discountCodes = ref([]);
