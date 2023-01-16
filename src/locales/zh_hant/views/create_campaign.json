@@ -41,7 +41,9 @@
             "minValue":"輸入數字無效",
             "required":"此欄位必填",
             "integer":"輸入數字必須為整數",
-            "decimal":"輸入數字必須為數字"
+            "decimal":"輸入數字必須為數字",
+            "delivery_time_required":"指定運送日期自訂選項必填",
+            "pickup_time_required":"指定取貨日期自訂選項必填"
         }
     },
 

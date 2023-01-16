@@ -234,7 +234,7 @@
     <div class="flex flex-wrap items-center intro-y sm:flex-row sm:flex-nowrap">
         <Page 
             class="mx-auto my-3 flex flex-row flex-wrap justify-center gap-1 mb-10"
-            show-sizer :page-size-opts="[10,20,50,100]" 
+            show-sizer :page-size-opts="[20,50,100,500,1000]" 
             :total="manageOrderStore.data_count[props.tableStatus]" 
             :page-size="page_size" 
             @on-change="changePage"
@@ -317,7 +317,7 @@ const props = defineProps({
     filterEventBusName:String,
 });
 const page = ref(1);
-const page_size = ref(10);
+const page_size = ref(50);
 const sortBy = ref({})
 
 const keyword = ref('')

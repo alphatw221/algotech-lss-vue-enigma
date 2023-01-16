@@ -107,7 +107,6 @@
                         </Tippy> 
                         <textarea 
                             class="h-48 p-5 mr-5 form-control" 
-                            :placeholder="field.placeholder"
                             v-model="props.meta_point[field.key]"
                         >
                         </textarea>
