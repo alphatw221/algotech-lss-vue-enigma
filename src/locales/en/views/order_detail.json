@@ -52,7 +52,7 @@
         "name" : "Name",
         "phone" : "Phone",
         "email" : "Email",
-        "cellphone":"Cellphone Number",
+        "cellphone":"Mobile",
         "method" : "Delivery Method",
         "default":"Default",
         "delivery" : "Delivery",
