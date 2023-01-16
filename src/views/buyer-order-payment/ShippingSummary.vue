@@ -1,6 +1,6 @@
 <template>
 
-    <div class="box p-5 m-4 border-2 border-secondary grid grid-cols-6 gap-2 text-[14px] sm:text-[16px]">
+    <div class="box p-5 m-4 border-2 border-secondary grid grid-cols-6 gap-2 sm:gap-3 text-[14px] sm:text-[16px]">
         <div class="col-span-6 flex mb-4 dark:border-darkmode-400">
             <span class="text-lg"> {{$t('shopping_cart.payment.shipping_summary')}}</span>   
         </div>
