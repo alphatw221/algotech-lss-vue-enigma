@@ -18,6 +18,8 @@ export const useLSSOptionsStore = defineStore("options", {
       // { "value": "19:00 - 20:00"},
       // { "value": "20:00 - 21:00"},
 
+      { "value": "09:00 - 12:00"},
+      { "value": "13:00 - 18:00"},
       { "value": "13:00 - 17:00"},
       { "value": "16:00 - 20:00"},
       { "value": "10:00 - 13:00"},
