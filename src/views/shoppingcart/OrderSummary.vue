@@ -288,7 +288,7 @@ const appliedCategoryLogistic = computed(()=>{
   return applied
 })
 
-watch(computed(()=>shoppingCartStore.cart),()=>{shoppingCartStore.appliedCategoryLogistic = appliedCategoryLogistic.value})
+watch(computed(()=>appliedCategoryLogistic.value),()=>{shoppingCartStore.appliedCategoryLogistic = appliedCategoryLogistic.value})
 
 
 
