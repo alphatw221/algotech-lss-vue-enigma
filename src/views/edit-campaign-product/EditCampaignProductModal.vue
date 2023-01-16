@@ -203,7 +203,7 @@ const updateProduct = () => {
         layoutStore.alert.showMessageToast(i18n.global.t('edit_campaign_product.edit_product_modal.invalid_data'))
         return
     }
-    if(typeof campaignProduct.value.max_order_amount != 'number') campaignProduct.value.max_order_amount = 0
+    if(typeof campaignProduct.value.max_order_amount != 'number') campaignProduct.value.max_order_amount = null
     seller_update_campaign_product(campaignProduct.value.id, campaignProduct.value)
     .then(res => {
         // console.log(res.data)
@@ -214,8 +214,8 @@ const updateProduct = () => {
 }
 
 const hideModal = ()=>{
+    campaignDetailStore.showEditCampaignProductModal = false
     campaignProduct.value = {}
     payloadBuffer.value = {}
-    campaignDetailStore.showEditCampaignProductModal = false
 }
 </script>
