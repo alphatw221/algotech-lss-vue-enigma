@@ -28,10 +28,10 @@
             <template v-else>黑貓宅配</template>
         </div>
         <div class="col-span-6 w-full border-t border-slate-200/60 dark:border-darkmode-400"></div>
-
+        
         <template v-if="store.order.shipping_method === 'pickup'">        
-            <div class="col-start-1 col-span-2">{{store.order?.shipping_option_data?.name}}</div>
-            <div class="col-start-3 col-span-4">{{store.order?.shipping_option_data?.address}}</div>
+            <div class="col-start-1 col-span-2">{{store.order?.shipping_option}}</div>
+            <div class="col-start-3 col-span-4">{{store.order?.pickup_address}}</div>
 
             <div class="col-span-6 w-full border-t border-slate-200/60 dark:border-darkmode-400"></div>
 
@@ -111,5 +111,8 @@ import { computed, onMounted, ref, watch } from "vue";
 import { useLSSBuyerOrderStore } from "@/stores/lss-buyer-order";
 
 const store = useLSSBuyerOrderStore(); 
+
+onMounted(()=>{
+})
 
 </script>
