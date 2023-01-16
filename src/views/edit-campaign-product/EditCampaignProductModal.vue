@@ -47,7 +47,7 @@
 
                 <div class="col-span-12"  v-else-if="column.key === 'price'">
                     <label for="modal-form-1">{{$t(`edit_campaign_product.edit_product_modal.${column.key}`)}}</label>
-                    <input type="text" class="form-control" v-model="campaignProduct[column.key]"/>
+                    <input type="number" class="form-control" v-model="v[column.key].$model"/>
                     <template v-if="v[column.key]">
                         <label class="text-danger text-[12px] block" 
                             v-for="error,index in v[column.key].$errors"
@@ -60,12 +60,7 @@
 
                 <div class="col-span-12"  v-else-if="column.key === 'order_code'">
                     <label for="modal-form-1">{{$t(`edit_campaign_product.edit_product_modal.${column.key}`)}}</label>
-                    <input type="text" class="form-control" v-model="campaignProduct[column.key]"/>
-                </div>
-
-                <div class="col-span-12" v-else-if="column.key === 'max_order_amount'">
-                    <label for="modal-form-1">{{$t(`edit_campaign_product.edit_product_modal.${column.key}`)}}</label>
-                    <input type="text" class="form-control" v-model="campaignProduct[column.key]"/>
+                    <input type="text" class="form-control" v-model="v[column.key].$model"/>
                     <template v-if="v[column.key]">
                         <label class="text-danger text-[12px] block" 
                             v-for="error,index in v[column.key].$errors"
@@ -75,10 +70,9 @@
                         </label>
                     </template>
                 </div>
-
                 <div class="col-span-12" v-else-if="column.key === 'qty_for_sale'">
                     <label for="modal-form-1">{{$t(`edit_campaign_product.edit_product_modal.${column.key}`)}}</label>
-                    <input type="text" class="form-control" v-model.number="campaignProduct[column.key]"/>
+                    <input type="number" class="form-control" v-model.number="v[column.key].$model"/>
                     <template v-if="v[column.key]">
                         <label class="text-danger text-[12px] block" 
                             v-for="error,index in v[column.key].$errors"
@@ -88,6 +82,19 @@
                         </label>
                     </template>
                 </div>
+                <div class="col-span-12" v-else-if="column.key === 'max_order_amount'">
+                    <label for="modal-form-1">{{$t(`edit_campaign_product.edit_product_modal.${column.key}`)}}</label>
+                    <input type="number" class="form-control" v-model.number="v[column.key].$model"/>
+                    <template v-if="v[column.key]">
+                        <label class="text-danger text-[12px] block" 
+                            v-for="error,index in v[column.key].$errors"
+                            :key="index"
+                            >
+                            {{ $t(`edit_campaign_product.edit_product_modal.errors.${error.$validator}`) }}
+                        </label>
+                    </template>
+                </div>
+                
             </template>
         </ModalBody>
         <ModalFooter>
@@ -124,8 +131,8 @@ const route = useRoute()
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
 const campaignProduct = ref({
     order_code:"",
-    qty_for_sale:null,
-    max_order_amount:null,
+    qty_for_sale:0,
+    max_order_amount:0,
     price:0,
     type:null
 })
@@ -133,8 +140,8 @@ const campaignProduct = ref({
 const campaignProductRules = computed(() => {
 	return { 	
         order_code:{required},
-        qty_for_sale:{required , integer, minValue:minValue(1)},
-        max_order_amount:{integer, minValue:minValue(0), maxValue:maxValue(campaignProduct.value.qty_for_sale)},
+        qty_for_sale:{required,integer, minValue:minValue(0)},
+        max_order_amount:{integer, maxValue:maxValue(campaignProduct.value.qty_for_sale)},
         price:{required,decimal, minValue:minValue(0) },
     }
 })
@@ -191,13 +198,12 @@ onUnmounted(() => {
 })
 
 const updateProduct = () => {
-
     v.value.$touch()
     if(v.value.$invalid){
         layoutStore.alert.showMessageToast(i18n.global.t('edit_campaign_product.edit_product_modal.invalid_data'))
         return
     }
-    console.log(campaignProduct.value)
+    if(typeof campaignProduct.value.max_order_amount != 'number') campaignProduct.value.max_order_amount = null
     seller_update_campaign_product(campaignProduct.value.id, campaignProduct.value)
     .then(res => {
         // console.log(res.data)
@@ -208,8 +214,8 @@ const updateProduct = () => {
 }
 
 const hideModal = ()=>{
+    campaignDetailStore.showEditCampaignProductModal = false
     campaignProduct.value = {}
     payloadBuffer.value = {}
-    campaignDetailStore.showEditCampaignProductModal = false
 }
 </script>

@@ -282,7 +282,7 @@ const product = ref({
 	description: '',
 	qty: 0,
 	price: 0,
-	price_oid:0,
+	price_ori:0,
 	status: 'enabled',
 	remark:'',
 	categories:[],
@@ -297,8 +297,8 @@ const rules = computed(()=>{
 		name:{required,maxLength: maxLength(100)},
 		order_code: {required, maxLength:maxLength(10)},
 		description: {notContains:notContains('<head>')},
-		qty: {integer, minValue:minValue(1)},
-		price: {decimal, minValue:minValue(0)},  
+		qty: {required,integer, minValue:minValue(1)},
+		price: {required,decimal, minValue:minValue(0)},  
 		remark:{maxLength: maxLength(100)}
     }
 });
@@ -356,9 +356,7 @@ const removeImage = () =>{
 
 }
 const submit = ()=>{
-
-	// console.log(product.value)
-	// return
+	if(typeof product.value.price_ori !== 'number') product.value.price_ori == null
 	validate.value.$touch();
     if (validate.value.$invalid) {
         layoutStore.alert.showMessageToast(i18n.global.t('stock.add_product_page.invalid_data'))
