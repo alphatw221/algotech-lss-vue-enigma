@@ -16,6 +16,7 @@
     "delivery_form":{
         "delivery_detail":"Delivery Details",
         "delivery_charge":"Own Delivery",
+        "delivery_time_options":"Delivery Time Options",
         "enabled_delivery_charge":"Enable Own Delivery",
         "free_delivery_for_order_above":"Free Delivery for Order Above($)",
         "free_delivery_for_minimum_order":"Free Delivery for Minimum Order Qty",
@@ -32,6 +33,7 @@
 
         "pickup_store":"Pickup Location",
         "pickup_address":"Pickup Address",
+        "pickup_time_options":"Pickup Time Options",
         "delivery_date":"Delivery Date",
         "pickup_date":"Pickup Date",
         "errors":{
@@ -40,7 +42,9 @@
             "minValue":"Invalid number",
             "required":"This field is required",
             "integer":"Number must be integer",
-            "decimal":"Number must be decimal"
+            "decimal":"Number must be decimal",
+            "delivery_time_required":"delivery time option is required",
+            "pickup_time_required":"Pickup time option is required"
         }
     },
 

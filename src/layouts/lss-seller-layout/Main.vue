@@ -6,12 +6,12 @@
     <LSSSellerMobileMenu />
     <LSSSellerTopBar/>
 
-    <Notification refKey="sellerMessageNotification" :options="{duration: 3000,}" class="flex text-green-600 sm:flex-row">
+    <Notification refKey="sellerMessageNotification" :options="{duration: 3000,}" class="flex text-green-600 sm:flex-row capitalize">
       <CheckCircleIcon class="w-6 h-6 mr-2" /> 
       <div id="message" class="font-medium">Message</div>
     </Notification>
 
-    <Notification refKey="sellerMessageAlert" :options="{duration: 5000,}" class="flex text-red-600 sm:flex-row">
+    <Notification refKey="sellerMessageAlert" :options="{duration: 5000,}" class="flex text-red-600 sm:flex-row capitalize">
       <AlertOctagonIcon class="w-6 h-6 mr-2" /> 
       <div id="message" class="font-medium">Message</div>
     </Notification>

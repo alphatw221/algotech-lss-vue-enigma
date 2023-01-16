@@ -144,7 +144,7 @@
             {{shoppingCartStore.cart.campaign.price_unit?$t(`global.price_unit.${shoppingCartStore.cart.campaign.price_unit}`):''}}
           </div>
         </div>
-        <h4 class="text-danger ml-auto" v-if="shoppingCartStore.cart.campaign?.meta_point?.enable">
+        <h4 class="text-danger ml-auto" v-if="shoppingCartStore.cart.campaign?.meta_point?.enable && computedPointsEarned>0">
           <template v-if="isAnonymousUser">
             {{$t('shopping_cart.order_summary.login_for_points',{points:computedPointsEarned})}}
           </template>

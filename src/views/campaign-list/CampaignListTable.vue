@@ -179,7 +179,7 @@
                       {{$t("campaign_list.campaign_list_table.edit_campaign")}} 
                     </DropdownItem>
                     <DropdownItem 
-                      v-if="campaignStatus === 'scheduled'"
+                      v-if="campaignStatus === 'scheduled' || campaignStatus === 'ongoing'"
                       class="w-fit text-center whitespace-nowrap" 
                       @click="editCampaignProduct(campaign)"> 
                       <SimpleIcon icon="edit" color="#2d8cf0" class="mr-1"/>
@@ -243,7 +243,7 @@
   class="mx-auto my-3 flex flex-row flex-wrap justify-center gap-1 mb-10"
         :total="dataCount"
         :page-size="page_size"
-        show-sizer :page-size-opts="[10,20,50,100]" 
+        show-sizer :page-size-opts="[20,50,100,500,1000]" 
         @on-change="changePage"
         @on-page-size-change="changePageSize"
       />
@@ -386,7 +386,7 @@ const editCampaign = (campaign)=>{
   hideDropDown()
 }
 const editCampaignProduct = campaign=>{
-  router.push({name:'edit-campaign-product', params: {'campaign_id':campaign.id}})
+  router.push({name:'edit-campaign-product', params: {'campaign_id':campaign.id, 'campaign_status':'ongoing'}})
   hideDropDown()
 
 }

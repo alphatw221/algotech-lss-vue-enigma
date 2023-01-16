@@ -59,6 +59,7 @@
             "search":"Search by",
             "no_product":"You haven't assigned any product into this campaign, click Add Product to assign"
         },
+        "edit_campaign_product":"Edit Campaign Product",
         "add":"Add",
         "add_product":"Add Product",
         "instantly":"Instantly Add Product",

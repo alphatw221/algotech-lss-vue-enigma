@@ -8,53 +8,46 @@
                 <XIcon class="w-8 h-8 text-slate-400" />
             </a>
         </ModalHeader>
-        <ModalBody class="grid grid-cols-12 gap-3">
+        <ModalBody class="grid grid-cols-12 gap-5 ">
             <template v-for="(column, index) in computedTableColumns" :key="index">
-                <div class="col-span-12" 
-                    v-if="column.type ==='checkbox'">
-                    <label for="modal-form-1">{{$t(`edit_campaign_product.edit_product_modal.${column.key}`)}}</label>
-                    <input 
-                        v-if="column.key ==='customer_editable'"
-                        @click="productEditable($event)"
-                        class="form-check-input w-[1.2rem] h-[1.2rem] ml-5"
-                        type="checkbox" 
-                        v-model="campaignProduct[column.key]" 
-                    />
-                    <input 
-                        v-else-if="column.key ==='customer_removable'"
-                        @click="productRemovable($event)"
-                        class="form-check-input w-[1.2rem] h-[1.2rem] ml-5"
-                        type="checkbox" 
-                        v-model="campaignProduct[column.key]" 
-                    />
-                    <input 
-                        v-else
-                        class="form-check-input w-[1.2rem] h-[1.2rem] ml-5"
-                        type="checkbox" 
-                        v-model="campaignProduct[column.key]" 
-                    />
-                </div>
+                <template v-if="column.type ==='checkbox'"> 
+                    <div class="col-span-6 flex flex-row gap-5">
+                        <input 
+                            v-if="column.key ==='customer_editable'"
+                            @click="productEditable($event)"
+                            class="form-check-input w-[1.2rem] h-[1.2rem] col-span-1"
+                            type="checkbox" 
+                            v-model="campaignProduct[column.key]" 
+                        />
+                        <input 
+                            v-else-if="column.key ==='customer_removable'"
+                            @click="productRemovable($event)"
+                            class="form-check-input w-[1.2rem] h-[1.2rem] col-span-1"
+                            type="checkbox" 
+                            v-model="campaignProduct[column.key]" 
+                        />
+                        <input 
+                            v-else
+                            class="form-check-input w-[1.2rem] h-[1.2rem] col-span-1"
+                            type="checkbox" 
+                            v-model="campaignProduct[column.key]" 
+                        />
+                        <label for="modal-form-1 col-span-1">{{$t(`edit_campaign_product.edit_product_modal.${column.key}`)}}</label>
+                    </div>
+                </template>
 
                 <div class="col-span-12" v-else-if="column.key === 'type'">
                     <label for="modal-form-1">{{$t(`edit_campaign_product.edit_product_modal.${column.key}`)}}</label>
-                    <select v-if="!props.campaignStarted"
-                        class="form-select" v-model="campaignProduct[column.key]" >
+                    <select class="form-select" v-model="campaignProduct[column.key]" >
                         <option v-for="(type, index) in typeSelection" :key="index" :value="type.value">
                             {{$t(`edit_campaign_product.edit_product_modal.types.${type.value}`)}}
                         </option>
-                    </select> 
-                    <select v-else 
-                        class="form-select" v-model="campaignProduct[column.key]" disabled>
-                        <option v-for="(type, index) in typeSelection" :key="index" :value="type.value">
-                            {{$t(`edit_campaign_product.edit_product_modal.types.${type.value}`)}}
-                        </option>
-                    </select> 
+                    </select>
                 </div> 
 
-                    <div class="col-span-12"  v-else-if="column.key === 'price'">
+                <div class="col-span-12"  v-else-if="column.key === 'price'">
                     <label for="modal-form-1">{{$t(`edit_campaign_product.edit_product_modal.${column.key}`)}}</label>
-                    <input v-if="!props.campaignStarted" type="text" class="form-control" v-model="campaignProduct[column.key]"/>
-                    <input v-else type="text" class="form-control" v-model.number="campaignProduct[column.key]" disabled/>
+                    <input type="text" class="form-control" v-model="campaignProduct[column.key]"/>
                     <template v-if="v[column.key]">
                         <label class="text-danger text-[12px] block" 
                             v-for="error,index in v[column.key].$errors"
@@ -67,14 +60,12 @@
 
                 <div class="col-span-12"  v-else-if="column.key === 'order_code'">
                     <label for="modal-form-1">{{$t(`edit_campaign_product.edit_product_modal.${column.key}`)}}</label>
-                    <input v-if="!props.campaignStarted" type="text" class="form-control" v-model="campaignProduct[column.key]"/>
-                    <input v-else type="text" class="form-control" v-model="campaignProduct[column.key]" disabled/>
+                    <input type="text" class="form-control" v-model="campaignProduct[column.key]"/>
                 </div>
 
                 <div class="col-span-12" v-else-if="column.key === 'max_order_amount'">
                     <label for="modal-form-1">{{$t(`edit_campaign_product.edit_product_modal.${column.key}`)}}</label>
-                    <input v-if="!props.campaignStarted" type="text" class="form-control" v-model="campaignProduct[column.key]"/>
-                    <input v-else type="text" class="form-control" v-model.number="campaignProduct[column.key]" disabled/>
+                    <input type="text" class="form-control" v-model="campaignProduct[column.key]"/>
                     <template v-if="v[column.key]">
                         <label class="text-danger text-[12px] block" 
                             v-for="error,index in v[column.key].$errors"
@@ -167,6 +158,13 @@ const computedTableColumns = computed(()=>{
 		columns = columns.filter(column=>column.key !== 'max_order_amount' )
 		columns = columns.filter(column=>column.type !== 'checkbox' )
     }
+    if(props.campaignStarted){
+        columns = columns.filter(column=>column.key !== 'order_code' )
+        columns = columns.filter(column=>column.key !== 'qty_for_sale' )
+        columns = columns.filter(column=>column.key !== 'type' )
+		columns = columns.filter(column=>column.key !== 'max_order_amount' )
+    }
+
     return columns
 })
 

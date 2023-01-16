@@ -99,7 +99,10 @@
 										Update
 									</button>
 								</div> -->
-								<button type="button" @click="changeQuantity( index, 'minus', campaign_product_id, qty)" v-show="hideUpdateSignIndex!=index">
+								<button 
+								:class="{'cursor-not-allowed' :shoppingCartStore.campaignProductDict[campaign_product_id]?.customer_removable == false}"
+								:disabled="shoppingCartStore.campaignProductDict[campaign_product_id]?.customer_removable == false" type="button" 
+								@click="changeQuantity( index, 'minus', campaign_product_id, qty)" v-show="hideUpdateSignIndex!=index">
 									<MinusSquareIcon class="w-5 h-5 mt-2 mr-2" />
 								</button>
 								<input 
@@ -263,6 +266,10 @@ const changeQuantity = ( index, operation, campaign_product_id, qty) => {
 	} else if (operation == 'minus' ) {
 		_qty = qty-1
 	} else if (operation == 'input' && parseInt(cacheQty.value) >= 1 ) {
+		if(shoppingCartStore.campaignProductDict[campaign_product_id]?.customer_removable == false && cacheQty.value < qty){
+			layoutStore.alert.showMessageToast(i18n.global.t('shopping_cart.not_lower_qty'))
+			return
+		}
 		_qty = parseInt(cacheQty.value)
 	} else {
 		layoutStore.alert.showMessageToast(i18n.global.t('shopping_cart.invalid_qty'))
@@ -280,6 +287,7 @@ const changeQuantity = ( index, operation, campaign_product_id, qty) => {
 			showUpdateSign()
 			showQtyInput()
 			hideUpdateButton()
+			console.log(res.data)
 		}
 	).catch((err)=>{
 		showUpdateSign()

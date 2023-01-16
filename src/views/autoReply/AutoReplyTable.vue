@@ -123,7 +123,8 @@
 	<div class="flex flex-wrap items-center col-span-12 intro-y sm:flex-row sm:flex-nowrap mb-10 sm:mb-0">
 		<Page class="mx-auto my-3" 
 			:total="totalCount" 
-			show-sizer :page-size-opts="[10,20,50,100]" 
+			:page-size="pageSize"
+			show-sizer :page-size-opts="[20,50,100,500,1000]" 
 			@on-change="changePage" 
 			@on-page-size-change="changePageSize" 
 			/> 
@@ -146,7 +147,7 @@ const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 
 const currentPage = ref(1);
 const totalPage = ref(1);
-const pageSize = ref(10);
+const pageSize = ref(50);
 const totalCount = ref(0);
 const listItems = ref([]);
 const showCommentLoding = ref(true)
