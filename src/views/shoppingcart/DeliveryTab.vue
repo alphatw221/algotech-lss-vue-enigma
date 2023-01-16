@@ -69,7 +69,7 @@
                           </div>
                           <h4 id="option_price" class="whitespace-nowrap ml-auto">
                             <!-- on top delivery charge-->
-                            <template v-if="shoppingCartStore.appliedCategoryLogistic"> 
+                            <template v-if="computedAppliedCategoryLogistic"> 
                             </template>
                             <template v-else-if="item.type === '+'">
                                 {{ shoppingCartStore.cart.campaign.currency }}
@@ -90,14 +90,14 @@
 
                   <!-- Default Option -->
                   <div 
-                      v-if="(shoppingCartStore.cart.campaign.meta_logistic?.is_self_delivery_enabled == true) || shoppingCartStore.appliedCategoryLogistic"
+                      v-if="(shoppingCartStore.cart.campaign.meta_logistic?.is_self_delivery_enabled == true) || computedAppliedCategoryLogistic"
                       class="logistic-options border-2 rounded-lg relative"
                       :class="{'border-red-600/90 shadow-sm': shipping_option_index_computed == null}"
                       @click="select_shipping_method('delivery') & (shipping_option_index_computed = null)"
                     >
                     <CheckSquareIcon v-if="shipping_option_index_computed == null" class="absolute left-3 text-red-800"/>
                     <p id="default_delivery" class="min-w-[100px] whitespace-nowrap">{{ !['',' ',undefined,null].includes(shoppingCartStore.cart.campaign.meta_logistic?.title) ? shoppingCartStore.cart.campaign.meta_logistic?.title : $t('shopping_cart.delivery_tab.option.default')}}</p>
-                    <template v-if="shoppingCartStore.appliedCategoryLogistic"></template>
+                    <template v-if="computedAppliedCategoryLogistic"></template>
                     <h4 v-else class="ml-auto">
                       {{ shoppingCartStore.cart.campaign.currency }}
                       {{(Math.floor(parseFloat(shoppingCartStore.cart.campaign.meta_logistic.delivery_charge) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toFixed(shoppingCartStore.cart.campaign.decimal_places)}}
@@ -133,7 +133,7 @@
 
                         <h4 id="option_price" class="whitespace-nowrap ml-auto">
                           <!-- on top delivery charge-->
-                          <template v-if="shoppingCartStore.appliedCategoryLogistic"></template>
+                          <template v-if="computedAppliedCategoryLogistic"></template>
                           <template v-else-if="option.type === '+'">
                             {{ shoppingCartStore.cart.campaign.currency }}
                             {{(Math.floor((parseFloat(option.price) + parseFloat(shoppingCartStore.cart.campaign.meta_logistic.delivery_charge)) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toFixed(shoppingCartStore.cart.campaign.decimal_places)}}
@@ -258,9 +258,19 @@
                     <!--Street Address-->
                     <div class="flex flex-col gap-1">
                       <p>{{$t('shopping_cart.delivery_tab.property')}}</p>
-                      <input id="regular-form-2" type="text" class="form-control"
+
+                      <select class="form-select h-[35px] sm:h-[42px] w-full" v-model="shipping_info.shipping_property_type">
+                          <option :value="null"></option>
+                          <option value="HOB">HOB</option>
+                          <option value="Condo/Apartment">Condo/Apartment</option>
+                          <option value="Landed">Landed</option>
+                          <option value="Office">Office</option>
+
+                        </select>
+
+                      <!-- <input id="regular-form-2" type="text" class="form-control"
                         :placeholder="$t('shopping_cart.delivery_tab.property_hint')"
-                        v-model.trim="shipping_info.shipping_property_type" />
+                        v-model.trim="shipping_info.shipping_property_type" /> -->
                     </div>
 
                     <!--Postal Code-->
@@ -494,6 +504,7 @@ import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout"
 import { useTwZipcodeStore } from "@/stores/tw-zipcode"
 import { useCookies } from 'vue3-cookies'
 import i18n from "@/locales/i18n"
+import TomSelect from "tom-select";
 
 const { cookies } = useCookies()
 const route = useRoute();
@@ -764,6 +775,9 @@ const bytesBtwLength = (min,num) => (value) => {
   if (min > len) return false
   else return true
 }
+
+
+
 const reciever_rules = computed(()=>{
   return{
     shipping_first_name: {
@@ -815,6 +829,30 @@ const time_rules = computed(()=>{
 const reciever_validate = useVuelidate(reciever_rules, shipping_info);
 const delivery_validate = useVuelidate(delivery_rules, shipping_info);
 const time_validate = useVuelidate(time_rules, shipping_info);
+
+const computedLogisticCategories = computed(()=>{
+  let logisticCategories = {}
+  Object.entries(shoppingCartStore.cart.products).forEach(([key, value])=>{
+    if(value>0 && shoppingCartStore.campaignProductDict?.[key]?.categories?.length===1 && shoppingCartStore.campaignProductDict?.[key]?.categories[0] in shoppingCartStore.productCategoryDict){
+      
+      if(logisticCategories?.[shoppingCartStore.campaignProductDict?.[key]?.categories[0]]){
+        logisticCategories[shoppingCartStore.campaignProductDict?.[key]?.categories[0]].push({campaignProductId:key,qty:value})
+      }else{
+        logisticCategories[shoppingCartStore.campaignProductDict?.[key]?.categories[0]] = [{campaignProductId:key,qty:value},]
+      }
+    }
+  })
+  return logisticCategories
+})
+
+const computedAppliedCategoryLogistic = computed(()=>{
+  var applied = false
+  Object.entries(computedLogisticCategories.value).forEach(([productCategoryID, objects])=>{
+    const productCategory = shoppingCartStore.productCategoryDict[productCategoryID]
+    if(productCategory?.meta_logistic?.enable_flat_rate) applied = true
+  })
+  return applied
+})
 
 const proceed_to_payment = () =>{
   // console.log(shipping_info.value)
