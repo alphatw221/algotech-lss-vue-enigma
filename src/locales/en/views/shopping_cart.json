@@ -63,6 +63,7 @@
         "empty_message":"Your Shopping Cart Is Empty",
         "product":"Product",
         "qty":"Qty",
+        "Qty":"Qty",
         "price":"Price",
         "subtotal":"Subtotal",
         "null":"",
