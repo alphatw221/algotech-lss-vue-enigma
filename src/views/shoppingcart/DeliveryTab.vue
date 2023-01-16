@@ -151,11 +151,11 @@
                   </template>
 
                   <!-- Delivery Date -->
-                  <template v-if="shoppingCartStore.cart.campaign.meta_logistic.delivery_date?.start_at && shipping_method_computed === 'delivery' && !shipping_info.shipping_option_data?.is_cvs">
+                  <template v-if="shoppingCartStore.cart.campaign.meta_logistic.delivery_date?.start_at && shoppingCartStore.cart.campaign.meta_logistic.delivery_date?.options && shipping_method_computed === 'delivery' && !shipping_info.shipping_option_data?.is_cvs">
                     <h3 class="whitespace-nowrap lg:-mx-10 xl:-mx-20">{{$t('shopping_cart.delivery_tab.delivery_date')}}</h3>
                     <div class="flex flex-col sm:flex-row gap-3"> 
                       <v-date-picker class="z-49" 
-                        v-model="shipping_info.shipping_date"
+                        v-model="shipping_info.shipping_date_time"
                         mode="date" is-required
                         :min-date='shoppingCartStore.cart.campaign.meta_logistic.delivery_date.start_at'
                         :max-date='shoppingCartStore.cart.campaign.meta_logistic.delivery_date.end_at'
@@ -168,14 +168,14 @@
                       <div class="flex flex-col w-full"> 
                         <select 
                           class="border-2 h-[50px] w-full rounded-lg px-10 text-[1rem]" 
-                          :class="{'border-danger': time_validate.shipping_time.$errors.length > 0}" 
-                          v-model="time_validate.shipping_time.$model"> 
+                          :class="{'border-danger': time_validate.shipping_time_slot.$errors.length > 0}" 
+                          v-model="time_validate.shipping_time_slot.$model"> 
                           <option v-for="option in shoppingCartStore.cart.campaign.meta_logistic.delivery_date?.options" :key="option"> {{ option }} </option>
                         </select>
                         <h4 class="text-danger flex flex-col sm:flex-row"> 
-                          <template v-for="(error,index) in time_validate.shipping_time.$errors" :key="index">
+                          <template v-for="(error,index) in time_validate.shipping_time_slot.$errors" :key="index">
                             <span>{{ error.$message }}</span>
-                            <span v-if="index+1 !== time_validate.shipping_time.$errors.length"
+                            <span v-if="index+1 !== time_validate.shipping_time_slot.$errors.length"
                                 class="hidden sm:block mx-1">/</span>
                           </template>
                         </h4>
@@ -311,19 +311,19 @@
                   <h3 class="whitespace-nowrap">{{$t('shopping_cart.delivery_tab.pickup_date')}}</h3>
                   <div class="flex flex-col sm:flex-row gap-3 lg:mx-20 z-20">
                     <v-date-picker class="z-50" 
-                      v-model="time_validate.shipping_date.$model"
+                      v-model="time_validate.shipping_date_time.$model"
                       mode="date" is-required
                       :min-date='date_range.start'
                       :max-date='date_range.end'
                       >
                       <template v-slot="{ inputValue, inputEvents }">
                         <input :value="inputValue" v-on="inputEvents" 
-                          :class="{'border-danger': time_validate.shipping_date.$errors.length > 0}"
+                          :class="{'border-danger': time_validate.shipping_date_time.$errors.length > 0}"
                           class="border-2 h-[50px] px-10 w-full min-w-[300px] rounded-lg" />
                         <h4 class="text-danger flex flex-col sm:flex-row"> 
-                          <template v-for="(error,index) in time_validate.shipping_date.$errors" :key="index">
+                          <template v-for="(error,index) in time_validate.shipping_date_time.$errors" :key="index">
                             <span>{{ error.$message }}</span>
-                            <span v-if="index+1 !== time_validate.shipping_date.$errors.length"
+                            <span v-if="index+1 !== time_validate.shipping_date_time.$errors.length"
                                 class="hidden sm:block mx-1">/</span>
                           </template>
                         </h4>
@@ -332,14 +332,14 @@
                     <div class="flex flex-col w-full">
                       <select 
                         class="border-2 h-[50px] w-full rounded-lg px-10 text-[1rem]" 
-                        :class="{'border-danger': time_validate.shipping_time.$errors.length > 0}"
-                        v-model="time_validate.shipping_time.$model"> 
+                        :class="{'border-danger': time_validate.shipping_time_slot.$errors.length > 0}"
+                        v-model="time_validate.shipping_time_slot.$model"> 
                         <option v-for="option in shoppingCartStore.cart.campaign.meta_logistic.pickup_options[shipping_option_index]?.options" :key="option"> {{ option }} </option>
                       </select>
                       <h4 class="text-danger flex flex-col sm:flex-row"> 
-                        <template v-for="(error,index) in time_validate.shipping_time.$errors" :key="index">
+                        <template v-for="(error,index) in time_validate.shipping_time_slot.$errors" :key="index">
                           <span>{{ error.$message }}</span>
-                          <span v-if="index+1 !== time_validate.shipping_time.$errors.length"
+                          <span v-if="index+1 !== time_validate.shipping_time_slot.$errors.length"
                               class="hidden sm:block mx-1">/</span>
                         </template>
                       </h4>
@@ -529,7 +529,8 @@ const shipping_info= ref({
       shipping_details: "",
       shipping_remark: "",
       shipping_date: null,
-      shipping_time: null,
+      shipping_date_time:null,
+      shipping_time_slot: null,
       pickup_address:"",
       shipping_option_data:{}
 		})
@@ -546,7 +547,7 @@ const select_shipping_method = (method,type) => {
   if(type == 'tab' && method == 'delivery' && shipping_method_computed.value == 'ecpay') return 
   else if(method !== shipping_method_computed.value) {
     shipping_method_computed.value = method
-    shipping_info.value.shipping_time = null
+    shipping_info.value.shipping_time_slot = null
   }
 }
 
@@ -645,7 +646,7 @@ const shipping_option_index_computed = computed({
   },set:index=>{
     // console.log("set", index)
     // console.log(shipping_info.value.shipping_method)
-    if(shipping_info.value.shipping_method=='pickup' && shipping_option_index.value !== index) shipping_info.value.shipping_time = null
+    if(shipping_info.value.shipping_method=='pickup' && shipping_option_index.value !== index) shipping_info.value.shipping_time_slot = null
     shipping_option_index.value = index
     shoppingCartStore.shipping_info.shipping_option_index=index 
     // pickup 
@@ -799,8 +800,8 @@ const delivery_rules = computed(()=>{
 );
 const time_rules = computed(()=>{
   return{
-    shipping_date:{required}, 
-    shipping_time:{required}
+    shipping_date_time:{required}, 
+    shipping_time_slot:{required}
   }}
 );
 const reciever_validate = useVuelidate(reciever_rules, shipping_info);
@@ -849,8 +850,8 @@ const proceed_to_payment = () =>{
   if( (shipping_info.value.shipping_method === 'ecpay') 
     || (shipping_info.value.shipping_method === 'delivery' && !shoppingCartStore.cart.campaign.meta_logistic.delivery_date.start_at) 
     || ((shipping_info.value.shipping_method === 'pickup' && !shoppingCartStore.cart.campaign.meta_logistic.pickup_options[shipping_option_index.value]?.start_at)) ){
-    shipping_info.value.shipping_date = null
-    shipping_info.value.shipping_time = null
+    shipping_info.value.shipping_date_time = null
+    shipping_info.value.shipping_time_slot = null
   } else {
     time_validate.value.$touch();
     if (time_validate.value.$invalid){
