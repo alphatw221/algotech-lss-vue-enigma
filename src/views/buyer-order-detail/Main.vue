@@ -80,11 +80,10 @@
 
                         <template v-if="buyerOrderStore.order.shipping_method === 'pickup'">
                             <div class="col-start-1 col-span-2">{{$t('order_detail.delivery.information')}}</div>
-                            <p class="col-start-3 col-span-4">{{$t('order_detail.delivery.pickup')}}
-                                {{buyerOrderStore.order.shipping_date_time!==null?'('+new Date(buyerOrderStore.order.shipping_date_time).toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"})+')':''}} <br/>
-                                {{(buyerOrderStore.order.shipping_time_slot || '')}}
-                            </p>
-
+                            <p class="col-start-3 col-span-4">{{$t('order_detail.delivery.pickup')}}</p>
+                            <div class="col-start-1 col-span-2">{{$t('order_detail.delivery.pickupTime')}}</div>
+                            <p class="col-start-3 col-span-4">{{new Date(buyerOrderStore.order.shipping_date_time).toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"})||''}},
+                                {{(buyerOrderStore.order.shipping_time_slot || '')}}</p>
                             <div class="col-start-1 col-span-2">{{buyerOrderStore.order?.shipping_option}}</div> 
                             <div class="col-start-3 col-span-4">{{buyerOrderStore.order?.pickup_address}}</div>
 
