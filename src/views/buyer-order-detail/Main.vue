@@ -58,9 +58,10 @@
                             <div class="col-start-1 col-span-2">{{$t('order_detail.payment.last_five_digits')}}</div>
                             <div v-if="buyerOrderStore.order.meta.last_five_digit == '' && !buyerOrderStore.order.meta.receipt_image" class="col-start-3 col-span-4">{{$t('order_detail.payment.no_record')}} </div>
                             <div v-else class="col-start-3 col-span-4">{{buyerOrderStore.order.meta.last_five_digit}}</div>
-                            <div class="w-20 h-20 image-fit zoom-in absolute top-[110px] right-8">
+                            <div
+                            v-if="buyerOrderStore.order.meta.receipt_image" 
+                                class="w-20 h-20 image-fit zoom-in absolute top-[110px] right-8">
                                 <Tippy
-                                v-if="buyerOrderStore.order.meta.receipt_image"
                                     tag="img"
                                     data-action="zoom"
                                     content="receipt image"
