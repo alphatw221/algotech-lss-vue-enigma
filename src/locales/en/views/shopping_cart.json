@@ -101,6 +101,8 @@
     },
     "payment":{
         "shipping_summary":"Shipping Summary",
+        "pickupTime":"Pickup Time",
+        "deliveryTime":"Delivery Time",
         "pickup":"Self pickup",
         "delivery":"Delivery",
         "address":"Delivery Address",
@@ -109,7 +111,7 @@
             "title": "Direct Payment",
             "account":"Account",
             "account_number":"Account Number",
-            "account_name":"Account Name",
+        "account_name":"Account Name",
             "note":"Note",
             "beneficiary":"Beneficiary Bank",
             "upload_img":" Drop files here or click to upload",

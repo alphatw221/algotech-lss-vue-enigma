@@ -80,9 +80,10 @@
 
                         <template v-if="buyerOrderStore.order.shipping_method === 'pickup'">
                             <div class="col-start-1 col-span-2">{{$t('order_detail.delivery.information')}}</div>
-                            <div class="col-start-3 col-span-3">{{$t('order_detail.delivery.pickup')}}
-                                {{buyerOrderStore.order.shipping_date_time!==null?'('+new Date(buyerOrderStore.order.shipping_date_time).toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric",hour: '2-digit', minute: '2-digit'})+')':''}}
-                            </div>
+                            <p class="col-start-3 col-span-3">{{$t('order_detail.delivery.pickup')}}
+                                {{buyerOrderStore.order.shipping_date_time!==null?'('+new Date(buyerOrderStore.order.shipping_date_time).toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"})+')':''}} <br/>
+                                {{(buyerOrderStore.order.shipping_time_slot || '')}}
+                            </p>
 
                             <div class="col-start-1 col-span-2">{{$t('order_detail.delivery.pickup_store')}}</div>
                             <div class="col-start-3 col-span-3">{{buyerOrderStore.order?.shipping_option_data?.name}}</div> 
@@ -94,9 +95,7 @@
                         </template>
                         <template v-else-if="buyerOrderStore.order.shipping_method === 'delivery'">
                             <div class="col-start-1 col-span-2">{{$t('order_detail.delivery.information')}}</div>
-                            <div class="col-start-3 col-span-3">{{$t('order_detail.delivery.delivery')}}：{{ buyerOrderStore.order.shipping_option|| $t('order_detail.delivery.default') }}
-                                {{buyerOrderStore.order.shipping_date_time!==null?'('+new Date(buyerOrderStore.order.shipping_date_time).toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric",hour: '2-digit', minute: '2-digit'})+')':''}}
-                            </div>
+                            <div class="col-start-3 col-span-3">{{$t('order_detail.delivery.delivery')}}：{{ buyerOrderStore.order.shipping_option|| $t('order_detail.delivery.default') }}</div>
                             <template v-if="buyerOrderStore.order.shipping_option_data?.is_cvs"> 
                                 <div class="col-start-1 col-span-5 sm:col-span-2">{{$t('order_detail.delivery.cvs')}}</div>
                                 <div class="col-start-2 col-span-5 sm:col-start-3 sm:col-span-4">{{ buyerOrderStore.order.shipping_option_data?.cvs_store_name }}</div>
@@ -109,6 +108,15 @@
                                     {{buyerOrderStore.order.shipping_location}} ,
                                     {{buyerOrderStore.order.shipping_region}} ,
                                     {{buyerOrderStore.order.shipping_postcode}} 
+                                </div>
+                            </template>
+                            <template v-if="buyerOrderStore.order.shipping_date_time && buyerOrderStore.order.shipping_time_slot && !buyerOrderStore.order.shipping_option_data?.is_cvs"> 
+                                <div class="col-start-1 col-span-2">{{$t('order_detail.delivery.deliveryTime')}}</div>
+                                <div class="col-start-3 col-span-3"> 
+                                    <p class="col-start-3 col-span-3">
+                                        {{new Date(buyerOrderStore.order.shipping_date_time).toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"})}} <br/>
+                                        {{(buyerOrderStore.order.shipping_time_slot || '')}}
+                                    </p>
                                 </div>
                             </template>
                         </template>

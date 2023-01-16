@@ -43,6 +43,8 @@
     "delivery":{
         "cellphone":"手機號碼",
         "information" : "運送資訊",
+        "pickupTime":"取貨日期",
+        "deliveryTime":"到貨日期",
         "name" : "收件人",
         "phone" : "聯絡電話",
         "email" : "電子信箱",

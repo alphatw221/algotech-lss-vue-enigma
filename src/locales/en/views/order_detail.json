@@ -47,6 +47,8 @@
     },
     "delivery":{
         "information" : "Delivery Information",
+        "pickupTime":"Pickup Time",
+        "deliveryTime":"Delivery Time",
         "name" : "Name",
         "phone" : "Phone",
         "email" : "Email",

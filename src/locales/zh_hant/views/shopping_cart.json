@@ -100,10 +100,12 @@
     "payment":{
         "shipping_summary":"收件資訊",
         "pickup":"自行取貨",
+        "deliveryTime":"到貨日期",
         "delivery":"運送",
         "address":"收件地址",
         "pay_with":"付款方式",
         "go_pay": "前往付款",
+        "pickupTime":"取貨時間",
         "direct":{
             "title": "銀行轉帳",
             "account":"銀行帳號",

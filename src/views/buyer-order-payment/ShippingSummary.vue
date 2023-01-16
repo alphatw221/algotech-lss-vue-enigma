@@ -32,21 +32,42 @@
                 <div class="w-1/4 whitespace-nowrap">{{store.order?.shipping_option_data?.name}}</div>
                 <div class="w-3/4">{{store.order?.shipping_option_data?.address}}</div>
             </div>
+            <div v-if="store.order?.shipping_date_time && store.order?.shipping_time_slot" 
+                class="flex flex-wrap mt-4 pt-4 border-t border-slate-200/60"> 
+                <div class="w-1/4 whitespace-nowrap">{{$t('shopping_cart.payment.pickupTime')}}</div>
+                <div class="w-3/4">
+                    <p> {{new Date(store.order?.shipping_date_time).toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"})}} <br/>
+                        {{store.order?.shipping_time_slot}}
+                    </p>
+                </div>
+            </div>
         </template>
         <template v-else-if="store.order.shipping_method === 'delivery'">
             <div class="flex flex-row flex-wrap mt-4 pt-4 border-t border-slate-200/60">
-                <div class="w-1/4 whitespace-nowrap">{{$t('shopping_cart.payment.address')}}</div>
-                <div v-if="store.order.shipping_option_data?.is_cvs"> 
+                <template v-if="store.order.shipping_option_data?.is_cvs">
+                    <div class="w-1/4 whitespace-nowrap">{{$t('shopping_cart.payment.address')}}</div>
+                    <div class="w-3/4">
+                        <div>{{ store.order.shipping_option_data?.cvs_store_name }}</div>
+                        <div>{{ store.order.shipping_option_data?.cvs_address }}</div>
+                    </div>
+                </template>
+                <template v-else>
+                    <div class="w-1/4 whitespace-nowrap">{{$t('shopping_cart.payment.address')}}</div>
+                    <div class="w-3/4">
+                        {{store.order.shipping_address_1}} ,
+                        {{store.order.shipping_postcode}} ,
+                        {{store.order.shipping_region}} ,
+                        {{store.order.shipping_location}}
+                    </div>
+                </template>
+            </div>
+            <div v-if="store.order?.shipping_date_time && store.order?.shipping_time_slot && !store.order.shipping_option_data?.is_cvs" 
+                class="flex flex-wrap mt-4 pt-4 border-t border-slate-200/60"> 
+                <div class="w-1/4 whitespace-nowrap">{{$t('shopping_cart.payment.deliveryTime')}}</div>
                 <div class="w-3/4">
-                    <div>{{ store.order.shipping_option_data?.cvs_store_name }}</div>
-                    <div>{{ store.order.shipping_option_data?.cvs_address }}</div>
-                </div>
-                </div>
-                <div v-else class="w-3/4">
-                    {{store.order.shipping_address_1}} ,
-                    {{store.order.shipping_postcode}} ,
-                    {{store.order.shipping_region}} ,
-                    {{store.order.shipping_location}}
+                    <p> {{new Date(store.order?.shipping_date_time).toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"})}}, 
+                        {{store.order?.shipping_time_slot}}
+                    </p>
                 </div>
             </div>
         </template>

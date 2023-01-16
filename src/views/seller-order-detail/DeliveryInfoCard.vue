@@ -34,6 +34,16 @@
                     <div class="col-start-1 col-span-2">{{$t('order_detail.delivery.pickup_address')}}</div>
                     <div class="col-start-3 col-span-3">{{sellerOrderDetailStore.order?.shipping_option_data?.address}}</div>
 
+                    <template v-if="sellerOrderDetailStore.order.shipping_date_time && sellerOrderDetailStore.order.shipping_time_slot"> 
+                        <div class="col-start-1 col-span-2">{{$t('order_detail.delivery.deliveryTime')}}</div>
+                        <div class="col-start-3 col-span-3"> 
+                            <p class="col-start-3 col-span-3">
+                                {{new Date(sellerOrderDetailStore.order.shipping_date_time).toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"})}} <br/>
+                                {{(sellerOrderDetailStore.order.shipping_time_slot || '')}}
+                            </p>
+                        </div>
+                    </template>
+
                 </template>
                 <template v-else-if="sellerOrderDetailStore.order.shipping_method === 'delivery'">
                     <div class="col-start-1 col-span-2">{{$t('order_detail.delivery.method')}}</div>
@@ -53,6 +63,15 @@
                             {{sellerOrderDetailStore.order.shipping_region}} ,
                             {{sellerOrderDetailStore.order.shipping_postcode}} 
                             
+                        </div>
+                    </template>
+                    <template v-if="sellerOrderDetailStore.order.shipping_date_time && sellerOrderDetailStore.order.shipping_time_slot && !sellerOrderDetailStore.order.shipping_option_data?.is_cvs"> 
+                        <div class="col-start-1 col-span-2">{{$t('order_detail.delivery.deliveryTime')}}</div>
+                        <div class="col-start-3 col-span-3"> 
+                            <p class="col-start-3 col-span-3">
+                                {{new Date(sellerOrderDetailStore.order.shipping_date_time).toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"})}} <br/>
+                                {{(sellerOrderDetailStore.order.shipping_time_slot || '')}}
+                            </p>
                         </div>
                     </template>
                 </template>
