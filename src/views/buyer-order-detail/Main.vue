@@ -104,10 +104,11 @@
                             <template v-else> 
                                 <div class="col-start-1 col-span-2">{{$t('order_detail.delivery.address')}}</div>
                                 <div class="col-start-3 col-span-3">
+                                    {{buyerOrderStore.order.shipping_postcode}},
                                     {{buyerOrderStore.order.shipping_address_1}} ,
                                     {{buyerOrderStore.order.shipping_location}} ,
-                                    {{buyerOrderStore.order.shipping_region}} ,
-                                    {{buyerOrderStore.order.shipping_postcode}} 
+                                    {{buyerOrderStore.order.shipping_region}} 
+                                    {{(buyerOrderStore.order.shipping_property_type || '')}}
                                 </div>
                             </template>
                             <template v-if="buyerOrderStore.order.shipping_date_time && buyerOrderStore.order.shipping_time_slot && !buyerOrderStore.order.shipping_option_data?.is_cvs"> 
@@ -131,7 +132,7 @@
                                 <div class="col-start-1 col-span-2">{{$t('order_detail.delivery.address')}}</div>
                                 <div class="col-start-3 col-span-4">
                                     {{buyerOrderStore.order.shipping_postcode}} 
-                                    {{buyerOrderStore.order.shipping_region}}, {{buyerOrderStore.order.shipping_location}}, {{buyerOrderStore.order.shipping_address_1}}
+                                    {{buyerOrderStore.order.shipping_region}}, {{buyerOrderStore.order.shipping_location}}, {{buyerOrderStore.order.shipping_address_1}} {{(buyerOrderStore.order.shipping_property_type || '')}}
                                 </div>
                             </template>
                         </template>

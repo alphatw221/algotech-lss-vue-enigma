@@ -158,7 +158,6 @@ onMounted(()=>{
           shoppingCartStore.productCategoryDict[productCategory.id.toString()]=productCategory
         }); 
         defaultShippingOptions()
-        
         buyerLayoutStore.sellerInfo = res.data.user_subscription
         i18n.locale = res.data.campaign.lang
         Object.keys(shoppingCartStore.cart.products).length == 0 ? shoppingCartStore.showAddItemModal = true : shoppingCartStore.showAddItemModal = false
