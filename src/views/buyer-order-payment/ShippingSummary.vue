@@ -54,10 +54,11 @@
                 <template v-else>
                     <div class="w-1/4 whitespace-nowrap">{{$t('shopping_cart.payment.address')}}</div>
                     <div class="w-3/4">
-                        {{store.order.shipping_address_1}} ,
                         {{store.order.shipping_postcode}} ,
+                        {{store.order.shipping_address_1}} ,
                         {{store.order.shipping_region}} ,
-                        {{store.order.shipping_location}}
+                        {{store.order.shipping_location}} 
+                        {{(store.order.shipping_property_type || '') }}
                     </div>
                 </template>
             </div>
@@ -86,7 +87,7 @@
                     <div class="w-1/4">{{$t('order_detail.delivery.address')}}</div>
                     <div class="flex flex-col w-3/4">
                         {{store.order.shipping_postcode}}
-                        {{store.order.shipping_region}}, {{store.order.shipping_location}}, {{store.order.shipping_address_1}}
+                        {{store.order.shipping_region}}, {{store.order.shipping_location}}, {{store.order.shipping_address_1}} {{ (store.order.shipping_property_type || '') }}
                     </div>
                 </div>
             </template>

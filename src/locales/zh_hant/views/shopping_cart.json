@@ -29,6 +29,8 @@
         "district": "鄉／鎮／區",
         "city": "縣／市",
         "state": "省/州",
+        "property":"住家種類",
+        "property_hint":"大廈,獨棟,公寓...",
         "postal_code":"郵遞區號",
         "city_err":"必填",
         "address_err":"必填",

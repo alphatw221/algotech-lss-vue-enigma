@@ -233,7 +233,6 @@
                     <!--District Area-->
                     <div class="flex flex-col gap-1">
                       <p>{{$t('shopping_cart.delivery_tab.district')}}</p>
-
                       <template v-if="shoppingCartStore.cart.campaign.meta_logistic?.ecpay?.enabled">
                         <select class="form-select h-[35px] sm:h-[42px] w-full" v-model="area_computed"
                           :class="{ 'border-danger text-danger': delivery_validate.shipping_location.$errors.length }">
@@ -254,6 +253,14 @@
                               class="hidden sm:block mx-1">/</span>
                         </template>
                       </h4>
+                    </div>
+
+                    <!--Street Address-->
+                    <div class="flex flex-col gap-1">
+                      <p>{{$t('shopping_cart.delivery_tab.property')}}</p>
+                      <input id="regular-form-2" type="text" class="form-control"
+                        :placeholder="$t('shopping_cart.delivery_tab.property_hint')"
+                        v-model.trim="shipping_info.shipping_property_type" />
                     </div>
 
                     <!--Postal Code-->
@@ -523,6 +530,7 @@ const shipping_info= ref({
       shipping_postcode: "",
       shipping_region: "",
       shipping_location: "",
+      shipping_property_type:"",
       shipping_address_1: "",
       shipping_address_2: "",
       shipping_status: "",
@@ -594,9 +602,8 @@ const city_computed = computed({
   },
   set:index=>{
     cityIndex.value = index
-    delivery_validate.value.shipping_region.$model = twZipcodeStore.data[index]?.name
+    if(twZipcodeStore.data[index]?.name) delivery_validate.value.shipping_region.$model = twZipcodeStore.data[index]?.name
     areaIndex.value = null
-    delivery_validate.value.shipping_location.$model = null
   }
 })
 const area_computed = computed({
@@ -605,8 +612,8 @@ const area_computed = computed({
   },
   set:index=>{
     areaIndex.value = index
-    delivery_validate.value.shipping_location.$model = twZipcodeStore.data[cityIndex.value]?.areas[index]?.name
-    delivery_validate.value.shipping_postcode.$model = twZipcodeStore.data[cityIndex.value]?.areas[index]?.zip
+    if(twZipcodeStore.data[cityIndex.value]?.areas[index]?.name) delivery_validate.value.shipping_location.$model
+    if(twZipcodeStore.data[cityIndex.value]?.areas[index]?.zip) delivery_validate.value.shipping_postcode.$model
   }
 })
 
@@ -710,9 +717,10 @@ onMounted(()=>{
     buyer_retrieve_latest_order_shipping_info(layoutStore.alert).then(res=>{
       res.data.shipping_method='delivery'     //default value
       res.data.shipping_option_data={}        //default value
+      console.log(res.data)
       shipping_info.value = res.data
-      city_computed.value = (twZipcodeStore.data.findIndex(city => city.name == shipping_info.value.shipping_region) == -1) ? null : twZipcodeStore.data.findIndex(city => city.name == shipping_info.value.shipping_region)
-      areaIndex.value = (twZipcodeStore.data[city_computed.value]?.areas) ? twZipcodeStore.data[city_computed.value]?.areas.findIndex(area => area.name == shipping_info.value.shipping_location) : null
+      city_computed.value = (twZipcodeStore.data.findIndex(city => city.name == shipping_info.value.shipping_region) == -1) ? res.data.shipping_region : twZipcodeStore.data.findIndex(city => city.name == shipping_info.value.shipping_region)
+      areaIndex.value = (twZipcodeStore.data[city_computed.value]?.areas) ? twZipcodeStore.data[city_computed.value]?.areas.findIndex(area => area.name == shipping_info.value.shipping_location) : res.data.shipping_location
       show.value = true
     })
   }
@@ -836,6 +844,7 @@ const proceed_to_payment = () =>{
     shipping_info.value.shipping_region = ''
     shipping_info.value.shipping_address_1 = ''
     shipping_info.value.shipping_postcode = ''
+    shipping_info.value.shipping_property_type = ''
 
   } else {
     delivery_validate.value.$touch();
