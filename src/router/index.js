@@ -485,7 +485,7 @@ const routes = [
         path: "order/:order_oid?/payment",
         name: "buyer-order-payment-page",
         beforeEnter: (to, from)=>{
-          return youtubeOrderMiddleware(to, from) && isOrderCompleted(to, from)
+          return isOrderCompleted(to, from)
         },
         component: () => import('@/views/buyer-order-payment/Main.vue')
       },

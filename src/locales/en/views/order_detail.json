@@ -43,7 +43,8 @@
         "update" : "Update",
         "display_name": "Display Name",
         "amount": "Amount",
-        "sub_after_discount": "Subtotal after discount"
+        "sub_after_discount": "Subtotal after discount",
+        "point_discount": "Point Discount"
     },
     "delivery":{
         "information" : "Delivery Information",

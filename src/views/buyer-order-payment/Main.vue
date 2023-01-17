@@ -43,7 +43,7 @@ onMounted(()=>{
             store.order = res.data
             layoutStore.sellerInfo = res.data.user_subscription
             i18n.locale = res.data.campaign.lang
-            if (store.order.campaign.user_subscription.status === "test") router.back()
+            if (store.order.campaign.user_subscription?.status === "test") router.back()
             console.log(store.order)
         }
     )

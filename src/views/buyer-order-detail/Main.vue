@@ -170,6 +170,19 @@
                     </div>
 
 
+                    <!-- POINT DISCOUNT -->
+                    <div v-if="buyerOrderStore.order?.point_discount!=0" 
+                        class="flex col-start-1 col-span-3 p-2 py-1">
+                        <div class="mr-auto">{{$t('order_detail.price_summary.point_discount')}}</div>
+                        <div>
+                            {{buyerOrderStore.order.currency}}
+                            {{(Math.floor(buyerOrderStore.order.point_discount * (10 ** buyerOrderStore.order.decimal_places)) / 10 ** buyerOrderStore.order.decimal_places).toLocaleString('en-GB')}}
+                            {{buyerOrderStore.order.price_unit?$t(`global.price_unit.${buyerOrderStore.order.price_unit}`):''}}
+                        </div>
+                    </div>
+
+
+
                     <!-- SUBTOTAL_AFTER_DISCOUNT -->
                     <div v-if="buyerOrderStore.order.discount !=0"
                         class="flex col-start-1 col-span-3 p-2 py-1">

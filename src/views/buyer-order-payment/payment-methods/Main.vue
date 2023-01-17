@@ -23,7 +23,7 @@ import {onMounted, computed, watch, ref} from "vue"
 
 const store = useLSSBuyerOrderStore(); 
 const paymentMetaStore = useLSSPaymentMetaStore()
-const selectIndex = ref(0)
+const selectIndex = ref(null)
 const payments = ref([])
 
 watch(computed(()=>store.order),()=>{
