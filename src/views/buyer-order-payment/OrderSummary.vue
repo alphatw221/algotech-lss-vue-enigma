@@ -106,7 +106,7 @@
 
 
       <!-- SUBTOTAL AFTER DISCOUNT -->
-      <div v-if="store.order.discount != 0 && store.order.campaign||false" class="flex flex-row justify-between mt-2" >
+      <div v-if="store.order.discount != 0 || store.order.point_discount != 0 && store.order.campaign||false" class="flex flex-row justify-between mt-2" >
         <label class="w-fit my-auto whitespace-nowrap">{{$t('cart.subtotal_after_discount')}}</label>
         <span class="font-medium "> 
           {{store.order.campaign.currency}} 

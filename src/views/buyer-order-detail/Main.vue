@@ -184,7 +184,7 @@
 
 
                     <!-- SUBTOTAL_AFTER_DISCOUNT -->
-                    <div v-if="buyerOrderStore.order.discount !=0"
+                    <div v-if="buyerOrderStore.order.discount !=0 || buyerOrderStore.order.point_discount !=0"
                         class="flex col-start-1 col-span-3 p-2 py-1">
                             <div class="mr-auto">{{$t('cart.subtotal_after_discount')}}</div>
                             <div>
