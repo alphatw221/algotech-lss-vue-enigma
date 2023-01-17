@@ -26,7 +26,7 @@
 
       <!-- POINT DISCOUNT -->
       <div v-if="computedPointDiscount != 0 && shoppingCartStore.cart.campaign||false" class="flex flex-row justify-between" >
-        <p class="w-fit my-auto whitespace-nowrap">{{$t('shopping_cart.order_summary.point_discount')}}</p>
+        <p class="w-fit my-auto whitespace-nowrap">{{$t('order.point_discount')}}</p>
         <span class="font-medium text-danger"> 
           {{shoppingCartStore.cart.campaign.currency}} 
           -{{(Math.floor(parseFloat(computedPointDiscount) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toFixed(shoppingCartStore.cart.campaign.decimal_places)}}

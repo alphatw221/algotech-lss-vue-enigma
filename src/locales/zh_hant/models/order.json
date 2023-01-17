@@ -40,7 +40,7 @@
         "pay_mongo":"Pay Mongo",
         "rapyd":"Rapyd"
     },
-
+    "point_discount":"點數折扣",
     "subtotal_after_discount":"折扣後小計",
 
     "payment_completed":"付款完成",

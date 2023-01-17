@@ -39,7 +39,7 @@
         "pay_mongo":"Pay Mongo",
         "rapyd":"Rapyd"
     },
-
+    "point_discount":"Point Discount",
     "subtotal_after_discount":"Subtotal After Discount",
     
     "payment_completed":"Payment Completed",

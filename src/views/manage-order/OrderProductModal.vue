@@ -94,15 +94,27 @@
                                 {{manageOrderStore.order?.price_unit?$t(`global.price_unit.${manageOrderStore.order?.price_unit}`):''}}
                             </div>
                         </div>
+                        
+                        <!-- POINT DISCOUNT -->
+                        <div
+                            v-if="manageOrderStore.order.point_discount" 
+                            class="flex col-start-1 col-span-3 p-2">
+                            <div class="mr-auto font-bold">{{$t('order.point_discount')}} </div>
+                            <div class="lg:mr-0" >
+                                {{manageOrderStore.order?.currency}} 
+                                {{(Math.floor((parseFloat(manageOrderStore.order.point_discount)) * (10 ** manageOrderStore.order?.decimal_places)) / 10 ** manageOrderStore.order?.decimal_places).toLocaleString('en-GB')}}
+                                {{manageOrderStore.order?.price_unit?$t(`global.price_unit.${manageOrderStore.order?.price_unit}`):''}}
+                            </div>
+                        </div>
 
                         <!-- SUBTOTAL_AFTER_DISCOUNT -->
                         <div
-                            v-if="manageOrderStore.order.discount" 
+                            v-if="manageOrderStore.order.discount!=0||manageOrderStore.order.point_discount!=0" 
                             class="flex col-start-1 col-span-3 p-2">
                             <div class="mr-auto font-bold">{{$t('cart.subtotal_after_discount')}}</div>
                             <div class="lg:mr-0" >
                                 {{manageOrderStore.order?.currency}} 
-                                {{ (Math.floor(parseFloat(Math.max(manageOrderStore.order.subtotal-manageOrderStore.order.discount,0)) * (10 ** manageOrderStore.order?.decimal_places)) / 10 ** manageOrderStore.order?.decimal_places).toLocaleString('en-GB')}}
+                                {{ (Math.floor(parseFloat(Math.max(manageOrderStore.order.subtotal-manageOrderStore.order.discount-manageOrderStore.order.point_discount,0)) * (10 ** manageOrderStore.order?.decimal_places)) / 10 ** manageOrderStore.order?.decimal_places).toLocaleString('en-GB')}}
                                 {{manageOrderStore.order?.price_unit?$t(`global.price_unit.${manageOrderStore.order?.price_unit}`):''}}
                             </div>
                         </div>

@@ -173,7 +173,7 @@
                     <!-- POINT DISCOUNT -->
                     <div v-if="buyerOrderStore.order?.point_discount!=0" 
                         class="flex col-start-1 col-span-3 p-2 py-1">
-                        <div class="mr-auto">{{$t('order_detail.price_summary.point_discount')}}</div>
+                        <div class="mr-auto">{{$t('order.point_discount')}}</div>
                         <div>
                             {{buyerOrderStore.order.currency}}
                             {{(Math.floor(buyerOrderStore.order.point_discount * (10 ** buyerOrderStore.order.decimal_places)) / 10 ** buyerOrderStore.order.decimal_places).toLocaleString('en-GB')}}

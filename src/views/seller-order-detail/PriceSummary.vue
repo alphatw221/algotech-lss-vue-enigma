@@ -33,7 +33,7 @@
 
       <!-- POINT DISCOUNT -->
       <div v-if="sellerOrderDetail.order?.point_discount!=0" class="flex flex-row justify-between mt-2" >
-        <label class="w-fit my-auto whitespace-nowrap">{{$t('shopping_cart.order_summary.point_discount')}}</label>
+        <label class="w-fit my-auto whitespace-nowrap">{{$t('order.point_discount')}}</label>
         <span class="font-medium text-danger"> 
           {{sellerOrderDetail.order?.currency}} 
           -{{(Math.floor(parseFloat(sellerOrderDetail.order?.point_discount) * (10 ** sellerOrderDetail.order?.decimal_places)) / 10 ** sellerOrderDetail.order?.decimal_places).toLocaleString('en-GB')}}

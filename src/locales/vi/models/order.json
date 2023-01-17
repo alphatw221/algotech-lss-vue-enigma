@@ -38,7 +38,7 @@
         "pay_mongo": "Thanh toán cho Mongo",
         "rapyd": "Rapyd"
     },
-
+    "point_discount":"Đổi điểm",
     "subtotal_after_discount": "Tổng phụ sau khi giảm giá",
 
     "payment_completed":"Giao dịch hoàn tất",
