@@ -74,7 +74,9 @@
         "promo_apply":"Mã giảm giá Sakura %{code} được áp dụng",
         "referr_code":"Chia sẻ mã giới thiệu",
         "promo_login":"Vui lòng đăng nhập mạng xã hội để sử dụng mã khuyến mãi",
-        "points_redemption":"Đổi điểm"
+        "points_redemption":"Đổi điểm",
+        "point_discount":"Đổi điểm"
+
         
     },
     "add_item":{

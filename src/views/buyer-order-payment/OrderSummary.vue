@@ -94,12 +94,23 @@
         </span>
       </div>
 
+      <!-- POINT DISCOUNT -->
+      <div v-if="store.order.point_discount != 0 && store.order.campaign||false" class="flex flex-row justify-between mt-2" >
+        <label class="w-fit my-auto whitespace-nowrap">{{ $t('shopping_cart.order_summary.point_discount')}} </label>
+        <span class="font-medium text-danger"> 
+          {{store.order.campaign.currency}} 
+          -{{(Math.floor(parseFloat(store.order.point_discount) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places).toFixed(store.order.campaign.decimal_places)}}
+          {{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
+        </span>
+      </div>
+
+
       <!-- SUBTOTAL AFTER DISCOUNT -->
       <div v-if="store.order.discount != 0 && store.order.campaign||false" class="flex flex-row justify-between mt-2" >
         <label class="w-fit my-auto whitespace-nowrap">{{$t('cart.subtotal_after_discount')}}</label>
         <span class="font-medium "> 
           {{store.order.campaign.currency}} 
-          {{(Math.floor(parseFloat(Math.max(store.order.subtotal-store.order.discount,0)) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places).toFixed(store.order.campaign.decimal_places)}}
+          {{(Math.floor(parseFloat(Math.max(store.order.subtotal-store.order.discount-store.order.point_discount,0)) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places).toFixed(store.order.campaign.decimal_places)}}
           {{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
         </span>
       </div>

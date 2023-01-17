@@ -75,7 +75,9 @@
         "promo_apply":"优惠代码  %{code} 已激活",
         "referr_code":"分享推荐码",
         "promo_login":"登入社群帐号以使用优惠折扣码",
-        "points_redemption":"点数折抵"
+        "points_redemption":"点数折抵",
+        "point_discount":"点数折抵"
+
     },
     "add_item":{
         "select_add_ons":"加入商品",

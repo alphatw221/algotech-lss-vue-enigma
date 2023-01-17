@@ -189,7 +189,7 @@
                             <div class="mr-auto">{{$t('cart.subtotal_after_discount')}}</div>
                             <div>
                                 {{buyerOrderStore.order.currency}}
-                                {{(Math.floor(Math.max((buyerOrderStore.order.subtotal - buyerOrderStore.order.discount),0) * (10 ** buyerOrderStore.order.decimal_places)) / 10 ** buyerOrderStore.order.decimal_places).toLocaleString('en-GB')}}
+                                {{(Math.floor(Math.max((buyerOrderStore.order.subtotal - buyerOrderStore.order.discount - buyerOrderStore.order.point_discount),0) * (10 ** buyerOrderStore.order.decimal_places)) / 10 ** buyerOrderStore.order.decimal_places).toLocaleString('en-GB')}}
                                 {{buyerOrderStore.order.price_unit?$t(`global.price_unit.${buyerOrderStore.order.price_unit}`):''}}
                             </div>
                     </div>
