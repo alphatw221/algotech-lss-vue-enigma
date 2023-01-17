@@ -103,28 +103,27 @@ thead th{
 	}
 
 	td {
-		border: none;
-		position: relative;
-		padding-left: 50%;
+	border: none;
+	position: relative;
+	padding-left: 50%;
     padding-right: 20px !important;
-		text-align: right;
-		box-shadow: none !important;
-		padding-top: 0px !important;
+	text-align: right;
+	box-shadow: none !important;
+	padding-top: 0px !important;
     padding-bottom: 0px !important;
     min-height: 30px !important;
     font-size: 14px;
 	}
 
 	td:before {
-		position: absolute;
-		left: 20px;
+	position: absolute;
+	left: 20px;
     text-align: left;
-		width: 45%;
-		padding-right: 10px;
-		font-weight: bold;
-		box-shadow: none !important;
-		background-color: white !important;
-		padding-top: 0px !important;
+	width: 45%;
+	padding-right: 10px;
+	box-shadow: none !important;
+	background-color: white !important;
+	padding-top: 0px !important;
 	}
   .imgtd:before {
     display: none;
@@ -143,7 +142,7 @@ thead th{
    td:nth-of-type(2){
 		width:100%;
     display: inline-block;
-    font-weight:600;
+    font-weight:500;
     color:theme("colors.primary");
     padding-left: 0px !important;
     text-align: center;
