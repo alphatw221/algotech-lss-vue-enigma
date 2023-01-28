@@ -623,8 +623,8 @@ const area_computed = computed({
   },
   set:index=>{
     areaIndex.value = index
-    if(twZipcodeStore.data[cityIndex.value]?.areas[index]?.name) delivery_validate.value.shipping_location.$model
-    if(twZipcodeStore.data[cityIndex.value]?.areas[index]?.zip) delivery_validate.value.shipping_postcode.$model
+    if(twZipcodeStore.data[cityIndex.value]?.areas[index]?.name) delivery_validate.value.shipping_location.$model= twZipcodeStore.data[cityIndex.value]?.areas[index]?.name
+    if(twZipcodeStore.data[cityIndex.value]?.areas[index]?.zip) delivery_validate.value.shipping_postcode.$model = twZipcodeStore.data[cityIndex.value]?.areas[index]?.zip
   }
 })
 
