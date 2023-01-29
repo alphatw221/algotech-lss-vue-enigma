@@ -256,7 +256,7 @@
                     </div>
 
                     <!--Street Address-->
-                    <div class="flex flex-col gap-1" v-if="!shoppingCartStore.user_subscription?.user_plan?.display?.order_shipping_property_type">
+                    <div class="flex flex-col gap-1" v-if="shoppingCartStore.user_subscription?.user_plan?.display?.order_shipping_property_type">
                       <p>{{$t('shopping_cart.delivery_tab.property')}}</p>
 
                       <select class="form-select h-[35px] sm:h-[42px] w-full" v-model="shipping_info.shipping_property_type">
