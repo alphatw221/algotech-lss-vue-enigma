@@ -533,7 +533,7 @@ const shipping_option_index = ref("No")
 const shipping_info= ref({
 			shipping_option:"",
       shipping_method: "delivery",
-      shipping_first_name: "",
+      shipping_first_name: (layoutStore?.userInfo?.facebook_info?.name||""),
       shipping_email: "",
       shipping_cellphone: "",
       shipping_gender: "",
@@ -725,11 +725,12 @@ onMounted(()=>{
     shipping_option_index_computed.value = shoppingCartStore.shipping_info.shipping_option_index
   })
   if(!isAnonymousUser){
+
     buyer_retrieve_latest_order_shipping_info(layoutStore.alert).then(res=>{
       res.data.shipping_method='delivery'     //default value
       res.data.shipping_option_data={}        //default value
       console.log(res.data)
-      shipping_info.value = res.data
+      shipping_info.value = {...shipping_info.value, ...res.data}
       city_computed.value = (twZipcodeStore.data.findIndex(city => city.name == shipping_info.value.shipping_region) == -1) ? res.data.shipping_region : twZipcodeStore.data.findIndex(city => city.name == shipping_info.value.shipping_region)
       areaIndex.value = (twZipcodeStore.data[city_computed.value]?.areas) ? twZipcodeStore.data[city_computed.value]?.areas.findIndex(area => area.name == shipping_info.value.shipping_location) : res.data.shipping_location
       show.value = true
