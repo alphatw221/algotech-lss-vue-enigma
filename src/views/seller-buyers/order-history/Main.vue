@@ -6,7 +6,7 @@
                 <div class="w-28 h-28 flex-none image-fit mr-1">
                     <img alt="" class="rounded-full zoom-in" :src="userAvatar" />
                 </div>
-                <div class="text-lg"> {{ sellerLayoutStore.buyer.name }}</div>
+                <div class="text-lg"> {{ sellerLayoutStore?.buyer?.name }}</div>
             </div>
         </div>
         <div for="orderHistoryTable" class="box border-2 border-slate-200 col-start-1 col-span-12 lg:col-start-4 lg:col-span-9 2xl:col-start-4 2xl:col-span-9">

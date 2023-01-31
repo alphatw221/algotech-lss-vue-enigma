@@ -261,7 +261,7 @@
 
                       <select class="form-select h-[35px] sm:h-[42px] w-full" v-model="shipping_info.shipping_property_type">
                           <option :value="null"></option>
-                          <option value="HOB">HOB</option>
+                          <option value="HDB">HDB</option>
                           <option value="Condo/Apartment">Condo/Apartment</option>
                           <option value="Landed">Landed</option>
                           <option value="Office">Office</option>

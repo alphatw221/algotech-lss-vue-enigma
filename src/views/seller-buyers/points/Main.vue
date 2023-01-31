@@ -2,15 +2,15 @@
   <div class="flex flex-col m-0 my-5 sm:mt-8 lg:mx-20 gap-5">
     <h1 class="mx-auto sm:mr-auto text-xl font-medium sm:text-2xl" > {{$t('order_points.points')}} </h1>
     <button class="ml-auto btn btn-primary" @click="showPointAdjustModal()">  {{$t('buyers.buyer_point.adjust_point')}}</button>
-    <div v-if="sellerLayoutStore.buyer !== null"
+    <div v-if="sellerLayoutStore.buyer"
       class="w-full box sm:px-20 py-5 flex flex-col sm:flex-row justify-between gap-3 s:gap-5"> 
         <div class="h-fit w-fit flex flex-col sm:flex-row items-center justify-center gap-5 mx-auto sm:mx-0">
           <div class="w-24 h-24 flex-none image-fit mr-1">
               <img alt="" class="rounded-full" :src="userAvatar" />
           </div>
           <div class="flex flex-col"> 
-            <span class="text-lg text-center sm:text-left"> {{ sellerLayoutStore.buyer.name }}</span>
-            <span class="text-lg"> {{ sellerLayoutStore.buyer.email }}</span>
+            <span class="text-lg text-center sm:text-left"> {{ sellerLayoutStore?.buyer?.name }}</span>
+            <span class="text-lg"> {{ sellerLayoutStore?.buyer.email }}</span>
           </div>
         </div>
         <div class="my-auto sm:ml-20 text-[20px] flex flex-col gap-4 text-center sm:text-left"> 

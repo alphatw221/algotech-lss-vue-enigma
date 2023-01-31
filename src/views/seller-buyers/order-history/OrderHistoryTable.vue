@@ -112,7 +112,7 @@ const getOrderHistoryListData = ()=>{
   ready.value= false
 
 	list_buyer_order_history(buyer_id, currentPage.value, pageSize.value, layoutStore.alert).then(response => {
-    layoutStore.buyer = response.data.results ? response.data.results[0].buyer : response.data[0].buyer
+    layoutStore.buyer = response.data.results ? response.data.results?.[0]?.buyer : response.data?.[0]?.buyer
 		dataCount.value = response.data.count ? response.data.count : response.data.length
 		orders.value = response.data.results ? response.data.results : response.data
     ready.value= true
