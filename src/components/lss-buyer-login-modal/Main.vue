@@ -77,9 +77,9 @@ const continueAsGuest = ()=>{
 
 onMounted(()=>{
     // console.log(navigator.userAgent.toLowerCase())
-    if (navigator.userAgent.toLowerCase().indexOf('chrome') < 0 && navigator.userAgent.toLowerCase().indexOf('safari') < 0 ) {
-        showReminder.value=true
-    }
+    // if (navigator.userAgent.toLowerCase().indexOf('chrome') < 0 && navigator.userAgent.toLowerCase().indexOf('safari') < 0 ) {
+    //     showReminder.value=true
+    // }
 })
 const copyLink = ()=>{
     navigator.clipboard.writeText(currentUrl.value).then(()=>{
