@@ -10,6 +10,7 @@
     "minimum_digits":"minimum %{number} digits",
     "maximum_digits":"maximum %{number} digits",
     "exceed_maximum_length": "allow maximum length is %{number}",
+    "below_minimum_length": "allow minimum length is %{number}",
     "bytes_between_length": "accept %{number} characters",
     "name_between_length": "accept %{number} characters",
     "address_between_length": "accept %{number} characters",

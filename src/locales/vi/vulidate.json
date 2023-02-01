@@ -1,4 +1,24 @@
 {
-    "required":"trường này là bắt buộc",
-    "requiredIf":"trường này là bắt buộc"
+    "required":"Required",
+    "maxLength":" Exceed max Length",
+    "requiredIf":"required",
+    "MinValue":"below minimum value",
+    "invalid_email":"invalid email format",
+    "invalid_address":"invalid address format",
+    "invalid_cellphone":"invalid cellphone format",
+    "not_same_as":"need to be same as %{field}",
+    "minimum_digits":"minimum %{number} digits",
+    "maximum_digits":"maximum %{number} digits",
+    "exceed_maximum_length": "allow maximum length is %{number}",
+    "below_minimum_length": "allow minimum length is %{number}",
+    "bytes_between_length": "accept %{number} characters",
+    "name_between_length": "accept %{number} characters",
+    "address_between_length": "accept %{number} characters",
+    "only_integer": "only allow integer",
+    "required_either_one": "either one is required",
+    "exact_number_length": "please enter %{number} numbers",
+    "exact_word_length": "please enter %{number} words",
+    "contains_special_characters": "can not contain special characters",
+    "tw_cellphone_begining": "invalid cellpone format",
+    "data_invalid": "invalid data"
 }
