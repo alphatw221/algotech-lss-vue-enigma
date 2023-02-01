@@ -44,7 +44,8 @@
     "subtotal_after_discount":"折扣後小計",
 
     "payment_completed":"付款完成",
-
+    "payment_awaiting_confirm":"付款等待確認",
+    
     "platform":"社交平台",
     "platform_options":{
         "facebook":"Facebook",

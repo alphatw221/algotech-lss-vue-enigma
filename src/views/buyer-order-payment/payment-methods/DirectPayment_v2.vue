@@ -206,7 +206,7 @@ const uploadReceipt = () => {
             res => {
                 store.order = res.data
                 uploadReceiptLoading.value = false
-                router.push(`/buyer/order/${route.params.order_oid}/confirmation`)
+                router.push(`/buyer/order/${route.params.order_oid}/awaiting_confirm`)
             }
         ).catch(err=>{
             layoutStore.alert.showMessageToast(i18n.global.t('shopping_cart.err'))

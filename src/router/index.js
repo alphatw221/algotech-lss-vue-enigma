@@ -496,6 +496,12 @@ const routes = [
         component: () => import('@/views/buyer-order-confirmation/Main.vue')
       },
       {  
+        path: "order/:order_oid?/awaiting_confirm",
+        name: "buyer-order-awaiting-confirm-page",
+        beforeEnter: youtubeOrderMiddleware,
+        component: () => import('@/views/buyer-order-awaiting-confirm/Main.vue')
+      },
+      {  
         path: "cart/:cart_oid?",
         name: "buyer-shopping-cart-detail-page",
         beforeEnter: async (to, from)=>{
