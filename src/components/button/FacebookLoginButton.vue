@@ -5,7 +5,7 @@
             data-size="large" 
             data-button-type="login_with" 
             data-layout="default" 
-            data-auto-logout-link="true" 
+            data-auto-logout-link="false" 
             data-use-continue-as="true" 
             scope="public_profile,email" 
             onlogin="checkLoginState()">
