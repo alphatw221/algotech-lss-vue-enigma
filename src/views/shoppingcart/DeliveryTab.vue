@@ -784,7 +784,7 @@ const reciever_rules = computed(()=>{
     shipping_first_name: {
       required: helpers.withMessage(i18n.global.t("vulidate.required"), required),
       // maxLength: helpers.withMessage(i18n.global.t("vulidate.exceed_maximum_length", { number:5 }), maxLength(5)),
-      bytesBtwLength: helpers.withMessage(i18n.global.t("vulidate.name_between_length", { number:'4-10' }), bytesBtwLength(4,10)),
+      bytesBtwLength: helpers.withMessage(i18n.global.t("vulidate.name_between_length", { number:'4-50' }), bytesBtwLength(4,50)),
       specialCharacter: helpers.withMessage(i18n.global.t("vulidate.contains_special_characters") + " ^ ‘ ` ! @ # % & * + ” < > | _ [ ]", specialCharacter)
     },
     shipping_cellphone: {
