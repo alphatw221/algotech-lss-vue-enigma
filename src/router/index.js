@@ -437,6 +437,11 @@ const routes = [
   },
   // -------------------------------Buyer Route-----------------------------
   {
+    path: "/buyer/test",
+    name: "buyer-test-page",
+    component: () => import('@/views/test/test7.vue'),
+  },
+  {
     path: "/buyer/login/:type?/:object_id?",
     name: "buyer-login-page",
     beforeEnter: buyerLoginMiddleware,
