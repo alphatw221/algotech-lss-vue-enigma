@@ -22,6 +22,8 @@
     <div id="debug3"></div>
     <div id="debug4"></div>
     <div id="debug5"></div>
+    <div id="debug6"></div>
+    <div id="debug7"></div>
 </template>
 
 <script setup>
@@ -89,33 +91,45 @@ onMounted(()=>{
 const loginWithFacebook = ()=>{
 
 
-    console.log(FB)
-    console.log(window.FB)
-    document.getElementById('debug1').innerText=FB
-    document.getElementById('debug2').innerText=window.FB
+    // console.log(FB)
+    // console.log(window.FB)
+    // document.getElementById('debug1').innerText=FB
+    // document.getElementById('debug2').innerText=window.FB
+    // try{
+    //     FB.login(res=>{
+    //         console.log(res.status)
+    //         document.getElementById('debug3').innerText=res.status
+
+    //         // if (res.status === 'connected') {
+    //         //     buyer_login_with_facebook({facebook_token: res.authResponse.accessToken})
+    //         //     .then(response => {
+    //         //         cookies.set('access_token', response.data.access)
+    //         //         cookies.set('login_with', 'facebook')
+    //         //     }).then(()=> {
+    //         //         router.go()
+    //         //     })
+    //         // } 
+
+
+    //     }
+    //     ,{scope:'public_profile,email'})
+    // }catch(error){
+    //     console.log(error)
+    //     document.getElementById('debug4').innerText=error
+    // }
+    // document.getElementById('debug5').innerText='end'
     try{
-        FB.login(res=>{
+        FB.getLoginStatus(res=>{
             console.log(res.status)
-            document.getElementById('debug3').innerText=res.status
+            document.getElementById('debug6').innerText=res.status
 
-            if (res.status === 'connected') {
-                buyer_login_with_facebook({facebook_token: res.authResponse.accessToken})
-                .then(response => {
-                    cookies.set('access_token', response.data.access)
-                    cookies.set('login_with', 'facebook')
-                }).then(()=> {
-                    router.go()
-                })
-            } 
+            
 
-
-        }
-        ,{scope:'public_profile,email'})
+        })
     }catch(error){
         console.log(error)
-        document.getElementById('debug4').innerText=error
+        document.getElementById('debug7').innerText=error
     }
-    document.getElementById('debug5').innerText='end'
 }
 
     
