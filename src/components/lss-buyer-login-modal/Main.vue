@@ -29,10 +29,12 @@
           <h1 class=" mx-5">{{$t('shopping_cart.login.social_login')}}</h1>
 
           <div class="flex flex-col items-center mt-10 gap-2" >
-              <FacebookLoginButton2 role="buyer" :redirect_uri="currentUrl"/>
-              <!-- <GoogleLoginButton2 role="buyer" :redirect_uri="currentUrl"/> -->
-              <!-- <FacebookLoginButton block role='buyer'/> -->
-              <GoogleLoginButton block role='buyer'/>
+              <FacebookLoginButton block role='buyer' v-if="computedIsSupportBrowser"/>
+              <FacebookLoginButton2 role="buyer" :redirect_uri="currentUrl" v-else/>
+              
+              <GoogleLoginButton block role='buyer' v-if="computedIsSupportBrowser"/>
+              <GoogleLoginButton2 role="buyer" :redirect_uri="currentUrl" v-else/>
+
           </div>
           <!-- <div v-if="showReminder">
             <p class="text-danger text-center mt-5 md:mt-5 text-sm lg:text-lg mr-4 ml-4">
@@ -68,7 +70,7 @@ import GoogleLoginButton from '@/components/button/GoogleLoginButton.vue';
 import FacebookLoginButton2 from '@/components/button/FacebookLoginButton2.vue';
 import GoogleLoginButton2 from '@/components/button/GoogleLoginButton2.vue';
 import { useRoute, useRouter } from "vue-router"
-import { ref, onMounted, onUnmounted, defineProps, defineEmits} from 'vue'
+import { ref, onMounted, onUnmounted, defineProps, defineEmits, computed} from 'vue'
 import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout";
 const layoutStore = useLSSBuyerLayoutStore();
 const showReminder = ref(false)
@@ -79,12 +81,18 @@ const continueAsGuest = ()=>{
   layoutStore.showLoginModal=false
 }
 
-onMounted(()=>{
-    // console.log(navigator.userAgent.toLowerCase())
-    if (navigator.userAgent.toLowerCase().indexOf('chrome') < 0 && navigator.userAgent.toLowerCase().indexOf('safari') < 0 ) {
-        showReminder.value=true
-    }
+const computedIsSupportBrowser = computed(()=>{
+
+  if (navigator.userAgent.toLowerCase().indexOf('chrome') < 0 && navigator.userAgent.toLowerCase().indexOf('safari') < 0 ) return false
+  return true
 })
+
+// onMounted(()=>{
+//     // console.log(navigator.userAgent.toLowerCase())
+//     if (navigator.userAgent.toLowerCase().indexOf('chrome') < 0 && navigator.userAgent.toLowerCase().indexOf('safari') < 0 ) {
+//         showReminder.value=true
+//     }
+// })
 const copyLink = ()=>{
     navigator.clipboard.writeText(currentUrl.value).then(()=>{
         alert('copied!')

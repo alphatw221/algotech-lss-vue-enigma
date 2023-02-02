@@ -1,6 +1,6 @@
 <template>
     <a class="loginBtn loginBtn--google" 
-    :href="`https://accounts.google.com/o/oauth2/auth?client_id=536277208137-okgj3vg6tskek5eg6r62jis5didrhfc3.apps.googleusercontent.com&scope=public_profile,email&response_type=token&redirect_uri=${props.redirect_uri}`">Login with Google </a>
+    :href="`https://accounts.google.com/o/oauth2/auth?client_id=536277208137-okgj3vg6tskek5eg6r62jis5didrhfc3.apps.googleusercontent.com&scope=email+profile&response_type=code&redirect_uri=${redirect_uri}&state=${computedState}`">Login with Google </a>
 
 
 </template>
@@ -11,8 +11,8 @@ import { buyer_login_with_google, seller_login_with_google } from '@/api_v2/user
 import { useCookies } from "vue3-cookies"
 import { useRoute, useRouter } from "vue-router";
 import { ref, reactive, onMounted, getCurrentInstance, onUnmounted, watch, computed, defineProps, onBeforeMount } from "vue";
+
 const props = defineProps({
-  redirect_uri:String,
   role:String
 });
 
@@ -20,29 +20,42 @@ const { cookies } = useCookies();
 const route = useRoute();
 const router = useRouter();
 
-const key = "access_token"
-onBeforeMount(()=>{
+// const redirect_uri = 'https://70bc-58-115-115-75.jp.ngrok.io/oauth/redirect/'
 
-    // const hash = window.location.hash
-    // if(!hash)return
-    // const access_token = hash.substring(hash.indexOf(key)+key.length+1,hash.indexOf("&"))
-    // if(!access_token)return
-    // if(cookies.get('access_token'))return 
-
-    // const loginRequest = this.role=='buyer' ? buyer_login_with_google : seller_login_with_google
-
-    // loginRequest({google_token:res.credential})
-    // .then(response => {
-    //     cookies.set('access_token', response.data.access)
-    //     cookies.set("refresh_token", response.data.refresh)
-    //     cookies.set('login_with', 'facebook')
-    // }).then(()=> {
-    //     router.go()
-    // })
-
+const redirect_uri = import.meta.env.VITE_APP_ROOT_API+'/oauth/redirect/'
+const computedState = computed(()=>{
+    const state = {
+        redirect_to:window.location.href,
+        redirect_uri:redirect_uri,
+        platform:'google'
+    }
+    return JSON.stringify(state)
 })
 
-</script>
+
+// const key = "access_token"
+// onBeforeMount(()=>{
+
+//     // const hash = window.location.hash
+//     // if(!hash)return
+//     // const access_token = hash.substring(hash.indexOf(key)+key.length+1,hash.indexOf("&"))
+//     // if(!access_token)return
+//     // if(cookies.get('access_token'))return 
+
+//     // const loginRequest = this.role=='buyer' ? buyer_login_with_google : seller_login_with_google
+
+//     // loginRequest({google_token:res.credential})
+//     // .then(response => {
+//     //     cookies.set('access_token', response.data.access)
+//     //     cookies.set("refresh_token", response.data.refresh)
+//     //     cookies.set('login_with', 'facebook')
+//     // }).then(()=> {
+//     //     router.go()
+//     // })
+
+// })
+
+// </script>
 
 <style scope>
 

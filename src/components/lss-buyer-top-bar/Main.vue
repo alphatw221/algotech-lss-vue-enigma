@@ -170,7 +170,8 @@ const logout = () => {
   cookies.remove('access_token')
   cookies.remove('login_with')
   dom('.dropdown-menu').removeClass('show')
-  router.go()
+  // router.go()    some browser won't work
+  location.reload()
   
 }
 
