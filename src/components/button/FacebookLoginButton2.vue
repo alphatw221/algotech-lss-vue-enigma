@@ -115,7 +115,7 @@ const loginWithFacebook = ()=>{
         console.log(error)
         document.getElementById('debug4').innerText=error
     }
-    
+    document.getElementById('debug5').innerText='end'
 }
 
     
