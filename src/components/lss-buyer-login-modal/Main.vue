@@ -27,11 +27,14 @@
         <div class=" w-full flex flex-col items-center text-center
           lg:mt-20 lg:w-1/2 lg:px-2 lg:border-none h-[200px]">
           <h1 class=" mx-5">{{$t('shopping_cart.login.social_login')}}</h1>
-          <div class="flex flex-col items-center mt-10 gap-2" v-if="!showReminder">
-              <FacebookLoginButton block role='buyer'/>
+
+          <div class="flex flex-col items-center mt-10 gap-2" >
+              <FacebookLoginButton2 role="buyer" :redirect_uri="currentUrl"/>
+              <!-- <GoogleLoginButton2 role="buyer" :redirect_uri="currentUrl"/> -->
+              <!-- <FacebookLoginButton block role='buyer'/> -->
               <GoogleLoginButton block role='buyer'/>
           </div>
-          <div v-if="showReminder">
+          <!-- <div v-if="showReminder">
             <p class="text-danger text-center mt-5 md:mt-5 text-sm lg:text-lg mr-4 ml-4">
               {{$t('shopping_cart.login.err_login')}}</p>
           </div>
@@ -43,7 +46,7 @@
                       <p class="text-xs">copy</p>
                   </div>
               </a>
-          </div>
+          </div> -->
         </div>
 
       </ModalBody>
@@ -62,7 +65,8 @@
 
 import FacebookLoginButton from '@/components/button/FacebookLoginButton.vue';
 import GoogleLoginButton from '@/components/button/GoogleLoginButton.vue';
-
+import FacebookLoginButton2 from '@/components/button/FacebookLoginButton2.vue';
+import GoogleLoginButton2 from '@/components/button/GoogleLoginButton2.vue';
 import { useRoute, useRouter } from "vue-router"
 import { ref, onMounted, onUnmounted, defineProps, defineEmits} from 'vue'
 import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout";

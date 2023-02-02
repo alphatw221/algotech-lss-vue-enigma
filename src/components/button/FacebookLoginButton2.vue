@@ -1,141 +1,97 @@
 <template>
+    <a class="loginBtn loginBtn--facebook" :href="`https://www.facebook.com/v15.0/dialog/oauth?client_id=967598017063136&scope=public_profile,email&response_type=token&redirect_uri=${props.redirect_uri}`">Login with Facebook</a>
 
-    <button type="button" @click="loginWithFacebook()"> login with facebook</button>
-    <!-- <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
-    </fb:login-button> -->
-
-
-    <!-- <div id="spinner">
-        <div class="fb-login-button" 
-            data-width="300px"
-            data-size="large" 
-            data-button-type="login_with" 
-            data-layout="default" 
-            data-auto-logout-link="false" 
-            data-use-continue-as="true" 
-            scope="public_profile,email" 
-            onlogin="checkLoginState()">
-        </div>
-    </div> -->
-    <div id="debug1"></div>
-    <div id="debug2"></div>
-    <div id="debug3"></div>
-    <div id="debug4"></div>
-    <div id="debug5"></div>
-    <div id="debug6"></div>
-    <div id="debug7"></div>
 </template>
 
 <script setup>
 import loadScript from '@/libs/loadScript.js';
 import { buyer_login_with_facebook, seller_login_with_facebook} from '@/api_v2/user'
-import { ref, reactive, onMounted, getCurrentInstance, onUnmounted, watch, computed } from "vue";
+import { ref, reactive, onMounted, getCurrentInstance, onUnmounted, watch, computed, defineProps, onBeforeMount } from "vue";
 import { useCookies } from "vue3-cookies"
 import { useRoute, useRouter } from "vue-router";
+
+const props = defineProps({
+  redirect_uri:String,
+  role:String
+});
 
 
 const { cookies } = useCookies();
 const route = useRoute();
 const router = useRouter();
-const role = route.path.split('/')[1]
-onMounted(()=>{
-
-    var div = document.createElement( "div" )
-    div.id='fb-root'
-
-    var script = document.createElement( "script" )
-    script.id='fb-sdk-script'
-    script.async=true
-    script.defer=true
-    script.crossOrigin="anonymous"
-    script.src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v15.0&appId=967598017063136&autoLogAppEvents=1"
-    script.nonce="sdNz3djI"
-
-    var body = document.getElementsByTagName( "body" )[0]
-    body.insertBefore(script, body.firstChild)
-    body.insertBefore(div, body.firstChild)
 
 
 
+const key = "access_token"
+onBeforeMount(()=>{
+    const hash = window.location.hash
+    if(!hash)return
+    const access_token = hash.substring(hash.indexOf(key)+key.length+1,hash.indexOf("&"))
+    if(!access_token)return
+    if(cookies.get('access_token'))return 
 
-    //facebook SDK use eval() at backend
-    // loadScript("https://connect.facebook.net/en_US/sdk.js",()=>{
-    //     console.log("FB SDK loaded")
-    //     window.fbAsyncInit = function() {
-    //         window.FB.init({
-    //             appId: import.meta.env.VITE_APP_FB_APP_ID, 
-    //             cookie: true,
-    //             xfbml: true,
-    //             version: "v13.0",
-    //         });
-    //     }
-    // });
-    // window.checkLoginState = () => {
-    //     window.FB.getLoginStatus(response => {
-    //         if (response.status === 'connected') {
-    //             const loginRequest = role == 'buyer' ? buyer_login_with_facebook : seller_login_with_facebook
-
-    //             loginRequest({facebook_token: response.authResponse.accessToken})
-    //             .then(response => {
-    //                 cookies.set('access_token', response.data.access)
-    //                 cookies.set('login_with', 'facebook')
-    //             }).then(()=> {
-    //                 router.go()
-    //             })
-    //         } 
-    //     });
-    // }
-})
-
-
-const loginWithFacebook = ()=>{
-
-
-    // console.log(FB)
-    // console.log(window.FB)
-    // document.getElementById('debug1').innerText=FB
-    // document.getElementById('debug2').innerText=window.FB
-    // try{
-    //     FB.login(res=>{
-    //         console.log(res.status)
-    //         document.getElementById('debug3').innerText=res.status
-
-    //         // if (res.status === 'connected') {
-    //         //     buyer_login_with_facebook({facebook_token: res.authResponse.accessToken})
-    //         //     .then(response => {
-    //         //         cookies.set('access_token', response.data.access)
-    //         //         cookies.set('login_with', 'facebook')
-    //         //     }).then(()=> {
-    //         //         router.go()
-    //         //     })
-    //         // } 
-
-
-    //     }
-    //     ,{scope:'public_profile,email'})
-    // }catch(error){
-    //     console.log(error)
-    //     document.getElementById('debug4').innerText=error
-    // }
-    // document.getElementById('debug5').innerText='end'
-    try{
-        FB.getLoginStatus(res=>{
-            console.log(res.status)
-            document.getElementById('debug6').innerText=res.status
-
-            
-
-        })
-    }catch(error){
-        console.log(error)
-        document.getElementById('debug7').innerText=error
-    }
-}
-
+    const loginRequest = props.role == 'buyer' ? buyer_login_with_facebook : seller_login_with_facebook
+    loginRequest({facebook_token: access_token})
+    .then(response => {
+        cookies.set('access_token', response.data.access)
+        cookies.set('login_with', 'facebook')
+    }).then(()=> {
+        router.go()
+    })
     
 
-onUnmounted(()=>{
-    document.getElementById('fb-root').remove()
-    document.getElementById('fb-sdk-script').remove()
 })
+
 </script>
+
+<style scope>
+
+/* Shared */
+.loginBtn {
+  box-sizing: border-box;
+  position: relative;
+  width: 16em;  
+  margin: 0.2em;
+  padding: 0 15px 0 46px;
+  border: none;
+  text-align: left;
+  line-height: 34px;
+  white-space: nowrap;
+  border-radius: 0.2em;
+  font-size: 16px;
+  color: #FFF;
+}
+.loginBtn:before {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 34px;
+  height: 100%;
+}
+.loginBtn:focus {
+  outline: none;
+}
+.loginBtn:active {
+  box-shadow: inset 0 0 0 32px rgba(0,0,0,0.1);
+}
+
+
+/* Facebook */
+.loginBtn--facebook {
+  background-color: #4C69BA;
+  background-image: linear-gradient(#4C69BA, #3B55A0);
+  /*font-family: "Helvetica neue", Helvetica Neue, Helvetica, Arial, sans-serif;*/
+  text-shadow: 0 -1px 0 #354C8C;
+}
+.loginBtn--facebook:before {
+  border-right: #364e92 1px solid;
+  background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/14082/icon_facebook.png') 6px 6px no-repeat;
+}
+.loginBtn--facebook:hover,
+.loginBtn--facebook:focus {
+  background-color: #5B7BD5;
+  background-image: linear-gradient(#5B7BD5, #4864B1);
+}
+</style>
