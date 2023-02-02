@@ -21,7 +21,7 @@ const route = useRoute();
 const router = useRouter();
 
 // const redirect_uri = 'https://70bc-58-115-115-75.jp.ngrok.io/oauth/redirect/'
-const redirect_uri = import.meta.env.VITE_APP_ROOT_API
+const redirect_uri = import.meta.env.VITE_APP_ROOT_API+'/oauth/redirect/'
 const computedState = computed(()=>{
     const state = {
         redirect_to:window.location.href,
