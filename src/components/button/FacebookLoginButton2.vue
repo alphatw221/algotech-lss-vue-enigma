@@ -1,5 +1,6 @@
 <template>
-    <a class="loginBtn loginBtn--facebook" :href="`https://www.facebook.com/v15.0/dialog/oauth?client_id=967598017063136&scope=public_profile,email&response_type=token&redirect_uri=${props.redirect_uri}`">Login with Facebook</a>
+    <a class="loginBtn loginBtn--facebook" 
+    :href="`https://www.facebook.com/v15.0/dialog/oauth?client_id=967598017063136&scope=public_profile,email&response_type=code&redirect_uri=${redirect_uri}&state=${computedState}`">Login with Facebook</a>
 
 </template>
 
@@ -11,7 +12,6 @@ import { useCookies } from "vue3-cookies"
 import { useRoute, useRouter } from "vue-router";
 
 const props = defineProps({
-  redirect_uri:String,
   role:String
 });
 
@@ -20,27 +20,37 @@ const { cookies } = useCookies();
 const route = useRoute();
 const router = useRouter();
 
+// const redirect_uri = 'https://70bc-58-115-115-75.jp.ngrok.io/oauth/redirect/'
+const redirect_uri = import.meta.env.VITE_APP_ROOT_API
+const computedState = computed(()=>{
+    const state = {
+        redirect_to:window.location.href,
+        redirect_uri:redirect_uri,
+        platform:'facebook'
+    }
+    return JSON.stringify(state)
+})
+// const redirect_uri = import.meta.env.VITE_APP_ROOT_API+'/oauth/redirect'
 
+// const key = "access_token"
+// onBeforeMount(()=>{
+//     const hash = window.location.hash
+//     if(!hash)return
+//     const access_token = hash.substring(hash.indexOf(key)+key.length+1,hash.indexOf("&"))
+//     if(!access_token)return
+//     if(cookies.get('access_token'))return 
 
-const key = "access_token"
-onBeforeMount(()=>{
-    const hash = window.location.hash
-    if(!hash)return
-    const access_token = hash.substring(hash.indexOf(key)+key.length+1,hash.indexOf("&"))
-    if(!access_token)return
-    if(cookies.get('access_token'))return 
-
-    const loginRequest = props.role == 'buyer' ? buyer_login_with_facebook : seller_login_with_facebook
-    loginRequest({facebook_token: access_token})
-    .then(response => {
-        cookies.set('access_token', response.data.access)
-        cookies.set('login_with', 'facebook')
-    }).then(()=> {
-        router.go()
-    })
+//     const loginRequest = props.role == 'buyer' ? buyer_login_with_facebook : seller_login_with_facebook
+//     loginRequest({facebook_token: access_token})
+//     .then(response => {
+//         cookies.set('access_token', response.data.access)
+//         cookies.set('login_with', 'facebook')
+//     }).then(()=> {
+//         router.go()
+//     })
     
 
-})
+// })
 
 </script>
 
