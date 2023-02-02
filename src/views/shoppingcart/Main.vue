@@ -150,6 +150,14 @@ onMounted(()=>{
   if(route.query.tab == 2) shoppingCartStore.openTab = 2
   buyer_retrieve_cart(route.params.cart_oid, buyerLayoutStore.alert).then(
       res => { 
+
+        //check  start
+          //check youtube
+          if(res.data.platform==='youtube' && isAnonymousUser){
+            router.push({name:'buyer-login-page', params:{type:'cart', object_id:route.params.cart_oid}})
+          }
+        //check end
+        
         shoppingCartStore.cart = res.data;
         shoppingCartStore.user_subscription = JSON.parse(JSON.stringify(res.data?.user_subscription))
         shoppingCartStore.product_categories = JSON.parse(JSON.stringify(res.data?.user_subscription?.product_categories||[]))
