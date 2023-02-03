@@ -77,11 +77,11 @@
 		<!-- delivery date -->
 		<div class="flex flex-col flex-wrap justify-between col-span-12 col-start-1 gap-2">
 			<div class="flex flex-row gap-2 items-center"> 
-				<input type="checkbox" class="form-control form-check-input w-[1.5rem] h-[1.5rem]" v-model="useDeliveryDateComputed"/>
+				<input type="checkbox" class="form-control form-check-input w-[1.5rem] h-[1.5rem]" v-model="props.campaign.meta_logistic.is_use_delivery_date_enabled"/>
 				<label class="text-base whitespace-nowrap text-lg font-medium">{{$t('create_campaign.delivery_form.delivery_date')}}</label>
 			</div>
 			<div 
-				v-if="useDeliveryDate" 
+				v-if="props.campaign?.meta_logistic?.is_use_delivery_date_enabled" 
 				class="flex flex-col flex-wrap gap-3 mt-5 sm:flex-row sm:mt-0 z-50">
 				<div class="flex flex-col w-full justify-start gap-2"> 
 					<p> {{$t('campaign.meta_logistic.delivery_date.daterange')}}</p>
@@ -98,7 +98,7 @@
 						years: true,
 					},
 					}" class="block form-control border h-[42px] px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300 " />
-					<p v-if="useDeliveryDate && !props.campaign?.meta_logistic?.delivery_date?.daterange " 
+					<p v-if="props.campaign?.meta_logistic?.is_use_delivery_date_enabled && !props.campaign?.meta_logistic?.delivery_date?.daterange " 
 						class="text-danger">
 						{{$t('create_campaign.delivery_form.errors.Value_is_required')}}</p>
 				</div>
@@ -139,7 +139,7 @@
 					<option v-for=" option, index in optionsStore.deliveryTime" :key="index" :value="option.value"> {{ option.value }} </option> 
 					</TomSelect>
 					<p 
-						v-if="useDeliveryDate 
+						v-if="props.campaign.meta_logistic.is_use_delivery_date_enabled 
 						&& (props.campaign.meta_logistic.delivery_date.options?.length == 0 || props.campaign.meta_logistic.delivery_date.options == null) " 
 						class="text-danger">
 						{{$t('create_campaign.delivery_form.errors.Value_is_required')}}</p>

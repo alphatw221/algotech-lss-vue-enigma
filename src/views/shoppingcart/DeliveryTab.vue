@@ -151,7 +151,7 @@
                   </template>
 
                   <!-- Delivery Date -->
-                  <template v-if="shoppingCartStore.cart.campaign.meta_logistic.delivery_date?.start_at && shoppingCartStore.cart.campaign.meta_logistic.delivery_date?.options && shipping_method_computed === 'delivery' && !shipping_info.shipping_option_data?.is_cvs">
+                  <template v-if="shoppingCartStore.cart.campaign.meta_logistic.is_use_delivery_date_enabled && shoppingCartStore.cart.campaign.meta_logistic.delivery_date?.options && shipping_method_computed === 'delivery' && !shipping_info.shipping_option_data?.is_cvs">
                     <h3 class="whitespace-nowrap lg:-mx-10 xl:-mx-20">{{$t('shopping_cart.delivery_tab.delivery_date')}}</h3>
                     <div class="flex flex-col sm:flex-row gap-3"> 
                       <v-date-picker class="z-49" 
