@@ -1,7 +1,7 @@
 {
     "meta_logistic":{
         "delivery_date":{
-            "daterange":"Dater Range"
+            "daterange":"日期区间"
         }
     }
 }
