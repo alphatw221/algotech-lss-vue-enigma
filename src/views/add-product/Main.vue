@@ -305,14 +305,14 @@ const rules = computed(()=>{
 
 const editorConfig = {
   toolbar: {
-items: [
-	'heading', '|',
-	'bold', 'italic', 'strikethrough', 'underline','link', '|',
-	'blockQuote', 'insertTable', '|',
-	'specialCharacters', 'horizontalLine', 'pageBreak', '|',
-	'-',
-	'undo', 'redo',
-],
+	items: [
+		'heading', '|',
+		'bold', 'italic', 'strikethrough', 'underline','link', '|',
+		'blockQuote', 'insertTable', '|',
+		'specialCharacters', 'horizontalLine', 'pageBreak', '|',
+		'-',
+		'undo', 'redo',
+	],
   },
 };
 

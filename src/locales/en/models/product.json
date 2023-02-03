@@ -1,4 +1,6 @@
 {
+    "name":"Product Name",
+    "sku":"SKU Code",
     "product":"Product",
     "status":"Status",
     "status_options":{

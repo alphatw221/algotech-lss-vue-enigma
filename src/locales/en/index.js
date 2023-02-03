@@ -36,7 +36,7 @@ import discount_code from './models/discount_code.json'
 import buyers from './views/buyers.json'
 import point_transaction from './models/point_transaction'
 import order_report from './views/order_report'
-
+import campaign from './models/campaign'
 import i from './package/iview.json'
 
 export default {
@@ -83,7 +83,7 @@ export default {
     buyers,
     point_transaction,
     order_report,
-
+    campaign,
     //package
     i
 }

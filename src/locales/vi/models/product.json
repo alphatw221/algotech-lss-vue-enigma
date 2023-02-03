@@ -1,4 +1,6 @@
 {
+    "name":"tên sản phẩm",
+    "sku":"Mã SKU",
     "product":"sản phẩm",
     "status":"Sttrạng thái sản phẩmatus",
     "status_options":{

@@ -83,12 +83,33 @@
 			<div 
 				v-if="useDeliveryDate" 
 				class="flex flex-col flex-wrap gap-3 mt-5 sm:flex-row sm:mt-0 z-50">
+				<div class="flex flex-col w-full justify-start gap-2"> 
+					<p> {{$t('campaign.meta_logistic.delivery_date.daterange')}}</p>
+					<Litepicker v-model="props.campaign.meta_logistic.delivery_date.daterange" :options="{
+					autoApply: false,
+					singleMode: false,
+					numberOfColumns: 2,
+					numberOfMonths: 2,
+					showWeekNumbers: true,
+					dropdowns: {
+						minYear: 1990,
+						maxYear: null,
+						months: true,
+						years: true,
+					},
+					}" class="block form-control border h-[42px] px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300 " />
+					<p v-if="useDeliveryDate && !props.campaign?.meta_logistic?.delivery_date?.daterange " 
+						class="text-danger">
+						{{$t('create_campaign.delivery_form.errors.Value_is_required')}}</p>
+				</div>
+
 				<v-date-picker class="" 
 					v-model="deliverydatePicker" 
 					:timezone="timezone" 
 					:columns="$screens({ default: 1, sm: 2 })" 
 					mode="date" is-range is-required is24hr
 					:min-date='new Date()'
+					v-show="false"
 					>
 					<template v-slot="{ inputValue, inputEvents }">
 						<div class="flex items-center justify-center gap-1">
@@ -398,6 +419,8 @@ import { useLSSOptionsStore } from '@/stores/lss-options';
 import { required } from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";
 import { end } from '@popperjs/core';
+
+const daterange = ref([])
 
 const layoutStore = useLSSSellerLayoutStore();
 const optionsStore = useLSSOptionsStore();

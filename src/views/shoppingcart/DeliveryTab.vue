@@ -50,7 +50,7 @@
                   <!-- Ecpay 店到店 -->
                   <template v-if="(shoppingCartStore.cart.campaign.meta_logistic?.ecpay?.enabled == true)">
                     <div class="flex flex-col gap-4">
-                      <template v-for="(item, key, index) in shoppingCartStore.cart.campaign.meta_logistic?.ecpay?.logistics_sub_type" :key="key">
+                      <template v-for="(item, key, index) in shoppingCartStore.cart.campaign.meta_logistic?.ecpay?.logistics_sub_type" :key="index">
                         <div v-if="item?.enabled == true" class="logistic-options border-2 rounded-lg relative"
                           :class="{'border-red-600/90 shadow-sm': shipping_option_index_computed == key}"
                           @click="select_shipping_method('ecpay')& (shipping_option_index_computed = key)"
@@ -159,12 +159,27 @@
                         mode="date" is-required
                         :min-date='shoppingCartStore.cart.campaign.meta_logistic.delivery_date.start_at'
                         :max-date='shoppingCartStore.cart.campaign.meta_logistic.delivery_date.end_at'
+                        v-show="false"
                         >
                         <template v-slot="{ inputValue, inputEvents }">
                           <input :value="inputValue" type="text" v-on="inputEvents"
                             class="border-2 h-[50px] px-10 w-full min-w-[300px] rounded-lg" />
                         </template>
                       </v-date-picker>
+                      <Litepicker v-model="shipping_info.shipping_date" :options="{
+                        autoApply: false,
+                        showWeekNumbers: true,
+                        dropdowns: {
+                          minYear: 1990,
+                          maxYear: null,
+                          months: true,
+                          years: true,
+                        },
+                        minDate:shoppingCartStore?.cart?.campaign?.meta_logistic?.delivery_date?.daterange?.split('~')?.[0],
+                        maxDate:shoppingCartStore?.cart?.campaign?.meta_logistic?.delivery_date?.daterange?.split('~')?.[1],
+                      }" class="block border-2 h-[50px] px-10 w-full min-w-[300px] rounded-lg" />
+
+
                       <div class="flex flex-col w-full"> 
                         <select 
                           class="border-2 h-[50px] w-full rounded-lg px-10 text-[1rem]" 
@@ -547,7 +562,7 @@ const shipping_info= ref({
       shipping_status: "",
       shipping_details: "",
       shipping_remark: "",
-      shipping_date: null,
+      shipping_date: "",
       shipping_date_time:null,
       shipping_time_slot: null,
       pickup_address:"",
@@ -730,7 +745,7 @@ onMounted(()=>{
       res.data.shipping_method='delivery'     //default value
       res.data.shipping_option_data={}        //default value
       console.log(res.data)
-      shipping_info.value = {...shipping_info.value, ...res.data}
+      shipping_info.value = {...shipping_info.value, ...res.data, shipping_date:"", shipping_time_slot:null}
       city_computed.value = (twZipcodeStore.data.findIndex(city => city.name == shipping_info.value.shipping_region) == -1) ? res.data.shipping_region : twZipcodeStore.data.findIndex(city => city.name == shipping_info.value.shipping_region)
       areaIndex.value = (twZipcodeStore.data[city_computed.value]?.areas) ? twZipcodeStore.data[city_computed.value]?.areas.findIndex(area => area.name == shipping_info.value.shipping_location) : res.data.shipping_location
       show.value = true
@@ -824,7 +839,7 @@ const delivery_rules = computed(()=>{
 );
 const time_rules = computed(()=>{
   return{
-    shipping_date_time:{required}, 
+    shipping_date:{required}, 
     shipping_time_slot:{required}
   }}
 );

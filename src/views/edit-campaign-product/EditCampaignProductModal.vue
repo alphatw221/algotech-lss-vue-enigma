@@ -35,6 +35,19 @@
                         <label for="modal-form-1 col-span-1">{{$t(`edit_campaign_product.edit_product_modal.${column.key}`)}}</label>
                     </div>
                 </template>
+                
+                <div class="col-span-12"  v-else-if="column.key === 'name'">
+                    <label for="modal-form-1">{{$t(`product.${column.key}`)}}</label>
+                    <input type="text" class="form-control" v-model="campaignProduct[column.key]"/>
+                    
+                </div>
+
+                <div class="col-span-12"  v-else-if="column.key === 'sku'">
+                    <label for="modal-form-1">{{$t(`product.${column.key}`)}}</label>
+                    <input type="text" class="form-control" v-model="campaignProduct[column.key]"/>
+                    
+                </div>
+
 
                 <div class="col-span-12" v-else-if="column.key === 'type'">
                     <label for="modal-form-1">{{$t(`edit_campaign_product.edit_product_modal.${column.key}`)}}</label>
@@ -130,12 +143,19 @@ const campaignDetailStore = useCampaignDetailStore()
 const route = useRoute()
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
 const campaignProduct = ref({
+    name:"",
+    sku:"",
     order_code:"",
     qty_for_sale:0,
     max_order_amount:0,
     price:0,
-    type:null
+    type:null,
+    oversell:false,
+    customer_editable:false,
+    customer_removable:false,
+    pinned:false,
 })
+
 
 const campaignProductRules = computed(() => {
 	return { 	
@@ -150,11 +170,14 @@ const v = useVuelidate(campaignProductRules, campaignProduct);
 
 const computedTableColumns = computed(()=>{
     let columns = [
+        { name: "Product Name", key: "name", type:"input" },
+        { name: "SKU", key: "sku", type:"input" },
         { name: "Order Code", key: "order_code", type:"input" },
         { name: "Qty for Campaign", key: "qty_for_sale", type:"input" },
         { name: "Max Qty / Order", key: "max_order_amount", type:"input" },
         { name: "Price", key: "price", type:"input" },
         { name: "Type", key: "type", type:"select" },
+        { name: "Description", key: "description", type:"textarea" },
         { name: "Oversell", key: "oversell", type:"checkbox" },
         { name: "Editable", key: "customer_editable", type:"checkbox" },
         { name: "Deletable", key: "customer_removable", type:"checkbox" },
@@ -165,12 +188,12 @@ const computedTableColumns = computed(()=>{
 		columns = columns.filter(column=>column.key !== 'max_order_amount' )
 		columns = columns.filter(column=>column.type !== 'checkbox' )
     }
-    if(props.campaignStarted){
-        columns = columns.filter(column=>column.key !== 'order_code' )
-        columns = columns.filter(column=>column.key !== 'qty_for_sale' )
-        columns = columns.filter(column=>column.key !== 'type' )
-		columns = columns.filter(column=>column.key !== 'max_order_amount' )
-    }
+    // if(props.campaignStarted){
+    //     columns = columns.filter(column=>column.key !== 'order_code' )
+    //     columns = columns.filter(column=>column.key !== 'qty_for_sale' )
+    //     columns = columns.filter(column=>column.key !== 'type' )
+	// 	columns = columns.filter(column=>column.key !== 'max_order_amount' )
+    // }
 
     return columns
 })

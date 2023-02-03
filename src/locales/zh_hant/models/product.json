@@ -1,4 +1,6 @@
 {
+    "name":"商品名稱",
+    "sku":"貨號",
     "product":"商品",
     "status":"商品狀態",
     "status_options":{

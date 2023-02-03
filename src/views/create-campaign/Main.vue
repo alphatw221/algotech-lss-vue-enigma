@@ -269,7 +269,7 @@ const campaignData = ref({
 		additional_delivery_options: [],
 		pickup_options: [],
 		delivery_note : '',
-		delivery_date:{start_at:null,end_at:null, options:[]}
+		delivery_date:{daterange:[],start_at:null,end_at:null, options:[]}
 	},
 	country:'SG',
 	currency:'USD', 
@@ -405,6 +405,7 @@ onMounted(() => {
 
 
 const createCampaign = ()=>{
+
 	v.value.$touch()
 	if (v.value.$invalid) {
 		v.value.$errors.forEach( err=>{

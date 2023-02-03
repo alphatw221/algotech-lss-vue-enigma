@@ -371,6 +371,7 @@ onMounted(() => {
 		campaignNotes.value.meta_payment.special_note = JSON.parse(JSON.stringify(res.data.meta_payment.special_note))
 		campaignNotes.value.meta_payment.confirmation_note = JSON.parse(JSON.stringify(res.data.meta_payment.confirmation_note))
 
+		console.log(campaignData.value)
 		ready.value=true
 	})
 })

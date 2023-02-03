@@ -150,7 +150,7 @@ onMounted(()=>{
   if(route.query.tab == 2) shoppingCartStore.openTab = 2
   buyer_retrieve_cart(route.params.cart_oid, buyerLayoutStore.alert).then(
       res => { 
-
+        console.log(res.data)
         //check  start
           //check youtube
           if(res.data.platform==='youtube' && isAnonymousUser){
