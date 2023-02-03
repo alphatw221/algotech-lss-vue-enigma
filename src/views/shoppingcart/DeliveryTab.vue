@@ -184,7 +184,7 @@
                         <select 
                           class="border-2 h-[50px] w-full rounded-lg px-10 text-[1rem]" 
                           :class="{'border-danger': time_validate.shipping_time_slot.$errors.length > 0}" 
-                          v-model="time_validate.shipping_time_slot.$model"> 
+                          v-model="shipping_info.shipping_time_slot"> 
                           <option v-for="option in shoppingCartStore.cart.campaign.meta_logistic.delivery_date?.options" :key="option"> {{ option }} </option>
                         </select>
                         <h4 class="text-danger flex flex-col sm:flex-row"> 
@@ -194,6 +194,7 @@
                                 class="hidden sm:block mx-1">/</span>
                           </template>
                         </h4>
+
                       </div>
                     </div>
                   </template>
@@ -911,8 +912,7 @@ const proceed_to_payment = () =>{
 
 
   //CHECK DELIVERY TIME INFO
-  if( (shipping_info.value.shipping_method === 'ecpay') 
-    || (shipping_info.value.shipping_method === 'delivery' && !shoppingCartStore.cart.campaign.meta_logistic.delivery_date.start_at) 
+  if( (shipping_info.value.shipping_method === 'ecpay') || (shipping_info.value.shipping_method === 'delivery' && !shoppingCartStore.cart.campaign?.meta_logistic?.is_use_delivery_date_enabled) 
     || ((shipping_info.value.shipping_method === 'pickup' && !shoppingCartStore.cart.campaign.meta_logistic.pickup_options[shipping_option_index.value]?.start_at)) ){
     shipping_info.value.shipping_date_time = null
     shipping_info.value.shipping_time_slot = null
