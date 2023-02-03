@@ -154,6 +154,8 @@
                   <template v-if="shoppingCartStore.cart.campaign.meta_logistic.is_use_delivery_date_enabled && shoppingCartStore.cart.campaign.meta_logistic.delivery_date?.options && shipping_method_computed === 'delivery' && !shipping_info.shipping_option_data?.is_cvs">
                     <h3 class="whitespace-nowrap lg:-mx-10 xl:-mx-20">{{$t('shopping_cart.delivery_tab.delivery_date')}}</h3>
                     <div class="flex flex-col sm:flex-row gap-3"> 
+
+                      <div class="flex flex-col w-full"> 
                       <v-date-picker class="z-49" 
                         v-model="shipping_info.shipping_date_time"
                         mode="date" is-required
@@ -177,9 +179,15 @@
                         },
                         minDate:shoppingCartStore?.cart?.campaign?.meta_logistic?.delivery_date?.daterange?.split('~')?.[0],
                         maxDate:shoppingCartStore?.cart?.campaign?.meta_logistic?.delivery_date?.daterange?.split('~')?.[1],
-                      }" class="block border-2 h-[50px] px-10 w-full min-w-[300px] rounded-lg" />
-
-
+                      }" class="block border-2 h-[50px] px-10 w-full min-w-[300px] rounded-lg" :class="{'border-danger': time_validate.shipping_date.$errors.length > 0}"/>
+                      <h4 class="text-danger flex flex-col sm:flex-row"> 
+                        <template v-for="(error,index) in time_validate.shipping_date.$errors" :key="index">
+                          <span>{{ error.$message }}</span>
+                          <span v-if="index+1 !== time_validate.shipping_date.$errors.length"
+                              class="hidden sm:block mx-1">/</span>
+                        </template>
+                      </h4>
+                      </div>
                       <div class="flex flex-col w-full"> 
                         <select 
                           class="border-2 h-[50px] w-full rounded-lg px-10 text-[1rem]" 
