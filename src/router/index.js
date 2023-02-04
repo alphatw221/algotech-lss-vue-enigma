@@ -368,7 +368,7 @@ const routes = [
       {
         path: "buyers/:buyer_id/points",
         name: "seller-buyers-points",
-        beforeEnter:isBuyerLoginMiddleware,
+        // beforeEnter:isBuyerLoginMiddleware,
         component: () => import('@/views/seller-buyers/points/Main.vue'),
       }
     ],
