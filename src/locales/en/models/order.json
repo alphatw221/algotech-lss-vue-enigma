@@ -52,6 +52,7 @@
         "tiktok":"Tiktok",
         "expressCart":"Express Cart"
     },
+
     "id": "Order ID",
     "created_at": "Order Date",
     "customer_name": "Customer Name",
@@ -71,5 +72,8 @@
     "order_product_name":"Product Name",
     "order_product_price":"Product Price",
     "order_product_qty":"Qty",
-    "order_product_subtotal":"Subtotal"
+    "order_product_subtotal":"Subtotal",
+
+    "delete":"Delete Order",
+    "confirm_delete":"Confirm to delete order ?"
  }

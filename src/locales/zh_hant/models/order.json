@@ -54,6 +54,7 @@
         "tiktok":"Tiktok",
         "expressCart":"快速購物連結"
     },
+
     "id": "訂單編號",
     "created_at": "訂單日期",
     "customer_name": "買家姓名",
@@ -73,5 +74,8 @@
     "order_product_name":"商品名稱",
     "order_product_price":"商品價格",
     "order_product_qty":"數量",
-    "order_product_subtotal":"商品總價"
+    "order_product_subtotal":"商品總價",
+
+    "delete":"刪除訂單",
+    "confirm_delete":"確認刪除訂單?"
 }

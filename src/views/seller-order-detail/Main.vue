@@ -6,6 +6,8 @@
                 <span class="h-8 ml-3 cursor-auto btn btn-rounded-pending text-base">
                     {{$t(`manage_order.${sellerOrderDetail.order.status}`) }}
                 </span> 
+                <button class="btn btn-danger h-8 ml-3 text-base" @click="deleteOrder()">{{ $t('order.delete') }}</button>
+
             </h2>
         </div>
         <div v-if="sellerOrderDetail.order.customer_name" class="my-auto">
@@ -62,11 +64,11 @@ import { computed, onMounted, onBeforeMount, ref, watch, onUnmounted, getCurrent
 import { seller_search_campaign_product} from "@/api_v2/campaign_product";
 import { seller_retrieve_pre_order } from "@/api_v2/pre_order";
 import { seller_retrieve_cart } from "@/api_v2/cart"
-import { seller_retrieve_order } from "@/api_v2/order";
+import { seller_retrieve_order, seller_delete_order } from "@/api_v2/order";
 import { useSellerOrderStore } from "@/stores/lss-seller-order";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import { useRoute, useRouter } from "vue-router";
-
+import i18n from "@/locales/i18n";
 
 
 const route = useRoute()
@@ -75,6 +77,7 @@ const sellerOrderDetail = useSellerOrderStore()
 const layoutStore = useLSSSellerLayoutStore()
 const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus
+
 
 onBeforeMount(()=>{
     if (layoutStore.userInfo.user_subscription.status === "test") router.push({ name: 'campaign-list'})
@@ -91,6 +94,16 @@ onMounted(()=>{
     )
 })
 
+const deleteOrder = ()=>{
+    if(confirm(i18n.global.t(`order.confirm_delete`))){
+        seller_delete_order(route.params.order_id, layoutStore.alert)
+        .then(res=>{
+            router.push({name:'manage-campaign-order', params:{campaign_id:route.params.campaign_id}})
+
+        })
+    }
+    
+}
 
 
 </script>

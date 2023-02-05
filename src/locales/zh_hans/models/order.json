@@ -43,6 +43,7 @@
 
     "payment_completed":"付款完成",
     "payment_awaiting_confirm":"付款等待确认",
+
     "platform":"社交平台",
     "platform_options":{
         "facebook":"Facebook",
@@ -50,5 +51,30 @@
         "instagram":"Instagram",
         "tiktok":"Tiktok",
         "expressCart":"快速购物连结"
-    }
+    },
+
+    "id": "訂單編號",
+    "created_at": "訂單日期",
+    "customer_name": "买家姓名",
+    "shipping_name": "收件人姓名",
+    "shipping_phone": "收件人电话",
+    "shipping_email": "收件人Email",
+    "shipping_method":"运输方式",
+    "shipping_option":"运输物流",
+    "shipping_address_1":"运输地址",
+    "shipping_location":"运输城市",
+    "shipping_region":"快递国家",
+    "shipping_postcode":"邮递区号",
+    "pick_up_store":"自取商店",
+    "pickup_address":"自取地址",
+    "shipping_remark":"备注",
+    "last_five_digit":"付款纪录(帐号后五码)",
+    "order_product_name":"商品名称",
+    "order_product_price":"商品价格",
+    "order_product_qty":"数量",
+    "order_product_subtotal":"商品总价",
+
+    "delete":"删除订单",
+    "confirm_delete":"确认删除订单?"
+
 }

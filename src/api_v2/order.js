@@ -49,6 +49,10 @@ export const get_order_oid = (order_id, toastify=null) => {
     return createAxios(toastify).get(`/api/v2/order/${order_id}/seller/retrieve/oid/`);
 }
 
+export const seller_delete_order = (order_id, toastify=null) => {
+    return createAxios(toastify).delete(`/api/v2/order/${order_id}/seller/delete/`);
+}
+
 export const seller_update_payment_status = (order_id, payment_status, toastify=null) => {
     return createAxios(toastify).put(`/api/v2/order/${order_id}/seller/payment/`,{'payment_status':payment_status});
 }
