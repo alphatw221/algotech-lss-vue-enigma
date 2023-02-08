@@ -156,6 +156,10 @@ onMounted(()=>{
           if(res.data.platform==='youtube' && isAnonymousUser){
             router.push({name:'buyer-login-page', params:{type:'cart', object_id:route.params.cart_oid}})
           }
+
+          if(res.data?.user_subscription?.require_customer_login && isAnonymousUser){
+            router.push({name:'buyer-login-page', params:{type:'cart', object_id:route.params.cart_oid}})
+          }
         //check end
         
         shoppingCartStore.cart = res.data;

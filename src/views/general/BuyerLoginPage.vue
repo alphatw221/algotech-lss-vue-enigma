@@ -15,6 +15,8 @@
                     <div class="flex flex-col items-center mt-10 gap-3" v-if="!showReminder">
                         <FacebookLoginButton block role='buyer'/>
                         <GoogleLoginButton block role='buyer'/>
+                        <FacebookLoginButton2 role="buyer" :redirect_uri="currentUrl" />
+                        <GoogleLoginButton2 role="buyer" :redirect_uri="currentUrl" />
                         <!-- <ContinueWithoutLoginButton block/> -->
                     </div>
                     <Row v-if="showReminder"><p class="mt-10 ml-4 mr-4 text-lg text-center text-danger">{{$t('shopping_cart.login.err_login')}}</p></Row>
@@ -40,9 +42,12 @@ import GoogleLoginButton from '@/components/button/GoogleLoginButton.vue';
 import ContinueWithoutLoginButton from '@/components/button/ContinueWithoutLoginButton.vue';
 import img1 from '/src/assets/images/login-page/new-lss-carousel-1.jpeg'
 import img2 from '/src/assets/images/login-page/new-lss-carousel-2.jpeg'
-
+import FacebookLoginButton2 from '@/components/button/FacebookLoginButton2.vue';
+import GoogleLoginButton2 from '@/components/button/GoogleLoginButton2.vue';
 import {ref, onMounted, onBeforeMount} from 'vue'
 import {useRoute, useRouter} from 'vue-router'
+
+
 onBeforeMount (()=>{document.querySelector('body').setAttribute('style', 'padding-left: 0;')} ) 
 onMounted(()=>{
     // console.log(navigator.userAgent.toLowerCase())

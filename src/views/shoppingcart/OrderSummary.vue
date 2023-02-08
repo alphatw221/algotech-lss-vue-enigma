@@ -204,8 +204,10 @@ const isAnonymousUser=cookies.get("login_with")=='anonymousUser'
 const computedCartSubtotal = computed(()=>{
   var subtotal = 0
   Object.entries(shoppingCartStore.cart.products||{}).forEach(([key, qty])=>{
+    console.log(shoppingCartStore.campaignProductDict[key]?.price)
     subtotal += ((shoppingCartStore.campaignProductDict[key]?.price||0)*qty )
   })
+  console.log(subtotal)
   return subtotal
 })
 
