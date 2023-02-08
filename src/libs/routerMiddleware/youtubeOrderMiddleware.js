@@ -19,7 +19,10 @@ export default async (to, from)=>{
         object_id=order_oid
         try{
             res = await buyer_retrieve_order_platform(order_oid)
-        }catch(error){}
+            console.log(res)
+        }catch(error){
+            console.log(error)
+        }
     }else if(cart_oid){
         type = 'cart'
         object_id=cart_oid
