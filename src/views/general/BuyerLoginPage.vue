@@ -49,12 +49,12 @@ import {useRoute, useRouter} from 'vue-router'
 
 
 onBeforeMount (()=>{document.querySelector('body').setAttribute('style', 'padding-left: 0;')} ) 
-onMounted(()=>{
-    // console.log(navigator.userAgent.toLowerCase())
-    if (navigator.userAgent.toLowerCase().indexOf('chrome') < 0 && navigator.userAgent.toLowerCase().indexOf('safari') < 0 ) {
-        showReminder.value=true
-    }
-})
+// onMounted(()=>{
+//     // console.log(navigator.userAgent.toLowerCase())
+//     if (navigator.userAgent.toLowerCase().indexOf('chrome') < 0 && navigator.userAgent.toLowerCase().indexOf('safari') < 0 ) {
+//         showReminder.value=true
+//     }
+// })
 
 const route = useRoute()
 const router = useRouter()
