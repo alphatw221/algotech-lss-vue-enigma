@@ -11,6 +11,7 @@
     "proceed" : "處理中",
     "shipping out":"已出貨",
     "table":{
+        "order_code":"關鍵字",
         "product" : "商品",
         "price" : "價格",
         "qty" : "數量",

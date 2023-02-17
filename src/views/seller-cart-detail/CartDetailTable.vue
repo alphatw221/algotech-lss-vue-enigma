@@ -34,6 +34,9 @@
 					</div>
 				</td>
 
+				
+
+
 				<td class="text-left" :data-content="$t('order_detail.table.product')">
 					<span class="font-bold"  v-if="campaignDetailStore.campaignProductDict[campaign_product_id]?.type === 'lucky_draw'"> 
 						*{{$t('lucky_draw.winner_modal.prize')}}*
@@ -43,6 +46,14 @@
 					</div>
 				</td>
 
+				<!-- ordercode -->
+
+				<td class="text-center" :data-content="$t(`shopping_cart.table.order_code`)">
+					<div class="break-words whitespace-normal">
+						{{ campaignDetailStore.campaignProductDict[campaign_product_id]?.order_code }} 
+					</div>
+				</td>
+				
 				<td class="text-center w-fit" :data-content="$t('order_detail.table.qty')">
 					
 					<div class="self-center form-check place-content-left">
@@ -130,6 +141,7 @@ const cacheQty = ref(0)
 const tableColumns = ref([
 	{ key: "image", name: "null",  },
 	{ key: "product", name: "product",  },
+	{ key: "order_code", name: "order_code"},
 	{ key: "qty", name: "qty",  },
 	{ key: "price", name: "price",  },
 	{ key: "subtotal", name: "sub_total",  },

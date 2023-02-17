@@ -36,6 +36,9 @@
 						<div class="block font-medium text-center whitespace-normal break-normal w-full truncate">	
 							{{ product.name }}
 						</div>
+						<div class="border-[1.5px] rounded-[5px] mx-auto h-fit border-orange-400 text-center font-medium w-fit px-3 text-orange-600 mt-[2px] mb-[3px]">	
+							{{product.order_code}}
+						</div>
 						<div class="text-slate-500 text-sm text-center">
 							{{campaignDetailStore.campaign?.currency}} 
 							{{Math.floor(parseFloat(product.price) * (10 ** campaignDetailStore.campaign?.decimal_places)) / 10 ** campaignDetailStore.campaign?.decimal_places}}

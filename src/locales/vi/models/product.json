@@ -1,5 +1,7 @@
 {
     "name":"tên sản phẩm",
+    "order_code":"mã đặt hàng",
+
     "sku":"Mã SKU",
     "product":"sản phẩm",
     "status":"Sttrạng thái sản phẩmatus",

@@ -287,7 +287,15 @@ onUnmounted(() => {
 
 
 const search = () => {
-    seller_search_campaign_product(route.params.campaign_id, payloadBuffer.value.category, currentPage.value, pageSize.value,"", layoutStore.alert)
+    var _campaign_id, _category, _keyword, _page, _page_size, _type, _toastify
+    seller_search_campaign_product(
+        _campaign_id=route.params.campaign_id, 
+        _category=payloadBuffer.value.category, 
+        _keyword=payloadBuffer.value.keyword, 
+        _page=currentPage.value, 
+        _page_size=pageSize.value, 
+        _type = "", 
+        _toastify=layoutStore.alert)
     .then(response => {
         dataCount.value = response.data.count
         campaignDetailStore.campaignProducts = response.data.results

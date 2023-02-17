@@ -1,5 +1,7 @@
 {
     "name":"商品名称",
+    "order_code":"关键字",
+
     "sku":"货号",
     "product":"商品",
     "status":"商品状态",

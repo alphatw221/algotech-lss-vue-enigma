@@ -24,8 +24,8 @@ export const seller_list_campaign_product = (campaign_id, type, toastify=null) =
     return createAxios(toastify).get(`/api/v2/campaign-product/seller/list/?campaign_id=${campaign_id}&type=${type}`)
 }
 
-export const seller_search_campaign_product = (campaign_id, category, page, page_size, type, toastify=null) => {
-    return createAxios(toastify).get(`/api/v2/campaign-product/seller/search/?campaign_id=${campaign_id}&category=${category}&type=${type}&page=${page}&page_size=${page_size}`)
+export const seller_search_campaign_product = (campaign_id, category, keyword, page, page_size, type, toastify=null) => {
+    return createAxios(toastify).get(`/api/v2/campaign-product/seller/search/?campaign_id=${campaign_id}&category=${category}&keyword=${keyword}&type=${type}&page=${page}&page_size=${page_size}`)
 }
 
 export const seller_delete_campaign_product = (campaign_product_id, toastify=null) => {

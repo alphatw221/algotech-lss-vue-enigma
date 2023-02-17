@@ -57,7 +57,21 @@ onMounted(() => {
             luckydrawList.value = res.data
         }
     })
-    seller_search_campaign_product(route.params.campaign_id, '', 1, 500, layoutStore.alert).then(res => {
+    var _campaign_id, _category, _keyword, _page, _page_size, _type, _toastify
+    seller_search_campaign_product(
+
+        _campaign_id=route.params.campaign_id, 
+        _category='', 
+        _keyword='', 
+        _page=1, 
+        _page_size=500, 
+        _type = "", 
+        _toastify=layoutStore.alert
+
+    )
+    
+    
+    .then(res => {
         for (let i = 0; i < res.data.results.length; i ++) {
             if (res.data.results[i].type === 'lucky_draw') {
                 luckyPrizeObj.value[res.data.results[i].id] = Math.ceil(res.data.results[i].qty_for_sale - res.data.results[i].qty_add_to_cart)

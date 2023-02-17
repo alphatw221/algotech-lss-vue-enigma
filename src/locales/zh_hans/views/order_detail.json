@@ -11,6 +11,7 @@
     "proceed" : "处理中",
     "shipping out":"已出货",
     "table":{
+        "order_code":"关键字",
         "product" : "商品",
         "price" : "价格",
         "qty" : "数量",

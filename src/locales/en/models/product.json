@@ -1,5 +1,6 @@
 {
     "name":"Product Name",
+    "order_code":"Order Code",
     "sku":"SKU Code",
     "product":"Product",
     "status":"Status",

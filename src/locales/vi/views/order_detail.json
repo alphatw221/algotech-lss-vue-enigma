@@ -11,6 +11,7 @@
     "proceed" : "Đang kiểm tra",
     "shipping out":"Đang giao hàng",
     "table":{
+        "order_code":"mã đặt hàng",
         "product" : "Sản phẩm",
         "price" : "Giá bán",
         "qty" : "Số lượng",

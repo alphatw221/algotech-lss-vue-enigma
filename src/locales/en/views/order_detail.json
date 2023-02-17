@@ -16,6 +16,7 @@
     "tiktok":"TikTok",
     "twitch":"Twitch",
     "table":{
+        "order_code":"Order Code",
         "product" : "Product",
         "price" : "Price",
         "qty" : "Qty",
