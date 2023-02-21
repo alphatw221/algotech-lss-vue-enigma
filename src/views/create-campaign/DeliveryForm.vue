@@ -178,6 +178,22 @@
 			<div v-for="(option, index) in props.campaign.meta_logistic.additional_delivery_options" :key="index"
 				class="flex flex-col flex-wrap gap-3 mt-5 sm:flex-row sm:mt-0" >
 				<template v-for="(field, fkey, findex) in additional_delivery_option" :key="findex">
+					<template v-if="fkey == 'region'">
+						<div>
+							<input  
+								class="flex-1 w-full text-base form-control sm:w-fit"
+								type="text" 
+								placeholder="Region"
+								v-model="option.region"
+							/>
+							<label class="text-danger text-[12px]  block" 
+								v-for="error,index in props.v.meta_logistic.additional_delivery_options.$each.$response.$errors[index].region"
+								:key="index"
+								>
+								{{ $t(`create_campaign.delivery_form.errors.${error.$message.replace(/\s/g, "_")}`) }}
+							</label>
+						</div>
+					</template>
 					<template v-if="fkey == 'title'">
 						<div>
 							<input  
@@ -440,7 +456,7 @@ const props = defineProps({
 });
 
 const additional_delivery_option = computed(()=>{
-	var options = { title: null, type: null, price: null}
+	var options = { region:null,title: null, type: null, price: null}
 	if(layoutStore.userInfo.user_subscription.meta_country.activated_country.includes('TW')){
 		Object.assign(options,{is_cvs:false})
 	}

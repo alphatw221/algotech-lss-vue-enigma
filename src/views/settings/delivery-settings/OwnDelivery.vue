@@ -80,6 +80,21 @@
             <div class="flex flex-col flex-wrap gap-3 mt-5 sm:flex-row sm:mt-0 items-center"
                 v-for="(option, index) in deliverySettings.additional_delivery_options" :key="index">
                 <template v-for="(field, fkey, findex) in additional_delivery_option" :key="findex">
+                    <template v-if="fkey == 'region'">
+                        <div class="flex flex-col justify-between w-full sm:w-fit">
+                            <input  
+                                class="w-full form-control flex-2 sm:w-fit"
+                                type="text" 
+                                :placeholder="$t('settings.delivery_form.express_service_region')"
+                                v-model="option.region"
+                            />
+                            <label class="block text-danger text-[12px]" 
+                                v-for="error, index in v.additional_delivery_options.$each.$response.$errors[index].region"
+                                :key="index"
+                                >{{ $t(`settings.delivery.errors.${error.$message.replace(/\s/g, "_")}`) }}</label>
+                            <!-- <label class="block text-danger text-[12px]" v-if="v.additional_delivery_options.$each.$response.$errors[index].title.length">required</label> -->
+                        </div>
+                    </template>
                     <template v-if="fkey == 'title'">
                         <div class="flex flex-col justify-between w-full sm:w-fit">
                             <input  
@@ -202,7 +217,7 @@ const cvsOptionColums = ref([
 ])
 
 const additional_delivery_option = computed(()=>{
-	var options = { title: null, type: null, price: null}
+	var options = { region:null, title: null, type: null, price: null}
 	if(layoutStore.userInfo.user_subscription.meta_country.activated_country.includes('TW')){
 		Object.assign(options,{is_cvs:false})
 	}
@@ -228,6 +243,7 @@ const deliverySettingsRules = {
     delivery_charge:{decimal, minValue:minValue(0)},
     additional_delivery_options: {
         $each: helpers.forEach({
+            region:{required},
             title:{required},
             type: {required},
             price:{required, numeric}

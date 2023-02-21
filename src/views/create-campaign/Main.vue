@@ -319,6 +319,7 @@ const campaignDataRules = computed(() => {
 
 			additional_delivery_options: {
 			$each: helpers.forEach({
+				region:{required},
 				title:{required},
 				type: {required},
 				price:{required, numeric}

@@ -1,5 +1,5 @@
 import { useLSSBuyerLayoutStore } from '@/stores/lss-buyer-layout';
-import { buyer_create_blank_cart } from '@/api_v2/pre_order';
+import { buyer_create_blank_cart } from '@/api_v2/cart';
 import { useCookies } from "vue3-cookies";
 const { cookies } = useCookies();
 
