@@ -216,7 +216,12 @@
             </table>
         </div> 
         <div class="flex flex-wrap items-center intro-y sm:flex-row sm:flex-nowrap">
-            <Page class="mx-auto my-3" :total="dataCount" @on-change="changePage" @on-page-size-change="changePageSize" />
+            <Page class="mx-auto my-3" 
+            :total="dataCount" 
+            show-sizer :page-size-opts="[20,50,100,500,1000]" 
+            :page-size="pageSize" 
+            @on-change="changePage" 
+            @on-page-size-change="changePageSize" />
         </div>
     </div>
 </template>
@@ -243,7 +248,7 @@ const route = useRoute()
 
 const dataCount = ref(0)
 const currentPage = ref(1)
-const pageSize = ref(10)
+const pageSize = ref(20)
 const showNoti = ref(false)
 
 

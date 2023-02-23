@@ -8,14 +8,17 @@
         </Accordion>
         <AccordionPanel class="text-slate-600 dark:text-slate-500 leading-relaxed border-2 border-secondary" >
 
+            
 
             <div v-if="props.payment.handle.type=='gateway'" class="text-center">
                 <img :src="props.payment.icon" alt="" class="w-48 mx-auto mt-5">
+                <div class="text-center mt-3">{{props.payment?.reminder}}</div>
                 <button class="btn btn-primary mt-3 mb-5" @click="handlePayment()">{{$t('shopping_cart.payment.pay_with')}} {{props.payment.name}} </button>
             </div>
 
             <div v-else-if="props.payment.handle.type=='submitForm'" class="text-center">
                 <img :src="props.payment.icon" alt="" class="w-48 mx-auto mt-5">
+                <div class="text-center mt-3">{{props.payment?.reminder}}</div>
                 <!-- <template v-if="props.payment.invoice">
                     <div class="flex px-10 py-6 my-4 border-2 rounded-lg form-check">
                         <input :id="'phone-invoice'" class="form-check-input" type="radio"

@@ -15,7 +15,7 @@
     "search_bar": {
         "category": "Category",
         "search_by": "Search By",
-        "search_holder": "Search Name...",
+        "search_holder": "Name/Order Code/SKU...",
         "search": "Search",
         "bulk_edit": "Bulk Edit",
         "reset": "Reset",

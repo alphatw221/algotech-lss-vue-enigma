@@ -15,7 +15,7 @@
     "search_bar": {
         "category": "商品分類",
         "search_by": "搜尋",
-        "search_holder": "搜尋名稱···",
+        "search_holder": "名稱/關鍵字/貨號···",
         "search": "搜尋",
         "bulk_edit": "批次編輯",
         "reset": "清空",

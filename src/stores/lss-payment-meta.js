@@ -148,6 +148,7 @@ export const useLSSPaymentMetaStore = defineStore("paymentMeta", {
 		multiple:false,
 		name:"Rapyd",
 		key:"rapyd",
+		reminder:'Please remember to click on "Finish" button after making payment. Thanks!',
 		fields:[
 			{key:"access_key", type:"password", name:"Access Key", dataType:"string", default:''},
 			{key:"secret_key", type:"password", name:"Secret Key", dataType:"string", default:''},

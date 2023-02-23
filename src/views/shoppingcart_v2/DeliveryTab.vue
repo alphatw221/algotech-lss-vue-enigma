@@ -350,11 +350,11 @@
                           <p>{{ option.name }}</p>
                           <h4>{{ option.address }}</h4>
                         </div> 
-                        <template v-if="option.start_at !== null && option.end_at !== null"> 
+                        <template v-if="option.daterange "> 
                           <h4 class="flex-0 my-auto text-slate-600">
-                            {{new Date(option.start_at).toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"})
+                            {{option.daterange?.split('~')?.[0]
                             +'~'+
-                            new Date(option.end_at).toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"})}}</h4>
+                            option.daterange?.split('~')?.[1]}}</h4>
                         </template>
                       </div>
                     </div>
@@ -362,10 +362,25 @@
                 </div>
 
                 <!-- pickup time-->
-                <template v-if="shoppingCartStore.cart.campaign.meta_logistic?.pickup_options[shipping_option_index]?.start_at && shipping_method_computed == 'pickup'"> 
+                <template v-if="shoppingCartStore.cart.campaign.meta_logistic?.pickup_options[shipping_option_index]?.daterange && shipping_method_computed == 'pickup'"> 
                   <h3 class="whitespace-nowrap">{{$t('shopping_cart.delivery_tab.pickup_date')}}</h3>
                   <div class="flex flex-col sm:flex-row gap-3 lg:mx-20 z-20">
-                    <v-date-picker class="z-50" 
+
+                    <Litepicker v-model="time_validate.shipping_date.$model" :options="{
+                        autoApply: false,
+                        showWeekNumbers: true,
+                        dropdowns: {
+                          minYear: 1990,
+                          maxYear: null,
+                          months: true,
+                          years: true,
+                        },
+                        minDate:shoppingCartStore.cart.campaign.meta_logistic?.pickup_options[shipping_option_index]?.daterange?.split('~')?.[0],
+                        maxDate:shoppingCartStore.cart.campaign.meta_logistic?.pickup_options[shipping_option_index]?.daterange?.split('~')?.[1],
+                      }" class="block border-2 h-[50px] px-10 w-full min-w-[300px] rounded-lg" :class="{'border-danger': time_validate.shipping_date.$errors.length > 0}"/>
+
+
+                    <!-- <v-date-picker class="z-50" 
                       v-model="time_validate.shipping_date_time.$model"
                       mode="date" is-required
                       :min-date='date_range.start'
@@ -383,7 +398,7 @@
                           </template>
                         </h4>
                       </template>
-                    </v-date-picker>
+                    </v-date-picker> -->
                     <div class="flex flex-col w-full">
                       <select 
                         class="border-2 h-[50px] w-full rounded-lg px-10 text-[1rem]" 

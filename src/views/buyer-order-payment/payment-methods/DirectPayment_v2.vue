@@ -160,7 +160,7 @@ const dataRules = {
         required,
         integer,
         minLength: minLength(5),
-        maxLength: maxLength(5),
+        maxLength: maxLength(10),
     },
 };
 const uploadValidate = useVuelidate(dataRules, toRefs(data));

@@ -14,7 +14,7 @@
     "search_bar": {
         "category": "Loại",
         "search_by": "Tìm kiếm bởi",
-        "search_holder": "Tìm kiếm...",
+        "search_holder": "Tên/từ khóa/số bài viết...",
         "search": "Tìm kiếm",
         "bulk_edit": "Chỉnh sửa",
         "reset": "Thiết lập lại",

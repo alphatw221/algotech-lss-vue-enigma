@@ -15,7 +15,7 @@
     "search_bar": {
         "category": "商品分类",
         "search_by": "搜寻",
-        "search_holder": "搜寻名称...",
+        "search_holder": "名称/关键字/货号...",
         "search": "搜寻",
         "bulk_edit": "批次编辑",
         "reset": "清空",

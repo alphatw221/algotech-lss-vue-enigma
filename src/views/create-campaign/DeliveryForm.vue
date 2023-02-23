@@ -103,7 +103,7 @@
 						{{$t('create_campaign.delivery_form.errors.Value_is_required')}}</p>
 				</div>
 
-				<v-date-picker class="" 
+				<!-- <v-date-picker class="" 
 					v-model="deliverydatePicker" 
 					:timezone="timezone" 
 					:columns="$screens({ default: 1, sm: 2 })" 
@@ -128,7 +128,7 @@
 							</div>
 						</div>
 					</template>
-				</v-date-picker>
+				</v-date-picker> -->
 				<div class="flex flex-col w-full justify-start"> 
 					<p> {{$t('create_campaign.delivery_form.delivery_time_options')}}</p>
 					<TomSelect
@@ -338,14 +338,33 @@
 					<div class="flex flex-col xl:flex-row gap-3 w-full">
 						<div id="pickup_options" class="flex flex-col flex-wrap flex-none max-w-[500px]">
 							<label class="text-base text-lg font-medium whitespace-nowrap">{{$t('create_campaign.delivery_form.pickup_date')}}
-								{{props.campaign.meta_logistic.pickup_options[index]?.start_at!==null?'( '+new Date(props.campaign.meta_logistic.pickup_options[index]?.start_at).toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"})
-								+'~'+new Date(props.campaign.meta_logistic.pickup_options[index].end_at).toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"})+' )':''}}
+								
 							</label>
-							<v-date-picker class="" 
+
+
+							<Litepicker v-model="option.daterange" :options="{
+								autoApply: false,
+								singleMode: false,
+								numberOfColumns: 2,
+								numberOfMonths: 2,
+								showWeekNumbers: true,
+								dropdowns: {
+									minYear: 1990,
+									maxYear: null,
+									months: true,
+									years: true,
+								},
+								}" class="block form-control border h-[42px] px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300 " />
+							<p v-if="!option.daterange " 
+							class="text-danger">
+							{{$t('create_campaign.delivery_form.errors.Value_is_required')}}</p>
+
+							<!-- <v-date-picker class="" 
 								v-model="pickupdatePicker[index]"
 								:columns="$screens({ default: 1, sm: 2 })" 
 								mode="date" is-range is-required
 								:min-date='new Date()'
+								v-show="false"
 								>
 								<template v-slot="{ inputValue, inputEvents }">
 									<div class="flex items-center justify-start gap-1 flex-0 ">
@@ -362,7 +381,7 @@
 										</div>
 									</div>
 								</template>
-							</v-date-picker>
+							</v-date-picker> -->
 						</div>
 						<div class="flex flex-col w-full justify-start"> 
 							<p> {{$t('create_campaign.delivery_form.pickup_time_options')}}</p>
@@ -447,8 +466,8 @@ const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
 const pickupdatePicker = ref([])
 onMounted(()=>{
 	ready.value=true
-	update_deliverydatePicker()
-	update_pickupdatePicker()
+	// update_deliverydatePicker()
+	// update_pickupdatePicker()
 })
 const props = defineProps({
     campaign: Object,
@@ -492,64 +511,64 @@ const deleteBranch = index=>{
 
 // DELIVERY DATE/TIME
 const useDeliveryDate = ref(false)
-const deliverydatePicker = ref({
-	start:'',
-	end:''
-})
+// const deliverydatePicker = ref({
+// 	start:'',
+// 	end:''
+// })
 const deliveryTimeOptions = ref([])
 
-const useDeliveryDateComputed = computed({
-	get:()=>{
-		return useDeliveryDate.value
-	},set:index=>{
-		useDeliveryDate.value = index
-		if(!index){
-			deliverydatePicker.value.start = ''
-			deliverydatePicker.value.end = ''
-		}
-	}
-})
+// const useDeliveryDateComputed = computed({
+// 	get:()=>{
+// 		return useDeliveryDate.value
+// 	},set:index=>{
+// 		useDeliveryDate.value = index
+// 		if(!index){
+// 			deliverydatePicker.value.start = ''
+// 			deliverydatePicker.value.end = ''
+// 		}
+// 	}
+// })
 
-watch(computed(()=>deliverydatePicker.value),()=>{
-	props.campaign.meta_logistic.delivery_date.start_at = deliverydatePicker.value.start
-	props.campaign.meta_logistic.delivery_date.end_at = deliverydatePicker.value.end
-},{deep:true})
-
-
-const update_deliverydatePicker = ()=>{
-	let delivery_date = props.campaign.meta_logistic.delivery_date
-
-	deliverydatePicker.value.start = (delivery_date?.start_at||null)
-	deliverydatePicker.value.end = (delivery_date?.end_at||null)
-
-	if(deliverydatePicker.value.start !== null) useDeliveryDate.value = true
-}
+// watch(computed(()=>deliverydatePicker.value),()=>{
+// 	props.campaign.meta_logistic.delivery_date.start_at = deliverydatePicker.value.start
+// 	props.campaign.meta_logistic.delivery_date.end_at = deliverydatePicker.value.end
+// },{deep:true})
 
 
-// PICKUP DATE/TIME
-watch(computed(()=>props.campaign.meta_logistic.pickup_options),()=>{
-	if (pickupdatePicker.value.length === 0){
-		update_pickupdatePicker()
-	}
-},{deep:true})
+// const update_deliverydatePicker = ()=>{
+// 	let delivery_date = props.campaign.meta_logistic.delivery_date
 
-watch(computed(()=>pickupdatePicker.value),()=>{
-	// console.log(pickupdatePicker.value)
-	if (get_props.value==true){
-		for (let index = 0; index<props.campaign.meta_logistic.pickup_options.length;index++){
-			props.campaign.meta_logistic.pickup_options[index].start_at = pickupdatePicker.value[index].start
-			props.campaign.meta_logistic.pickup_options[index].end_at = pickupdatePicker.value[index].end
-		}
-	}
+// 	deliverydatePicker.value.start = (delivery_date?.start_at||null)
+// 	deliverydatePicker.value.end = (delivery_date?.end_at||null)
+
+// 	if(deliverydatePicker.value.start !== null) useDeliveryDate.value = true
+// }
+
+
+// // PICKUP DATE/TIME
+// watch(computed(()=>props.campaign.meta_logistic.pickup_options),()=>{
+// 	if (pickupdatePicker.value.length === 0){
+// 		update_pickupdatePicker()
+// 	}
+// },{deep:true})
+
+// watch(computed(()=>pickupdatePicker.value),()=>{
+// 	// console.log(pickupdatePicker.value)
+// 	if (get_props.value==true){
+// 		for (let index = 0; index<props.campaign.meta_logistic.pickup_options.length;index++){
+// 			props.campaign.meta_logistic.pickup_options[index].start_at = pickupdatePicker.value[index].start
+// 			props.campaign.meta_logistic.pickup_options[index].end_at = pickupdatePicker.value[index].end
+// 		}
+// 	}
 	
-},{deep:true})
+// },{deep:true})
 
-const update_pickupdatePicker = ()=>{
-    for (let option = 0; option<props.campaign.meta_logistic.pickup_options.length;option++){
-			pickupdatePicker.value.push({start:props.campaign.meta_logistic.pickup_options[option].start_at?props.campaign.meta_logistic.pickup_options[option].start_at:null,
-				end:props.campaign.meta_logistic.pickup_options[option].end_at?props.campaign.meta_logistic.pickup_options[option].end_at:null})
-	}
-	console.log(pickupdatePicker.value)
-	get_props.value = true
-}
+// const update_pickupdatePicker = ()=>{
+//     for (let option = 0; option<props.campaign.meta_logistic.pickup_options.length;option++){
+// 			pickupdatePicker.value.push({start:props.campaign.meta_logistic.pickup_options[option].start_at?props.campaign.meta_logistic.pickup_options[option].start_at:null,
+// 				end:props.campaign.meta_logistic.pickup_options[option].end_at?props.campaign.meta_logistic.pickup_options[option].end_at:null})
+// 	}
+// 	console.log(pickupdatePicker.value)
+// 	get_props.value = true
+// }
 </script>
