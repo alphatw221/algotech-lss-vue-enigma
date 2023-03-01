@@ -68,11 +68,16 @@
             <h4 class="w-fit my-auto whitespace-nowrap text-danger">({{computedWalletPointsLeft}} points)</h4>
           </div>
           
-          <input
+          <!-- <input
             type="number"
             class="form-control w-32 h-[35px] text-right"
             v-model="shoppingCartStore.points_used"
-          />
+          /> -->
+
+          <select  class="form-control w-32 h-[35px] text-right" v-model="shoppingCartStore.points_used">
+            <option :value="0">0</option>
+            <option v-for="pointsUsedOption,pointsUsedOptionIndex in computedPointsUsedOptions" :key="pointsUsedOptionIndex" :value="pointsUsedOption">{{ pointsUsedOption }}</option>
+          </select>
         </div>
       </template>
 
@@ -373,6 +378,18 @@ const computedPointsEarned = computed(()=>{
 
 })
 
+const computedPointsUsedOptions = computed(()=>{
+  const points = (shoppingCartStore.buyerWallet?.points||0)
+  const rate = (shoppingCartStore.cart.campaign?.meta_point?.redemption_rate_point||1)
+  console.log(points)
+  console.log(rate)
+  
+  const _options = []
+  for(let i=1; i<=Math.floor(points/rate); i++){
+    _options.push(i*rate)
+  }
+  return _options
+})
 
 const computedWalletPointsLeft = computed(()=>{
   return (shoppingCartStore.buyerWallet?.points||0) - (shoppingCartStore.points_used ||0)
