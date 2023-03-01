@@ -21,7 +21,27 @@
         <div class="sm:hidden w-10 inline-block align-middle">
             <SimpleIcon icon="filter" color="#414141"  width="24" height="24" class="mt-1" @click="showFilterModal()"/>
         </div>
-        
+        <div class=" w-15 inline-block align-middle mr-1" v-if="!route.params.campaign_id">
+            <p> {{$t('campaign.meta_logistic.delivery_date.daterange')}}:</p>
+        </div>
+        <div class=" w-[180px] inline-block align-middle mr-3" v-if="!route.params.campaign_id">
+            
+            
+            <Litepicker v-model="daterange" :options="{
+            autoApply: false,
+            singleMode: false,
+            numberOfColumns: 2,
+            numberOfMonths: 2,
+            showWeekNumbers: true,
+            dropdowns: {
+                minYear: 1990,
+                maxYear: null,
+                months: true,
+                years: true,
+            },
+            }" class="block form-control border h-[42px] px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300 mr-1" />
+
+        </div>
     </div>
 </template>
 <script setup>
@@ -45,7 +65,7 @@ const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 const searchValue = ref('')
 const store = useManageOrderStore()
-
+const daterange = ref('')
 const props = defineProps({
     tableStatus: String,
     searchEventBusName: String
@@ -55,14 +75,15 @@ const props = defineProps({
 
 function search(filter_data={}){
     // console.log(searchValue.value)
-    eventBus.emit(props.searchEventBusName,{'keyword':searchValue.value})
+    eventBus.emit(props.searchEventBusName,{'keyword':searchValue.value, 'daterange':daterange.value})
 }
 function showFilterModal(){
     store.filterModal[props.tableStatus] = true
 }
 function reset(filter_data){
     searchValue.value = ''
-    eventBus.emit(props.searchEventBusName,{'keyword':searchValue.value})
+    daterange.value = ''
+    eventBus.emit(props.searchEventBusName,{'keyword':searchValue.value, 'daterange':daterange.value})
 }
 
 

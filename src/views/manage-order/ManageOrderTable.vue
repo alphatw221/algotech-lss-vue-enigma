@@ -321,6 +321,7 @@ const page_size = ref(50);
 const sortBy = ref({})
 
 const keyword = ref('')
+const daterange = ref('')
 const filterData = ref({})
 
 const TYPE_ORDER = 'order'
@@ -332,6 +333,7 @@ onMounted(()=>{
     search()
     eventBus.on(props.searchEventBusName, (payload) => {
         keyword.value = payload.keyword
+        daterange.value = payload.daterange
         search()
 	})
     eventBus.on(props.filterEventBusName, (payload) => {
@@ -357,10 +359,11 @@ onUnmounted(()=>{
 
 const search = () => {
     filterData.value['sort_by'] = sortBy.value
-    var _campaign_id, _search_value, _page, _page_size, _status, _filter_data, _toastify
+    var _campaign_id, _search_value, _daterange, _page, _page_size, _status, _filter_data, _toastify
     seller_search_order(
         _campaign_id=route.params.campaign_id, 
         _search_value=keyword.value, 
+        _daterange=daterange.value,
         _page=page.value, 
         _page_size=page_size.value, 
         _status=props.tableStatus, 
@@ -378,9 +381,11 @@ const search = () => {
 
 const normalFormatOrderReport = () => {
     console.log("normalFormatOrderReport")
+    var _campaign_id, _search_value, _daterange, _status, _filter_data, _toastify
     get_order_report(
         _campaign_id=route.params.campaign_id, 
         _search_value=keyword.value, 
+        _daterange=daterange.value,
         _status=props.tableStatus, 
         _filter_data=filterData.value, 
         _toastify=layoutStore.alert)
