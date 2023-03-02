@@ -72,6 +72,13 @@
 									<img class="rounded-full bg-[#3c599b]" :src="facebook_platform" >
 								</div>
 							</div>
+							<div class="w-8 h-8 border-0 flex-0 md:w-10 md:h-10 zoom-in" v-if="campaignData.sub_facebook_page">
+								<Tippy tag="img" class="border-0 rounded-full" :src="campaignData.sub_facebook_page.image"
+								:content="campaignData.sub_facebook_page.name" />
+								<div class="absolute bottom-0 right-0 w-5 h-5 border-2 border-white rounded-full dark:border-darkmode-600">
+									<img class="rounded-full bg-[#3c599b]" :src="facebook_platform" >
+								</div>
+							</div>
 							<div class="w-8 h-8 flex-0 md:w-10 md:h-10 zoom-in" v-if="campaignData.instagram_profile">
 								<Tippy tag="img" class="rounded-full " :src="campaignData.instagram_profile.image"
 								:content="campaignData.instagram_profile.name" />

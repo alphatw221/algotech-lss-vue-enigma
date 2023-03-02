@@ -63,6 +63,50 @@
             </div>
           </div>
 
+          <!-- SUB FACEBOOK -->
+          <div v-if="activatedPlatformList.includes('sub_facebook')" class="col-span-12 sm:col-span-4 p-3 lg:mx-0 sm:mx-1">
+            <div class="content">
+              <div>
+                <h5 class="text-lg font-medium text-center">{{$t('campaign_list.enter_post_id_modal.facebook')}}2</h5>
+              </div>
+              <button
+                type="button"
+                v-if="!campaign.sub_facebook_page"
+                @click="selectPlatformPage('sub_facebook')"
+                class="select_page btn rounded-full btn-primary lg:mt-10"
+              >
+                {{$t('campaign_list.enter_post_id_modal.select_live_post')}}
+              </button>
+              <div class="mt-3" v-if="campaign.sub_facebook_page">
+                <XIcon class="w-6 h-6 right-16 top-20 cursor-pointer absolute text-slate-500" @click="remove_platform_data('sub_facebook')"/>
+                <p class="my-auto text-center">{{$t('campaign_list.enter_post_id_modal.page')}}</p>
+                <div class="w-14 h-14 flex-none image-fit rounded-full overflow-hidden mx-auto mt-2">
+                  <a href="javascript:;" @click="selectPlatformPage('sub_facebook')"><img alt="Midone Tailwind HTML Admin Template" :src="campaign.sub_facebook_page.image"/></a>
+                </div>
+              </div>
+              
+              <div class="mt-3" v-if="campaign.sub_facebook_page">
+                <!-- <p class="text-center">{{$t('campaign_list.enter_post_id_modal.enter_post_id')}}</p> -->
+                
+                <div style="display:flex;">
+                  <input class="post_id" v-model="campaign.sub_facebook_campaign.post_id"
+                  :placeholder="$t('campaign_list.enter_post_id_modal.enter_post_id')"
+                  :class="{ 'border-danger text-danger border-2': validate.sub_facebook.post_id.error }" @keyup="autoUpdatePostId('sub_facebook')"/>
+                  <Tippy tag="a" href="javascript:;" class="absolute right-[40px] tooltip" :content="$t('campaign_list.enter_post_id_modal.search_recent_posts')" :options="{
+                    theme: 'light',
+                  }">
+                  <SearchIcon class="absolute right-[-12px] z-10 click-icon" @click="popSelectLivePostOrVideoPostModal('sub_facebook', campaign.sub_facebook_page.id)"/></Tippy>
+                </div>
+                
+                <template v-if="validate.sub_facebook.post_id.error">
+                  <label class="text-danger ml-2" >
+                    invalid post id 
+                  </label>
+                </template>
+              </div>
+            </div>
+          </div>
+
           <div v-if="activatedPlatformList.includes('instagram')" class="col-span-12 sm:col-span-4 p-3 lg:mx-0 sm:mx-1">
             <div class="content">
               <div>
@@ -251,6 +295,11 @@ const validate = ref({
       "error": false
     },
   },
+  "sub_facebook": {
+    "post_id": {
+      "error": false
+    },
+  },
   "instagram": {
     "post_id": {
       "error": false
@@ -351,6 +400,11 @@ const updatePostId = (platform) => {
     live_id = campaign.value.facebook_campaign.post_id
     data = {"platform": platform, "platform_id": page_id, "post_id": live_id}
     apiRequest = check_facebook_page_post_exist(page_id, live_id, layoutStore.alert)
+  } else if (platform === "sub_facebook") {
+    page_id = campaign.value.sub_facebook_page.id
+    live_id = campaign.value.sub_facebook_campaign.post_id
+    data = {"platform": platform, "platform_id": page_id, "post_id": live_id}
+    apiRequest = check_facebook_page_post_exist(page_id, live_id, layoutStore.alert)
   } else if (platform === "instagram") {
     page_id = campaign.value.instagram_profile.id
     live_id = campaign.value.instagram_campaign.live_media_id
@@ -397,7 +451,7 @@ const updatePostId = (platform) => {
 }
 
 const remove_platform_data =  (platform)=>{ 
-  delete_platform_live_id(campaign.value.id,platform, layoutStore.alert).then( res=>{
+  delete_platform_live_id(campaign.value.id, platform, layoutStore.alert).then( res=>{
     Object.entries(res.data).forEach(([key,value]) => {
       campaign.value[key]=value                       //proxy object only got setter
     });

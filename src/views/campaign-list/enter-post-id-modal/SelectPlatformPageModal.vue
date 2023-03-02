@@ -51,7 +51,7 @@ const payloadBuffer = ref({})
 onMounted(()=>{
     eventBus.on('showSelectPlatformModal', (payload) => {
       payloadBuffer.value = payload
-      if(payload.platform=='facebook'){
+      if(payload.platform=='facebook'||payload.platform=='sub_facebook'){
         pages.value = sellerLayoutStore.userInfo?.user_subscription?.facebook_pages||[]
       }else if(payload.platform=='youtube'){
         pages.value = sellerLayoutStore.userInfo?.user_subscription?.youtube_channels||[]
@@ -72,7 +72,7 @@ onUnmounted(()=>{
 const selectPage = index => {
   payloadBuffer.value.page=pages.value[index]
   let apiRequest=null
-  if(payloadBuffer.value.platform=='facebook'){
+  if(payloadBuffer.value.platform=='facebook'||payloadBuffer.value.platform=='sub_facebook'){
     apiRequest = check_facebook_page_token_valid
   }else if(payloadBuffer.value.platform=='youtube'){
     apiRequest = check_youtube_channel_token_valid
