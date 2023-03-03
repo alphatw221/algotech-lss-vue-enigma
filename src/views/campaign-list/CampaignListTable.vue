@@ -102,7 +102,7 @@
                   </div>
               </div>
               <template 
-                v-if="campaign.twitch_channel == null && campaign.facebook_page == null && campaign.instagram_profile == null 
+                v-if="campaign.twitch_channel == null && campaign.facebook_page == null && campaign?.sub_facebook_page==null && campaign.instagram_profile == null 
                 && campaign.youtube_channel == null && !campaign.tiktok_campaign.username">
                 <SimpleIcon icon="edit" color="#131C34" class=" w-[30px] h-[28px] sm:w-[22px] sm:h-[18px]"/>
               </template>
