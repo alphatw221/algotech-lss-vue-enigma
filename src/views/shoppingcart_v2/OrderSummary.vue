@@ -61,19 +61,25 @@
         </div>
         <span v-if="shoppingCartStore.cart?.applied_discount?.code != undefined" class="lg:text-right text-left font-medium text-red-600">{{$t('shopping_cart.order_summary.promo_apply',{ code :shoppingCartStore.cart?.applied_discount?.code})}} </span>
 
-        <!-- POINTS INPUT -->
-        <div class="flex flex-row flex-wrap justify-between" v-if="shoppingCartStore.cart.campaign?.meta_point?.enable">
+         <!-- POINTS INPUT -->
+         <div class="flex flex-row flex-wrap justify-between" v-if="shoppingCartStore.cart.campaign?.meta_point?.enable">
           <div>
             <h4 class="w-fit my-auto whitespace-nowrap">{{$t('shopping_cart.order_summary.points_redemption')}}</h4>
             <h4 class="w-fit my-auto whitespace-nowrap text-danger">({{computedWalletPointsLeft}} points)</h4>
           </div>
           
-          <input
+          <!-- <input
             type="number"
             class="form-control w-32 h-[35px] text-right"
             v-model="shoppingCartStore.points_used"
-          />
+          /> -->
+
+          <select  class="form-control w-32 h-[35px] text-right" v-model="shoppingCartStore.points_used">
+            <option :value="0">0</option>
+            <option v-for="pointsUsedOption,pointsUsedOptionIndex in computedPointsUsedOptions" :key="pointsUsedOptionIndex" :value="pointsUsedOption">{{ pointsUsedOption }}</option>
+          </select>
         </div>
+
       </template>
 
       <!-- REFERAL CODE INFO -->
@@ -183,7 +189,7 @@
 <script setup>
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
 import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout";
-import { computed, onMounted, ref, watch } from "vue";
+import { computed, onMounted, ref, watch, defineProps } from "vue";
 // import { buyer_apply_discount_code, buyer_cancel_discount_code } from "@/api_v2/pre_order"; 
 import { buyer_apply_discount_code, buyer_cancel_discount_code } from "@/api_v2/cart"
 import { get_shopify_checkout_url } from '@/plugin/shopify/api/cart.js';
@@ -201,6 +207,18 @@ const showModal = ref(false)
 const isAnonymousUser=cookies.get("login_with")=='anonymousUser'
 
 
+const props = defineProps({
+  deliveryMethod: {
+    type: String,
+    default: 'delivery',
+  },
+  deliveryOptionData:{
+    type: Object,
+    default: {}
+  }
+})
+
+
 const computedCartSubtotal = computed(()=>{
   var subtotal = 0
   Object.entries(shoppingCartStore.cart.products||{}).forEach(([key, qty])=>{
@@ -213,7 +231,7 @@ const computedCartSubtotal = computed(()=>{
 
 const computedShippingCost = computed(()=>{
   var shippingCost = 0 
-  if(shoppingCartStore.shipping_info.shipping_method=='pickup') return 0
+  if(props.deliveryMethod=='pickup') return 0
   
   if(!shoppingCartStore.cart?.campaign?.meta_logistic) return 0
   
@@ -241,28 +259,16 @@ const computedShippingCost = computed(()=>{
   //----------------default logistic setting-------------------------------------
   if(shoppingCartStore.cart.campaign.meta_logistic.is_self_delivery_enabled) shippingCost = Number(meta_logistic.delivery_charge || 0)
   
-  if (shoppingCartStore.shipping_info.shipping_method == 'delivery') {
-    if(typeof shoppingCartStore.shipping_info.shipping_option_index=='number'){
-      if (meta_logistic.additional_delivery_options[shoppingCartStore.shipping_info.shipping_option_index].type== '+'){
-        shippingCost += Number(meta_logistic.additional_delivery_options[shoppingCartStore.shipping_info.shipping_option_index].price)
-      }
-      else if(meta_logistic.additional_delivery_options[shoppingCartStore.shipping_info.shipping_option_index].type == '='){
-        shippingCost =  Number(meta_logistic.additional_delivery_options[shoppingCartStore.shipping_info.shipping_option_index].price)
-      }
+  if (props.deliveryMethod == 'delivery') {
+    if (props.deliveryOptionData?.type== '+'){
+      shippingCost += Number(props.deliveryOptionData?.price)
+    }
+    else if(props.deliveryOptionData?.type == '='){
+      shippingCost =  Number(props.deliveryOptionData?.price)
     }
     return shippingCost
   }
   
-  //----------------ecpay logistic setting-------------------------------------
-  if (shoppingCartStore.shipping_info.shipping_method == 'ecpay') {
-    if (meta_logistic.ecpay.logistics_sub_type[shoppingCartStore.shipping_info.shipping_option_index].type== '+'){
-      shippingCost += Number(meta_logistic.ecpay.logistics_sub_type[shoppingCartStore.shipping_info.shipping_option_index].delivery_charge)
-    }
-    else if(meta_logistic.ecpay.logistics_sub_type[shoppingCartStore.shipping_info.shipping_option_index].type == '='){
-      shippingCost =  Number(meta_logistic.ecpay.logistics_sub_type[shoppingCartStore.shipping_info.shipping_option_index].delivery_charge)
-    }
-    return shippingCost
-  }
   return shippingCost
 })
 
@@ -291,6 +297,21 @@ const appliedCategoryLogistic = computed(()=>{
 })
 
 watch(computed(()=>appliedCategoryLogistic.value),()=>{shoppingCartStore.appliedCategoryLogistic = appliedCategoryLogistic.value})
+
+
+const computedPointsUsedOptions = computed(()=>{
+  const points = (shoppingCartStore.buyerWallet?.points||0)
+  const rate = (shoppingCartStore.cart.campaign?.meta_point?.redemption_rate_point||1)
+  console.log(points)
+  console.log(rate)
+  
+  const _options = []
+  for(let i=1; i<=Math.floor(points/rate); i++){
+    _options.push(i*rate)
+  }
+  return _options
+})
+
 
 
 
