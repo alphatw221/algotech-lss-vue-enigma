@@ -516,7 +516,7 @@ const routes = [
         //   }
         //   return youtubeOrderMiddleware(to, from)
         // },
-        component: () => import('@/views/shoppingcart_v2/Main.vue')
+        component: () => import('@/views/shoppingcart/Main.vue')
       },
       {
         path: "recommand/:platform_name?/:platform_id?",
