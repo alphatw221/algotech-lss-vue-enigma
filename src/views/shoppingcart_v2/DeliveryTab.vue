@@ -912,7 +912,8 @@ const proceed_to_payment = () =>{
     return
   }
 
-
+  console.log(shipping_info.value)
+  return
 
   checkoutLoading.value = true
   buyer_checkout_cart(route.params.cart_oid, {shipping_data:shipping_info.value, points_used:shoppingCartStore.points_used}, layoutStore.alert)
