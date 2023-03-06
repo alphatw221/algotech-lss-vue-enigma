@@ -105,46 +105,6 @@ const toggleTabs = tabNumber => {
   }
 const isAnonymousUser=cookies.get("login_with")=='anonymousUser'
 
-const defaultShippingOptions = ()=>{
-  // console.log(shoppingCartStore.cart.campaign)
-
-  // meta帶入CVS資料
-  if (shoppingCartStore.cart.meta?.ecpay_cvs?.shipping_option_index && shoppingCartStore.cart.meta?.ecpay_cvs?.shipping_method) {
-    shoppingCartStore.shipping_info.shipping_method = shoppingCartStore.cart.meta?.ecpay_cvs?.shipping_method
-    shoppingCartStore.shipping_info.shipping_option_index = shoppingCartStore.cart.meta?.ecpay_cvs?.shipping_option_index
-    eventBus.emit("changeShippingOption")
-  }
-  //ecpay 帶入資料
-  else if(shoppingCartStore.cart.campaign.meta_logistic?.ecpay?.enabled){
-    // console.log(shoppingCartStore.cart.campaign.meta_logistic.ecpay)
-    let ecpay_options = shoppingCartStore.cart.campaign.meta_logistic?.ecpay?.logistics_sub_type
-    if(ecpay_options.TCAT.enabled){
-      shoppingCartStore.shipping_info.shipping_method = 'ecpay'
-      shoppingCartStore.shipping_info.shipping_option_index = 'TCAT'
-    }else if(ecpay_options.FAMIC2C.enabled){
-      shoppingCartStore.shipping_info.shipping_method = 'ecpay'
-      shoppingCartStore.shipping_info.shipping_option_index = 'FAMIC2C'
-    }else if(ecpay_options.UNIMARTC2C.enabled){
-      shoppingCartStore.shipping_info.shipping_method = 'ecpay'
-      shoppingCartStore.shipping_info.shipping_option_index = 'UNIMARTC2C'
-    }
-    eventBus.emit("changeShippingOption")
-
-  //Pickup 帶入資料
-  }
-  // Self Delivery 帶入資料
-  else if(shoppingCartStore.cart.campaign.meta_logistic.is_self_delivery_enabled){
-    shoppingCartStore.shipping_info.shipping_option_index = null
-    shoppingCartStore.shipping_info.shipping_method = 'delivery'
-    eventBus.emit("changeShippingOption")
-  }
-
-  else if(shoppingCartStore.cart.campaign.meta_logistic.is_store_pickup_enabled){
-    shoppingCartStore.shipping_info.shipping_method = 'pickup'
-    shoppingCartStore.shipping_info.shipping_option_index = 0
-    eventBus.emit("changeShippingOption")
-  }
-}
 
 onMounted(()=>{
   if(route.query.tab == 2) shoppingCartStore.openTab = 2
@@ -172,7 +132,7 @@ onMounted(()=>{
         shoppingCartStore.product_categories.forEach(productCategory => {
           shoppingCartStore.productCategoryDict[productCategory.id.toString()]=productCategory
         }); 
-        defaultShippingOptions()
+
         buyerLayoutStore.sellerInfo = res.data.user_subscription
         i18n.locale = res.data.campaign.lang
         Object.keys(shoppingCartStore.cart.products).length == 0 ? shoppingCartStore.showAddItemModal = true : shoppingCartStore.showAddItemModal = false

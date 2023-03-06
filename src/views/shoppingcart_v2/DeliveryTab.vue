@@ -10,9 +10,10 @@
             class="flex flex-row items-center justify-start w-full nav-boxed-tabs grow gap-2 -mt-4 sm:mt-0">
             <div class="w-1/2"
               v-if="shoppingCartStore.cart.campaign.meta_logistic?.is_self_delivery_enabled || shoppingCartStore.cart.campaign.meta_logistic?.ecpay?.enabled"> 
-              <Tab class="h-14 border-[#131c34] w-48 xl:w-64 flex" tag="button" @click="select_shipping_method('delivery','tab')">
+              <Tab class="h-14 border-[#131c34] w-48 xl:w-64 flex" tag="button" @click="()=>{shipping_info.shipping_method = 'delivery'}">
                 <div class="inline-flex items-center w-full h-full place-content-center">
-                  <SimpleIcon icon="delivery" :color="deliveryColor" class="block mr-3" width="24" /> 
+                  <SimpleIcon v-if="shipping_info.shipping_method == 'delivery'" icon="delivery" color="white" class="block mr-3" width="24" /> 
+                  <SimpleIcon v-else icon="delivery" color="#131C34" class="block mr-3" width="24" /> 
                   <span class="text-sm lg:text-lg">{{$t('shopping_cart.delivery_tab.home_delivery')}}</span>
                 </div>
               </Tab>
@@ -21,9 +22,10 @@
               v-if="shoppingCartStore.cart.campaign.meta_logistic?.is_store_pickup_enabled">
               <Tab  
                 class="h-14 border-[#131c34] w-48 xl:w-64 flex" tag="button"
-                @click="select_shipping_method('pickup','tab')">
+                @click="()=>{shipping_info.shipping_method = 'pickup'}">
                 <div class="inline-flex items-center w-full h-full place-content-center">
-                  <SimpleIcon icon="store" :color="pickupColor" class="block mr-3" width="24" /> 
+                  <SimpleIcon  v-if="shipping_info.shipping_method == 'pickup'" icon="store" color="white" class="block mr-3" width="24" /> 
+                  <SimpleIcon  v-else icon="store" color="#131C34" class="block mr-3" width="24" /> 
                   <span class="text-sm lg:text-lg">{{$t('shopping_cart.delivery_tab.self_pickup')}}</span>
                 </div>
               </Tab>
@@ -39,63 +41,171 @@
           <TabPanels v-if="shoppingCartStore.cart.campaign" >
             <!-- BEGIN Delivery Panel -->
             <TabPanel 
-            v-if="shoppingCartStore.cart.campaign.meta_logistic.is_self_delivery_enabled || shoppingCartStore.cart.campaign.meta_logistic?.ecpay?.enabled"
+            v-if="shoppingCartStore.cart.campaign.meta_logistic.is_self_delivery_enabled "
             class="leading-relaxed">
               <div class="flex flex-col gap-6">
+                
+                <div class="flex flex-col gap-4 mx-0 intro-y lg:mx-10 xl:mx-20">
+
+                  <!-- Delivery Date -->
+                  <template v-if="shoppingCartStore.cart.campaign.meta_logistic.is_use_delivery_date_enabled && shoppingCartStore.cart.campaign.meta_logistic.delivery_date?.options ">
+                    <h3 class="whitespace-nowrap lg:-mx-10 xl:-mx-20">{{$t('shopping_cart.delivery_tab.delivery_date')}}</h3>
+                    <div class="flex flex-col sm:flex-row gap-3"> 
+
+                      <div class="flex flex-col w-full"> 
+                  
+                      <Litepicker v-model="shipping_info.shipping_date" :options="{
+                        autoApply: false,
+                        showWeekNumbers: true,
+                        dropdowns: {
+                          minYear: 1990,
+                          maxYear: null,
+                          months: true,
+                          years: true,
+                        },
+                        minDate:shoppingCartStore?.cart?.campaign?.meta_logistic?.delivery_date?.daterange?.split('~')?.[0],
+                        maxDate:shoppingCartStore?.cart?.campaign?.meta_logistic?.delivery_date?.daterange?.split('~')?.[1],
+                      }" class="block border-2 h-[50px] px-10 w-full min-w-[300px] rounded-lg" :class="{'border-danger': pickup_time_validate.pickup_date.$errors.length > 0}"/>
+                      <h4 class="text-danger flex flex-col sm:flex-row"> 
+                        <template v-for="(error,index) in pickup_time_validate.pickup_date.$errors" :key="index">
+                          <span>{{ error.$message }}</span>
+                          <span v-if="index+1 !== pickup_time_validate.pickup_date.$errors.length"
+                              class="hidden sm:block mx-1">/</span>
+                        </template>
+                      </h4>
+                      </div>
+                      <div class="flex flex-col w-full"> 
+                        <select 
+                          class="border-2 h-[50px] w-full rounded-lg px-10 text-[1rem]" 
+                          :class="{'border-danger': pickup_time_validate.pickup_time_slot.$errors.length > 0}" 
+                          v-model="shipping_info.shipping_time_slot"> 
+                          <option v-for="option in shoppingCartStore.cart.campaign.meta_logistic.delivery_date?.options" :key="option"> {{ option }} </option>
+                        </select>
+                        <h4 class="text-danger flex flex-col sm:flex-row"> 
+                          <template v-for="(error,index) in pickup_time_validate.pickup_time_slot.$errors" :key="index">
+                            <span>{{ error.$message }}</span>
+                            <span v-if="index+1 !== pickup_time_validate.pickup_time_slot.$errors.length"
+                                class="hidden sm:block mx-1">/</span>
+                          </template>
+                        </h4>
+
+                      </div>
+                    </div>
+                  </template>
+                </div>
+                <!-- END Delivery Option -->
+
+
+                <!-- Delivery Address -->
+                <h2 class="mt-4 sm:mt-8">{{$t('shopping_cart.delivery_tab.delivery_info')}}</h2>
+                <div class="flex flex-col gap-4 intro-y">
+                  <!--Street Address-->
+                  <div class="flex flex-col gap-1">
+                    <p>{{$t('shopping_cart.delivery_tab.address')}}</p>
+                    <input id="regular-form-2" type="text" class="form-control"
+                      :class="{ 'border-danger': delivery_validate.shipping_address_1.$error }"
+                      :placeholder="$t('shopping_cart.delivery_tab.address_hint')"
+                      v-model.trim="delivery_validate.shipping_address_1.$model" />
+                    <h4 class="text-danger flex flex-col sm:flex-row"> 
+                      <template v-for="(error,index) in delivery_validate.shipping_address_1.$errors" :key="index">
+                        <span>{{ error.$message }}</span>
+                        <span v-if="index+1 !== delivery_validate.shipping_address_1.$errors.length"
+                            class="hidden sm:block mx-1">/</span>
+                      </template>
+                    </h4>
+                  </div>
+
+                  <!--City-->
+                  <div class="flex flex-col gap-1">
+                    <p>{{$t('shopping_cart.delivery_tab.city')}}</p>
+
+
+                    <input id="regular-form-2" type="text" class="form-control " placeholder=""
+                      :class="{ 'border-danger text-danger': delivery_validate.shipping_region.$error }"
+                      v-model.trim="delivery_validate.shipping_region.$model" /> 
+
+                    <h4 class="text-danger flex flex-col sm:flex-row"> 
+                      <template v-for="(error,index) in delivery_validate.shipping_region.$errors" :key="index">
+                        <span>{{ error.$message }}</span>
+                        <span v-if="index+1 !== delivery_validate.shipping_region.$errors.length"
+                            class="hidden sm:block mx-1">/</span>
+                      </template>
+                    </h4>
+                  </div>
+
+                  <!--District Area-->
+                  <div class="flex flex-col gap-1">
+                    <p>{{$t('shopping_cart.delivery_tab.district')}}</p>
+                    
+                    <select class="form-control" v-if="computedRegionOptions.length>0" v-model="delivery_validate.shipping_location.$model"
+                    :class="{ 'border-danger text-danger': delivery_validate.shipping_location.$error }"
+                    >
+                      <option :value="regionOption" v-for="regionOption, regionOPtionIndex in computedRegionOptions" :key="regionOPtionIndex">{{regionOption}}</option>
+                    </select>
+
+
+                    <input v-else id="regular-form-2" type="text" class="form-control " placeholder=""
+                      :class="{ 'border-danger text-danger': delivery_validate.shipping_location.$error }"
+                      v-model.trim="delivery_validate.shipping_location.$model" /> 
+
+                      
+
+                    <h4 class="text-danger flex flex-col sm:flex-row"> 
+                      <template v-for="(error,index) in delivery_validate.shipping_location.$errors" :key="index">
+                        <span>{{ error.$message }}</span>
+                        <span v-if="index+1 !== delivery_validate.shipping_location.$errors.length"
+                            class="hidden sm:block mx-1">/</span>
+                      </template>
+                    </h4>
+                  </div>
+
+                  <!--Street Address-->
+                  <div class="flex flex-col gap-1" v-if="shoppingCartStore.user_subscription?.user_plan?.display?.order_shipping_property_type">
+                    <p>{{$t('shopping_cart.delivery_tab.property')}}</p>
+
+                    <select class="form-select h-[35px] sm:h-[42px] w-full" v-model="shipping_info.shipping_property_type">
+                        <option :value="null"></option>
+                        <option value="HDB">HDB</option>
+                        <option value="Condo/Apartment">Condo/Apartment</option>
+                        <option value="Landed">Landed</option>
+                        <option value="Office">Office</option>
+
+                      </select>
+
+                    <!-- <input id="regular-form-2" type="text" class="form-control"
+                      :placeholder="$t('shopping_cart.delivery_tab.property_hint')"
+                      v-model.trim="shipping_info.shipping_property_type" /> -->
+                  </div>
+
+                  <!--Postal Code-->
+                  <div class="flex flex-col gap-1">
+                    <p>{{$t('shopping_cart.delivery_tab.postal_code')}}</p>
+                    <input id="regular-form-2" type="text" class="form-control " placeholder=""
+                      :class="{ 'border-danger text-danger': delivery_validate.shipping_postcode.$error }"
+                      v-model.trim="delivery_validate.shipping_postcode.$model" />
+                    <h4 class="text-danger flex flex-col sm:flex-row"> 
+                      <template v-for="(error,index) in delivery_validate.shipping_postcode.$errors" :key="index">
+                        <span>{{ error.$message }}</span>
+                        <span v-if="index+1 !== delivery_validate.shipping_postcode.$errors.length"
+                            class="hidden sm:block mx-1">/</span>
+                      </template>
+                    </h4>
+                  </div>
+                </div>
+
+
                 <!-- BEGIN Delivery Option -->
                 <h3 id="delivery_options">{{$t('shopping_cart.delivery_tab.option.delivery')}}</h3>
 
-                <div class="flex flex-col gap-4 mx-0 intro-y lg:mx-10 xl:mx-20">
-
-                  <!-- Ecpay 店到店 -->
-                  <template v-if="(shoppingCartStore.cart.campaign.meta_logistic?.ecpay?.enabled == true)">
-                    <div class="flex flex-col gap-4">
-                      <template v-for="(item, key, index) in shoppingCartStore.cart.campaign.meta_logistic?.ecpay?.logistics_sub_type" :key="index">
-                        <div v-if="item?.enabled == true" class="logistic-options border-2 rounded-lg relative"
-                          :class="{'border-red-600/90 shadow-sm': shipping_option_index_computed == key}"
-                          @click="select_shipping_method('ecpay')& (shipping_option_index_computed = key)"
-                        >
-                          <CheckSquareIcon v-if="shipping_option_index_computed == key" class="absolute left-3 text-red-800"/>
-                          <div class="flex flex-col md:flex-row lg:flex-col xl:flex-row gap-4 flex-wrap"> 
-                            <div class="flex flex-row gap-6 items-center">
-                              <p :id="key" class="min-w-28 whitespace-nowrap">{{ $t(`settings.delivery_form.ecpay.logistics_sub_type.${key}`) }}</p>
-                              <a v-if="key !== 'TCAT'" @click="get_c2c_map(key, 'ecpay', key)"><h4>{{$t('shopping_cart.delivery_tab.select_store')}}</h4></a>
-                            </div>
-
-                            <h4 id="cvs_info" class="-my-1" v-if="shoppingCartStore.cart.meta?.ecpay_cvs?.logistics_sub_type == key">
-                              {{shoppingCartStore.cart.meta?.ecpay_cvs?.cvs_store_name}}<br/>
-                              {{shoppingCartStore.cart.meta?.ecpay_cvs?.cvs_address}}
-                            </h4>
-                          </div>
-                          <h4 id="option_price" class="whitespace-nowrap ml-auto">
-                            <!-- on top delivery charge-->
-                            <template v-if="computedAppliedCategoryLogistic"> 
-                            </template>
-                            <template v-else-if="item.type === '+'">
-                                {{ shoppingCartStore.cart.campaign.currency }}
-                                {{(Math.floor((parseFloat(item.delivery_charge) + parseFloat(shoppingCartStore.cart.campaign.meta_logistic.delivery_charge)) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toFixed(shoppingCartStore.cart.campaign.decimal_places)}}
-                                {{shoppingCartStore.cart.campaign.price_unit?$t(`global.price_unit.${shoppingCartStore.cart.campaign.price_unit}`):''}}
-                            </template>
-                            <!-- replace delivery charge-->
-                            <template v-else>
-                                {{ shoppingCartStore.cart.campaign.currency }}
-                                {{(Math.floor(parseFloat(item.delivery_charge) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toFixed(shoppingCartStore.cart.campaign.decimal_places)}}
-                                {{shoppingCartStore.cart.campaign.price_unit?$t(`global.price_unit.${shoppingCartStore.cart.campaign.price_unit}`):''}}
-                            </template>
-                          </h4>
-                        </div>
-                      </template>
-                    </div> 
-                  </template>
-
                   <!-- Default Option -->
                   <div 
-                      v-if="((shoppingCartStore.cart.campaign.meta_logistic?.is_self_delivery_enabled == true) || computedAppliedCategoryLogistic) && computedDeliveryServiceOptions.length<=0"
+                      v-if="((shoppingCartStore.cart.campaign.meta_logistic?.is_self_delivery_enabled == true) || computedAppliedCategoryLogistic) && (computedRegionOptions.length<=1)"
                       class="logistic-options border-2 rounded-lg relative"
-                      :class="{'border-red-600/90 shadow-sm': shipping_info.shipping_option_data == null}"
-                      @click="select_shipping_method('delivery') & (shipping_info.shipping_option_data = null)"
+                      :class="{'border-red-600/90 shadow-sm': displayDeliveryOptionIndex == null}"
+                      @click="selectDeliveryServiceOption(null, {})"
                     >
-                    <CheckSquareIcon v-if="shipping_info.shipping_option_data == null" class="absolute left-3 text-red-800"/>
+
+                    <CheckSquareIcon v-if="displayDeliveryOptionIndex == null" class="absolute left-3 text-red-800"/>
                     <p id="default_delivery" class="min-w-[100px] whitespace-nowrap">{{ !['',' ',undefined,null].includes(shoppingCartStore.cart.campaign.meta_logistic?.title) ? shoppingCartStore.cart.campaign.meta_logistic?.title : $t('shopping_cart.delivery_tab.option.default')}}</p>
                     <template v-if="computedAppliedCategoryLogistic"></template>
                     <h4 v-else class="ml-auto">
@@ -105,44 +215,28 @@
                     </h4>
                   </div>
 
-
-
-
-
-
                   <!-- Own Delivery Options -->
                   <template v-if="(shoppingCartStore.cart.campaign.meta_logistic?.is_self_delivery_enabled == true)"> 
-                    <!-- <template
-                      v-for="(option, index) in shoppingCartStore.cart.campaign.meta_logistic.additional_delivery_options"
-                      :key="index">  -->
                     <template
                       v-for="(option, index) in computedDeliveryServiceOptions"
                       :key="index"> 
                       <div class="logistic-options border-2 rounded-lg relative"
-                        :class="{'border-red-600/90 shadow-sm': shipping_info.shipping_option_data == option}"
-                        @click="select_shipping_method('delivery') & (shipping_info.shipping_option_data = option)"
+                        :class="{'border-red-600/90 shadow-sm': displayDeliveryOptionIndex == index}"
+                        @click="selectDeliveryServiceOption(index, option)"
                         >
-                        <CheckSquareIcon v-if="shipping_info.shipping_option_data == option" class="absolute left-3 text-red-800"/>
+                        <CheckSquareIcon v-if="displayDeliveryOptionIndex == index" class="absolute left-3 text-red-800"/>
 
                         <div class="flex flex-col md:flex-row lg:flex-col xl:flex-row gap-4 flex-wrap"> 
                           <div class="flex flex-row gap-6 items-center">
-                            <p  class="min-w-[100px] whitespace-nowrap">{{ option?.region }}</p>
-                            <p :id="option.title" class="min-w-[100px] whitespace-nowrap">{{ option.title }}</p>
-                            <a  v-if="(option.is_cvs == true) && (option?.cvs_key)" 
-                                @click="get_c2c_map(option?.cvs_key, 'delivery', index)" >
-                                <h4>{{$t('shopping_cart.delivery_tab.select_store')}}</h4></a>
+
+                            <p :id="option.title" class="min-w-[100px] whitespace-nowrap">{{option?.region + ' - '+ option.title }}</p>
+
                           </div>
-                          <template v-if="shoppingCartStore.cart.meta?.ecpay_cvs?.logistics_sub_type && shoppingCartStore.cart.meta?.ecpay_cvs?.logistics_sub_type == option.cvs_key">
-                            <h4 id="own_cvs_info" class="-my-1" >
-                              {{shoppingCartStore.cart.meta.ecpay_cvs.cvs_store_name}} <br/>
-                              {{shoppingCartStore.cart.meta.ecpay_cvs.cvs_address}}
-                            </h4>
-                          </template>
                         </div>
 
                         <h4 id="option_price" class="whitespace-nowrap ml-auto">
                           <!-- on top delivery charge-->
-                          <template v-if="computedAppliedCategoryLogistic"></template>
+                          <template v-if="computedAppliedCategoryLogistic||shoppingCartStore.cart?.free_delivery||computedSubtotalOverFreeDeliveryThreshold||computedItemsOverFreeDeliveryThreshold"></template>
                           <template v-else-if="option.type === '+'">
                             {{ shoppingCartStore.cart.campaign.currency }}
                             {{(Math.floor((parseFloat(option.price) + parseFloat(shoppingCartStore.cart.campaign.meta_logistic.delivery_charge)) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toFixed(shoppingCartStore.cart.campaign.decimal_places)}}
@@ -159,174 +253,6 @@
                     </template>
                   </template>
 
-                  <!-- Delivery Date -->
-                  <template v-if="shoppingCartStore.cart.campaign.meta_logistic.is_use_delivery_date_enabled && shoppingCartStore.cart.campaign.meta_logistic.delivery_date?.options && shipping_method_computed === 'delivery' && !shipping_info.shipping_option_data?.is_cvs">
-                    <h3 class="whitespace-nowrap lg:-mx-10 xl:-mx-20">{{$t('shopping_cart.delivery_tab.delivery_date')}}</h3>
-                    <div class="flex flex-col sm:flex-row gap-3"> 
-
-                      <div class="flex flex-col w-full"> 
-                      <v-date-picker class="z-49" 
-                        v-model="shipping_info.shipping_date_time"
-                        mode="date" is-required
-                        :min-date='shoppingCartStore.cart.campaign.meta_logistic.delivery_date.start_at'
-                        :max-date='shoppingCartStore.cart.campaign.meta_logistic.delivery_date.end_at'
-                        v-show="false"
-                        >
-                        <template v-slot="{ inputValue, inputEvents }">
-                          <input :value="inputValue" type="text" v-on="inputEvents"
-                            class="border-2 h-[50px] px-10 w-full min-w-[300px] rounded-lg" />
-                        </template>
-                      </v-date-picker>
-                      <Litepicker v-model="shipping_info.shipping_date" :options="{
-                        autoApply: false,
-                        showWeekNumbers: true,
-                        dropdowns: {
-                          minYear: 1990,
-                          maxYear: null,
-                          months: true,
-                          years: true,
-                        },
-                        minDate:shoppingCartStore?.cart?.campaign?.meta_logistic?.delivery_date?.daterange?.split('~')?.[0],
-                        maxDate:shoppingCartStore?.cart?.campaign?.meta_logistic?.delivery_date?.daterange?.split('~')?.[1],
-                      }" class="block border-2 h-[50px] px-10 w-full min-w-[300px] rounded-lg" :class="{'border-danger': time_validate.shipping_date.$errors.length > 0}"/>
-                      <h4 class="text-danger flex flex-col sm:flex-row"> 
-                        <template v-for="(error,index) in time_validate.shipping_date.$errors" :key="index">
-                          <span>{{ error.$message }}</span>
-                          <span v-if="index+1 !== time_validate.shipping_date.$errors.length"
-                              class="hidden sm:block mx-1">/</span>
-                        </template>
-                      </h4>
-                      </div>
-                      <div class="flex flex-col w-full"> 
-                        <select 
-                          class="border-2 h-[50px] w-full rounded-lg px-10 text-[1rem]" 
-                          :class="{'border-danger': time_validate.shipping_time_slot.$errors.length > 0}" 
-                          v-model="shipping_info.shipping_time_slot"> 
-                          <option v-for="option in shoppingCartStore.cart.campaign.meta_logistic.delivery_date?.options" :key="option"> {{ option }} </option>
-                        </select>
-                        <h4 class="text-danger flex flex-col sm:flex-row"> 
-                          <template v-for="(error,index) in time_validate.shipping_time_slot.$errors" :key="index">
-                            <span>{{ error.$message }}</span>
-                            <span v-if="index+1 !== time_validate.shipping_time_slot.$errors.length"
-                                class="hidden sm:block mx-1">/</span>
-                          </template>
-                        </h4>
-
-                      </div>
-                    </div>
-                  </template>
-                </div>
-                <!-- END Delivery Option -->
-
-                <!-- Delivery Address -->
-                <template v-if="showAddressForm">
-                  <h2 class="mt-4 sm:mt-8">{{$t('shopping_cart.delivery_tab.delivery_info')}}</h2>
-                  <div class="flex flex-col gap-4 intro-y">
-                    <!--Street Address-->
-                    <div class="flex flex-col gap-1">
-                      <p>{{$t('shopping_cart.delivery_tab.address')}}</p>
-                      <input id="regular-form-2" type="text" class="form-control"
-                        :class="{ 'border-danger': delivery_validate.shipping_address_1.$error }"
-                        :placeholder="$t('shopping_cart.delivery_tab.address_hint')"
-                        v-model.trim="delivery_validate.shipping_address_1.$model" />
-                      <h4 class="text-danger flex flex-col sm:flex-row"> 
-                        <template v-for="(error,index) in delivery_validate.shipping_address_1.$errors" :key="index">
-                          <span>{{ error.$message }}</span>
-                          <span v-if="index+1 !== delivery_validate.shipping_address_1.$errors.length"
-                              class="hidden sm:block mx-1">/</span>
-                        </template>
-                      </h4>
-                    </div>
-
-                    <!--City-->
-                    <div class="flex flex-col gap-1">
-                      <p>{{$t('shopping_cart.delivery_tab.city')}}</p>
-                      <template v-if="shoppingCartStore.cart.campaign.meta_logistic?.ecpay?.enabled">
-                        <select class="form-select h-[35px] sm:h-[42px] w-full" v-model="city_computed"
-                          :class="{ 'border-danger text-danger': delivery_validate.shipping_region.$errors.length }">
-                          <option :value="null">{{ $t('shopping_cart.delivery_tab.please_select') }}</option>
-                          <option v-for="(city,index) in twZipcodeStore.data" :key="index" :value="index">{{ city.name }}</option>
-                        </select>
-                      </template>
-                      <template v-else> 
-                        <input id="regular-form-2" type="text" class="form-control " placeholder=""
-                          :class="{ 'border-danger text-danger': delivery_validate.shipping_region.$error }"
-                          v-model.trim="delivery_validate.shipping_region.$model" /> 
-                      </template>
-
-                      <h4 class="text-danger flex flex-col sm:flex-row"> 
-                        <template v-for="(error,index) in delivery_validate.shipping_region.$errors" :key="index">
-                          <span>{{ error.$message }}</span>
-                          <span v-if="index+1 !== delivery_validate.shipping_region.$errors.length"
-                              class="hidden sm:block mx-1">/</span>
-                        </template>
-                      </h4>
-                    </div>
-
-                    <!--Country-->
-                    <div class="flex flex-col gap-1">
-                      <p>{{$t('shopping_cart.delivery_tab.district')}}</p>
-                      <template v-if="shoppingCartStore.cart.campaign.meta_logistic?.ecpay?.enabled">
-                        <select class="form-select h-[35px] sm:h-[42px] w-full" v-model="area_computed"
-                          :class="{ 'border-danger text-danger': delivery_validate.shipping_location.$errors.length }">
-                          <option :value="null">{{ $t('shopping_cart.delivery_tab.please_select') }}</option>
-                          <option v-for="(area,index) in twZipcodeStore.data[cityIndex]?.areas" :key="index" :value="index">{{ area.name }}</option>
-                        </select>
-                      </template>
-                      <template v-else-if="(computedRegionOptions||0)!=0"> 
-
-                        <select class="form-select h-[35px] sm:h-[42px] w-full" v-model="shipping_info.shipping_location">
-                          <option v-for="(option, optionIndex) in computedRegionOptions" :key="optionIndex" :value="option">{{ option }}</option>
-                        </select>
-
-                      </template>
-                      <template v-else> 
-                        <div>{{ computedRegionOptions }}</div>
-                        <input id="regular-form-2" type="text" class="form-control " placeholder=""
-                          :class="{ 'border-danger text-danger': delivery_validate.shipping_location.$error }"
-                          v-model.trim="delivery_validate.shipping_location.$model" /> 
-                      </template>
-
-                      <h4 class="text-danger flex flex-col sm:flex-row"> 
-                        <template v-for="(error,index) in delivery_validate.shipping_location.$errors" :key="index">
-                          <span>{{ error.$message }}</span>
-                          <span v-if="index+1 !== delivery_validate.shipping_location.$errors.length"
-                              class="hidden sm:block mx-1">/</span>
-                        </template>
-                      </h4>
-                    </div>
-
-                    <!--Property Type-->
-                    <div class="flex flex-col gap-1" v-if="shoppingCartStore.user_subscription?.user_plan?.display?.order_shipping_property_type">
-                      <p>{{$t('shopping_cart.delivery_tab.property')}}</p>
-
-                      <select class="form-select h-[35px] sm:h-[42px] w-full" v-model="shipping_info.shipping_property_type">
-                          <option :value="null"></option>
-                          <option value="HDB">HDB</option>
-                          <option value="Condo/Apartment">Condo/Apartment</option>
-                          <option value="Landed">Landed</option>
-                          <option value="Office">Office</option>
-
-                        </select>
-
-                    </div>
-
-                    <!--Postal Code-->
-                    <div class="flex flex-col gap-1">
-                      <p>{{$t('shopping_cart.delivery_tab.postal_code')}}</p>
-                      <input id="regular-form-2" type="text" class="form-control " placeholder=""
-                        :class="{ 'border-danger text-danger': delivery_validate.shipping_postcode.$error }"
-                        v-model.trim="delivery_validate.shipping_postcode.$model" />
-                      <h4 class="text-danger flex flex-col sm:flex-row"> 
-                        <template v-for="(error,index) in delivery_validate.shipping_postcode.$errors" :key="index">
-                          <span>{{ error.$message }}</span>
-                          <span v-if="index+1 !== delivery_validate.shipping_postcode.$errors.length"
-                              class="hidden sm:block mx-1">/</span>
-                        </template>
-                      </h4>
-                    </div>
-                  </div>
-                </template> 
               </div>
             </TabPanel>
             <!-- END Delivery Panel -->
@@ -341,10 +267,10 @@
                 <div class="flex flex-col gap-4 lg:mx-20 z-0"> 
                   <template v-for="(option, index) in shoppingCartStore.cart.campaign.meta_logistic.pickup_options" :key="index"> 
                     <div class="logistic-options border-2 rounded-lg relative"
-                      :class="{'border-red-600/90 shadow-sm': shipping_option_index_computed == index}"
-                      @click="select_shipping_method('pickup'); (shipping_option_index_computed = index);"
+                      :class="{'border-red-600/90 shadow-sm': shipping_info.pickup_option_index == index}"
+                      @click="selectPickupOption(index,option)"
                       >
-                      <CheckSquareIcon v-if="shipping_option_index_computed == index" class="absolute left-3 text-red-800"/>
+                      <CheckSquareIcon v-if="shipping_info.pickup_option_index == index" class="absolute left-3 text-red-800"/>
                       <div class="flex flex-col sm:flex-row flex-0 w-full"> 
                         <div class="flex flex-col mr-auto">
                           <p>{{ option.name }}</p>
@@ -362,11 +288,11 @@
                 </div>
 
                 <!-- pickup time-->
-                <template v-if="shoppingCartStore.cart.campaign.meta_logistic?.pickup_options[shipping_option_index]?.daterange && shipping_method_computed == 'pickup'"> 
+                <template v-if="shoppingCartStore.cart.campaign.meta_logistic?.pickup_options[shipping_info.pickup_option_index]?.daterange "> 
                   <h3 class="whitespace-nowrap">{{$t('shopping_cart.delivery_tab.pickup_date')}}</h3>
                   <div class="flex flex-col sm:flex-row gap-3 lg:mx-20 z-20">
-
-                    <Litepicker v-model="time_validate.shipping_date.$model" :options="{
+                    
+                    <Litepicker v-model="pickup_time_validate.pickup_date.$model" :key="pickupLitePickerKey" :options="{
                         autoApply: false,
                         showWeekNumbers: true,
                         dropdowns: {
@@ -375,41 +301,23 @@
                           months: true,
                           years: true,
                         },
-                        minDate:shoppingCartStore.cart.campaign.meta_logistic?.pickup_options[shipping_option_index]?.daterange?.split('~')?.[0],
-                        maxDate:shoppingCartStore.cart.campaign.meta_logistic?.pickup_options[shipping_option_index]?.daterange?.split('~')?.[1],
-                      }" class="block border-2 h-[50px] px-10 w-full min-w-[300px] rounded-lg" :class="{'border-danger': time_validate.shipping_date.$errors.length > 0}"/>
+                        minDate:shoppingCartStore.cart.campaign.meta_logistic?.pickup_options[shipping_info.pickup_option_index]?.daterange?.split('~')?.[0],
+                        maxDate:shoppingCartStore.cart.campaign.meta_logistic?.pickup_options[shipping_info.pickup_option_index]?.daterange?.split('~')?.[1],
+                      }" class="block border-2 h-[50px] px-10 w-full min-w-[300px] rounded-lg" :class="{'border-danger': pickup_time_validate.pickup_date.$errors.length > 0}"/>
 
+                    
 
-                    <!-- <v-date-picker class="z-50" 
-                      v-model="time_validate.shipping_date_time.$model"
-                      mode="date" is-required
-                      :min-date='date_range.start'
-                      :max-date='date_range.end'
-                      >
-                      <template v-slot="{ inputValue, inputEvents }">
-                        <input :value="inputValue" v-on="inputEvents" 
-                          :class="{'border-danger': time_validate.shipping_date_time.$errors.length > 0}"
-                          class="border-2 h-[50px] px-10 w-full min-w-[300px] rounded-lg" />
-                        <h4 class="text-danger flex flex-col sm:flex-row"> 
-                          <template v-for="(error,index) in time_validate.shipping_date_time.$errors" :key="index">
-                            <span>{{ error.$message }}</span>
-                            <span v-if="index+1 !== time_validate.shipping_date_time.$errors.length"
-                                class="hidden sm:block mx-1">/</span>
-                          </template>
-                        </h4>
-                      </template>
-                    </v-date-picker> -->
                     <div class="flex flex-col w-full">
                       <select 
                         class="border-2 h-[50px] w-full rounded-lg px-10 text-[1rem]" 
-                        :class="{'border-danger': time_validate.shipping_time_slot.$errors.length > 0}"
-                        v-model="time_validate.shipping_time_slot.$model"> 
-                        <option v-for="option in shoppingCartStore.cart.campaign.meta_logistic.pickup_options[shipping_option_index]?.options" :key="option"> {{ option }} </option>
+                        :class="{'border-danger': pickup_time_validate.pickup_time_slot.$errors.length > 0}"
+                        v-model="pickup_time_validate.pickup_time_slot.$model"> 
+                        <option v-for="option in shoppingCartStore.cart.campaign.meta_logistic.pickup_options[shipping_info.pickup_option_index]?.options" :key="option"> {{ option }} </option>
                       </select>
                       <h4 class="text-danger flex flex-col sm:flex-row"> 
-                        <template v-for="(error,index) in time_validate.shipping_time_slot.$errors" :key="index">
+                        <template v-for="(error,index) in pickup_time_validate.pickup_time_slot.$errors" :key="index">
                           <span>{{ error.$message }}</span>
-                          <span v-if="index+1 !== time_validate.shipping_time_slot.$errors.length"
+                          <span v-if="index+1 !== pickup_time_validate.pickup_time_slot.$errors.length"
                               class="hidden sm:block mx-1">/</span>
                         </template>
                       </h4>
@@ -507,7 +415,7 @@
       <div class="col-span-12 row-start-1 lg:col-span-4 flex flex-col gap-10">
         <div class="intro-y">
           <OrderSummarySkeleton v-if="props.cartLoading"/>
-          <OrderSummary class="m-0 2xl:m-5" v-else />
+          <OrderSummary class="m-0 2xl:m-5" v-else :shippingMethod="shipping_info.shipping_method" :shippingOptionData="displayShippingOptionData"/>
         </div>
 
         <div class="intro-y box lg:col-span-4">
@@ -521,7 +429,7 @@
         {{$t('shopping_cart.delivery_tab.previous')}}
       </button>
       <button 
-        :show="show" class="w-fit btn btn-rounded-primary px-5"
+        :show="showCheckoutButton" class="w-fit btn btn-rounded-primary px-5"
         @click="proceed_to_payment()" :disabled="shoppingCartStore.user_subscription.status === sandboxMode || checkoutLoading">
 
         {{$t('shopping_cart.delivery_tab.proceed_to_payment')}}
@@ -545,7 +453,7 @@
 import OrderSummary from "./OrderSummary.vue";
 import OrderSummarySkeleton from "./skeleton/OrderSummarySkeleton.vue";
 import ShoppingCartTableSimple from "./ShoppingCartTable-simple.vue";
-import { required, minLength, maxLength, email, integer, helpers, requiredUnless } from "@vuelidate/validators";
+import { required, minLength, maxLength, email, integer, helpers, requiredUnless, requiredIf } from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";
 
 import { computed, onMounted,onUnmounted, ref, watch, reactive, toRefs, getCurrentInstance } from "vue";
@@ -568,13 +476,10 @@ const shoppingCartStore = useShoppingCartStore();
 const layoutStore = useLSSBuyerLayoutStore();
 const twZipcodeStore = useTwZipcodeStore();
 const sandboxMode = ref("test")
-const show = ref(false)
+const showCheckoutButton = ref(false)
 const checkoutLoading = ref(false)
 
-const date_range = ref({
-  start:new Date(),
-  end:new Date()
-})
+
 
 const props = defineProps({
     cartLoading: {
@@ -582,11 +487,11 @@ const props = defineProps({
         default: true,
   },
 })
-const shipping_option_index = ref("No")
+
 const shipping_info= ref({
 			shipping_option:"",
       shipping_method: "delivery",
-      shipping_first_name: (layoutStore?.userInfo?.facebook_info?.name||""),
+      shipping_first_name: "",
       shipping_email: "",
       shipping_cellphone: "",
       shipping_gender: "",
@@ -600,12 +505,54 @@ const shipping_info= ref({
       shipping_status: "",
       shipping_details: "",
       shipping_remark: "",
+
       shipping_date: "",
-      shipping_date_time:null,
       shipping_time_slot: null,
-      pickup_address:"",
-      shipping_option_data:null
+
+      pickup_date:"",
+      pickup_time_slot:null,
+
+      delivery_option_index:null,
+      pickup_option_index:null,
+
+      shipping_option_data:{},
 		})
+
+const displayDeliveryOptionIndex = ref(null)
+const displayShippingOptionData = ref({})
+
+const default_shipping_value = {
+  shipping_method:'delivery', 
+  shipping_first_name: (layoutStore?.userInfo?.facebook_info?.name||""),
+  shipping_location:'', 
+
+  shipping_date:"", 
+  shipping_time_slot:null, 
+
+  pickup_date:"", 
+  pickup_time_slot:null,
+  pickup_address:"",
+
+  shipping_option_data:{}, 
+}
+
+
+const isAnonymousUser=cookies.get("login_with")=='anonymousUser'
+
+const pickupLitePickerKey = ref(new Date())
+
+onMounted(()=>{
+  
+  if(!isAnonymousUser){
+
+    buyer_retrieve_latest_order_shipping_info(layoutStore.alert).then(res=>{
+
+      shipping_info.value = {...shipping_info.value, ...res.data, ...default_shipping_value}
+      showCheckoutButton.value = true
+    })
+  }
+})
+
 
 const computedRegionOptions = computed(()=>{
 
@@ -613,8 +560,7 @@ const computedRegionOptions = computed(()=>{
   const _deliveryRegionOptions = []
   shoppingCartStore.cart?.campaign?.meta_logistic?.additional_delivery_options.forEach(deliveryServiceOption => {
 
-    console.log(deliveryServiceOption)
-    if(deliveryServiceOption?.region && _deliveryServiceRegionDict?.[deliveryServiceOption?.region]!=true){
+  if(deliveryServiceOption?.region && _deliveryServiceRegionDict?.[deliveryServiceOption?.region]!=true){
 
       _deliveryRegionOptions.push(deliveryServiceOption.region)
       _deliveryServiceRegionDict[deliveryServiceOption.region]=true
@@ -623,209 +569,69 @@ const computedRegionOptions = computed(()=>{
   });
 
   return _deliveryRegionOptions
+
 })
+
 
 const computedDeliveryServiceOptions = computed(()=>{
-  console.log('computedDeliveryServiceOptions')
+
   const _deliveryServiceOptions = (shoppingCartStore.cart?.campaign?.meta_logistic?.additional_delivery_options||[]).filter(deliveryServiceOption=>deliveryServiceOption.region==shipping_info.value.shipping_location)
-  if(!_deliveryServiceOptions){
-    shipping_info.value.shipping_option_data=null
+  if(!_deliveryServiceOptions||computedRegionOptions.value.length<=1){
+    displayDeliveryOptionIndex.value=null
+    shipping_info.value.delivery_option_index=null
+    displayShippingOptionData.value = {}
   }else{
-    shipping_info.value.shipping_option_data=_deliveryServiceOptions[0]
+    displayDeliveryOptionIndex.value = 0
+    displayShippingOptionData.value = _deliveryServiceOptions[0]
+    shipping_info.value.delivery_option_index = (shoppingCartStore.cart?.campaign?.meta_logistic?.additional_delivery_options||[]).indexOf(_deliveryServiceOptions[0])
+
   }
   return _deliveryServiceOptions
-  // return (shoppingCartStore.cart?.campaign?.meta_logistic?.additional_delivery_options||[]).filter(deliveryServiceOption=>deliveryServiceOption.region==shipping_info.value.shipping_location)
+
 })
 
 
-
-
-const deliveryColor = ref('white')
-const pickupColor = ref('#131C34')
-const showAddressForm = ref(true)
-
-const select_shipping_method = (method,type) => {
-  deliveryColor.value = method !== 'pickup'? 'white' :'#131C34'
-  pickupColor.value = method == 'pickup'? 'white' :'#131C34'
-  if(type == 'tab' && method == shipping_method_computed.value) return 
-  if(type == 'tab' && method == 'delivery' && shipping_method_computed.value == 'ecpay') return 
-  else if(method !== shipping_method_computed.value) {
-    shipping_method_computed.value = method
-    shipping_info.value.shipping_time_slot = null
-  }
-}
-
-const get_c2c_map = (storeType, shipping_method, shipping_option_index) =>{
-  const cvsdata = {'LogisticsSubType':storeType, 'shipping_method': shipping_method, 'shipping_option_index': shipping_option_index} //UNIMARTC2C or FAMIC2C
-  buyer_get_cvs_map(route.params.cart_oid,cvsdata).then(
-    res=>{
-      const form = document.createElement('form');
-      form.setAttribute("id", "data_set");
-      form.method = 'post';
-      form.action = res.data.action;
-      const params = res.data.data
-      // {
-      //   "MerchantID": "3344643",
-      //   "MerchantTradeNo": "anyno",
-      //   "LogisticsType": "CVS",
-      //   "LogisticsSubType": "UNIMARTC2C",
-      //   "IsCollection": "Y",
-      //   "ServerReplyURL": "https://3612-220-136-84-226.jp.ngrok.io/api/v2/cart/buyer/cvsmap/callback/",
-      //   "ExtraData": "6390449bbc4b20ae3d99e212"
-      // }
-      for (const key in params) {
-        if (params.hasOwnProperty(key)) {
-          const hiddenField = document.createElement('input');
-          hiddenField.type = 'hidden';
-          hiddenField.name = key;
-          hiddenField.value = params[key];
-
-          form.appendChild(hiddenField);
-        }
-      }
-      document.body.appendChild(form);
-      form.submit();
-    }
-  )
-  
-}
-
-const areaIndex = ref(null)
-const cityIndex = ref(null)
-const city_computed = computed({
-  get:()=>{
-    return cityIndex.value
-  },
-  set:index=>{
-    cityIndex.value = index
-    if(twZipcodeStore.data[index]?.name) delivery_validate.value.shipping_region.$model = twZipcodeStore.data[index]?.name
-    areaIndex.value = null
-  }
-})
-const area_computed = computed({
-  get:()=>{
-    return areaIndex.value
-  },
-  set:index=>{
-    areaIndex.value = index
-    if(twZipcodeStore.data[cityIndex.value]?.areas[index]?.name) delivery_validate.value.shipping_location.$model= twZipcodeStore.data[cityIndex.value]?.areas[index]?.name
-    if(twZipcodeStore.data[cityIndex.value]?.areas[index]?.zip) delivery_validate.value.shipping_postcode.$model = twZipcodeStore.data[cityIndex.value]?.areas[index]?.zip
-  }
-})
-
-const deliveryCurrentChosenOption = ref(null)
-
-const shipping_method_computed = computed({
-  get:()=>{
-    return shipping_info.value.shipping_method
-  }
-  ,set:method=>{
-    deliveryColor.value = method !== 'pickup'? 'white' :'#131C34'
-    pickupColor.value = method == 'pickup'? 'white' :'#131C34'
-    shipping_info.value.shipping_method=method
-    shoppingCartStore.shipping_info.shipping_method=method        //order summary compute this
-    if (method == 'delivery') {
-      shoppingCartStore.shipping_info.shipping_option_index = deliveryCurrentChosenOption.value
-      shipping_option_index_computed.value = deliveryCurrentChosenOption.value
-    } 
-    if (method === "pickup") {
-      if (shoppingCartStore.cart.campaign.meta_logistic?.pickup_options.length > 0) {
-        deliveryCurrentChosenOption.value = shipping_option_index.value != "No" ? shipping_option_index.value : null
-        shoppingCartStore.shipping_info.shipping_option_index = 0
-        shipping_option_index_computed.value = 0
-        date_range.value.start = shoppingCartStore.cart.campaign.meta_logistic.pickup_options[shipping_option_index_computed.value].start_at
-        date_range.value.end = shoppingCartStore.cart.campaign.meta_logistic.pickup_options[shipping_option_index_computed.value].end_at
-      } else {
-        shoppingCartStore.shipping_info.shipping_option_index = null
-      }
-      
-    }
-  }
-})
-
-const shipping_option_index_computed = computed({
-  get:()=>{
-    return shipping_option_index.value
-  },set:index=>{
-    // console.log("set", index)
-    // console.log(shipping_info.value.shipping_method)
-    if(shipping_info.value.shipping_method=='pickup' && shipping_option_index.value !== index) shipping_info.value.shipping_time_slot = null
-    shipping_option_index.value = index
-    shoppingCartStore.shipping_info.shipping_option_index=index 
-    // pickup 
-    if (shipping_info.value.shipping_method=='pickup') {
-      shipping_info.value.pickup_address = shoppingCartStore.cart.campaign.meta_logistic.pickup_options[index]?.address
-      shipping_info.value.shipping_option = shoppingCartStore.cart.campaign.meta_logistic.pickup_options[index]?.name
-
-      date_range.value.start = shoppingCartStore.cart.campaign.meta_logistic.pickup_options[index].start_at
-      date_range.value.end = shoppingCartStore.cart.campaign.meta_logistic.pickup_options[index].end_at
-
-      shipping_info.value.shipping_option_data = JSON.parse(JSON.stringify(shoppingCartStore.cart.campaign.meta_logistic.pickup_options[index]))
-      showAddressForm.value = false
-    
-    // delivery
-    } else if (shipping_info.value.shipping_method=='delivery' && typeof index !== 'string') {
-      shipping_info.value.shipping_option = index != null ? shoppingCartStore.cart.campaign.meta_logistic.additional_delivery_options[index]?.title : shoppingCartStore.cart.campaign.meta_logistic?.title
-      shipping_info.value.shipping_option_data = index == null ? {} : JSON.parse(JSON.stringify(shoppingCartStore.cart.campaign.meta_logistic.additional_delivery_options[index]))
-      if(shipping_option_index.value == shoppingCartStore.cart.meta?.ecpay_cvs?.shipping_option_index) {
-        Object.assign(shipping_info.value.shipping_option_data,shoppingCartStore.cart.meta?.ecpay_cvs)
-      }
-      if (shoppingCartStore.cart.campaign.meta_logistic.additional_delivery_options[index]?.is_cvs) {
-        showAddressForm.value = false
-      } else {
-        showAddressForm.value = true
-      }
-    
-    // ecpay
-    } else if (shipping_info.value.shipping_method=='ecpay') {
-      if(shipping_option_index.value == shoppingCartStore.cart.meta?.ecpay_cvs?.shipping_option_index) {
-        shipping_info.value.shipping_option_data = shoppingCartStore.cart.meta?.ecpay_cvs
-      } else {
-        shipping_info.value.shipping_option_data = {}
-      }
-      Object.assign(shipping_info.value.shipping_option_data,{
-        'LogisticsSubType': shipping_option_index.value,
-        'type': shoppingCartStore.cart.campaign.meta_logistic[shipping_info.value.shipping_method]?.logistics_sub_type[shipping_option_index.value].type,
-        "price": shoppingCartStore.cart.campaign.meta_logistic[shipping_info.value.shipping_method]?.logistics_sub_type[shipping_option_index.value].delivery_charge,
-      })
-
-      if (["TCAT"].includes(shipping_option_index.value)) {
-        shipping_info.value.shipping_option_data['logisticsType'] = 'HOME'
-        showAddressForm.value = true
-      } else {
-        shipping_info.value.shipping_option_data['logisticsType'] = 'CVS'
-        showAddressForm.value = false
-      }
-    }
-    // console.log(shipping_info.value.shipping_option_data)
-  }
-})
-
-const isAnonymousUser=cookies.get("login_with")=='anonymousUser'
-
-
-onMounted(()=>{
-  eventBus.on("changeShippingOption", (payload)=>{
-    shipping_method_computed.value = shoppingCartStore.shipping_info.shipping_method
-    shipping_option_index_computed.value = shoppingCartStore.shipping_info.shipping_option_index
+const computedCartSubtotal = computed(()=>{
+  var subtotal = 0
+  Object.entries(shoppingCartStore.cart.products||{}).forEach(([key, qty])=>{
+    subtotal += ((shoppingCartStore.campaignProductDict[key]?.price||0)*qty )
   })
-  if(!isAnonymousUser){
-
-    buyer_retrieve_latest_order_shipping_info(layoutStore.alert).then(res=>{
-      res.data.shipping_method='delivery'     //default value
-      res.data.shipping_option_data={}        //default value
-      console.log(res.data)
-      shipping_info.value = {...shipping_info.value, ...res.data, shipping_date:"", shipping_time_slot:null, shipping_option_data:null}
-      city_computed.value = (twZipcodeStore.data.findIndex(city => city.name == shipping_info.value.shipping_region) == -1) ? res.data.shipping_region : twZipcodeStore.data.findIndex(city => city.name == shipping_info.value.shipping_region)
-      areaIndex.value = (twZipcodeStore.data[city_computed.value]?.areas) ? twZipcodeStore.data[city_computed.value]?.areas.findIndex(area => area.name == shipping_info.value.shipping_location) : res.data.shipping_location
-      show.value = true
-    })
-  }
+  return subtotal
 })
 
-onUnmounted(()=>{
-  eventBus.off('changeShippingOption')
+const computedProductTotalQuantity = computed(()=>{
+  let qty = 0
+  Object.entries(shoppingCartStore.cart?.products||[]).forEach(([key, value])=>{
+    qty += value
+  })
+  return qty
 })
+
+const computedSubtotalOverFreeDeliveryThreshold = computed(()=>{
+  return shoppingCartStore.cart.campaign?.meta_logistic?.is_free_delivery_for_order_above_price ? computedCartSubtotal.value >= shoppingCartStore.cart.campaign?.meta_logistic?.free_delivery_for_order_above_price : false
+})
+
+const computedItemsOverFreeDeliveryThreshold = computed(()=>{
+  return shoppingCartStore.cart.campaign?.meta_logistic?.is_free_delivery_for_how_many_order_minimum ? computedProductTotalQuantity.value >= shoppingCartStore.cart.campaign?.meta_logistic?.free_delivery_for_how_many_order_minimum : false
+})
+
+
+const selectDeliveryServiceOption = (index,option)=>{
+
+  displayDeliveryOptionIndex.value = index
+  displayShippingOptionData.value = option
+  shipping_info.value.delivery_option_index = (shoppingCartStore.cart?.campaign?.meta_logistic?.additional_delivery_options||[]).indexOf(option)
+
+}
+
+const selectPickupOption = (index, option)=>{
+  shipping_info.value.pickup_option_index = index
+  pickupLitePickerKey.value = new Date()
+  shipping_info.value.pickup_date = ''
+  shipping_info.value.pickup_time_slot = null
+
+}
+
 
 // VALIDATER
 const exactlength = (param) =>
@@ -837,12 +643,7 @@ const exactlength = (param) =>
       return true
     }
 )
-const twCellPhoneBeginning = (value) => {
-  var ecpay_enabled = shoppingCartStore.cart.campaign.meta_logistic?.ecpay?.enabled ? true : false
-  if (value[0] !== "0" && ecpay_enabled) return false
-  if (value[1] !== "9" && ecpay_enabled) return false
-  return true
-}
+
 const specialCharacter = (value) => {
   const special_characters = "^‘`!@#%&*+”<>|_[]"
   return !special_characters.split('').some(char => value.includes(char))
@@ -877,7 +678,6 @@ const reciever_rules = computed(()=>{
       integer: helpers.withMessage(i18n.global.t("vulidate.only_integer"), integer),
       required: helpers.withMessage(i18n.global.t("vulidate.required"), required),
       cellphoneLength: helpers.withMessage(i18n.global.t("vulidate.exact_number_length", {number:10}), exactlength(10)),
-      twCellPhoneBeginning: helpers.withMessage(i18n.global.t("vulidate.tw_cellphone_begining"), twCellPhoneBeginning)
     },
     shipping_email: {
       required: helpers.withMessage(i18n.global.t("vulidate.required"), required),
@@ -886,7 +686,6 @@ const reciever_rules = computed(()=>{
     }
   }
 });
-
 const delivery_rules = computed(()=>{
   return{
     shipping_address_1: {
@@ -909,16 +708,24 @@ const delivery_rules = computed(()=>{
   }}
 );
 
-const time_rules = computed(()=>{
+const delivery_time_rules = computed(()=>{
   return{
     shipping_date:{required}, 
     shipping_time_slot:{required}
   }}
 );
 
+const pick_time_rules = computed(()=>{
+  return{
+    pickup_date:{required}, 
+    pickup_time_slot:{required}
+  }}
+);
+
 const reciever_validate = useVuelidate(reciever_rules, shipping_info);
 const delivery_validate = useVuelidate(delivery_rules, shipping_info);
-const time_validate = useVuelidate(time_rules, shipping_info);
+const delivery_time_validate = useVuelidate(delivery_time_rules, shipping_info);
+const pickup_time_validate = useVuelidate(pick_time_rules, shipping_info);
 
 const computedLogisticCategories = computed(()=>{
   let logisticCategories = {}
@@ -945,52 +752,25 @@ const computedAppliedCategoryLogistic = computed(()=>{
 })
 
 const proceed_to_payment = () =>{
-  // console.log(shipping_info.value)
 
-  //CHECK SHIPPING OPTIONS
-  if(shipping_info.value.shipping_method !== 'pickup' && shipping_option_index_computed.value === 'No'){
-    layoutStore.alert.showMessageToast(i18n.global.t('shopping_cart.invalid_delivery_method'))
-    return
-  }
-
-  if (shipping_info.value.shipping_method === 'pickup' && shipping_option_index.value === 'No'){
-    layoutStore.alert.showMessageToast(i18n.global.t('shopping_cart.invalid_pickup_method'))
-    return
-  }
-
-  if((shipping_info.value.shipping_option_data['logisticsType'] == 'CVS' || shipping_info.value.shipping_option_data['is_cvs']) && !shipping_info.value.shipping_option_data['cvs_store_id']){
-    layoutStore.alert.showMessageToast(i18n.global.t('shopping_cart.invalid_cvs_store'))
-    return
-  }
-
-  // CHECK DELIVERY ADDRESS INFO
-  // pickup, ecpay cvs, self delivery cvs. These options doesn't need validate delivery address
-  if ((["UNIMARTC2C", "FAMIC2C"].includes(shipping_option_index.value)) 
-  || (shipping_info.value.shipping_method === 'delivery' && shoppingCartStore.cart.campaign.meta_logistic.additional_delivery_options[shipping_option_index.value]?.is_cvs == true) 
-  || (shipping_info.value.shipping_method === 'pickup')) {
-    shipping_info.value.shipping_location = ''
-    shipping_info.value.shipping_region = ''
-    shipping_info.value.shipping_address_1 = ''
-    shipping_info.value.shipping_postcode = ''
-    shipping_info.value.shipping_property_type = ''
-
-  } else {
+  if(shipping_info.value.shipping_method=='delivery'){
     delivery_validate.value.$touch();
-    if (delivery_validate.value.$invalid && shipping_info.value.shipping_option_data.logisticsType !== 'CVS'){
+    if (delivery_validate.value.$invalid ){
       layoutStore.alert.showMessageToast(i18n.global.t('shopping_cart.invalid_delivery_info'))
       return
     }
   }
-
-
-  //CHECK DELIVERY TIME INFO
-  if( (shipping_info.value.shipping_method === 'ecpay') || (shipping_info.value.shipping_method === 'delivery' && !shoppingCartStore.cart.campaign?.meta_logistic?.is_use_delivery_date_enabled) 
-    || ((shipping_info.value.shipping_method === 'pickup' && !shoppingCartStore.cart.campaign.meta_logistic.pickup_options[shipping_option_index.value]?.start_at)) ){
-    shipping_info.value.shipping_date_time = null
-    shipping_info.value.shipping_time_slot = null
-  } else {
-    time_validate.value.$touch();
-    if (time_validate.value.$invalid){
+  
+  if((shipping_info.value.shipping_method === 'delivery' && shoppingCartStore.cart.campaign?.meta_logistic?.is_use_delivery_date_enabled)){
+    //CHECK DELIVERY TIME INFO
+    delivery_time_validate.value.$touch();
+    if (delivery_time_validate.value.$invalid){
+      layoutStore.alert.showMessageToast(i18n.global.t('shopping_cart.invalid_time_info'))
+      return
+    }
+  }else if( shipping_info.value.shipping_method === 'pickup' ){
+    pickup_time_validate.value.$touch();
+    if (pickup_time_validate.value.$invalid){
       layoutStore.alert.showMessageToast(i18n.global.t('shopping_cart.invalid_time_info'))
       return
     }
@@ -1002,6 +782,9 @@ const proceed_to_payment = () =>{
     layoutStore.alert.showMessageToast(i18n.global.t('shopping_cart.invalid_user_info'))
     return
   }
+
+  // console.log(shipping_info.value)
+  // return
 
   checkoutLoading.value = true
   buyer_checkout_cart(route.params.cart_oid, {shipping_data:shipping_info.value, points_used:shoppingCartStore.points_used}, layoutStore.alert)

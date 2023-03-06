@@ -68,11 +68,16 @@
             <h4 class="w-fit my-auto whitespace-nowrap text-danger">({{computedWalletPointsLeft}} points)</h4>
           </div>
           
-          <input
+          <!-- <input
             type="number"
             class="form-control w-32 h-[35px] text-right"
             v-model="shoppingCartStore.points_used"
-          />
+          /> -->
+
+          <select  class="form-control w-32 h-[35px] text-right" v-model="shoppingCartStore.points_used">
+            <option :value="0">0</option>
+            <option v-for="pointsUsedOption,pointsUsedOptionIndex in computedPointsUsedOptions" :key="pointsUsedOptionIndex" :value="pointsUsedOption">{{ pointsUsedOption }}</option>
+          </select>
         </div>
       </template>
 
@@ -183,13 +188,14 @@
 <script setup>
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
 import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout";
-import { computed, onMounted, ref, watch } from "vue";
+import { computed, onMounted, ref, watch, defineProps } from "vue";
 // import { buyer_apply_discount_code, buyer_cancel_discount_code } from "@/api_v2/pre_order"; 
 import { buyer_apply_discount_code, buyer_cancel_discount_code } from "@/api_v2/cart"
 import { get_shopify_checkout_url } from '@/plugin/shopify/api/cart.js';
 import { useCookies } from "vue3-cookies";
 import { useRoute, useRouter } from "vue-router";
-import { getPointDiscountHelper } from "@/libs/factory/pointDiscount.js"
+import { getPointDiscountHelper } from "@/libs/factory/pointDiscount.js";
+
 const route = useRoute();
 const router = useRouter();
 
@@ -200,6 +206,17 @@ const layoutStore = useLSSBuyerLayoutStore();
 const showModal = ref(false)
 const isAnonymousUser=cookies.get("login_with")=='anonymousUser'
 
+
+const props = defineProps({
+  shippingMethod: {
+      type: String,
+      default: 'delivery',
+  },
+  shippingOptionData: {
+      type: Object,
+      default: {},
+  },
+})
 
 const computedCartSubtotal = computed(()=>{
   var subtotal = 0
@@ -213,7 +230,7 @@ const computedCartSubtotal = computed(()=>{
 
 const computedShippingCost = computed(()=>{
   var shippingCost = 0 
-  if(shoppingCartStore.shipping_info.shipping_method=='pickup') return 0
+  if(props.shippingMethod=='pickup') return 0
   
   if(!shoppingCartStore.cart?.campaign?.meta_logistic) return 0
   
@@ -241,28 +258,18 @@ const computedShippingCost = computed(()=>{
   //----------------default logistic setting-------------------------------------
   if(shoppingCartStore.cart.campaign.meta_logistic.is_self_delivery_enabled) shippingCost = Number(meta_logistic.delivery_charge || 0)
   
-  if (shoppingCartStore.shipping_info.shipping_method == 'delivery') {
-    if(typeof shoppingCartStore.shipping_info.shipping_option_index=='number'){
-      if (meta_logistic.additional_delivery_options[shoppingCartStore.shipping_info.shipping_option_index].type== '+'){
-        shippingCost += Number(meta_logistic.additional_delivery_options[shoppingCartStore.shipping_info.shipping_option_index].price)
-      }
-      else if(meta_logistic.additional_delivery_options[shoppingCartStore.shipping_info.shipping_option_index].type == '='){
-        shippingCost =  Number(meta_logistic.additional_delivery_options[shoppingCartStore.shipping_info.shipping_option_index].price)
-      }
+  if (props.shippingMethod == 'delivery') {
+    if (props.shippingOptionData?.type== '+'){
+      shippingCost += Number(props.shippingOptionData?.price)
     }
+    else if(props.shippingOptionData?.type == '='){
+      shippingCost =  Number(props.shippingOptionData?.price)
+    }
+    
     return shippingCost
   }
   
-  //----------------ecpay logistic setting-------------------------------------
-  if (shoppingCartStore.shipping_info.shipping_method == 'ecpay') {
-    if (meta_logistic.ecpay.logistics_sub_type[shoppingCartStore.shipping_info.shipping_option_index].type== '+'){
-      shippingCost += Number(meta_logistic.ecpay.logistics_sub_type[shoppingCartStore.shipping_info.shipping_option_index].delivery_charge)
-    }
-    else if(meta_logistic.ecpay.logistics_sub_type[shoppingCartStore.shipping_info.shipping_option_index].type == '='){
-      shippingCost =  Number(meta_logistic.ecpay.logistics_sub_type[shoppingCartStore.shipping_info.shipping_option_index].delivery_charge)
-    }
-    return shippingCost
-  }
+  
   return shippingCost
 })
 
@@ -373,65 +380,24 @@ const computedPointsEarned = computed(()=>{
 
 })
 
+const computedPointsUsedOptions = computed(()=>{
+  const points = (shoppingCartStore.buyerWallet?.points||0)
+  const rate = (shoppingCartStore.cart.campaign?.meta_point?.redemption_rate_point||1)
+  console.log(points)
+  console.log(rate)
+  
+  const _options = []
+  for(let i=1; i<=Math.floor(points/rate); i++){
+    _options.push(i*rate)
+  }
+  return _options
+})
 
 const computedWalletPointsLeft = computed(()=>{
   return (shoppingCartStore.buyerWallet?.points||0) - (shoppingCartStore.points_used ||0)
 })
 
-// const updateOrderSummary = ()=>{
-//   console.log('update')
-//   let is_subtotal_over_free_delivery_threshold=false
-//   let is_items_over_free_delivery_threshold=false
 
-
-//   //compute shipping cost
-//   if(shoppingCartStore.shipping_info.shipping_method=='pickup'){
-//     shippingCost.value = 0
-//   }else{
-//     if(!shoppingCartStore.cart?.campaign?.meta_logistic){
-//       shippingCost.value = 0
-//     }else{
-//       const meta_logistic = shoppingCartStore.cart?.campaign?.meta_logistic
-
-//       shippingCost.value = Number(meta_logistic.delivery_charge || 0)
-
-//       is_subtotal_over_free_delivery_threshold = meta_logistic.is_free_delivery_for_order_above_price ? shoppingCartStore.cart.subtotal >= meta_logistic.free_delivery_for_order_above_price : false
-//       is_items_over_free_delivery_threshold = meta_logistic.is_free_delivery_for_how_many_order_minimum ? shoppingCartStore.cart.products.length >= meta_logistic.free_delivery_for_how_many_order_minimum : false
-      
-//       if(typeof shoppingCartStore.shipping_info.shipping_option_index=='number'){
-//         if (meta_logistic.additional_delivery_options[shoppingCartStore.shipping_info.shipping_option_index].type== '+'){
-//           shippingCost.value += Number(meta_logistic.additional_delivery_options[shoppingCartStore.shipping_info.shipping_option_index].price)
-//         }
-//         else if(meta_logistic.additional_delivery_options[shoppingCartStore.shipping_info.shipping_option_index].type == '='){
-//           shippingCost.value =  Number(meta_logistic.additional_delivery_options[shoppingCartStore.shipping_info.shipping_option_index].price)
-//         }
-//       }
-
-//     }
-    
-//   }
- 
-//   //summarize_total
-//   let total = 0
-//   total += shoppingCartStore.cart.subtotal
-//   total -= shoppingCartStore.cart.discount
-//   total = Math.max(total, 0)
-
-//   if(shoppingCartStore.cart.free_delivery || is_subtotal_over_free_delivery_threshold || is_items_over_free_delivery_threshold){
-//     //
-//   }else{
-//     total += shippingCost.value
-//   }
-      
-//   total += shoppingCartStore.cart.adjust_price
-
-//   cartTotal.value = Math.max(total, 0)
-// }
-
-// watch(
-//   computed(() => shoppingCartStore.cart),
-//   updateOrderSummary
-// );
 
 onMounted(()=>{
   shoppingCartStore.cart.discount = ''
