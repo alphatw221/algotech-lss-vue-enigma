@@ -66,7 +66,8 @@
                 "discount":"优惠代码",
                 "total":"总计",
                 "null":"",
-                "prize":"奖品"
+                "prize":"奖品",
+                "order_code":"关键字"
         },
         "filter_modal":{
                 "payment":{

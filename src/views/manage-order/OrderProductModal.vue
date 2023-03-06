@@ -49,6 +49,9 @@
                                 <span v-if="order_product.type == 'lucky_draw'" class="mr-1"> *{{$t('manage_order.product_modal.prize')}}* </span>
                                 <span class="break-words whitespace-normal"> {{order_product.name}} </span>
                             </td>
+                            <td class="text-center" :data-content="$t('manage_order.product_modal.order_code')">
+                                <span class="break-words whitespace-normal"> {{order_product.order_code}} </span>
+                            </td>
                             <td class="text-center" :data-content="$t('manage_order.product_modal.qty')" >
                                 <span > {{order_product.qty}} </span> 
                             </td>
@@ -195,6 +198,7 @@ const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 const columns = ref([
     { key: "image", name: "null",  },
 	{ key: "product", name: "product",  },
+    { key: "order_code", name: "order_code"},
 	{ key: "qty", name: "qty",  },
 	{ key: "price", name: "price",  },
 	{ key: "subtotal", name: "sub_total",  },

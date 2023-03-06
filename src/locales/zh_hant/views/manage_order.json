@@ -65,7 +65,8 @@
                 "discount":"優惠代碼",
                 "total":"總計",
                 "null":"",
-                "prize":"獎品"
+                "prize":"獎品",
+                "order_code":"關鍵字"
         },
         "filter_modal":{
                 "payment":{

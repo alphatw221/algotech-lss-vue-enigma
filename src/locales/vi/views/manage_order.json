@@ -64,7 +64,8 @@
                 "discount":"giảm giá",
                 "total":"Tổng cộng",
                 "null":"",
-                "prize":"Giải thưởng"
+                "prize":"Giải thưởng",
+                "order_code":"Mã đặt hàng"
         },
         "filter_modal":{
                 "payment":{

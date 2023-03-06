@@ -64,7 +64,8 @@
                 "discount":"Discount",
                 "total":"Total",
                 "null":"",
-                "prize":"Prize"
+                "prize":"Prize",
+                "order_code":"Order Code"
         },
         "filter_modal":{
                 "payment":{

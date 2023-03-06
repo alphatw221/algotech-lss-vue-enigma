@@ -26,7 +26,11 @@
 				</td>
 				<td class="text-left w-fit"> 
 					<div v-if="order_product.type == 'lucky_draw'" class="font-medium text-primary" > *{{$t('lucky_draw.winner_modal.prize')}}*</div>
-					{{ order_product.name }}  </td>
+					{{ order_product.name }}  
+				</td>
+				<td class="text-center" :data-content="$t(`shopping_cart.table.order_code`)">
+						{{ order_product?.order_code }} 
+				</td>
 				<td class="text-right" :data-content="$t('order_detail.table.qty')">
 					{{ order_product.qty }}
 				</td>
@@ -56,6 +60,7 @@ const staticDir = import.meta.env.VITE_GOOGLE_STORAGE_STATIC_DIR
 const tableColumns = ref([
 	{ key: "image", name: "null",  },
 	{ key: "product", name: "product",  },
+	{ key: "order_code", name: "order_code",  },
 	{ key: "qty", name: "qty",  },
 	{ key: "price", name: "price",  },
 	{ key: "subtotal", name: "sub_total",  }
