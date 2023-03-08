@@ -17,9 +17,9 @@
 
 
           <div class="flex flex-row items-center">
-            <input class="form-control" type="text" placeholder="source" v-model="mergeData.source_email">
+            <input class="form-control" type="text" placeholder="Source Email" v-model="mergeData.source_email">
             <ChevronsRightIcon class="w-8 h-8"/>
-            <input class="form-control" type="text" placeholder="target" v-model="mergeData.target_email">
+            <input class="form-control" type="text" placeholder="Target Email" v-model="mergeData.target_email">
             <button type="button" class="btn btn-primary ml-2" @click="mergeBuyer()">Merge</button>
           </div>
           
