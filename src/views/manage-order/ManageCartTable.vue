@@ -252,7 +252,8 @@ let webSocket = null
 
 onMounted(()=>{
     initWebSocketConnection()
-    search()
+    // search()
+    searchAndSummarize()
     eventBus.on('keywordforCart',payload =>{
         searchString.value = payload
     })
@@ -263,26 +264,31 @@ onUnmounted(()=>{
     webSocket.close(1000)
 })
 
+const searchAndSummarize = ()=>{
+    var _campaign_id, _search, _data, _toastify
+    seller_list_cart(_campaign_id=route.params.campaign_id, _search='' ,_data={}, _toastify=layoutStore.alert).then(res=>{
+
+        manageOrderStore.carts = res.data 
+        manageOrderStore.data_count.carts = res.data.count
+
+        var _potential_sales = 0
+        manageOrderStore.carts.forEach(cart => {
+            Object.entries(cart.products).forEach(([campaign_product_id, qty]) => {
+                _potential_sales+=campaignDetailStore.campaignProductDict[campaign_product_id]?.price*qty
+            });
+        });
+        manageOrderStore.cartsPotentialSales = _potential_sales
+    })
+}
 const search = () => {
     manageOrderStore.cartsDict = {}
     filterData.value['sort_by'] = sortBy.value
 
     seller_list_cart(route.params.campaign_id, searchString.value ,filterData.value,layoutStore.alert).then(res=>{
-        // res.data.forEach(cart => {
-        //         manageOrderStore.cartsDict[cart.id]=cart
-        //     });
-            manageOrderStore.carts = res.data  //delete if no longer needed
+
+            manageOrderStore.carts = res.data  
             manageOrderStore.data_count.carts = res.data.count
     })
-    // seller_search_cart(_campaign_id=route.params.campaign_id, _search_value=searchString.value, _page=page.value, _page_size=page_size.value, _toastify=layoutStore.alert).then(
-    //     res => {
-    //         res.data.results.forEach(cart => {
-    //             if(cart.id in manageOrderStore.cartsDict === false) manageOrderStore.cartsDict[cart.id]=cart
-    //         });
-    //         manageOrderStore.carts = res.data.results  //delete if no longer needed
-    //         manageOrderStore.data_count.carts = res.data.count
-    //     }
-    // )
 }
 
 const searchKeyword = (cart, product)=>{
@@ -310,16 +316,6 @@ const to_cart_detail = (cart) => {
 }
 
 const copyCartURL = (cart) => {
-    // get_cart_oid(cart.id, layoutStore.alert).then(
-    //     res =>{
-    //     text = `${baseURL}/buyer/cart/${res.data}`;
-    //     navigator.clipboard.writeText(text).then(()=>{
-    //         layoutStore.notification.showMessageToast('copied!')
-    //     })
-    // }
-    // )
-
-
     get_cart_oid(cart.id, layoutStore.alert).then(
         res =>{
 
@@ -334,7 +330,6 @@ const copyCartURL = (cart) => {
             }
             
     })
-
 
 }
 
@@ -393,7 +388,7 @@ const handleSocketMessage = message=>{
         if(cart_index>=0){
             manageOrderStore.carts[cart_index] = cart_data
         }else{
-            manageOrderStore.crts.unshift(cart_data)
+            manageOrderStore.carts.unshift(cart_data)
         }
 
     }

@@ -80,6 +80,14 @@ export const update_buyer_points_transaction = (buyer_id, points_transaction_id,
     return createAxios(toastify).post(`/api/v2/user-subscription/buyer/${buyer_id}/points/transaction/${points_transaction_id}/update/?page_size=${page_size}`, data)
 }
 
+export const merge_buyer = (data, toastify=null) => {
+    return createAxios(toastify).put(`/api/v2/user-subscription/buyer/merge/`, data)
+}
+
+export const remove_buyer = (buyer_id, toastify=null) => {
+    return createAxios(toastify).delete(`/api/v2/user-subscription/buyer/${buyer_id}/remove/`)
+}
+
 export const seller_changePlan_payment = (data, toastify=null) =>{
     return createAxios(toastify).post(`/api/v2/user-subscription/upgrade/intent/`, data);
 }
