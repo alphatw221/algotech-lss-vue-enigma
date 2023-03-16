@@ -76,6 +76,11 @@ export const create_buyer_points_transaction = (buyer_id, page_size=10, data, to
     return createAxios(toastify).post(`/api/v2/user-subscription/buyer/${buyer_id}/points/transaction/create/?page_size=${page_size}`, data)
 }
 
+export const get_points_report = (toastify=null) => {
+    return createAxios(toastify).get(`/api/v2/user-subscription/points/report/json/`)
+}
+
+
 export const update_buyer_points_transaction = (buyer_id, points_transaction_id, page_size=10, data, toastify=null) => {
     return createAxios(toastify).post(`/api/v2/user-subscription/buyer/${buyer_id}/points/transaction/${points_transaction_id}/update/?page_size=${page_size}`, data)
 }

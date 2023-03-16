@@ -21,7 +21,7 @@
         <span class="hidden sm:inline-block text-md font-bold text-[#ff9505] align-middle flex flex-row">Import Customer</span> 
       </template>
       </FileUploadButton>
-      
+      <button class="btn btn-primary ml-2 w-[120px]" @click="exportPointsExcel()"> Export Points</button>
     </div>
     
     <BuyersListTable
@@ -42,6 +42,8 @@ import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 import { import_customer } from "@/api_v2/user_subscription"
 import FileUploadButton from "@/components/file-upload-button/Main.vue";
 import { useCookies } from "vue3-cookies";
+import { get_points_report } from "../../api_v2/user_subscription";
+import { utils, writeFile } from 'xlsx'
 
 const { cookies } = useCookies()
 const accessToken = cookies.get('access_token')
@@ -128,6 +130,29 @@ const startWebSocketConnection =(init)=> {
         console.error('Socket encountered error: ', err.message, 'Closing socket');
         websocket.close(1000);
     };
+}
+
+
+
+
+
+const exportPointsExcel = () => {
+    get_points_report()
+    .then(
+        res => {
+            const data = res.data.data
+            const header = res.data.header
+            const displayHeader = res.data.display_header
+            const columnSettings = res.data.column_settings
+            const displayData = [displayHeader, ...data]
+            const workSheet = utils.json_to_sheet(displayData, {header:header, skipHeader:true})
+            workSheet['!cols'] = columnSettings
+            const wb = utils.book_new()
+            utils.book_append_sheet(wb, workSheet, 'sheets')
+            writeFile(wb, 'sheets.xlsx')
+
+        }
+    )
 }
 
 </script>
