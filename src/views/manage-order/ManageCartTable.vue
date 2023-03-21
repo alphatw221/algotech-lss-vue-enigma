@@ -324,9 +324,17 @@ const copyCartURL = (cart) => {
                     layoutStore.notification.showMessageToast("copied!")
                 })
             }else{
-                navigator.clipboard.writeText(`${baseURL}/buyer/cart/${res.data}`).then(()=>{
-                    layoutStore.notification.showMessageToast("copied!")
-                })
+
+                if(layoutStore?.userInfo?.user_subscription?.domain){
+                    navigator.clipboard.writeText(`https://${layoutStore?.userInfo?.user_subscription?.domain}/buyer/cart/${res.data}`).then(()=>{
+                        layoutStore.notification.showMessageToast("copied!")
+                    })
+                }else{
+                    navigator.clipboard.writeText(`${baseURL}/buyer/cart/${res.data}`).then(()=>{
+                        layoutStore.notification.showMessageToast("copied!")
+                    })
+                }
+                
             }
             
     })

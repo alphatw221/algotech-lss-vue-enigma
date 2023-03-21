@@ -530,9 +530,18 @@ const showOrderProductModal = (order) => {
 const copyOrderLink = (order) => {
     get_order_oid(order.id, layoutStore.alert).then(
         res =>{
-        navigator.clipboard.writeText(`${baseURL}/buyer/order/${res.data}`).then(()=>{
-            layoutStore.notification.showMessageToast("copied!")
-        })
+
+            if(layoutStore?.userInfo?.user_subscription?.domain){
+                navigator.clipboard.writeText(`https://${layoutStore?.userInfo?.user_subscription?.domain}/buyer/order/${res.data}`).then(()=>{
+                    layoutStore.notification.showMessageToast("copied!")
+                })
+            }else{
+                navigator.clipboard.writeText(`${baseURL}/buyer/order/${res.data}`).then(()=>{
+                    layoutStore.notification.showMessageToast("copied!")
+                })
+            }
+
+        
     })
 }
 const sortByThis = (field, value) =>{
