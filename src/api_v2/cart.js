@@ -84,3 +84,7 @@ export const seller_search_cart = (campaign_id, search_value, page, page_size, t
 export const seller_clear_cart = (cart_id, toastify=null) => {
     return createAxios(toastify).put(`/api/v2/cart/${cart_id}/seller/clear/`)
 }
+
+export const seller_checkout_cart = (cart_id, data, toastify=null) => {
+    return createAxios(toastify).put(`/api/v2/cart/${cart_id}/seller/checkout/`,data)
+}

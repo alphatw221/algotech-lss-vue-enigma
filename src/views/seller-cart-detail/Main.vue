@@ -41,6 +41,9 @@
         <!-- Price Summary End -->
     </div>
 
+    <div class="mt-10">
+        <DeliveryTab :store="sellerCartStore" :layout_store="layoutStore" :role="'seller'" :cartLoading="false" :campaign_product_dict="campaignDetailStore.campaignProductDict"/>
+    </div>
 
     <AddItemModal/>
 </template>
@@ -49,6 +52,7 @@
 import AddItemModal from "./AddItemModal.vue";
 import CartDetailTable from "./CartDetailTable.vue"
 import CartSummary from "./CartSummary.vue";
+import DeliveryTab from "../shoppingcart_v2/DeliveryTab2.vue"
 import { computed, onMounted, ref, watch, onUnmounted, getCurrentInstance } from "vue";
 // import { seller_list_campaign_product } from "@/api_v2/campaign_product";
 
@@ -57,6 +61,7 @@ import { seller_retrieve_cart, seller_clear_cart } from "@/api_v2/cart"
 import { useSellerCartStore } from "@/stores/lss-seller-cart";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import { useRoute, useRouter } from "vue-router";
+import { useCampaignDetailStore } from "@/stores/lss-campaign-detail"
 
 
 const route = useRoute()
@@ -65,6 +70,8 @@ const sellerCartStore = useSellerCartStore()
 
 // import { useSellerCartStore } from "@/stores/lss-seller-cart";
 // const sellerCartStore = useSellerCartStore()
+
+const campaignDetailStore = useCampaignDetailStore()
 
 const layoutStore = useLSSSellerLayoutStore()
 const internalInstance = getCurrentInstance()
@@ -75,7 +82,17 @@ const eventBus = internalInstance.appContext.config.globalProperties.eventBus
 onMounted(()=>{
     seller_retrieve_cart(route.params.cart_id, layoutStore.alert)
     .then(
-        res => { sellerCartStore.cart = res.data
+        res => { 
+            sellerCartStore.cart = res.data
+            sellerCartStore.user_subscription = JSON.parse(JSON.stringify(res.data?.user_subscription))
+            sellerCartStore.product_categories = JSON.parse(JSON.stringify(res.data?.user_subscription?.product_categories||[]))
+            sellerCartStore.productCategoryDict = {}
+            sellerCartStore.product_categories.forEach(productCategory => {
+                sellerCartStore.productCategoryDict[productCategory.id.toString()]=productCategory
+        }); 
+
+
+
             console.log('seller retrive',res.data)
                 //  console.log(sellerCartStore.cart) 
                 //  show_adjust_price() 

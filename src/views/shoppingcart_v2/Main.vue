@@ -53,11 +53,18 @@
 
           <div class="tab-content tab-space">
             <!-- BEGIN My Cart Tab -->
-              <MyCartTab :cartLoading="cartLoading"/>
+              <MyCartTab :cartLoading="cartLoading" />
             <!-- END My Cart Tab -->
 
             <!-- BEGIN Delivery Tab -->
-              <DeliveryTab :cartLoading="cartLoading"/>
+              <div :class="{ hidden: shoppingCartStore.openTab !== 2, block: shoppingCartStore.openTab === 2 }">
+                <DeliveryTab 
+                :cartLoading="cartLoading"  
+                :store="shoppingCartStore" 
+                :layout_store="buyerLayoutStore" 
+                :role="'customer'" 
+                :campaign_product_dict="shoppingCartStore.campaignProductDict"/>
+              </div>
             <!-- END Delivery Tab-->
           </div>
         </div>
@@ -75,7 +82,8 @@
 // import DeliveryTab from "@/components/shopping-cart/DeliveryTab.vue";
 
 import MyCartTab from "./MyCartTab.vue";
-import DeliveryTab from "./DeliveryTab.vue";
+// import DeliveryTab from "./DeliveryTab.vue";
+import DeliveryTab from "./DeliveryTab2.vue";
 import WishListModal from "./modals/WishListModal.vue";
 import ItemDescriptionModal from "./modals/ItemDescriptionModal.vue";
 import AddItemModal from "./modals/AddItemModal.vue";

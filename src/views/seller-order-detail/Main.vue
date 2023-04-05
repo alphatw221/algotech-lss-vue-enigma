@@ -6,9 +6,17 @@
                 <span class="h-8 ml-3 cursor-auto btn btn-rounded-pending text-base">
                     {{$t(`manage_order.${sellerOrderDetail.order.status}`) }}
                 </span> 
+                <button class="btn btn-warning h-8 ml-3 text-base" @click="deleteOrder()">{{ 'Cancel' }}</button>
                 <button class="btn btn-danger h-8 ml-3 text-base" @click="deleteOrder()">{{ $t('order.delete') }}</button>
 
             </h2>
+        </div>
+
+        <div class="flex flex-row flex-wrap items-center content-center mt-2">
+            <label > Buyer :</label>
+            <SearchSelect class="w-[300px] ml-3"
+            :initialName="sellerOrderDetail?.order?.buyer_name||''" v-model="sellerOrderDetail.order.buyer" :searchFunction="searchCustomerFunction" :optionNameKeys="['name','email']" :optionValueKey="'id'"/>
+
         </div>
         <div v-if="sellerOrderDetail.order.customer_name" class="my-auto">
             <span class="text-base mr-5"> {{ sellerOrderDetail.order.customer_name }} {{sellerOrderDetail.order.platform ? `/ `+ $t('order_detail.'+ sellerOrderDetail.order.platform) : ''}}</span>
@@ -68,6 +76,9 @@ import { seller_retrieve_order, seller_delete_order } from "@/api_v2/order";
 import { useSellerOrderStore } from "@/stores/lss-seller-order";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import { useRoute, useRouter } from "vue-router";
+
+import { list_buyers } from "@/api_v2/user_subscription"
+
 import i18n from "@/locales/i18n";
 
 
@@ -105,6 +116,21 @@ const deleteOrder = ()=>{
     
 }
 
+
+const cancelOrder = ()=>{
+    if(confirm(i18n.global.t(`order.confirm_delete`))){
+        // seller_delete_order(route.params.order_id, layoutStore.alert)
+        // .then(res=>{
+        //     router.push({name:'manage-campaign-order', params:{campaign_id:route.params.campaign_id}})
+
+        // })
+    }
+}
+
+
+const searchCustomerFunction = (text, routeParams)=>{
+    return list_buyers(text, 1, 20, layoutStore.alert)
+}
 
 </script>
 
