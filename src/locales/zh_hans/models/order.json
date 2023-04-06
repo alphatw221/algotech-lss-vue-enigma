@@ -57,7 +57,9 @@
     "created_at": "訂單日期",
     "customer_name": "买家姓名",
     "shipping_name": "收件人姓名",
+
     "shipping_phone": "收件人电话",
+    "shipping_cellphone": "收件人电话",
     "shipping_email": "收件人Email",
     "shipping_method":"运输方式",
     "shipping_option":"运输物流",
@@ -65,6 +67,7 @@
     "shipping_location":"运输城市",
     "shipping_region":"快递国家",
     "shipping_postcode":"邮递区号",
+    "shipping_property_type":"房产类型",
     "pick_up_store":"自取商店",
     "pickup_address":"自取地址",
     "shipping_remark":"备注",
@@ -75,6 +78,7 @@
     "order_product_subtotal":"商品总价",
 
     "delete":"删除订单",
-    "confirm_delete":"确认删除订单?"
+    "confirm_delete":"确认删除订单?",
+    "confirm_cancel":"确认取消订单?"
 
 }

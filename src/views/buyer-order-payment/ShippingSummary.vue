@@ -3,6 +3,7 @@
     <div class="box p-5 m-4 border-2 border-secondary grid grid-cols-6 gap-2 sm:gap-3 text-[14px] sm:text-[16px]">
         <div class="col-span-6 flex mb-4 dark:border-darkmode-400">
             <span class="text-lg"> {{$t('shopping_cart.payment.shipping_summary')}}</span>   
+            <button class="btn btn-warning h-8 ml-auto text-base" @click="cancelOrder()">{{ 'Cancel' }}</button>
         </div>
 
         <div class="col-start-1 col-span-2">{{$t('order_detail.delivery.name')}}</div>
@@ -109,8 +110,25 @@
 <script setup>
 import { computed, onMounted, ref, watch } from "vue";
 import { useLSSBuyerOrderStore } from "@/stores/lss-buyer-order";
+import {  buyer_back_to_cart } from "@/api_v2/order";
+import { useRoute, useRouter } from "vue-router";
 
 const store = useLSSBuyerOrderStore(); 
+const route = useRoute();
+const router = useRouter();
+
+
+
+const cancelOrder = ()=>{
+    if(confirm(i18n.global.t(`order.confirm_cancel`))){
+
+        buyer_back_to_cart(route.params.order_oid, store.alert)
+        .then(res=>{
+            router.push({name:"buyer-shopping-cart-detail-page", params:{cart_oid:res.data}});
+        })
+    }
+}
+
 
 onMounted(()=>{
 })

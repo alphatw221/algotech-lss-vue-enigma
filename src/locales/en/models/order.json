@@ -57,7 +57,9 @@
     "created_at": "Order Date",
     "customer_name": "Customer Name",
     "shipping_name": "Receiver Name",
+
     "shipping_phone": "Receiver Phone",
+    "shipping_cellphone": "Receiver Phone",
     "shipping_email": "Receiver Email",
     "shipping_method":"Shipping Method",
     "shipping_option":"Shipping Option",
@@ -65,6 +67,7 @@
     "shipping_location":"Location",
     "shipping_region":"Region",
     "shipping_postcode":"Postcode",
+    "shipping_property_type":"Property Type",
     "pick_up_store":"Pick up Store",
     "pickup_address":"Pick up Address",
     "shipping_remark":"Remark",
@@ -75,5 +78,7 @@
     "order_product_subtotal":"Subtotal",
 
     "delete":"Delete Order",
-    "confirm_delete":"Confirm to delete order ?"
+    "confirm_delete":"Confirm to delete order ?",
+    "confirm_cancel":"Confirm to cancel order ?"
+    
  }

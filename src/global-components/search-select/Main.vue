@@ -1,7 +1,7 @@
 <template>
     <div class="relative" ref="dropdownElement">
-        <div v-if="displayName" class="form-control min-h-[40px] cursor-text border-[1px] px-5 py-2 bg-white" @click="showDropdown()" >{{ displayName }}</div>
-        <div v-else class="form-control min-h-[40px] cursor-text border-[1px] px-5 py-2 bg-white " @click="showDropdown()">{{ props.initialName }}</div>
+        <div v-if="displayName" class="form-control  cursor-text border-[1px] px-5 py-2 bg-white" @click="showDropdown()" >{{ displayName }}</div>
+        <div v-else class="form-control  cursor-text border-[1px] px-5 py-2 bg-white " @click="showDropdown()">{{ props.initialName }}</div>
 
         <div v-show="dropdownShow"  class="absolute box top-[100%] form-control z-50 border-[1px] border-slate-200">
             <div class="pt-2 px-2 pb-1">
@@ -146,7 +146,6 @@
 
     const selectDefaultOption = (index, option)=>{
 
-
         updateModelValue(option?.[props.optionValueKey])
         
         const _displayName = []
@@ -163,7 +162,6 @@
 
     const selectOption = (optionIndex, option)=>{
         updateModelValue(option?.[props.optionValueKey])
-        
         const _displayName = []
         props.optionNameKeys.forEach(optionNameKey => {
             _displayName.push(option?.[optionNameKey])
@@ -173,6 +171,7 @@
     }
 
     const updateModelValue = (value)=>{
+
         emits('update:modelValue', value)
         emits('change', value)
     }

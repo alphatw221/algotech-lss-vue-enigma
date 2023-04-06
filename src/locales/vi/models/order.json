@@ -57,7 +57,9 @@
     "created_at": "Ngày đặt hàng",
     "customer_name": "Tên khách hàng",
     "shipping_name": "Tên người nhận",
+
     "shipping_phone": "Điện thoại người nhận",
+    "shipping_cellphone": "Điện thoại người nhận",
     "shipping_email": "Email người nhận",
     "shipping_method":"Phương thức vận chuyển",
     "shipping_option":"Tùy chọn vận chuyển",
@@ -65,6 +67,7 @@
     "shipping_location":"Vị trí",
     "shipping_region":"Khu vực",
     "shipping_postcode":"Mã bưu điện",
+    "shipping_property_type":"Loại tài sản nhà",
     "pick_up_store":"Cửa hàng nhận hàng",
     "pickup_address":"Địa chỉ nhận hàng",
     "shipping_remark":"Ghi chú",
@@ -75,5 +78,6 @@
     "order_product_subtotal":"Tổng phụ",
 
     "delete":"Xóa đơn hàng",
-    "confirm_delete":"Xác nhận xóa đơn hàng?"
+    "confirm_delete":"Xác nhận xóa đơn hàng?",
+    "confirm_cancel":"Xác nhận hủy đơn hàng??"
  }

@@ -7,20 +7,21 @@
             <!-- ORDER_SHIPPING_INFO_CARD -->
             <div class="col-span-12 lg:col-span-6 2xl:col-span-6">
                 <div class="w-full mx-2 ">
-                    <div class="flex mb-2">
-                        <h2 class="font-medium mr-5 flex-row flex-wrap flex justify-between gap-3">
-                            <span class="my-auto"> {{$t('order_detail.order_no')}} # {{ buyerOrderStore.order.id }}  </span> 
-                            <span class="btn rounded-full bg-secondary h-8 ml-3 cursor-auto">
-                                {{ $t(`order_detail.`+buyerOrderStore.order.status) }}
-                            </span> 
-                            <button 
-                                class="btn btn-rounded-pending h-8 ml-auto sm:ml-3"
-                                v-if="buyerOrderStore.order.payment_status === 'awaiting_payment' && !buyerOrderStore.order.payment_method.includes('ecpay')"
-                                @click=" routeToPaymentPage()"
-                            >
-                                {{$t('order_detail.pay')}}
-                            </button>
-                        </h2>
+                    <div class=" flex-row flex-wrap flex justify-start ">
+                        <span class="font-medium my-auto"> {{$t('order_detail.order_no')}} # {{ buyerOrderStore.order.id }}  </span> 
+                        <span class="font-medium btn rounded-full bg-secondary h-8 ml-3 cursor-auto">
+                            {{ $t(`order_detail.`+buyerOrderStore.order.status) }}
+                        </span> 
+
+                        <button 
+                            class="btn btn-rounded-pending h-8 ml-auto sm:ml-3"
+                            v-if="buyerOrderStore.order.payment_status === 'awaiting_payment' && !buyerOrderStore.order.payment_method.includes('ecpay')"
+                            @click=" routeToPaymentPage()"
+                        >
+                            {{$t('order_detail.pay')}}
+                        </button>
+                        <button class="btn btn-warning h-8 ml-3 text-base" v-if="buyerOrderStore?.order?.status!='complete'" @click="cancelOrder()">{{ 'Cancel' }}</button>
+
                     </div>
                     <div class="flex mb-2">
                         <!-- <span class="font-medium mr-5"> Order Date : {{ buyerOrderStore.order.created_at }} </span> -->
@@ -254,7 +255,7 @@ import OrderDetailTable from "./OrderDetailTable.vue";
 import OrderSummary from "@/views/buyer-order-payment/OrderSummary.vue";
 
 import { computed, onMounted, ref, watch, getCurrentInstance } from "vue";
-import { buyer_retrieve_order_with_user_subscription } from "@/api_v2/order";
+import { buyer_retrieve_order_with_user_subscription, buyer_back_to_cart } from "@/api_v2/order";
 import { useRoute, useRouter } from "vue-router";
 import { useLSSBuyerOrderStore } from "@/stores/lss-buyer-order";
 import { useCookies } from 'vue3-cookies'
@@ -293,6 +294,18 @@ onMounted(() => {
 const routeToPaymentPage = ()=>{
     router.push({name:"buyer-order-payment-page", params:{order_oid:route.params.order_oid}});
 }
+
+
+const cancelOrder = ()=>{
+    if(confirm(i18n.global.t(`order.confirm_cancel`))){
+
+        buyer_back_to_cart(route.params.order_oid, layoutStore.alert)
+        .then(res=>{
+            router.push({name:"buyer-shopping-cart-detail-page", params:{cart_oid:res.data}});
+        })
+    }
+}
+
 </script>
 
 

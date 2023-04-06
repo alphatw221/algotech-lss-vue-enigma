@@ -75,7 +75,7 @@
 		</div>
 
 		<!-- delivery date -->
-		<div class="flex flex-col flex-wrap justify-between col-span-12 col-start-1 gap-2">
+		<!-- <div class="flex flex-col flex-wrap justify-between col-span-12 col-start-1 gap-2">
 			<div class="flex flex-row gap-2 items-center"> 
 				<input type="checkbox" class="form-control form-check-input w-[1.5rem] h-[1.5rem]" v-model="props.campaign.meta_logistic.is_use_delivery_date_enabled"/>
 				<label class="text-base whitespace-nowrap text-lg font-medium">{{$t('create_campaign.delivery_form.delivery_date')}}</label>
@@ -103,32 +103,6 @@
 						{{$t('create_campaign.delivery_form.errors.Value_is_required')}}</p>
 				</div>
 
-				<!-- <v-date-picker class="" 
-					v-model="deliverydatePicker" 
-					:timezone="timezone" 
-					:columns="$screens({ default: 1, sm: 2 })" 
-					mode="date" is-range is-required is24hr
-					:min-date='new Date()'
-					v-show="false"
-					>
-					<template v-slot="{ inputValue, inputEvents }">
-						<div class="flex items-center justify-center gap-1">
-							<div class="flex flex-col relative">
-								<p> From</p>
-								<input :value="inputValue.start" v-on="inputEvents.start"
-								class="form-control border h-[42px] px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300" />
-								<CalendarIcon class="hidden sm:block absolute right-2 bottom-2.5 text-slate-600"/>
-							</div> 
-							<ChevronsRightIcon class="w-8 h-8 mt-auto mb-1" />
-							<div class="flex flex-col relative">
-								<p> To</p>
-								<input :value="inputValue.end" v-on="inputEvents.end" disabled
-								class="form-control border h-[42px] px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300" />
-								<CalendarIcon class="hidden sm:block absolute right-2 bottom-2.5 text-slate-600"/> 
-							</div>
-						</div>
-					</template>
-				</v-date-picker> -->
 				<div class="flex flex-col w-full justify-start"> 
 					<p> {{$t('create_campaign.delivery_form.delivery_time_options')}}</p>
 					<TomSelect
@@ -145,7 +119,7 @@
 						{{$t('create_campaign.delivery_form.errors.Value_is_required')}}</p>
 				</div>
 			</div>
-		</div>
+		</div> -->
 		
 		<!--default delivery -->
 		<div class="flex flex-row gap-5 col-span-12 col-start-1">
@@ -176,7 +150,7 @@
 		
 		<div class="col-span-12 flex flex-col flex-wrap gap-3">
 			<div v-for="(option, index) in props.campaign.meta_logistic.additional_delivery_options" :key="index"
-				class="flex flex-col flex-wrap gap-3 mt-5 sm:flex-row sm:mt-0" >
+				class="flex flex-col flex-wrap gap-3 mt-5 sm:flex-row sm:mt-0 border-b-slate border-b-[3px] py-3" :class="index==0?'border-t-slate border-t-[3px]':''">
 				<template v-for="(field, fkey, findex) in additional_delivery_option" :key="findex">
 					<template v-if="fkey == 'region'">
 						<div>
@@ -194,7 +168,7 @@
 							</label>
 						</div>
 					</template>
-					<template v-if="fkey == 'title'">
+					<template v-else-if="fkey == 'title'">
 						<div>
 							<input  
 								class="flex-1 w-full text-base form-control sm:w-fit"
@@ -210,7 +184,7 @@
 							</label>
 						</div>
 					</template>
-					<template v-if="fkey == 'type'">
+					<template v-else-if="fkey == 'type'">
 						<div>
 							<select 
 								class="flex-1 w-full form-select-md sm:form-select-lg rounded-lg sm:w-fit"
@@ -227,7 +201,7 @@
 							</label>
 						</div>
 					</template>
-					<template v-if="fkey == 'price'">
+					<template v-else-if="fkey == 'price'">
 						<div>
 							<input  
 								class="w-full form-control flex-2 sm:w-fit"
@@ -243,36 +217,64 @@
 							</label>
 						</div>
 					</template>
-					<template v-if="fkey == 'is_cvs'">
-						<div class="flex flex-row items-center">
-							<input  
-								class="w-10 h-10 form-control w-[1.5rem] h-[1.5rem]"
-								type="checkbox" 
-								:placeholder="$t('settings.delivery_form.express_charge')"
-								v-model="option.is_cvs"
-							/>
-							<label class="text-[16px] ml-2" 
-								>{{ $t("settings.delivery.own_delivery.is_cvs") }}
-							</label>                    
-						</div>
-						<div>
-							<select 
-								:disabled="option.is_cvs !== true"
-								class="flex-1 w-full rounded-lg form-select sm:form-select-lg sm:w-fit"
-								v-model="option.cvs_key"
-							>   
-								<option :value="undefined">{{ $t('settings.delivery.own_delivery.turn_on_cvs_map') }}</option>
-								<template v-for="(cvs_option, option_index) in csvOptions" :key="option_index">
-									<option :value="cvs_option.key">{{ $t('settings.delivery.own_delivery.cvs_map')+":"+cvs_option.name }}</option>
-								</template>
-							</select>
+
+					<template v-else-if="fkey == 'delivery_dates'">
+						<div class="w-full flex flex-col">
+							<div class="w-[350px] border-b-slate border-b-[1px] p-2" :class="dateIndex==0?'border-t-slate border-t-[1px]':''"  v-for="date, dateIndex in option.delivery_dates" :key="dateIndex">
+								
+
+								<p> {{'Date'}}</p>
+								<Litepicker v-model="date.date" :options="{
+								autoApply: false,
+								singleMode: true,
+								numberOfColumns: 2,
+								numberOfMonths: 2,
+								showWeekNumbers: true,
+								dropdowns: {
+									minYear: 1990,
+									maxYear: null,
+									months: true,
+									years: true,
+								},
+								}" class="block form-control border h-[42px] px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300 " />
+								
+
+
+
+								<p> {{$t('create_campaign.delivery_form.delivery_time_options')}}</p>
+								<TomSelect
+									v-model="date.time_slots"
+									class="w-full"
+									multiple
+								>
+									<option v-for=" option, index in optionsStore.deliveryTime" :key="index" :value="option.value"> {{ option.value }} </option> 
+								</TomSelect>
+								
+								<div class="flex flex-row justify-end mt-1">
+									<button class="btn btn-danger" @click="deleteDeliveryOptionDate(index, dateIndex)">Delete Date</button>
+								</div>
+							</div>
 						</div>
 					</template>
+
 				</template>
-				<button 
-					class="btn btn-danger inline-block text-base w-full sm:w-24 ml-auto h-[42px]" 
-					@click="deleteDelivery(index)"
-				> {{$t('create_campaign.delivery_form.delete')}} </button>
+
+				<div class="ml-auto">
+					<button 
+						class="btn btn-warning inline-block text-base w-full sm:w-24  h-[42px]" 
+						@click="deliveryOptionAddDate(index)"
+						v-if="option?.delivery_dates"
+						> Add Date
+					</button>
+
+
+					<button 
+						class="btn btn-danger inline-block text-base w-full sm:w-24 ml-1 h-[42px]" 
+						@click="deleteDelivery(index)"
+						> {{$t('create_campaign.delivery_form.delete')}} 
+					</button>
+				</div>
+				
 			</div>
 		</div>
 
@@ -475,7 +477,7 @@ const props = defineProps({
 });
 
 const additional_delivery_option = computed(()=>{
-	var options = { region:null,title: null, type: null, price: null}
+	var options = { region:null,title: null, type: null, price: null, delivery_dates:[]}
 	if(layoutStore.userInfo.user_subscription.meta_country.activated_country.includes('TW')){
 		Object.assign(options,{is_cvs:false})
 	}
@@ -490,6 +492,14 @@ const csvOptions = ref([
 ])
 
 
+const deliveryOptionAddDate = index=>{
+	console.log(index)
+	props.campaign.meta_logistic.additional_delivery_options[index].delivery_dates.push({date:'',time_slots:[]})
+}
+
+const deleteDeliveryOptionDate = (optionIndex, dateIndex)=>{
+	props.campaign.meta_logistic.additional_delivery_options[optionIndex].delivery_dates.splice(dateIndex,1)
+}
 
 const addDelivery = () =>{
     props.campaign.meta_logistic.additional_delivery_options.unshift(Object.assign({},additional_delivery_option.value))

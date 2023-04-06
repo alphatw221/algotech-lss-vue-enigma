@@ -206,38 +206,54 @@
                   </div>
 
                   <!-- Delivery Date -->
-                  <template v-if="props.store?.cart.campaign.meta_logistic.is_use_delivery_date_enabled && props.store?.cart.campaign.meta_logistic.delivery_date?.options ">
+                  <template v-if="props.store?.cart.campaign.meta_logistic.is_use_delivery_date_enabled && deliveryOptionData?.delivery_dates ">
                     <h3 class="whitespace-nowrap lg:-mx-10 xl:-mx-20">{{$t('shopping_cart.delivery_tab.delivery_date')}}</h3>
                     <div class="flex flex-col sm:flex-row gap-3"> 
 
                       <div class="flex flex-col w-full"> 
                    
-                      <Litepicker v-model="shipping_info.shipping_date" :options="{
-                        autoApply: false,
-                        showWeekNumbers: true,
-                        dropdowns: {
-                          minYear: 1990,
-                          maxYear: null,
-                          months: true,
-                          years: true,
-                        },
-                        minDate:props.store?.cart?.campaign?.meta_logistic?.delivery_date?.daterange?.split('~')?.[0],
-                        maxDate:props.store?.cart?.campaign?.meta_logistic?.delivery_date?.daterange?.split('~')?.[1],
-                      }" class="block border-2 h-[50px] px-10 w-full min-w-[300px] rounded-lg" :class="{'border-danger': time_validate.shipping_date.$errors.length > 0}"/>
-                      <h4 class="text-danger flex flex-col sm:flex-row"> 
-                        <template v-for="(error,index) in time_validate.shipping_date.$errors" :key="index">
-                          <span>{{ error.$message }}</span>
-                          <span v-if="index+1 !== time_validate.shipping_date.$errors.length"
-                              class="hidden sm:block mx-1">/</span>
-                        </template>
-                      </h4>
+                        <!-- <Litepicker v-model="shipping_info.shipping_date" :options="{
+                          autoApply: false,
+                          showWeekNumbers: true,
+                          dropdowns: {
+                            minYear: 1990,
+                            maxYear: null,
+                            months: true,
+                            years: true,
+                          },
+                          minDate:props.store?.cart?.campaign?.meta_logistic?.delivery_date?.daterange?.split('~')?.[0],
+                          maxDate:props.store?.cart?.campaign?.meta_logistic?.delivery_date?.daterange?.split('~')?.[1],
+                        }" class="block border-2 h-[50px] px-10 w-full min-w-[300px] rounded-lg" :class="{'border-danger': time_validate.shipping_date.$errors.length > 0}"/>
+                        <h4 class="text-danger flex flex-col sm:flex-row"> 
+                          <template v-for="(error,index) in time_validate.shipping_date.$errors" :key="index">
+                            <span>{{ error.$message }}</span>
+                            <span v-if="index+1 !== time_validate.shipping_date.$errors.length"
+                                class="hidden sm:block mx-1">/</span>
+                          </template>
+                        </h4> -->
+                        <select 
+                          class="border-2 h-[50px] w-full rounded-lg px-10 text-[1rem]" 
+                          :class="{'border-danger': time_validate.shipping_date.$errors.length > 0}" 
+                          v-model="shipping_info.shipping_date"> 
+                          <option v-for="(dateOption, dateOptionIndex) in (deliveryOptionData?.delivery_dates||[])" :key="dateOptionIndex"> {{ dateOption.date }} </option>
+                        </select>
+
+                        <h4 class="text-danger flex flex-col sm:flex-row"> 
+                          <template v-for="(error,index) in time_validate.shipping_date.$errors" :key="index">
+                            <span>{{ error.$message }}</span>
+                            <span v-if="index+1 !== time_validate.shipping_date.$errors.length"
+                                class="hidden sm:block mx-1">/</span>
+                          </template>
+                        </h4>
+
                       </div>
+
                       <div class="flex flex-col w-full"> 
                         <select 
                           class="border-2 h-[50px] w-full rounded-lg px-10 text-[1rem]" 
                           :class="{'border-danger': time_validate.shipping_time_slot.$errors.length > 0}" 
                           v-model="shipping_info.shipping_time_slot"> 
-                          <option v-for="option in props.store?.cart.campaign.meta_logistic.delivery_date?.options" :key="option"> {{ option }} </option>
+                          <option v-for="(timeSlot, timeSlotIndex) in (computedShippingTimeSlots)" :key="timeSlotIndex"> {{ timeSlot }} </option>
                         </select>
                         <h4 class="text-danger flex flex-col sm:flex-row"> 
                           <template v-for="(error,index) in time_validate.shipping_time_slot.$errors" :key="index">
@@ -250,6 +266,7 @@
                       </div>
                     </div>
                   </template>
+                  <!-- END Delivery Date -->
 
                 </div>
                 <!-- END Delivery Option -->
@@ -580,6 +597,11 @@ const selectPickupOption = (index, option)=>{
   pickupOptionData.value = option
 }
 
+const computedShippingTimeSlots = computed(()=>{
+
+  shipping_info.value.shipping_time_slot = ''
+  return (deliveryOptionData.value?.delivery_dates||[]).find(delivery_date=>delivery_date.date==shipping_info.value.shipping_date)?.time_slots||[]
+})
 
 const computedRegionOptions = computed(()=>{
 
@@ -647,155 +669,11 @@ const computedItemsOverFreeDeliveryThreshold = computed(()=>{
   return props.store?.cart.campaign?.meta_logistic?.is_free_delivery_for_how_many_order_minimum ? computedProductTotalQuantity.value >= props.store?.cart.campaign?.meta_logistic?.free_delivery_for_how_many_order_minimum : false
 })
 
-// const deliveryColor = ref('white')
-// const pickupColor = ref('#131C34')
-// // const showAddressForm = ref(true)
-
-// const select_shipping_method = (method,type) => {
-//   deliveryColor.value = method !== 'pickup'? 'white' :'#131C34'
-//   pickupColor.value = method == 'pickup'? 'white' :'#131C34'
-//   if(type == 'tab' && method == shipping_method_computed.value) return 
-//   if(type == 'tab' && method == 'delivery' && shipping_method_computed.value == 'ecpay') return 
-//   else if(method !== shipping_method_computed.value) {
-//     shipping_method_computed.value = method
-//     shipping_info.value.shipping_time_slot = null
-//   }
-// }
-
-
-
-// const areaIndex = ref(null)
-// const cityIndex = ref(null)
-// const city_computed = computed({
-//   get:()=>{
-//     return cityIndex.value
-//   },
-//   set:index=>{
-//     cityIndex.value = index
-//     if(twZipcodeStore.data[index]?.name) delivery_validate.value.shipping_region.$model = twZipcodeStore.data[index]?.name
-//     areaIndex.value = null
-//   }
-// })
-// const area_computed = computed({
-//   get:()=>{
-//     return areaIndex.value
-//   },
-//   set:index=>{
-//     areaIndex.value = index
-//     if(twZipcodeStore.data[cityIndex.value]?.areas[index]?.name) delivery_validate.value.shipping_location.$model= twZipcodeStore.data[cityIndex.value]?.areas[index]?.name
-//     if(twZipcodeStore.data[cityIndex.value]?.areas[index]?.zip) delivery_validate.value.shipping_postcode.$model = twZipcodeStore.data[cityIndex.value]?.areas[index]?.zip
-//   }
-// })
-
-// const deliveryCurrentChosenOption = ref(null)
-
-// const shipping_method_computed = computed({
-//   get:()=>{
-//     return shipping_info.value.shipping_method
-//   }
-//   ,set:method=>{
-//     deliveryColor.value = method !== 'pickup'? 'white' :'#131C34'
-//     pickupColor.value = method == 'pickup'? 'white' :'#131C34'
-//     shipping_info.value.shipping_method=method
-//     props.store?.shipping_info.shipping_method=method        //order summary compute this
-//     if (method == 'delivery') {
-//       props.store?.shipping_info.shipping_option_index = deliveryCurrentChosenOption.value
-//       shipping_option_index_computed.value = deliveryCurrentChosenOption.value
-//     } 
-//     if (method === "pickup") {
-//       if (props.store?.cart.campaign.meta_logistic?.pickup_options.length > 0) {
-//         deliveryCurrentChosenOption.value = shipping_option_index.value != "No" ? shipping_option_index.value : null
-//         props.store?.shipping_info.shipping_option_index = 0
-//         shipping_option_index_computed.value = 0
-//         date_range.value.start = props.store?.cart.campaign.meta_logistic.pickup_options[shipping_option_index_computed.value].start_at
-//         date_range.value.end = props.store?.cart.campaign.meta_logistic.pickup_options[shipping_option_index_computed.value].end_at
-//       } else {
-//         props.store?.shipping_info.shipping_option_index = null
-//       }
-      
-//     }
-//   }
-// })
-
-// const shipping_option_index_computed = computed({
-//   get:()=>{
-//     return shipping_option_index.value
-//   },set:index=>{
-//     // console.log("set", index)
-//     // console.log(shipping_info.value.shipping_method)
-//     if(shipping_info.value.shipping_method=='pickup' && shipping_option_index.value !== index) shipping_info.value.shipping_time_slot = null
-//     shipping_option_index.value = index
-//     props.store?.shipping_info.shipping_option_index=index 
-//     // pickup 
-//     if (shipping_info.value.shipping_method=='pickup') {
-//       shipping_info.value.pickup_address = props.store?.cart.campaign.meta_logistic.pickup_options[index]?.address
-//       shipping_info.value.shipping_option = props.store?.cart.campaign.meta_logistic.pickup_options[index]?.name
-
-//       date_range.value.start = props.store?.cart.campaign.meta_logistic.pickup_options[index].start_at
-//       date_range.value.end = props.store?.cart.campaign.meta_logistic.pickup_options[index].end_at
-
-//       shipping_info.value.shipping_option_data = JSON.parse(JSON.stringify(props.store?.cart.campaign.meta_logistic.pickup_options[index]))
-//       showAddressForm.value = false
-    
-//     // delivery
-//     } else if (shipping_info.value.shipping_method=='delivery' && typeof index !== 'string') {
-//       shipping_info.value.shipping_option = index != null ? props.store?.cart.campaign.meta_logistic.additional_delivery_options[index]?.title : props.store?.cart.campaign.meta_logistic?.title
-//       shipping_info.value.shipping_option_data = index == null ? {} : JSON.parse(JSON.stringify(props.store?.cart.campaign.meta_logistic.additional_delivery_options[index]))
-//       if(shipping_option_index.value == props.store?.cart.meta?.ecpay_cvs?.shipping_option_index) {
-//         Object.assign(shipping_info.value.shipping_option_data,props.store?.cart.meta?.ecpay_cvs)
-//       }
-//       if (props.store?.cart.campaign.meta_logistic.additional_delivery_options[index]?.is_cvs) {
-//         showAddressForm.value = false
-//       } else {
-//         showAddressForm.value = true
-//       }
-    
-//     // ecpay
-//     } else if (shipping_info.value.shipping_method=='ecpay') {
-//       if(shipping_option_index.value == props.store?.cart.meta?.ecpay_cvs?.shipping_option_index) {
-//         shipping_info.value.shipping_option_data = props.store?.cart.meta?.ecpay_cvs
-//       } else {
-//         shipping_info.value.shipping_option_data = {}
-//       }
-//       Object.assign(shipping_info.value.shipping_option_data,{
-//         'LogisticsSubType': shipping_option_index.value,
-//         'type': props.store?.cart.campaign.meta_logistic[shipping_info.value.shipping_method]?.logistics_sub_type[shipping_option_index.value].type,
-//         "price": props.store?.cart.campaign.meta_logistic[shipping_info.value.shipping_method]?.logistics_sub_type[shipping_option_index.value].delivery_charge,
-//       })
-
-//       if (["TCAT"].includes(shipping_option_index.value)) {
-//         shipping_info.value.shipping_option_data['logisticsType'] = 'HOME'
-//         showAddressForm.value = true
-//       } else {
-//         shipping_info.value.shipping_option_data['logisticsType'] = 'CVS'
-//         showAddressForm.value = false
-//       }
-//     }
-//     // console.log(shipping_info.value.shipping_option_data)
-//   }
-// })
 
 const isAnonymousUser=cookies.get("login_with")=='anonymousUser'
 
 
 
-
-// VALIDATER
-// const exactlength = (param) =>
-//   helpers.withParams(
-//     { type: 'exactlength', value: param },
-//     (value) => {
-//       var ecpay_enabled = props.store?.cart.campaign.meta_logistic?.ecpay?.enabled ? true : false
-//       if (value.length !== param && ecpay_enabled) return false
-//       return true
-//     }
-// )
-// const twCellPhoneBeginning = (value) => {
-//   var ecpay_enabled = props.store?.cart.campaign.meta_logistic?.ecpay?.enabled ? true : false
-//   if (value[0] !== "0" && ecpay_enabled) return false
-//   if (value[1] !== "9" && ecpay_enabled) return false
-//   return true
-// }
 const specialCharacter = (value) => {
   const special_characters = "^‘`!@#%&*+”<>|_[]"
   return !special_characters.split('').some(char => value.includes(char))
