@@ -44,11 +44,11 @@
 
                 <!-- Delivery Address -->
                 <div >
-                  <h2 class="mt-4 sm:mt-8">{{$t('shopping_cart.delivery_tab.delivery_info')}}</h2>
+                  <h2 class="mt-4 sm:mt-8">{{$t('order.delivery_info')}}</h2>
                   <div class="flex flex-col gap-4 intro-y mt-4">
                     <!--Street Address-->
                     <div class="flex flex-col gap-1">
-                      <p>{{$t('shopping_cart.delivery_tab.address')}}</p>
+                      <p>{{$t('order.shipping_address')}}</p>
                       <input id="regular-form-2" type="text" class="form-control"
                         :class="{ 'border-danger': delivery_validate.shipping_address_1.$error }"
                         :placeholder="$t('shopping_cart.delivery_tab.address_hint')"
@@ -62,39 +62,13 @@
                       </h4>
                     </div>
 
-                    <!--City-->
+                    <!--Location-->
                     <div class="flex flex-col gap-1">
-                      <p>{{$t('shopping_cart.delivery_tab.city')}}</p>
+                      <p>{{$t('order.shipping_location')}}</p>
                      
                       <input id="regular-form-2" type="text" class="form-control " placeholder=""
-                        :class="{ 'border-danger text-danger': delivery_validate.shipping_region.$error }"
-                        v-model.trim="delivery_validate.shipping_region.$model" /> 
-
-                      <h4 class="text-danger flex flex-col sm:flex-row"> 
-                        <template v-for="(error,index) in delivery_validate.shipping_region.$errors" :key="index">
-                          <span>{{ error.$message }}</span>
-                          <span v-if="index+1 !== delivery_validate.shipping_region.$errors.length"
-                              class="hidden sm:block mx-1">/</span>
-                        </template>
-                      </h4>
-                    </div>
-
-                    <!--Country-->
-                    <div class="flex flex-col gap-1">
-                      <p>{{$t('shopping_cart.delivery_tab.district')}}</p>
-                   
-                      <template v-if="computedRegionOptions.length>0"> 
-
-                        <select class="form-select h-[35px] sm:h-[42px] w-full" v-model="shipping_info.shipping_location">
-                          <option v-for="(option, optionIndex) in computedRegionOptions" :key="optionIndex" :value="option">{{ option }}</option>
-                        </select>
-
-                      </template>
-                      <template v-else> 
-                        <input id="regular-form-2" type="text" class="form-control " placeholder=""
-                          :class="{ 'border-danger text-danger': delivery_validate.shipping_location.$error }"
-                          v-model.trim="delivery_validate.shipping_location.$model" /> 
-                      </template>
+                        :class="{ 'border-danger text-danger': delivery_validate.shipping_location.$error }"
+                        v-model.trim="delivery_validate.shipping_location.$model" /> 
 
                       <h4 class="text-danger flex flex-col sm:flex-row"> 
                         <template v-for="(error,index) in delivery_validate.shipping_location.$errors" :key="index">
@@ -105,9 +79,36 @@
                       </h4>
                     </div>
 
+                    
+                     <!--Region-->
+                    <div class="flex flex-col gap-1">
+                      <p>{{$t('order.shipping_region')}}</p>
+                   
+                      <template v-if="computedRegionOptions.length>0"> 
+
+                        <select class="form-select h-[35px] sm:h-[42px] w-full" v-model="shipping_info.shipping_region">
+                          <option v-for="(option, optionIndex) in computedRegionOptions" :key="optionIndex" :value="option">{{ option }}</option>
+                        </select>
+
+                      </template>
+                      <template v-else> 
+                        <input id="regular-form-2" type="text" class="form-control " placeholder=""
+                          :class="{ 'border-danger text-danger': delivery_validate.shipping_region.$error }"
+                          v-model.trim="delivery_validate.shipping_region.$model" /> 
+                      </template>
+
+                      <h4 class="text-danger flex flex-col sm:flex-row"> 
+                        <template v-for="(error,index) in delivery_validate.shipping_region.$errors" :key="index">
+                          <span>{{ error.$message }}</span>
+                          <span v-if="index+1 !== delivery_validate.shipping_region.$errors.length"
+                              class="hidden sm:block mx-1">/</span>
+                        </template>
+                      </h4>
+                    </div>
+
                     <!--Property Type-->
                     <div class="flex flex-col gap-1" v-if="props.store?.user_subscription?.user_plan?.display?.order_shipping_property_type">
-                      <p>{{$t('shopping_cart.delivery_tab.property')}}</p>
+                      <p>{{$t('order.shipping_property_type')}}</p>
 
                       <select class="form-select h-[35px] sm:h-[42px] w-full" v-model="shipping_info.shipping_property_type">
                           <option :value="null"></option>
@@ -122,7 +123,7 @@
 
                     <!--Postal Code-->
                     <div class="flex flex-col gap-1">
-                      <p>{{$t('shopping_cart.delivery_tab.postal_code')}}</p>
+                      <p>{{$t('order.shipping_postcode')}}</p>
                       <input id="regular-form-2" type="text" class="form-control " placeholder=""
                         :class="{ 'border-danger text-danger': delivery_validate.shipping_postcode.$error }"
                         v-model.trim="delivery_validate.shipping_postcode.$model" />
@@ -147,7 +148,7 @@
                   <div>
                     <!-- Default Option -->
                     <div 
-                        v-if="((props.store?.cart.campaign.meta_logistic?.is_self_delivery_enabled == true) || computedAppliedCategoryLogistic) && computedRegionOptions.length<=1"
+                        v-if="((props.store?.cart.campaign.meta_logistic?.is_self_delivery_enabled == true) || computedAppliedCategoryLogistic) && computedRegionOptions.length<1"
                         class="logistic-options border-2 rounded-lg relative "
                         :class="{'border-red-600/90 shadow-sm': displayDeliveryOptionIndex == null}"
                         @click="selectDeliveryOption(null,{})"
@@ -206,36 +207,17 @@
                   </div>
 
                   <!-- Delivery Date -->
-                  <template v-if="props.store?.cart.campaign.meta_logistic.is_use_delivery_date_enabled && deliveryOptionData?.delivery_dates ">
+                  <template v-if="computedDeliveryDates.length ">
                     <h3 class="whitespace-nowrap lg:-mx-10 xl:-mx-20">{{$t('shopping_cart.delivery_tab.delivery_date')}}</h3>
                     <div class="flex flex-col sm:flex-row gap-3"> 
 
                       <div class="flex flex-col w-full"> 
                    
-                        <!-- <Litepicker v-model="shipping_info.shipping_date" :options="{
-                          autoApply: false,
-                          showWeekNumbers: true,
-                          dropdowns: {
-                            minYear: 1990,
-                            maxYear: null,
-                            months: true,
-                            years: true,
-                          },
-                          minDate:props.store?.cart?.campaign?.meta_logistic?.delivery_date?.daterange?.split('~')?.[0],
-                          maxDate:props.store?.cart?.campaign?.meta_logistic?.delivery_date?.daterange?.split('~')?.[1],
-                        }" class="block border-2 h-[50px] px-10 w-full min-w-[300px] rounded-lg" :class="{'border-danger': time_validate.shipping_date.$errors.length > 0}"/>
-                        <h4 class="text-danger flex flex-col sm:flex-row"> 
-                          <template v-for="(error,index) in time_validate.shipping_date.$errors" :key="index">
-                            <span>{{ error.$message }}</span>
-                            <span v-if="index+1 !== time_validate.shipping_date.$errors.length"
-                                class="hidden sm:block mx-1">/</span>
-                          </template>
-                        </h4> -->
                         <select 
                           class="border-2 h-[50px] w-full rounded-lg px-10 text-[1rem]" 
                           :class="{'border-danger': time_validate.shipping_date.$errors.length > 0}" 
                           v-model="shipping_info.shipping_date"> 
-                          <option v-for="(dateOption, dateOptionIndex) in (deliveryOptionData?.delivery_dates||[])" :key="dateOptionIndex"> {{ dateOption.date }} </option>
+                          <option v-for="(dateOption, dateOptionIndex) in computedDeliveryDates" :key="dateOptionIndex"> {{ dateOption.date }} </option>
                         </select>
 
                         <h4 class="text-danger flex flex-col sm:flex-row"> 
@@ -597,10 +579,25 @@ const selectPickupOption = (index, option)=>{
   pickupOptionData.value = option
 }
 
+const computedDeliveryDates = computed(()=>{
+  if(Object.keys(deliveryOptionData.value).length){
+    return deliveryOptionData?.value?.delivery_dates||[]
+  }else if(props?.store?.cart?.campaign?.meta_logistic?.is_use_delivery_date_enabled){
+    return props?.store?.cart?.campaign?.meta_logistic?.delivery_dates||[]
+  }
+  return []
+})
+
 const computedShippingTimeSlots = computed(()=>{
 
   shipping_info.value.shipping_time_slot = ''
-  return (deliveryOptionData.value?.delivery_dates||[]).find(delivery_date=>delivery_date.date==shipping_info.value.shipping_date)?.time_slots||[]
+
+  if(Object.keys(deliveryOptionData.value).length){
+    return (deliveryOptionData.value?.delivery_dates||[]).find(delivery_date=>delivery_date.date==shipping_info.value.shipping_date)?.time_slots||[]
+  }else if(props?.store?.cart?.campaign?.meta_logistic?.is_use_delivery_date_enabled){
+    return (props?.store?.cart?.campaign?.meta_logistic?.delivery_dates||[]).find(delivery_date=>delivery_date.date==shipping_info.value.shipping_date)?.time_slots||[]
+  }
+  return []
 })
 
 const computedRegionOptions = computed(()=>{
@@ -622,7 +619,7 @@ const computedRegionOptions = computed(()=>{
 
 const computedDeliveryServiceOptions = computed(()=>{
 
-  const _deliveryServiceOptions = (props.store?.cart?.campaign?.meta_logistic?.additional_delivery_options||[]).filter(deliveryServiceOption=>deliveryServiceOption.region==shipping_info.value.shipping_location)
+  const _deliveryServiceOptions = (props.store?.cart?.campaign?.meta_logistic?.additional_delivery_options||[]).filter(deliveryServiceOption=>deliveryServiceOption.region==shipping_info.value.shipping_region)
   if(_deliveryServiceOptions.length==0){
     displayDeliveryOptionIndex.value = null
     shipping_info.value.delivery_option_index = null

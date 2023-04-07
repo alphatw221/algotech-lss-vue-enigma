@@ -58,6 +58,8 @@
     "id": "訂單編號",
     "created_at": "訂單日期",
     "customer_name": "買家姓名",
+
+    "delivery_info":"運送資訊",
     "shipping_name": "收件人姓名",
 
     "shipping_phone": "收件人電話",
@@ -66,6 +68,7 @@
     "shipping_method":"運送方式",
     "shipping_option":"運送物流",
     "shipping_address_1":"運送地址",
+    "shipping_address":"運送地址",
     "shipping_location":"運送城市",
     "shipping_region":"運送國家",
     "shipping_postcode":"郵遞區號",

@@ -74,53 +74,58 @@
 			<label class="text-base whitespace-nowrap text-lg font-medium">{{$t('create_campaign.delivery_form.enabled_delivery_charge')}}</label>
 		</div>
 
-		<!-- delivery date -->
-		<!-- <div class="flex flex-col flex-wrap justify-between col-span-12 col-start-1 gap-2">
+		<!-- Default Delivery Date -->
+		<div class="flex flex-col flex-wrap justify-between col-span-12 col-start-1 gap-2">
 			<div class="flex flex-row gap-2 items-center"> 
 				<input type="checkbox" class="form-control form-check-input w-[1.5rem] h-[1.5rem]" v-model="props.campaign.meta_logistic.is_use_delivery_date_enabled"/>
 				<label class="text-base whitespace-nowrap text-lg font-medium">{{$t('create_campaign.delivery_form.delivery_date')}}</label>
 			</div>
-			<div 
-				v-if="props.campaign?.meta_logistic?.is_use_delivery_date_enabled" 
-				class="flex flex-col flex-wrap gap-3 mt-5 sm:flex-row sm:mt-0 z-50">
-				<div class="flex flex-col w-full justify-start gap-2"> 
-					<p> {{$t('campaign.meta_logistic.delivery_date.daterange')}}</p>
-					<Litepicker v-model="props.campaign.meta_logistic.delivery_date.daterange" :options="{
-					autoApply: false,
-					singleMode: false,
-					numberOfColumns: 2,
-					numberOfMonths: 2,
-					showWeekNumbers: true,
-					dropdowns: {
-						minYear: 1990,
-						maxYear: null,
-						months: true,
-						years: true,
-					},
-					}" class="block form-control border h-[42px] px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300 " />
-					<p v-if="props.campaign?.meta_logistic?.is_use_delivery_date_enabled && !props.campaign?.meta_logistic?.delivery_date?.daterange " 
-						class="text-danger">
-						{{$t('create_campaign.delivery_form.errors.Value_is_required')}}</p>
-				</div>
+			<template v-if="props.campaign?.meta_logistic?.is_use_delivery_date_enabled" >
+				<div class="w-full flex flex-col">
+					<div class="flex flex-row justify-end my-3">
+						<button class="btn btn-warning" @click="deliveryOptionAddDate(null)">Add Date</button>
+					</div>
+					<div class="w-[350px] border-b-slate border-b-[1px] p-2" :class="dateIndex==0?'border-t-slate border-t-[1px]':''"  v-for="date, dateIndex in (props?.campaign?.meta_logistic?.delivery_dates||[])" :key="dateIndex">
+						
 
-				<div class="flex flex-col w-full justify-start"> 
-					<p> {{$t('create_campaign.delivery_form.delivery_time_options')}}</p>
-					<TomSelect
-						v-model="props.campaign.meta_logistic.delivery_date.options"
-						class="w-full"
-						multiple
-					>
-					<option v-for=" option, index in optionsStore.deliveryTime" :key="index" :value="option.value"> {{ option.value }} </option> 
-					</TomSelect>
-					<p 
-						v-if="props.campaign.meta_logistic.is_use_delivery_date_enabled 
-						&& (props.campaign.meta_logistic.delivery_date.options?.length == 0 || props.campaign.meta_logistic.delivery_date.options == null) " 
-						class="text-danger">
-						{{$t('create_campaign.delivery_form.errors.Value_is_required')}}</p>
+						<p> {{'Date'}}</p>
+						<Litepicker v-model="date.date" :options="{
+						autoApply: false,
+						singleMode: true,
+						numberOfColumns: 2,
+						numberOfMonths: 2,
+						showWeekNumbers: true,
+						dropdowns: {
+							minYear: 1990,
+							maxYear: null,
+							months: true,
+							years: true,
+						},
+						}" class="block form-control border h-[42px] px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300 " />
+						
+
+
+
+						<p> {{$t('create_campaign.delivery_form.delivery_time_options')}}</p>
+						<TomSelect
+							v-model="date.time_slots"
+							class="w-full"
+							multiple
+						>
+							<option v-for=" option, index in optionsStore.deliveryTime" :key="index" :value="option.value"> {{ option.value }} </option> 
+						</TomSelect>
+						
+						<div class="flex flex-row justify-end mt-1">
+							<button class="btn btn-danger" @click="deleteDeliveryOptionDate(null, dateIndex)">Delete Date</button>
+						</div>
+					</div>
+			
+
 				</div>
-			</div>
-		</div> -->
-		
+			</template>
+		</div>
+		<!-- END Default Delivery Date -->
+
 		<!--default delivery -->
 		<div class="flex flex-row gap-5 col-span-12 col-start-1">
 			<div class="flex flex-col"> 
@@ -238,8 +243,6 @@
 								},
 								}" class="block form-control border h-[42px] px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300 " />
 								
-
-
 
 								<p> {{$t('create_campaign.delivery_form.delivery_time_options')}}</p>
 								<TomSelect
@@ -361,29 +364,6 @@
 							class="text-danger">
 							{{$t('create_campaign.delivery_form.errors.Value_is_required')}}</p>
 
-							<!-- <v-date-picker class="" 
-								v-model="pickupdatePicker[index]"
-								:columns="$screens({ default: 1, sm: 2 })" 
-								mode="date" is-range is-required
-								:min-date='new Date()'
-								v-show="false"
-								>
-								<template v-slot="{ inputValue, inputEvents }">
-									<div class="flex items-center justify-start gap-1 flex-0 ">
-										<div class="flex flex-col relative">
-											<input :value="inputValue.start" v-on="inputEvents.start"
-											class="form-control border h-[42px] px-2 py-1 w-42 rounded-md focus:outline-none focus:border-indigo-300" />
-											<CalendarIcon class="hidden sm:block absolute right-2 bottom-2.5 text-slate-600"/>
-										</div> 
-										<ChevronsRightIcon class="w-8 h-8" />
-										<div class="flex flex-col relative">
-											<input :value="inputValue.end" v-on="inputEvents.end" disabled
-											class="form-control border h-[42px] px-2 py-1 w-42 rounded-md focus:outline-none focus:border-indigo-300" />
-											<CalendarIcon class="hidden sm:block absolute right-2 bottom-2.5 text-slate-600"/> 
-										</div>
-									</div>
-								</template>
-							</v-date-picker> -->
 						</div>
 						<div class="flex flex-col w-full justify-start"> 
 							<p> {{$t('create_campaign.delivery_form.pickup_time_options')}}</p>
@@ -410,40 +390,7 @@
                 </div>
             </div>
         </div>
-		<!-- <template v-if="props.campaign.country=='TW'">
-		<div class="col-span-12 flex mt-5 lg:mb-5 lg:mt-0">
-			<input 
-				class="form-check-input ml-3 w-[1.5rem] h-[1.5rem]" 
-				type="checkbox"
-				v-model="props.campaign.meta_logistic.ecpay_delivery_enable"
-			/>
-			<label class="ml-3 form-label">啟用綠界物流</label>
-		</div>
-		<div class="col-span-12 my-5 lg:my-0 p-5 rounded-md border-2 border-slate">
-			<div 
-			class="flex-col flex gap-2 my-2 intro-y w-full" 
-			>
-			<label class="mt-5 lg:mt-0">商店代號</label>
-				<input 
-					class="col-span-12 -mt-3 form-control lg:mt-0 lg:w-5/6" 
-					type="text"
-					v-model="props.campaign.meta_logistic.ecpay_merchant_id"
-				/>
-			<label class="mt-5 lg:mt-0">物流 Hash Key</label>
-				<input 
-					class="col-span-12 -mt-3 form-control lg:mt-0 lg:w-5/6" 
-					type="text"
-					v-model="props.campaign.meta_logistic.ecpay_delivery_hash_key"
-				/>
-			<label class="mt-5 lg:mt-0">物流 Hash IV</label>
-				<input 
-					class="col-span-12 -mt-3 form-control lg:mt-0 lg:w-5/6" 
-					type="text"
-					v-model="props.campaign.meta_logistic.ecpay_delivery_hash_iv"
-				/>
-			</div>
-		</div>
-		</template> -->
+
 	</div>
 </template>
 
@@ -493,12 +440,21 @@ const csvOptions = ref([
 
 
 const deliveryOptionAddDate = index=>{
-	console.log(index)
-	props.campaign.meta_logistic.additional_delivery_options[index].delivery_dates.push({date:'',time_slots:[]})
+
+	if(index==null){
+		props.campaign.meta_logistic.delivery_dates = [...(props?.campaign?.meta_logistic?.delivery_dates||[]),{date:'', time_slots:[]}]
+	}else{
+		props.campaign.meta_logistic.additional_delivery_options[index].delivery_dates.push({date:'',time_slots:[]})
+	}
 }
 
 const deleteDeliveryOptionDate = (optionIndex, dateIndex)=>{
-	props.campaign.meta_logistic.additional_delivery_options[optionIndex].delivery_dates.splice(dateIndex,1)
+	if(optionIndex==null){
+		props.campaign.meta_logistic.delivery_dates.splice(dateIndex,1)
+
+	}else{
+		props.campaign.meta_logistic.additional_delivery_options[optionIndex].delivery_dates.splice(dateIndex,1)
+	}
 }
 
 const addDelivery = () =>{

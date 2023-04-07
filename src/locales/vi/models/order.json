@@ -56,6 +56,8 @@
     "id": "ID đơn hàng",
     "created_at": "Ngày đặt hàng",
     "customer_name": "Tên khách hàng",
+
+    "delivery_info":"Thông tin giao hàng",
     "shipping_name": "Tên người nhận",
 
     "shipping_phone": "Điện thoại người nhận",
@@ -64,6 +66,7 @@
     "shipping_method":"Phương thức vận chuyển",
     "shipping_option":"Tùy chọn vận chuyển",
     "shipping_address_1":"Địa chỉ giao hàng 1",
+    "shipping_address":"Địa chỉ giao hàng",
     "shipping_location":"Vị trí",
     "shipping_region":"Khu vực",
     "shipping_postcode":"Mã bưu điện",

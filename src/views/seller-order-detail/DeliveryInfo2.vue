@@ -94,7 +94,12 @@
             <span class="text-base ml-1" v-else>{{props?.store?.order?.shipping_location }} </span>
         </div>
 
-       
+       <div class="flex flex-row flex-wrap items-center ">
+            <label class="text-base w-1/3">{{$t('order.shipping_address')}}:</label>
+            <input class="form-control w-1/2 ml-1" type="text" v-model="orderData.shipping_address_1" v-if="editDeliveryInfo">
+            <span class="text-base ml-1" v-else>{{props?.store?.order?.shipping_address_1 }} </span>
+        </div>
+
 
         <div class="flex flex-row flex-wrap items-center ">
             <label class="text-base w-1/3">{{$t('order.shipping_property_type')}}:</label>

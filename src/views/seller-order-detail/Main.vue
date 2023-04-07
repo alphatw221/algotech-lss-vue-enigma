@@ -152,6 +152,7 @@ const searchCustomerFunction = (text, routeParams)=>{
 }
 
 const sellerUpdateOrderBuyer = (buyer_id)=>{
+    console.log(buyer_id)
     seller_update_buyer(route.params.order_id, buyer_id, layoutStore.alert).then(res=>{
         console.log(res.data)
     })
