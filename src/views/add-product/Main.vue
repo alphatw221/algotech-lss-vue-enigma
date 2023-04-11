@@ -294,7 +294,7 @@ const notContains = (param) => (value) => !value.includes(param)
   
 const rules = computed(()=>{
     return{
-		name:{required,maxLength: maxLength(100)},
+		name:{required,maxLength: maxLength(255)},
 		order_code: {required, maxLength:maxLength(10)},
 		description: {notContains:notContains('<head>')},
 		qty: {required,integer, minValue:minValue(1)},

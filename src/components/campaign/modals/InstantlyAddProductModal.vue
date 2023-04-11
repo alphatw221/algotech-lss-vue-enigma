@@ -128,7 +128,7 @@ const apply = ()=>{
 
 const rules = computed(()=>{
     return{
-        name:{required, maxLength: maxLength(40)},
+        name:{required, maxLength: maxLength(255)},
         order_code:{required, maxLength: maxLength(10)},
         price:{required, decimal},
         qty: {required, minValue: minValue(1), integer}  

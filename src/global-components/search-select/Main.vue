@@ -1,7 +1,7 @@
 <template>
     <div class="relative" ref="dropdownElement">
-        <div v-if="displayName" class="form-control  cursor-text border-[1px] px-5 py-2 bg-white" @click="showDropdown()" >{{ displayName }}</div>
-        <div v-else class="form-control  cursor-text border-[1px] px-5 py-2 bg-white " @click="showDropdown()">{{ props.initialName }}</div>
+        <div v-if="displayName" class="form-control  cursor-text border-[1px] px-5 py-2 bg-white min-h-[35px]" @click="showDropdown()" >{{ displayName }}</div>
+        <div v-else class="form-control  cursor-text border-[1px] px-5 py-2 bg-white min-h-[35px]" @click="showDropdown()">{{ props.initialName }}</div>
 
         <div v-show="dropdownShow"  class="absolute box top-[100%] form-control z-50 border-[1px] border-slate-200">
             <div class="pt-2 px-2 pb-1">
@@ -30,7 +30,7 @@
 
             <div v-for="option, optionIndex in options" :key="optionIndex" class="flex flex-row flex-wrap cursor-pointer px-3 py-1 hover:bg-slate-400" @click="selectOption(optionIndex, option)" 
 
-            :class="{'bg-primary':option?.[props.optionValueKey]==props.modelValue}">
+            :class="{'bg-primary':option?.[props.optionValueKey]==props.modelValue, 'text-white':option?.[props.optionValueKey]==props.modelValue}">
 
                 <template v-for="optionNameKey, optionNameKeyIndex in props.optionNameKeys" :key="optionNameKeyIndex">
                     <span v-if="optionNameKeyIndex!=0" class="mx-1">|</span>
@@ -173,7 +173,7 @@
     const updateModelValue = (value)=>{
 
         emits('update:modelValue', value)
-        emits('change', value)
+        emits('_select', value)
     }
 
 </script>

@@ -39,7 +39,7 @@
                     class="btn btn-primary shadow-md w-32 h-[35px] lg:h-[42px] ml-4" 
                     @click="showBulkEditModal()"
                 >
-                    {{ $t('stock.search_bar.bulk_edit') }}
+                    {{ $t('stock.search_bar.bulk_edit') }}({{ computedSelectedProductCount }})
                 </button>
             </div>
         </div>
@@ -71,6 +71,10 @@ const layoutStore = useLSSSellerLayoutStore()
 const computedShowBulkEditButton = computed(()=>{
     if(stockStore.selectedProductIDList.length>0)return true
     return false
+})
+
+const computedSelectedProductCount = computed(()=>{
+	return (stockStore?.selectedProductIDList||[]).length
 })
 
 const search = ()=> {

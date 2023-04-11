@@ -1,4 +1,6 @@
 {
+    "image":"Product Image",
+    "remove_image":"Remove Image",
     "name":"Product Name",
     "order_code":"Order Code",
     "sku":"SKU Code",

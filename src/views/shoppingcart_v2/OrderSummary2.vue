@@ -196,6 +196,7 @@ import { get_shopify_checkout_url } from '@/plugin/shopify/api/cart.js';
 import { useCookies } from "vue3-cookies";
 import { useRoute, useRouter } from "vue-router";
 import { getPointDiscountHelper } from "@/libs/factory/pointDiscount.js"
+import { number2decimal } from "../../libs/utils/number2decimal";
 const route = useRoute();
 const router = useRouter();
 
@@ -368,7 +369,8 @@ const computedCartTotal = computed(()=>{
   }
       
   total += props.store?.cart.adjust_price
-  return Math.max(total, 0)
+
+  return number2decimal(Math.max(total, 0), 2)
 
 })
 

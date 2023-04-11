@@ -567,7 +567,7 @@ const checkIfValid = ()=>{
 		if([null,undefined,''].includes(selectedProduct.assign_qty)){errorMessages.value[index]['assign_qty']='assign_qty_required';isSelectedProductsValid=false; }
 		else if((typeof selectedProduct.assign_qty)!='number'){errorMessages.value[index]['assign_qty']='qty_invalid';isSelectedProductsValid=false; }
 		else if(!(Number.isInteger(selectedProduct.assign_qty))){errorMessages.value[index]['assign_qty']='qty_invalid';isSelectedProductsValid=false; }
-		else if(selectedProduct.assign_qty<=0) {errorMessages.value[index]['assign_qty']='qty_invalid';isSelectedProductsValid=false; }
+		else if(selectedProduct.assign_qty<0) {errorMessages.value[index]['assign_qty']='qty_invalid';isSelectedProductsValid=false; }
 
 		//max_order_amount	
 		else if([null,undefined,''].includes(selectedProduct.max_order_amount)){ /*pass*/}	

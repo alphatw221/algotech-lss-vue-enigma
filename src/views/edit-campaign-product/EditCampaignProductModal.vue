@@ -42,6 +42,41 @@
                     
                 </div>
 
+                <div class="col-span-12"  v-else-if="column.key === 'image'">
+                    <label for="modal-form-1">{{$t(`product.${column.key}`)}}</label>
+                    <div class="relative">
+					<Dropzone ref-key="dropzoneSingleRef" :options="{
+							method: 'put',
+							url: 'url',
+							uploadMultiple: false,
+							maxFilesize: 10,
+							addRemoveLinks: true,
+							autoProcessQueue: false,
+							resizeQuality: 0.5,
+							acceptedFiles: 'image/*',
+						}" class="dropzone">
+						<div v-if="!previewImage" > 
+							<div class="text-lg font-medium">
+							{{ $t('stock.add_product_page.drop_file_text') }}
+							</div>
+							<div class="text-gray-600">
+								<br>{{ $t('stock.add_product_page.accept_file_text') }}
+							</div>
+							<div class="text-gray-600">{{ $t('stock.add_product_page.max_size_text') }}</div>  
+						</div>
+						<img class="w-40 h-40 rounded-lg" v-else data-dz-thumbnail :src="previewImage" />
+					</Dropzone>
+					<Tippy v-show="previewImage" tag="a" href="javascript:;" class="absolute right-0 top-0 tooltip" :content="$t('product.remove_image')"  :options="{theme: 'light',}">
+						<XCircleIcon class="absolute right-0 top-0 z-10 click-icon text-danger" @click="removeImage()"/>
+					</Tippy>
+				</div>
+
+
+
+
+                    
+                </div>
+
                 <div class="col-span-12"  v-else-if="column.key === 'sku'">
                     <label for="modal-form-1">{{$t(`product.${column.key}`)}}</label>
                     <input type="text" class="form-control" v-model="campaignProduct[column.key]"/>
@@ -128,7 +163,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted, getCurrentInstance, computed,watch } from 'vue';
+import { ref, onMounted, onUnmounted, getCurrentInstance, computed,watch, provide } from 'vue';
 import { seller_update_campaign_product } from '@/api_v2/campaign_product';
 import { useRoute } from 'vue-router';
 import { useCampaignDetailStore } from '@/stores/lss-campaign-detail';
@@ -143,6 +178,7 @@ const campaignDetailStore = useCampaignDetailStore()
 const route = useRoute()
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
 const campaignProduct = ref({
+    image:null,
     name:"",
     sku:"",
     order_code:"",
@@ -156,6 +192,25 @@ const campaignProduct = ref({
     pinned:false,
 })
 
+const previewImage =ref('')
+
+
+const dropzoneSingleRef = ref(null);
+provide("bind[dropzoneSingleRef]", (el) => {
+    dropzoneSingleRef.value = el;
+    //a way to restrict user only upload one file at a time
+    el.dropzone.on('addedfile', file => {
+        const files = el.dropzone.getAcceptedFiles()
+        if (files.length > 0) el.dropzone.removeFile(files[0])
+    })
+});
+
+const removeImage = () =>{
+	const files = dropzoneSingleRef.value.dropzone.getAcceptedFiles()
+	if (files.length > 0) dropzoneSingleRef.value.dropzone.removeFile(files[0])
+    previewImage.value = ''
+
+}
 
 const campaignProductRules = computed(() => {
 	return { 	
@@ -170,6 +225,7 @@ const v = useVuelidate(campaignProductRules, campaignProduct);
 
 const computedTableColumns = computed(()=>{
     let columns = [
+        { name: "Product Image", key: "image", type:"input" },
         { name: "Product Name", key: "name", type:"input" },
         { name: "SKU", key: "sku", type:"input" },
         { name: "Order Code", key: "order_code", type:"input" },
@@ -209,6 +265,8 @@ onMounted(() => {
         payloadBuffer.value = payload
         campaignProduct.value = payload.campaignProduct
         console.log(campaignProduct.value)
+        previewImage.value = payload?.campaignProduct?.image||null
+
     })
 })
 
@@ -227,7 +285,31 @@ const updateProduct = () => {
         return
     }
     if(typeof campaignProduct.value.max_order_amount != 'number') campaignProduct.value.max_order_amount = null
-    seller_update_campaign_product(campaignProduct.value.id, campaignProduct.value)
+
+
+    const formData = new FormData()
+    
+    for ( var key in campaignProduct.value ) {
+        if(key==='image'){
+
+            if(dropzoneSingleRef.value.dropzone.getAcceptedFiles()?.[0]){
+                formData.append('image', (dropzoneSingleRef.value.dropzone.getAcceptedFiles()?.[0]))
+            }else if(previewImage.value === ''){
+                formData.append('image', '._no_image')
+            }
+            // if(previewImage.value === '' && (product.value.image === '' || dropzoneSingleRef.value.dropzone.getAcceptedFiles()[0] === undefined)) {
+            //     formData.append('image', '._no_image')
+            // } else {
+            //     formData.append('image', (dropzoneSingleRef.value.dropzone.getAcceptedFiles()?.[0]))
+            // }
+        }else{
+            formData.append(key, campaignProduct.value[key])
+        }
+    }
+    
+
+
+    seller_update_campaign_product(campaignProduct.value.id, formData)
     .then(res => {
         // console.log(res.data)
         campaignDetailStore.campaignProducts[payloadBuffer.value.index] = res.data

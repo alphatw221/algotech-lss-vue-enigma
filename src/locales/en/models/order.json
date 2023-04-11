@@ -56,6 +56,9 @@
     "id": "Order ID",
     "created_at": "Order Date",
     "customer_name": "Customer Name",
+
+
+    "delivery_info":"Delivery Infomation",
     "shipping_name": "Receiver Name",
 
     "shipping_phone": "Receiver Phone",
@@ -64,6 +67,7 @@
     "shipping_method":"Shipping Method",
     "shipping_option":"Shipping Option",
     "shipping_address_1":"Shipping Address 1",
+    "shipping_address":"Shipping Address",
     "shipping_location":"Location",
     "shipping_region":"Region",
     "shipping_postcode":"Postcode",

@@ -1,4 +1,6 @@
 {
+    "image":"Hình ảnh sản phẩm",
+    "remove_image":"Xóa hình ảnh",
     "name":"tên sản phẩm",
     "order_code":"mã đặt hàng",
 

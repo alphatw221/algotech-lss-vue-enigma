@@ -385,7 +385,7 @@ const selectAllStock = (event) => {
 	if (event.target.checked) {
 		stockProducts.value.forEach(product => { 
 			product.check = true 
-			if(product.id in stockStore.selectedProductIDList){
+			if(stockStore.selectedProductIDList.includes(product.id)){
 				//do nothing
 			}else{
 				stockStore.selectedProductIDList.push(product.id)

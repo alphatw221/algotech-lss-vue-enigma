@@ -8,7 +8,7 @@
             </div>
             <div v-if="route.params.campaign_id" class="bar"></div>
             <div v-if="route.params.campaign_id" @click="show_table('incomingOrder')" class="statusBtn" :class="{ 'menu' : tableType === 'incomingOrder'}">
-                <h2 :data-content="$t('manage_order.incoming_order')" class="text-xl sm:text-2xl allp">{{$t('manage_order.incoming_order')}}( ${{ manageOrderStore?.cartsPotentialSales||0 }} )</h2>
+                <h2 :data-content="$t('manage_order.incoming_order')" class="text-xl sm:text-2xl allp">{{$t('manage_order.incoming_order')}}( ${{ number2decimal(manageOrderStore?.cartsPotentialSales||0, manageOrderStore?.campaign?.decimal_places||2) }} )</h2>
             </div>
         </div> 
         <!-- BEGIN: campaign Status -->
@@ -159,7 +159,7 @@ import i18n from "@/locales/i18n"
 import ExportEasyStoreOrderButton from '@/plugin/easy-store/views/ExportOrderButton.vue'
 import ExportShopifyOrderButton from '@/plugin/shopify/views/ExportOrderButton.vue'
 import ExportOrderButton from "./ExportOrderButton.vue";
-
+import { number2decimal } from "../../libs/utils/number2decimal";
 // import { watch } from "fs";
 
 
