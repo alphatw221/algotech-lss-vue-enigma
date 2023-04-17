@@ -732,7 +732,7 @@ const delivery_rules = computed(()=>{
     shipping_postcode: {
       integer: helpers.withMessage(i18n.global.t("vulidate.only_integer"), integer),
       required: helpers.withMessage(i18n.global.t("vulidate.required"), required),
-      maxLength: helpers.withMessage(i18n.global.t("vulidate.exceed_maximum_length", { number:6 }), maxLength(6)),
+      maxLength: helpers.withMessage(i18n.global.t("vulidate.exceed_maximum_length", { number:10 }), maxLength(10)),
     },
   }}
 );
