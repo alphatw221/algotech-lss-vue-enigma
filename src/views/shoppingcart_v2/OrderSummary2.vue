@@ -239,11 +239,11 @@ const props = defineProps({
 const computedCartSubtotal = computed(()=>{
   var subtotal = 0
   Object.entries(props.store?.cart.products||{}).forEach(([key, qty])=>{
-    console.log(props.campaign_product_dict[key]?.price)
+
     subtotal += ((props.campaign_product_dict[key]?.price||0)*qty )
   })
-  console.log(subtotal)
-  return subtotal
+
+  return (subtotal+0.0000001).toFixed(2)
 })
 
 const computedShippingCost = computed(()=>{
@@ -271,7 +271,7 @@ const computedShippingCost = computed(()=>{
       shippingCost+=is_category_product_subtotal_above ? 0 : (productCategory?.meta_logistic?.flat_rate||0) 
     }
   })
-  if(appliedCategoryLogistic.value) return shippingCost
+  if(appliedCategoryLogistic.value) return (shippingCost+0.0000001).toFixed(2)
 
   //----------------default logistic setting-------------------------------------
   if(props.store?.cart.campaign.meta_logistic.is_self_delivery_enabled) shippingCost = Number(meta_logistic.delivery_charge || 0)
@@ -283,10 +283,10 @@ const computedShippingCost = computed(()=>{
     else if(props.deliveryOptionData?.type == '='){
       shippingCost =  Number(props.deliveryOptionData?.price)
     }
-    return shippingCost
+    return (shippingCost+0.0000001).toFixed(2)
   }
   
-  return shippingCost
+  return (shippingCost+0.0000001).toFixed(2)
 })
 
 const computedLogisticCategories = computed(()=>{
@@ -369,8 +369,8 @@ const computedCartTotal = computed(()=>{
   }
       
   total += props.store?.cart.adjust_price
-
-  return number2decimal(Math.max(total, 0), 2)
+  total = (total+0.0000001).toFixed(2)
+  return Math.max(total, 0)
 
 })
 
