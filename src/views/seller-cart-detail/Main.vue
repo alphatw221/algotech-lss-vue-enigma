@@ -80,13 +80,17 @@ const eventBus = internalInstance.appContext.config.globalProperties.eventBus
 
 
 onMounted(()=>{
+
+    sellerCartStore.cart = {}
+    sellerCartStore.user_subscription = {}
+    sellerCartStore.product_categories = []
+    sellerCartStore.productCategoryDict = {}
     seller_retrieve_cart(route.params.cart_id, layoutStore.alert)
     .then(
         res => { 
             sellerCartStore.cart = res.data
             sellerCartStore.user_subscription = JSON.parse(JSON.stringify(res.data?.user_subscription))
             sellerCartStore.product_categories = JSON.parse(JSON.stringify(res.data?.user_subscription?.product_categories||[]))
-            sellerCartStore.productCategoryDict = {}
             sellerCartStore.product_categories.forEach(productCategory => {
                 sellerCartStore.productCategoryDict[productCategory.id.toString()]=productCategory
         }); 
