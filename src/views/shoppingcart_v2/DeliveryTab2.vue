@@ -235,7 +235,7 @@
                           class="border-2 h-[50px] w-full rounded-lg px-10 text-[1rem]" 
                           :class="{'border-danger': time_validate.shipping_time_slot.$errors.length > 0}" 
                           v-model="shipping_info.shipping_time_slot"> 
-                          <option v-for="(timeSlot, timeSlotIndex) in (computedShippingTimeSlots)" :key="timeSlotIndex"> {{ timeSlot }} </option>
+                          <option v-for="(timeSlot, timeSlotIndex) in (computedShippingTimeSlots)" :key="timeSlotIndex"> {{ timeSlot?.time_slot }} </option>
                         </select>
                         <h4 class="text-danger flex flex-col sm:flex-row"> 
                           <template v-for="(error,index) in time_validate.shipping_time_slot.$errors" :key="index">
@@ -592,10 +592,12 @@ const computedShippingTimeSlots = computed(()=>{
 
   shipping_info.value.shipping_time_slot = ''
 
+  console.log(deliveryOptionData.value?.delivery_dates)
+  console.log(props?.store?.cart?.campaign?.meta_logistic?.delivery_dates)
   if(Object.keys(deliveryOptionData.value).length){
-    return (deliveryOptionData.value?.delivery_dates||[]).find(delivery_date=>delivery_date.date==shipping_info.value.shipping_date)?.time_slots||[]
+    return ((deliveryOptionData.value?.delivery_dates||[]).find(delivery_date=>delivery_date.date==shipping_info.value.shipping_date)?.time_slots||[]).filter(timeSlot=>(timeSlot?.max_select||0)>(timeSlot?.selected||-1))
   }else if(props?.store?.cart?.campaign?.meta_logistic?.is_use_delivery_date_enabled){
-    return (props?.store?.cart?.campaign?.meta_logistic?.delivery_dates||[]).find(delivery_date=>delivery_date.date==shipping_info.value.shipping_date)?.time_slots||[]
+    return ((props?.store?.cart?.campaign?.meta_logistic?.delivery_dates||[]).find(delivery_date=>delivery_date.date==shipping_info.value.shipping_date)?.time_slots||[]).filter(timeSlot=>(timeSlot?.max_select||0)>(timeSlot?.selected||-1))
   }
   return []
 })

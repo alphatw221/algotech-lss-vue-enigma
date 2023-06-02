@@ -77,7 +77,7 @@ onMounted(()=>{
       campaign.value = payload.campaign
       payloadBuffer = payload
       postType.value = payload.post_type
-      if(payload.platform=='facebook'||payload.platform=='sub_facebook'){
+      if(payload.platform=='facebook'||payload.platform=='sub_facebook'||payload.platform=='sub_facebook_3'||payload.platform=='sub_facebook_4'||payload.platform=='sub_facebook_5'||payload.platform=='sub_facebook_6'){
         getFbPostsData()
       }else if(payload.platform=='youtube'){
         getYtPOstsData()

@@ -104,16 +104,37 @@
 						}" class="block form-control border h-[42px] px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300 " />
 						
 
+						<div class="flex flex-row justify-end my-3">
+							<button class="btn btn-warning" @click="deliveryOptionAddTime(null, dateIndex)">Add Delivery Time</button>
+						</div>
 
+						<div v-for="timeSlot, timeSlotIndex in (date?.time_slots||[])" :key="timeSlotIndex">
+							<p> {{$t('create_campaign.delivery_form.delivery_time_options')}}</p>
+							<TomSelect
+								v-model="timeSlot.time_slot"
+								class="w-full"
+							>
+								<option v-for=" option, index in optionsStore.deliveryTime" :key="index" :value="option.value"> {{ option.value }} </option> 
+							</TomSelect>
 
-						<p> {{$t('create_campaign.delivery_form.delivery_time_options')}}</p>
+							<p> Maximum </p>
+							<input 
+								class="w-full form-control"
+								type="number" 
+								v-model.number="timeSlot.max_select"
+							/>
+							<div class="flex flex-row justify-center my-3">
+								<button class="btn btn-danger" @click="deleteDeliveryOptionTime(null, dateIndex, timeSlotIndex)">Delete Delivery Time</button>
+							</div>
+						</div>
+
+						<!-- <p> {{$t('create_campaign.delivery_form.delivery_time_options')}}</p>
 						<TomSelect
 							v-model="date.time_slots"
 							class="w-full"
-							multiple
 						>
 							<option v-for=" option, index in optionsStore.deliveryTime" :key="index" :value="option.value"> {{ option.value }} </option> 
-						</TomSelect>
+						</TomSelect> -->
 						
 						<div class="flex flex-row justify-end mt-1">
 							<button class="btn btn-danger" @click="deleteDeliveryOptionDate(null, dateIndex)">Delete Date</button>
@@ -244,14 +265,39 @@
 								}" class="block form-control border h-[42px] px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300 " />
 								
 
-								<p> {{$t('create_campaign.delivery_form.delivery_time_options')}}</p>
+								<div class="flex flex-row justify-end my-3">
+									<button class="btn btn-warning" @click="deliveryOptionAddTime(index, dateIndex)">Add Delivery Time</button>
+								</div>
+
+								<div v-for="timeSlot, timeSlotIndex in (date?.time_slots||[])" :key="timeSlotIndex">
+									<p> {{$t('create_campaign.delivery_form.delivery_time_options')}}</p>
+									<TomSelect
+										v-model="timeSlot.time_slot"
+										class="w-full"
+									>
+										<option v-for=" option, index in optionsStore.deliveryTime" :key="index" :value="option.value"> {{ option.value }} </option> 
+									</TomSelect>
+
+									<p> Maximum </p>
+									<input 
+										class="w-full form-control"
+										type="number" 
+										v-model.number="timeSlot.max_select"
+									/>
+									<div class="flex flex-row justify-center my-3">
+										<button class="btn btn-danger" @click="deleteDeliveryOptionTime(index, dateIndex, timeSlotIndex)">Delete Delivery Time</button>
+									</div>
+								</div>
+
+
+								<!-- <p> {{$t('create_campaign.delivery_form.delivery_time_options')}}</p>
 								<TomSelect
 									v-model="date.time_slots"
 									class="w-full"
 									multiple
 								>
 									<option v-for=" option, index in optionsStore.deliveryTime" :key="index" :value="option.value"> {{ option.value }} </option> 
-								</TomSelect>
+								</TomSelect> -->
 								
 								<div class="flex flex-row justify-end mt-1">
 									<button class="btn btn-danger" @click="deleteDeliveryOptionDate(index, dateIndex)">Delete Date</button>
@@ -456,6 +502,25 @@ const deleteDeliveryOptionDate = (optionIndex, dateIndex)=>{
 		props.campaign.meta_logistic.additional_delivery_options[optionIndex].delivery_dates.splice(dateIndex,1)
 	}
 }
+
+const deliveryOptionAddTime = (index, dateIndex)=>{
+	if(index==null){
+		props.campaign.meta_logistic.delivery_dates[dateIndex].time_slots = [...(props.campaign.meta_logistic.delivery_dates[dateIndex].time_slots||[]),{time_slot:'', max_select:0, selected:0}]
+	}else{
+		props.campaign.meta_logistic.additional_delivery_options[index].delivery_dates[dateIndex].time_slots.push({time_slot:'', max_select:0, selected:0})
+	}
+}
+
+const deleteDeliveryOptionTime = (optionIndex, dateIndex, timeSlotIndex)=>{
+	if(optionIndex==null){
+		props.campaign.meta_logistic.delivery_dates[dateIndex].time_slots.splice(timeSlotIndex,1)
+
+	}else{
+		props.campaign.meta_logistic.additional_delivery_options[optionIndex].delivery_dates[dateIndex].time_slots.splice(timeSlotIndex,1)
+	}
+}
+
+
 
 const addDelivery = () =>{
     props.campaign.meta_logistic.additional_delivery_options.unshift(Object.assign({},additional_delivery_option.value))

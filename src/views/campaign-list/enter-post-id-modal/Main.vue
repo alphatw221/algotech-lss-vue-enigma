@@ -106,6 +106,59 @@
               </div>
             </div>
           </div>
+          
+
+
+          <!-- SUB FACEBOOK_N -->
+          <template v-for="postfix, postfixIndex in ['_3', '_4', '_5', '_6']" :key="postfixIndex">
+
+            
+            <div v-if="activatedPlatformList.includes('sub_facebook')" class="col-span-12 sm:col-span-4 p-3 lg:mx-0 sm:mx-1">
+              <div class="content" >
+                <div>
+                  <h5 class="text-lg font-medium text-center">{{$t('campaign_list.enter_post_id_modal.facebook')}}{{ postfix }}</h5>
+                </div>
+                <button
+                  type="button"
+                  v-if="!campaign?.[`sub_facebook_page${postfix}`]"
+                  @click="selectPlatformPage(`sub_facebook${postfix}`)"
+                  class="select_page btn rounded-full btn-primary lg:mt-10"
+                >
+                  {{$t('campaign_list.enter_post_id_modal.select_live_post')}}
+                </button>
+                <div class="mt-3" v-if="campaign?.[`sub_facebook_page${postfix}`]">
+                  <XIcon class="w-6 h-6 right-16 top-20 cursor-pointer absolute text-slate-500" @click="remove_platform_data(`sub_facebook${postfix}`)"/>
+                  <p class="my-auto text-center">{{$t('campaign_list.enter_post_id_modal.page')}}</p>
+                  <div class="w-14 h-14 flex-none image-fit rounded-full overflow-hidden mx-auto mt-2">
+                    <a href="javascript:;" @click="selectPlatformPage(`sub_facebook${postfix}`)"><img alt="Midone Tailwind HTML Admin Template" :src="campaign?.[`sub_facebook_page${postfix}`].image"/></a>
+                  </div>
+                </div>
+                
+                <div class="mt-3" v-if="campaign?.[`sub_facebook_page${postfix}`]">
+                  <!-- <p class="text-center">{{$t('campaign_list.enter_post_id_modal.enter_post_id')}}</p> -->
+                  
+                  <div style="display:flex;">
+                    <input class="post_id" v-model="campaign[`sub_facebook_campaign${postfix}`].post_id"
+                    :placeholder="$t('campaign_list.enter_post_id_modal.enter_post_id')"
+                    :class="{ 'border-danger text-danger border-2': validate.sub_facebook.post_id.error }" @keyup="autoUpdatePostId('sub_facebook', postfix)"/>
+                    <Tippy tag="a" href="javascript:;" class="absolute right-[40px] tooltip" :content="$t('campaign_list.enter_post_id_modal.search_recent_posts')" :options="{
+                      theme: 'light',
+                    }">
+                    <SearchIcon class="absolute right-[-12px] z-10 click-icon" @click="popSelectLivePostOrVideoPostModal(`sub_facebook${postfix}`, campaign?.[`sub_facebook_page${postfix}`].id)"/></Tippy>
+                  </div>
+                  
+                  <template v-if="validate.sub_facebook.post_id.error">
+                    <label class="text-danger ml-2" >
+                      invalid post id 
+                    </label>
+                  </template>
+                </div>
+              </div>
+            </div>
+          </template>
+          <!--END SUB FACEBOOK_N -->
+
+
 
           <div v-if="activatedPlatformList.includes('instagram')" class="col-span-12 sm:col-span-4 p-3 lg:mx-0 sm:mx-1">
             <div class="content">
@@ -381,14 +434,14 @@ const selectPlatformPage = (platform)=>{
 }
 
 let autosave_timer = null
-const autoUpdatePostId = (platform) => {
+const autoUpdatePostId = (platform, postFix) => {
   
   if (autosave_timer) {
     clearTimeout(autosave_timer);
   }
-  autosave_timer = setTimeout(() => {updatePostId(platform)}, 500); 
+  autosave_timer = setTimeout(() => {updatePostId(platform, postFix)}, 500); 
 }
-const updatePostId = (platform) => {
+const updatePostId = (platform, postFix) => {
   checking.value = true;
   let page_id = null
   let live_id = null
@@ -401,8 +454,8 @@ const updatePostId = (platform) => {
     data = {"platform": platform, "platform_id": page_id, "post_id": live_id}
     apiRequest = check_facebook_page_post_exist(page_id, live_id, layoutStore.alert)
   } else if (platform === "sub_facebook") {
-    page_id = campaign.value.sub_facebook_page.id
-    live_id = campaign.value.sub_facebook_campaign.post_id
+    page_id = campaign.value?.[`sub_facebook_page${postFix||''}`].id
+    live_id = campaign.value?.[`sub_facebook_campaign${postFix||''}`].post_id
     data = {"platform": platform, "platform_id": page_id, "post_id": live_id}
     apiRequest = check_facebook_page_post_exist(page_id, live_id, layoutStore.alert)
   } else if (platform === "instagram") {

@@ -73,6 +73,17 @@
                       <img class="rounded-full bg-[#3c599b]" :src="facebook_platform" >
                   </div>
               </div>
+
+              <template v-for="postFix, postFixIndex in ['_3', '_4', '_5', '_6']" :key="postFixIndex">
+                <div class="border-0 w-14 h-14 flex-0 relative" v-if="campaign?.[`sub_facebook_page${postFix}`]">
+                  <Tippy tag="img" class="border-0 rounded-full" :src="campaign?.[`sub_facebook_page${postFix}`].image" @error="getFacebookPageProfilePicture(campaign?.[`sub_facebook_page${postFix}`])"
+                    :content="campaign?.[`sub_facebook_page${postFix}`].name" />
+                  <div class="absolute bottom-0 right-0 w-5 h-5 border-2 border-white rounded-full dark:border-darkmode-600">
+                      <img class="rounded-full bg-[#3c599b]" :src="facebook_platform" >
+                  </div>
+                </div>
+              </template>
+
               <div class="w-14 h-14 flex-0 relative" v-if="campaign.instagram_profile !== null">
                 <Tippy tag="img" class="rounded-full " :src="campaign.instagram_profile.image" @error="getInstagramProfilePicture(campaign.instagram_profile)"
                   :content="campaign.instagram_profile.name" />

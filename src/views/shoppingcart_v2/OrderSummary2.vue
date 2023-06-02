@@ -243,7 +243,7 @@ const computedCartSubtotal = computed(()=>{
     subtotal += ((props.campaign_product_dict[key]?.price||0)*qty )
   })
 
-  return (subtotal+0.0000001).toFixed(2)
+  return parseFloat((subtotal+0.0000001).toFixed(2))
 })
 
 const computedShippingCost = computed(()=>{
@@ -271,7 +271,7 @@ const computedShippingCost = computed(()=>{
       shippingCost+=is_category_product_subtotal_above ? 0 : (productCategory?.meta_logistic?.flat_rate||0) 
     }
   })
-  if(appliedCategoryLogistic.value) return (shippingCost+0.0000001).toFixed(2)
+  if(appliedCategoryLogistic.value) return parseFloat((shippingCost+0.0000001).toFixed(2))
 
   //----------------default logistic setting-------------------------------------
   if(props.store?.cart.campaign.meta_logistic.is_self_delivery_enabled) shippingCost = Number(meta_logistic.delivery_charge || 0)
@@ -283,10 +283,10 @@ const computedShippingCost = computed(()=>{
     else if(props.deliveryOptionData?.type == '='){
       shippingCost =  Number(props.deliveryOptionData?.price)
     }
-    return (shippingCost+0.0000001).toFixed(2)
+    return parseFloat((shippingCost+0.0000001).toFixed(2))
   }
   
-  return (shippingCost+0.0000001).toFixed(2)
+  return parseFloat((shippingCost+0.0000001).toFixed(2))
 })
 
 const computedLogisticCategories = computed(()=>{
@@ -358,18 +358,46 @@ const computedIsMultipleShippingCostApplied = computed(()=>{  //temp
 const computedCartTotal = computed(()=>{
   let total = 0
   // computedShippingCost.value
-  total += computedCartSubtotal.value
-  total -= props.store?.cart.discount||0
-  total -= computedPointDiscount.value
+  total += parseFloat(computedCartSubtotal.value)
+
+
+  console.log(total)
+  console.log(typeof total)
+
+
+  total -= parseFloat(props.store?.cart.discount||0)
+
+
+  console.log(total)
+  console.log(typeof total)
+
+
+  total -= parseFloat(computedPointDiscount.value)
+
+  console.log(total)
+  console.log(typeof total)
+
   total = Math.max(total, 0)
+
+  console.log(total)
+  console.log(typeof total)
   if(props.store?.cart.free_delivery || computedSubtotalOverFreeDeliveryThreshold.value || computedItemsOverFreeDeliveryThreshold.value){
     //
   }else{
-    total += computedShippingCost.value
+    total += parseFloat(computedShippingCost.value)
   }
-      
-  total += props.store?.cart.adjust_price
-  total = (total+0.0000001).toFixed(2)
+  console.log(total)
+  console.log(typeof total)
+  total += parseFloat(props.store?.cart.adjust_price)
+
+  console.log(total)
+  console.log(typeof total)
+  
+  total = parseFloat(total+0.0000001).toFixed(2)
+  total = parseFloat(total)
+  console.log(total)
+  console.log(typeof total)
+
   return Math.max(total, 0)
 
 })
