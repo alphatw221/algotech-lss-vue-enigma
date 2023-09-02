@@ -375,7 +375,7 @@ const validate = ref({
   }
 })
 onMounted(()=>{
-  if (layoutStore.userInfo.user_subscription.user_plan?.activated_platform) {
+  if (layoutStore.userInfo?.user_subscription?.user_plan?.activated_platform) {
       activatedPlatformList.value = layoutStore.userInfo.user_subscription.user_plan.activated_platform
   }
   console.log(activatedPlatformList.value)

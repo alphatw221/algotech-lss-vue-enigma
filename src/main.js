@@ -45,4 +45,17 @@ console.log(import.meta.env.VITE_APP_ROOT_API)
 //axios
 app.use(VueAxios, axios)
 
+
+
+import Toast from "vue-toastification";
+import "vue-toastification/dist/index.css";
+//Vue Toastification
+const vue_toastification_options = {
+    // You can set your default options here
+};
+app.use(Toast, vue_toastification_options);
+
+
+
+
 app.mount("#app");

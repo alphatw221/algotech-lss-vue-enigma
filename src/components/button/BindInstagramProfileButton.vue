@@ -22,8 +22,8 @@ const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 const fetchingData = ref(false)
 
 const props = defineProps({
-  busName: String,
-  buttonName: String
+  buttonName: String,
+  bindHandler:Function
 });
 
 
@@ -50,8 +50,11 @@ const login = () => {
     console.log("login")
     window.FB.login(response => {
         if (response.status === 'connected') {
-            const payload = {'accessToken':response.authResponse.accessToken}
-            eventBus.emit(props.busName, payload)
+
+            props.bindHandler({'accessToken':response.authResponse.accessToken})
+
+            // const payload = {'accessToken':response.authResponse.accessToken}
+            // eventBus.emit(props.busName, payload)
         }
     },{scope: 'public_profile,email,pages_read_engagement,pages_read_user_content,pages_manage_engagement,pages_messaging,instagram_basic,instagram_manage_messages,pages_manage_metadata'});
 }

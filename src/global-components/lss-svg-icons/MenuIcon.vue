@@ -76,7 +76,7 @@
     </svg>
 
   <svg 
-    v-else-if="icon == 'campaign-global-setting'"
+    v-else-if="icon == 'default-campaign-general-settings'"
   width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
   <path d="M7.22222 3.03545L7.43616 3.75429C7.75419 3.65964 7.97222 3.36726 7.97222 3.03545H7.22222ZM6.03981 3.52568L5.50948 4.05601C5.7442 
   4.29073 6.10528 4.34324 6.39713 4.18509L6.03981 3.52568ZM4.24665 2.43963L3.71632 1.9093L3.71632 1.9093L4.24665 2.43963ZM2.4396 4.24668L2.96993 

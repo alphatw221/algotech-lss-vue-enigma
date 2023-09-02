@@ -1,4 +1,4 @@
-import { facebookAxios } from "@/libs/axiosClient";
+// import { facebookAxios } from "@/libs/axiosClient";
 import { createAxiosWithoutInterceptor, createAxios } from "@/libs/axiosClient";
 
 export const get_fb_page_videos = (platform_id, limit='', toastify=null) => {

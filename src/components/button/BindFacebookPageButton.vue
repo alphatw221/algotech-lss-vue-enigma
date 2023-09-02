@@ -2,10 +2,10 @@
     <LoadingIcon icon="three-dots" color="1a202c" class="absolute body-middle" v-if="fetchingData"/>
 
     <Button v-else-if="props.buttonName == 'edit'" 
-          @click="bindPage">{{$t('settings.platform.edit')}}</Button>
+          @click="bindPage()">{{$t('settings.platform.edit')}}</Button>
 
     <Button v-else 
-          class="fbBtn shadow-lg " @click="bindPage">{{$t('settings.platform.connect_with_facebook')}}</Button>
+          class="fbBtn shadow-lg " @click="bindPage()">{{$t('settings.platform.connect_with_facebook')}}</Button>
 
     
 </template>
@@ -18,14 +18,15 @@ import { ref, reactive, onMounted, getCurrentInstance, onUnmounted, watch, compu
 import { checkReachChannelLimit } from "@/libs/utils/planLimitController"
 import i18n from "@/locales/i18n"
 
-const internalInstance = getCurrentInstance()
+// const internalInstance = getCurrentInstance()
 const layoutStore = useLSSSellerLayoutStore()
-const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
+// const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 const fetchingData = ref(false)
 
 const props = defineProps({
-  busName: String,
-  buttonName: String
+//   busName: String,
+  buttonName: String,
+  bindHandler: Function
 });
 
 
@@ -47,12 +48,15 @@ onMounted(()=>{
 onUnmounted(()=>{
     window.checkLoginState = undefined
 })
+
 const login = () => {
     console.log("login")
     window.FB.login(response => {
         if (response.status === 'connected') {
-            const payload = {'accessToken':response.authResponse.accessToken}
-            eventBus.emit(props.busName, payload)
+
+            props.bindHandler({'accessToken':response.authResponse.accessToken})
+            // const payload = {'accessToken':response.authResponse.accessToken}
+            // eventBus.emit(props.busName, payload)
         }
     },{scope: 'public_profile,email,pages_read_engagement,pages_read_user_content,pages_manage_engagement,pages_messaging,pages_manage_metadata'});
 }

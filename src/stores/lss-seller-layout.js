@@ -10,6 +10,7 @@ export const useLSSSellerLayoutStore = defineStore("sellerLayout", {
     profileTab: ref(1),
     changePlanTab: ref(1), 
     userInfo: ref({}),
+    user: ref({}),
     bindedPlatform: ref([]),
     floatingVideo: ref(),
     campaignAlert: ref(),
@@ -25,6 +26,18 @@ export const useLSSSellerLayoutStore = defineStore("sellerLayout", {
         icon: "stock",
         pageName: "stock",
         title: "stock",
+        subMenu: [
+          {
+            icon: "stock",
+            pageName: "stock",
+            title: "stock",
+          },
+          {
+            icon: "stock",
+            pageName: "stock",
+            title: "stock",
+          },
+        ],
       },
       {
         icon: "campaign",
@@ -36,28 +49,31 @@ export const useLSSSellerLayoutStore = defineStore("sellerLayout", {
         pageName: "manage-order",
         title: "manage_order",
       },
-      {
-        icon: "auto-reply",
-        pageName: "auto-reply",
-        title: "auto_reply",
-      },
+      // {
+      //   icon: "auto-reply",
+      //   pageName: "auto-reply",
+      //   title: "auto_reply",
+      // },
       {
         icon: "seller-buyers",
         pageName: "seller-buyers",
         title: "buyers",
+
       },
+
+      {
+        pageName: "discount-code",
+        title: "discount_code",
+      },
+      
       {
         icon: "settings",
         pageName: "campaign-global-setting",
         title: "settings",
         subMenu: [
           {
-            pageName: "campaign-global-setting",
+            pageName: "testtest",
             title: "campaign_default_setting",
-          },
-          {
-            pageName: "discount-code",
-            title: "discount_code",
           },
           {
             pageName: "platform",
@@ -65,55 +81,10 @@ export const useLSSSellerLayoutStore = defineStore("sellerLayout", {
           },
         ],
       },
+     
+      
+    
     ],
-    kol_menu:[
-      {
-        icon: "stock",
-        pageName: "stock",
-        title: "stock",
-      },
-      {
-        icon: "campaign",
-        pageName: "campaign-list",
-        title: "campaign_list", 
-      },
-      {
-        icon: "manage-order",
-        pageName: "manage-order",
-        title: "manage_order",
-      },
-      {
-        icon: "campaign-global-setting",
-        pageName: "campaign-global-setting",
-        title: "campaign_default_setting",
-      },
-      {
-        icon: "discount-code",
-        pageName: "discount-code",
-        title: "discount_code",
-      },
-      {
-        icon: "platform",
-        pageName: "platform",
-        title: "connect_platform",
-      },
-    ],
-    supplier_menu: [
-      {
-        icon: "stock",
-        pageName: "stock",
-        title: "stock",
-      },
-      {
-        icon: "manage-order",
-        pageName: "manage-order",
-        title: "manage_order",
-      },
-      {
-        icon: "campaign-global-setting",
-        pageName: "campaign-global-setting",
-        title: "campaign_default_setting",
-      },
-    ],
+
   }),
 });

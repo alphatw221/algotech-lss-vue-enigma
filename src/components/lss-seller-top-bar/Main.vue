@@ -167,11 +167,10 @@
       </Dropdown> -->
       <!-- END: Notifications -->
     <!-- Mode button-->
-    <button v-if="sellerLayoutStore.userInfo.user_subscription.status === sandboxMode" class="btn btn-warning test-mode h-fit my-0 sm:my-auto w-10 p-1 sm:w-28 z-[1] absolute right-[150px] xs:left-[80px]" 
+    <!-- <button v-if="sellerLayoutStore.userInfo.user_subscription.status === sandboxMode" class="btn btn-warning test-mode h-fit my-0 sm:my-auto w-10 p-1 sm:w-28 z-[1] absolute right-[150px] xs:left-[80px]" 
         @click="showSwitchModeMessage=true"> 
       <p class="text-white text-[11px] leading-[11px] sm:text-sm" style="white-space:pre-wrap">{{$t('layout.test_mode')}}</p>
-      <!-- font-size: 11px; line-height: 11px;-->
-    </button>
+    </button> -->
     <!-- Language -->
 
       <Dropdown class="absolute right-[10px] sm:right-[30px] intro-x">
@@ -268,7 +267,7 @@
 <script setup>
 import { ref, defineEmits, computed, onMounted } from "vue";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout";
-import { seller_update_subscription, seller_switch_subscription_mode } from '@/api_v2/user_subscription'
+// import { seller_update_subscription,  } from '@/api_v2/user_subscription'
 import { useRoute, useRouter } from "vue-router";
 import { useCookies } from "vue3-cookies";
 import dom from "@left4code/tw-starter/dist/js/dom";
@@ -317,11 +316,11 @@ onMounted(()=>{
 
 const changeLang = (selectLang)=>{
   data.value.lang = selectLang
-  seller_update_subscription(data.value, sellerLayoutStore.alert).then(res=>{
-      // console.log(res)
-      sellerLayoutStore.userInfo = res.data
-      i18n.global.locale.value = res.data.lang
-  })
+  // seller_update_subscription(data.value, sellerLayoutStore.alert).then(res=>{
+  //     // console.log(res)
+  //     sellerLayoutStore.userInfo = res.data
+  //     i18n.global.locale.value = res.data.lang
+  // })
   hideDropDown()
 }
 
@@ -352,10 +351,10 @@ const hideDropDown = ()=>{
 }
 
 const switchToProductionMode = () => {
-  seller_switch_subscription_mode({"status": "production"}, sellerLayoutStore.alert).then(res=>{
-      sellerLayoutStore.userInfo = res.data
-      showSwitchModeMessage.value = false
-  })
+  // seller_switch_subscription_mode({"status": "production"}, sellerLayoutStore.alert).then(res=>{
+  //     sellerLayoutStore.userInfo = res.data
+  //     showSwitchModeMessage.value = false
+  // })
 }
 
 </script>

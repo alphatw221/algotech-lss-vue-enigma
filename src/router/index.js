@@ -119,32 +119,33 @@ import adminAuthMiddleware from "@/libs/routerMiddleware/adminAuthMiddleware"
 import sellerGenerateCampaignProductDictMiddleware from "@/libs/routerMiddleware/sellerGenerateCampaignProductDictMiddleware"
 import sellerRetrieveCampaignDataMiddleware from "@/libs/routerMiddleware/sellerRetrieveCampaignDataMiddleware"
 
+import GeneralSettings from '@/views/settings/GeneralSettings.vue'
 const routes = [
+  // {
+  //   path: "/seller/lucky-draw/draw/:lucky_draw_id?",
+  //   name: "lucky-draw-flow",
+  //   component: () => import('@/views/mkt-plugin/lucky-draw/DrawFlow.vue'),
+  // },
+  // {
+  //   path: "/wysiwyg-editor",
+  //   name: "simple-menu-wysiwyg-editor",
+  //   component: WysiwygEditor,
+  // },
   {
-    path: "/seller/lucky-draw/draw/:lucky_draw_id?",
-    name: "lucky-draw-flow",
-    component: () => import('@/views/mkt-plugin/lucky-draw/DrawFlow.vue'),
-  },
-  {
-    path: "/wysiwyg-editor",
-    name: "simple-menu-wysiwyg-editor",
-    component: WysiwygEditor,
-  },
-  {
-    path: "/seller",
+    path: "/backend",
     component: LssSellerLayout,
     beforeEnter: sellerAuthMiddleware,
     children: [
-      {
-        path: "profile",
-        name: "seller-profile",
-        component: Profile,
-      },
-      {
-        path: "change-plan",
-        name: "change-plan",
-        component: ChangePlan,
-      },
+  //     {
+  //       path: "profile",
+  //       name: "seller-profile",
+  //       component: Profile,
+  //     },
+  //     {
+  //       path: "change-plan",
+  //       name: "change-plan",
+  //       component: ChangePlan,
+  //     },
       {
         path: "campaign-list",
         name: "campaign-list",
@@ -155,170 +156,189 @@ const routes = [
         name: "manage-order",
         component: ManageOrderClone, //simply reuse got chances component won't unmount
       },
-      {
-        path: "campaign-list/campaign-live/:campaign_id?",
-        name: "campaign-live",
-        beforeEnter:(to, from)=>{
-          sellerGenerateCampaignProductDictMiddleware(to, from)
-          return sellerRetrieveCampaignDataMiddleware(to, from);
-        },
-        component: CampaignLive,
-      },
-      {
-        path: "campaign-list/create-campaign",
-        name: "create-campaign",
-        component: () => import('@/views/create-campaign/Main.vue'),
-      },
-      {
-        path: "campaign-list/campaign-live/:campaign_id?/lucky-draw-list",
-        name: "lucky-draw-list",
-        beforeEnter:(to, from)=>{
-          sellerGenerateCampaignProductDictMiddleware(to, from);
-          return sellerRetrieveCampaignDataMiddleware(to, from);
-        },
-        component: () => import('@/views/mkt-plugin/lucky-draw/LuckyDrawList.vue'),
-      },
-      {
-        path: "campaign-list/campaign-live/:campaign_id?/lucky-draw-list/lucky-draw/:lucky_draw_id?",
-        name: "edit-lucky-draw",
-        beforeEnter:(to, from)=>{
-          sellerGenerateCampaignProductDictMiddleware(to, from);
-          return sellerRetrieveCampaignDataMiddleware(to, from);
-        },
-        component:  () => import('@/views/mkt-plugin/lucky-draw/CreateEditLuckyDraw.vue'),
-      },
-      {
-        path: "campaign-list/campaign-live/:campaign_id?/lucky-draw-list/create-lucky-draw",
-        name: "create-lucky-draw",
-        beforeEnter:(to, from)=>{
-          sellerGenerateCampaignProductDictMiddleware(to, from);
-          return sellerRetrieveCampaignDataMiddleware(to, from);
-        },
-        component: () => import('@/views/mkt-plugin/lucky-draw/CreateEditLuckyDraw.vue'),
-      },
-      {
-        path: "campaign-list/campaign-live/:campaign_id?/quiz-game",
-        name: "quiz-game",
-        beforeEnter:(to, from)=>{
-          return sellerRetrieveCampaignDataMiddleware(to, from);
-        },
-        component: () => import('@/views/mkt-plugin/quiz-game/Main.vue')
-      },
-      {
-        path: "campaign-list/campaign-live/:campaign_id?/edit-campaign",
-        name: "edit-campaign",
-        beforeEnter:(to, from)=>{
-          return sellerRetrieveCampaignDataMiddleware(to, from);
-        },
-        component: () => import('@/views/edit-campaign/Main.vue'),
-      },  
-      {
-        path: "campaign-list/campaign-live/:campaign_id?/assign-product",
-        name: "assign-product",
-        beforeEnter:(to, from)=>{
-          return sellerRetrieveCampaignDataMiddleware(to, from);
-        },
-        component: () => import('@/views/assign-campaign-product/Main.vue'),
-      },   
-      {
-        path: "campaign-list/campaign-live/:campaign_id?/edit-campaign-product",
-        name: "edit-campaign-product",
-        beforeEnter:(to, from)=>{
-          return sellerRetrieveCampaignDataMiddleware(to, from);
-        },
-        component: () => import('@/views/edit-campaign-product/Main.vue'),
-      },   
-      {
-        path: "campaign-list/campaign-live/:campaign_id?/manage-order",
-        name: "manage-campaign-order",
-        beforeEnter:(to, from)=>{
-          sellerGenerateCampaignProductDictMiddleware(to, from);
-          return sellerRetrieveCampaignDataMiddleware(to, from);
-        },
-        component: ManageOrder,
-      },
-      {
-        path: "manage-order/order-detail/:order_id?",    
-        name: "seller-order-detail",
-        component: SellerOrderDetail,
-      },
-      {
-        path: "campaign-list/campaign-live/:campaign_id?/manage-order/order-detail/:order_id?",    
-        name: "seller-campaign-order-detail",
-        beforeEnter:(to, from)=>{
-          return sellerRetrieveCampaignDataMiddleware(to, from);
-        },
-        component: SellerOrderDetail,
-      },
+  //     {
+  //       path: "campaign-list/campaign-live/:campaign_id?",
+  //       name: "campaign-live",
+  //       beforeEnter:(to, from)=>{
+  //         sellerGenerateCampaignProductDictMiddleware(to, from)
+  //         return sellerRetrieveCampaignDataMiddleware(to, from);
+  //       },
+  //       component: CampaignLive,
+  //     },
+  //     {
+  //       path: "campaign-list/create-campaign",
+  //       name: "create-campaign",
+  //       component: () => import('@/views/create-campaign/Main.vue'),
+  //     },
+  //     {
+  //       path: "campaign-list/campaign-live/:campaign_id?/lucky-draw-list",
+  //       name: "lucky-draw-list",
+  //       beforeEnter:(to, from)=>{
+  //         sellerGenerateCampaignProductDictMiddleware(to, from);
+  //         return sellerRetrieveCampaignDataMiddleware(to, from);
+  //       },
+  //       component: () => import('@/views/mkt-plugin/lucky-draw/LuckyDrawList.vue'),
+  //     },
+  //     {
+  //       path: "campaign-list/campaign-live/:campaign_id?/lucky-draw-list/lucky-draw/:lucky_draw_id?",
+  //       name: "edit-lucky-draw",
+  //       beforeEnter:(to, from)=>{
+  //         sellerGenerateCampaignProductDictMiddleware(to, from);
+  //         return sellerRetrieveCampaignDataMiddleware(to, from);
+  //       },
+  //       component:  () => import('@/views/mkt-plugin/lucky-draw/CreateEditLuckyDraw.vue'),
+  //     },
+  //     {
+  //       path: "campaign-list/campaign-live/:campaign_id?/lucky-draw-list/create-lucky-draw",
+  //       name: "create-lucky-draw",
+  //       beforeEnter:(to, from)=>{
+  //         sellerGenerateCampaignProductDictMiddleware(to, from);
+  //         return sellerRetrieveCampaignDataMiddleware(to, from);
+  //       },
+  //       component: () => import('@/views/mkt-plugin/lucky-draw/CreateEditLuckyDraw.vue'),
+  //     },
+  //     {
+  //       path: "campaign-list/campaign-live/:campaign_id?/quiz-game",
+  //       name: "quiz-game",
+  //       beforeEnter:(to, from)=>{
+  //         return sellerRetrieveCampaignDataMiddleware(to, from);
+  //       },
+  //       component: () => import('@/views/mkt-plugin/quiz-game/Main.vue')
+  //     },
+  //     {
+  //       path: "campaign-list/campaign-live/:campaign_id?/edit-campaign",
+  //       name: "edit-campaign",
+  //       beforeEnter:(to, from)=>{
+  //         return sellerRetrieveCampaignDataMiddleware(to, from);
+  //       },
+  //       component: () => import('@/views/edit-campaign/Main.vue'),
+  //     },  
+  //     {
+  //       path: "campaign-list/campaign-live/:campaign_id?/assign-product",
+  //       name: "assign-product",
+  //       beforeEnter:(to, from)=>{
+  //         return sellerRetrieveCampaignDataMiddleware(to, from);
+  //       },
+  //       component: () => import('@/views/assign-campaign-product/Main.vue'),
+  //     },   
+  //     {
+  //       path: "campaign-list/campaign-live/:campaign_id?/edit-campaign-product",
+  //       name: "edit-campaign-product",
+  //       beforeEnter:(to, from)=>{
+  //         return sellerRetrieveCampaignDataMiddleware(to, from);
+  //       },
+  //       component: () => import('@/views/edit-campaign-product/Main.vue'),
+  //     },   
+  //     {
+  //       path: "campaign-list/campaign-live/:campaign_id?/manage-order",
+  //       name: "manage-campaign-order",
+  //       beforeEnter:(to, from)=>{
+  //         sellerGenerateCampaignProductDictMiddleware(to, from);
+  //         return sellerRetrieveCampaignDataMiddleware(to, from);
+  //       },
+  //       component: ManageOrder,
+  //     },
+  //     {
+  //       path: "manage-order/order-detail/:order_id?",    
+  //       name: "seller-order-detail",
+  //       component: SellerOrderDetail,
+  //     },
+  //     {
+  //       path: "campaign-list/campaign-live/:campaign_id?/manage-order/order-detail/:order_id?",    
+  //       name: "seller-campaign-order-detail",
+  //       beforeEnter:(to, from)=>{
+  //         return sellerRetrieveCampaignDataMiddleware(to, from);
+  //       },
+  //       component: SellerOrderDetail,
+  //     },
 
-      {
-        path: "campaign-list/campaign-live/:campaign_id?/manage-order/cart-detail/:cart_id?",    
-        name: "seller-cart-detail",
-        beforeEnter:(to, from)=>{
-          sellerGenerateCampaignProductDictMiddleware(to, from);
-          return sellerRetrieveCampaignDataMiddleware(to, from);
-        },
-        component: SellerCartDetail,
-      },
+  //     {
+  //       path: "campaign-list/campaign-live/:campaign_id?/manage-order/cart-detail/:cart_id?",    
+  //       name: "seller-cart-detail",
+  //       beforeEnter:(to, from)=>{
+  //         sellerGenerateCampaignProductDictMiddleware(to, from);
+  //         return sellerRetrieveCampaignDataMiddleware(to, from);
+  //       },
+  //       component: SellerCartDetail,
+  //     },
       
       
       
-      // {
-      //   path: "order-detail/:order_id?",
-      //   name: "sellerOrder",
-      //   component: () => import('@/views/seller-order-detail/Main.vue'),
-      // },
-      // {
-      //   path: "campaign-select",
-      //   name: "side-menu-campaign-select",
-      //   component: CampaignSelect,
-      // },
+  //     // {
+  //     //   path: "order-detail/:order_id?",
+  //     //   name: "sellerOrder",
+  //     //   component: () => import('@/views/seller-order-detail/Main.vue'),
+  //     // },
+  //     // {
+  //     //   path: "campaign-select",
+  //     //   name: "side-menu-campaign-select",
+  //     //   component: CampaignSelect,
+  //     // },
+  //     // {  
+  //     //   path: "shopping-cart",
+  //     //   name: "side-menu-shopping-cart",
+  //     //   component: ShoppingCart,
+  //     // }, 
+  //     // {  
+  //     //   path: "shopping-payment",
+  //     //   name: "side-menu-shopping-payment",
+  //     //   component: ShoppingPayment,
+  //     // },
+  //     // {  
+  //     //   path: "orderHistory-details",
+  //     //   name: "OrderHistoryDetails",
+  //     //   component: OrderDetails,
+  //     // },
+  //     // {
+  //     //   path: "mkt-plugin",
+  //     //   name: "mkt-plugin",
+  //     //   component: MktPlugin,
+  //     // },
+  //     // {
+  //     //   path: "mkt-plugin/lucky-draw",
+  //     //   name: "lucky-draw-setting",
+  //     //   component: LuckyDrawSetting,
+  //     // },
+      
       // {  
-      //   path: "shopping-cart",
-      //   name: "side-menu-shopping-cart",
-      //   component: ShoppingCart,
-      // }, 
+      //   path: "campaign-global",
+      //   name: "campaign-global-setting",
+      //   component: () => import('@/views/settings/Main.vue'),
+      // },  
+
+      {  
+        path: "settings/campaign-general-default",
+        name: "testtest",
+        // component: () => import('@/views/settings/GeneralSettings.vue'),
+        component:GeneralSettings,
+      }, 
       // {  
-      //   path: "shopping-payment",
-      //   name: "side-menu-shopping-payment",
-      //   component: ShoppingPayment,
-      // },
+      //   path: "settings/campaign-payment-default",
+      //   name: "default-payment-settings",
+      //   component: () => import('@/views/settings/Payment.vue'),
+      // },  
       // {  
-      //   path: "orderHistory-details",
-      //   name: "OrderHistoryDetails",
-      //   component: OrderDetails,
-      // },
-      // {
-      //   path: "mkt-plugin",
-      //   name: "mkt-plugin",
-      //   component: MktPlugin,
-      // },
-      // {
-      //   path: "mkt-plugin/lucky-draw",
-      //   name: "lucky-draw-setting",
-      //   component: LuckyDrawSetting,
-      // },
-      
+      //   path: "settings/campaign-logistic-default",
+      //   name: "default-logistic-settings",
+      //   component: () => import('@/views/settings/Logistic.vue'),
+      // },  
+
+
+  //     {  
+  //       path: "localization",
+  //       name: "localization",
+  //       component: Localization,
+  //     },  
       {  
-        path: "campaign-global",
-        name: "campaign-global-setting",
-        component: () => import('@/views/settings/Main.vue'),
-      },  
-      {  
-        path: "localization",
-        name: "localization",
-        component: Localization,
-      },  
-      {  
-        path: "platform",
+        path: "settings/platform",
         name: "platform",
         component: ConnectPlatform,
       },
-      {  
-        path: "autoreply",
-        name: "auto-reply",
-        component: AutoReply,
-      },  
+  //     {  
+  //       path: "autoreply",
+  //       name: "auto-reply",
+  //       component: AutoReply,
+  //     },  
       {  
         path: "discount-code",
         name: "discount-code",
@@ -339,44 +359,44 @@ const routes = [
         name: "edit-product",
         component: () => import('@/views/add-product/Main.vue'),
       },                                                             //temp
-      {
-        path: "stock/category-management",
-        name: "category-management",
-        component: () => import('@/views/category-management/Main.vue')
-      },
+  //     {
+  //       path: "stock/category-management",
+  //       name: "category-management",
+  //       component: () => import('@/views/category-management/Main.vue')
+  //     },
       {  
         path: "buyers",
         name: "seller-buyers",
         component: () => import('@/views/seller-buyers/Main.vue'),
       },
-      {  
-        path: "buyers/:buyer_id",
-        redirect: to => {
-          return { name: 'seller-buyers'}
-        },
-      },
-      {  
-        path: "buyers/:buyer_id/orders",
-        name: "seller-buyers-order-history",
-        component: () => import('@/views/seller-buyers/order-history/Main.vue'),
-      },
-      {
-        path: "buyers/:buyer_id/orders/order-detail/:order_id?",    
-        name: "seller-buyers-order-detail",
-        component: SellerOrderDetail,
-      },
-      {
-        path: "buyers/:buyer_id/points",
-        name: "seller-buyers-points",
-        // beforeEnter:isBuyerLoginMiddleware,
-        component: () => import('@/views/seller-buyers/points/Main.vue'),
-      }
+  //     {  
+  //       path: "buyers/:buyer_id",
+  //       redirect: to => {
+  //         return { name: 'seller-buyers'}
+  //       },
+  //     },
+  //     {  
+  //       path: "buyers/:buyer_id/orders",
+  //       name: "seller-buyers-order-history",
+  //       component: () => import('@/views/seller-buyers/order-history/Main.vue'),
+  //     },
+  //     {
+  //       path: "buyers/:buyer_id/orders/order-detail/:order_id?",    
+  //       name: "seller-buyers-order-detail",
+  //       component: SellerOrderDetail,
+  //     },
+  //     {
+  //       path: "buyers/:buyer_id/points",
+  //       name: "seller-buyers-points",
+  //       // beforeEnter:isBuyerLoginMiddleware,
+  //       component: () => import('@/views/seller-buyers/points/Main.vue'),
+  //     }
     ],
   },
   
 
   {
-    path: "/seller/web",
+    path: "/user",
     component: LSSPublicLayout,
     children: [
       
@@ -386,45 +406,29 @@ const routes = [
         component: () => import('@/views/seller-registration/Main.vue')
       },
       {
-        path: "trial-register",
-        name: "trial-register",
-        component: () => import('@/views/seller-registration/TrialSignUp.vue')
-      },
-      {
         path: "login",
         name: "login-page",
         beforeEnter: checkSellerLogin,
         component: () => import('@/views/general/LoginPage.vue')
       },
       {
-        path: "password/forgot",
-        name: "password-forgot",
-        component: () => import('@/views/general/ForgotPasswordPage.vue')
+        path: "password/forget",
+        name: "password-forget",
+        component: () => import('@/views/general/ForgetPasswordPage.vue')
       },
-      {
-        path: "password/reset",
-        name: "password-reset",
-        component: () => import('@/views/password-reset/Main.vue')
-      },
-      {
-        path: "/dealer/login",
-        name: "dealer-login",
-        beforeEnter: checkDealerLogin,
-        component: () => import('@/views/general/DealerLoginPage.vue')
-      },
-      {
-        path: "admin/login",
-        name: "admin-login",
-        component: () => import('@/views/general/AdminLoginPage.vue')
-      },
-      {
-        path: "easy_store/authorization",
-        name: "easystore-authorize",
-        component: () => import('@/plugin/easy-store/views/AuthorizationPage.vue')
-      },
+      // {
+      //   path: "password/reset",
+      //   name: "password-reset",
+      //   component: () => import('@/views/password-reset/Main.vue')
+      // },
+      // {
+
       
     ],
   },
+  
+
+
   
   {
     path: "/error-page",
@@ -436,164 +440,96 @@ const routes = [
     component: ErrorPage,
   },
   // -------------------------------Buyer Route-----------------------------
-  {
-    path: "/buyer/test",
-    name: "buyer-test-page",
-    component: () => import('@/views/test/test7.vue'),
-  },
-  {
-    path: "/buyer/login/:type?/:object_id?",
-    name: "buyer-login-page",
-    beforeEnter: buyerLoginMiddleware,
-    component: () => import('@/views/general/BuyerLoginPage.vue'),
-  },
-  {
-    path: "/buyer",
-    component: LSSBuyerLayout,
-    beforeEnter: buyerAuthMiddleware,
-    children: [
-      {
-        path: "",
-        redirect: to => {
-          return { name: 'buyer-login-page'}
-        },
-      },
-      {
-        path: "search/:campaign_id?/cart/tiktok",
-        name: "buyer-search-tiktok-cart-page",
-        component: () => import('@/views/buyer-search-tiktok-cart/Main.vue'),
-      },
-      {
-        path: "recaptcha/:type?/:object_id?",
-        name: "buyer-recaptcha-page",
-        component: () => import('@/views/buyer-recaptcha/Main.vue'),
-      },
-      {
-        path: "points",
-        name: "buyer-points-page",
-        beforeEnter:isBuyerLoginMiddleware,
-        component: () => import('@/views/buyer-points/Main.vue'),
-      },
-      {
-        path: "orders",
-        name: "buyer-order-history-page",
-        beforeEnter:isBuyerLoginMiddleware,
-        component: () => import('@/views/buyer-order-history/Main.vue'),
-      },
-      {  
-        path: "order/:order_oid?",
-        name: "buyer-order-detail-page",
-        beforeEnter: youtubeOrderMiddleware,
-        component: () => import('@/views/buyer-order-detail/Main.vue'),
-      },
-      {  
-        path: "order/:order_oid?/payment",
-        name: "buyer-order-payment-page",
-        beforeEnter: (to, from)=>{
-          return isOrderCompleted(to, from)
-        },
-        component: () => import('@/views/buyer-order-payment/Main.vue')
-      },
-      {  
-        path: "order/:order_oid?/confirmation",
-        name: "buyer-order-confirmation-page",
-        beforeEnter: youtubeOrderMiddleware,
-        component: () => import('@/views/buyer-order-confirmation/Main.vue')
-      },
-      {  
-        path: "order/:order_oid?/awaiting_confirm",
-        name: "buyer-order-awaiting-confirm-page",
-        beforeEnter: youtubeOrderMiddleware,
-        component: () => import('@/views/buyer-order-awaiting-confirm/Main.vue')
-      },
-      {  
-        path: "cart/:cart_oid?",
-        name: "buyer-shopping-cart-detail-page",
-        // beforeEnter: async (to, from)=>{
-        //   const result = await redirectLoginPageMiddleware(to, from)
-        //   if (result !== true) {
-        //     return result
-        //   }
-        //   return youtubeOrderMiddleware(to, from)
-        // },
-        component: () => import('@/views/shoppingcart_v2/Main.vue')
-      },
-      {
-        path: "recommand/:platform_name?/:platform_id?",
-        name: "recommand-platform-page",
-        // beforeEnter: buyerLoginMiddleware,
-        component: () => import("@/views/recommand/RecommandPlatformPage.vue")
-      },
-    ]
-  },
-
- // -------------------------------Dealer Route-----------------------------
-
- {
-  path: "/dealer",
-  component: LSSDealerLayout,
-  beforeEnter: isDealerMiddleware,
-  children: [
-    {
-      path: "dashboard",
-      name: "dashboard",
-      component: () => import('@/views/dealer-dashboard/Main.vue')
-    },
-    {
-      path: "accounts",
-      name: "accounts",
-      component: () => import('@/views/dealer-accounts/Main.vue')
-    },
-    {
-      path: "transactions",
-      name: "transactions",
-      component: () => import('@/views/dealer-transactions/Main.vue')
-    },
-    {
-      path: "plans",
-      name: "plans",
-      component: () => import('@/views/dealer-plans/Main.vue')
-    },
-    {
-      path: "licenses",
-      name: "licenses",
-      component: () => import('@/views/dealer-licenses/Main.vue')
-    },
-    {
-      path: "sellers",
-      name: "sellers",
-      component: () => import('@/views/dealer-sellers/Main.vue')
-    },
-    {
-      path: "buyers",
-      name: "buyers",
-      component: () => import('@/views/dealer-buyers/Main.vue')
-    },
-    {
-      path: "settings",
-      name: "dealer-settings",
-      component: () => import('@/views/dealer-settings/Main.vue')
-    }]
-  },
-
- // -------------------------------Admin Route-----------------------------
-  {
-    path: "/admin",
-    component: LSSAdminLayout,
-    beforeEnter: adminAuthMiddleware,
-    children: [
-      {
-        path: "account/import",
-        name: "account-import",
-        component: () => import('@/views/account-import/Main.vue')
-      }
-
-
-
-
-
-      ]
-  },
+  // {
+  //   path: "/buyer/test",
+  //   name: "buyer-test-page",
+  //   component: () => import('@/views/test/test7.vue'),
+  // },
+  // {
+  //   path: "/buyer/login/:type?/:object_id?",
+  //   name: "buyer-login-page",
+  //   beforeEnter: buyerLoginMiddleware,
+  //   component: () => import('@/views/general/BuyerLoginPage.vue'),
+  // },
+  // {
+  //   path: "/buyer",
+  //   component: LSSBuyerLayout,
+  //   beforeEnter: buyerAuthMiddleware,
+  //   children: [
+  //     {
+  //       path: "",
+  //       redirect: to => {
+  //         return { name: 'buyer-login-page'}
+  //       },
+  //     },
+  //     {
+  //       path: "search/:campaign_id?/cart/tiktok",
+  //       name: "buyer-search-tiktok-cart-page",
+  //       component: () => import('@/views/buyer-search-tiktok-cart/Main.vue'),
+  //     },
+  //     {
+  //       path: "recaptcha/:type?/:object_id?",
+  //       name: "buyer-recaptcha-page",
+  //       component: () => import('@/views/buyer-recaptcha/Main.vue'),
+  //     },
+  //     {
+  //       path: "points",
+  //       name: "buyer-points-page",
+  //       beforeEnter:isBuyerLoginMiddleware,
+  //       component: () => import('@/views/buyer-points/Main.vue'),
+  //     },
+  //     {
+  //       path: "orders",
+  //       name: "buyer-order-history-page",
+  //       beforeEnter:isBuyerLoginMiddleware,
+  //       component: () => import('@/views/buyer-order-history/Main.vue'),
+  //     },
+  //     {  
+  //       path: "order/:order_oid?",
+  //       name: "buyer-order-detail-page",
+  //       beforeEnter: youtubeOrderMiddleware,
+  //       component: () => import('@/views/buyer-order-detail/Main.vue'),
+  //     },
+  //     {  
+  //       path: "order/:order_oid?/payment",
+  //       name: "buyer-order-payment-page",
+  //       beforeEnter: (to, from)=>{
+  //         return isOrderCompleted(to, from)
+  //       },
+  //       component: () => import('@/views/buyer-order-payment/Main.vue')
+  //     },
+  //     {  
+  //       path: "order/:order_oid?/confirmation",
+  //       name: "buyer-order-confirmation-page",
+  //       beforeEnter: youtubeOrderMiddleware,
+  //       component: () => import('@/views/buyer-order-confirmation/Main.vue')
+  //     },
+  //     {  
+  //       path: "order/:order_oid?/awaiting_confirm",
+  //       name: "buyer-order-awaiting-confirm-page",
+  //       beforeEnter: youtubeOrderMiddleware,
+  //       component: () => import('@/views/buyer-order-awaiting-confirm/Main.vue')
+  //     },
+  //     {  
+  //       path: "cart/:cart_oid?",
+  //       name: "buyer-shopping-cart-detail-page",
+  //       // beforeEnter: async (to, from)=>{
+  //       //   const result = await redirectLoginPageMiddleware(to, from)
+  //       //   if (result !== true) {
+  //       //     return result
+  //       //   }
+  //       //   return youtubeOrderMiddleware(to, from)
+  //       // },
+  //       component: () => import('@/views/shoppingcart_v2/Main.vue')
+  //     },
+  //     {
+  //       path: "recommand/:platform_name?/:platform_id?",
+  //       name: "recommand-platform-page",
+  //       // beforeEnter: buyerLoginMiddleware,
+  //       component: () => import("@/views/recommand/RecommandPlatformPage.vue")
+  //     },
+  //   ]
+  // },
 
 
 

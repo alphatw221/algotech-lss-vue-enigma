@@ -36,10 +36,10 @@
                 <button type="button" class="w-full h-[42px] text-lg text-white btn bg-red-500" @click="signIn()" >{{ $t('login.sign_in') }}</button>
             </form>
 
-            <a class="mx-auto item-center text-[16px] mt-8 font-medium" @click="router.push({ name: 'password-forgot' })">{{ $t('login.forgot_password') }}</a>
+            <a class="mx-auto item-center text-[16px] mt-8 font-medium" @click="router.push({ name: 'password-forget' })">{{ $t('login.forgot_password') }}</a>
 
             <div class="flex flex-col items-center my-3 font-medium">
-                <div class="text-[16px]">{{ $t('login.no_account') }}<a  @click="router.push({name:'trial-register'})" class="ml-1">{{ $t('login.create_one') }}</a></div>
+                <div class="text-[16px]">{{ $t('login.no_account') }}<a  @click="router.push({name:'registration-page'})" class="ml-1">{{ $t('login.create_one') }}</a></div>
             </div>
             <!-- <div class="flex flex-col items-center my-5">
                 <FacebookLoginButton />
@@ -53,9 +53,10 @@
 </template>
 
 <script setup>
-import { seller_general_login } from '@/api_v2/user';
-import FacebookLoginButton from '@/components/button/FacebookLoginButton.vue';
-import GoogleLoginButton from '@/components/button/GoogleLoginButton.vue';
+// import { seller_general_login } from '@/api_v2/user';
+import { user_login } from '@/api_v3/user'
+// import FacebookLoginButton from '@/components/button/FacebookLoginButton.vue';
+// import GoogleLoginButton from '@/components/button/GoogleLoginButton.vue';
 import { useLSSSellerLayoutStore } from '../../stores/lss-seller-layout';
 import {ref, onMounted, computed, getCurrentInstance } from 'vue'
 import {useRoute, useRouter} from 'vue-router'
@@ -65,31 +66,33 @@ import {useRoute, useRouter} from 'vue-router'
 
 import { useCookies } from "vue3-cookies";
 const { cookies } = useCookies();
-
+import { useToast } from "vue-toastification";
+const toast = useToast();
   
-onMounted(()=>{
+// onMounted(()=>{
     
-    if (navigator.userAgent.toLowerCase().indexOf('chrome') < 0 && navigator.userAgent.toLowerCase().indexOf('safari') < 0 ) {
-        showReminder.value=true
-    }
-})
+//     if (navigator.userAgent.toLowerCase().indexOf('chrome') < 0 && navigator.userAgent.toLowerCase().indexOf('safari') < 0 ) {
+//         showReminder.value=true
+//     }
+// })
 
 const route = useRoute()
 const router = useRouter()
 const app_i18n = getCurrentInstance().appContext.config.globalProperties.$i18n
-const currentUrl = ref(window.location.href)
-const showReminder = ref(false)
+// const currentUrl = ref(window.location.href)
+// const showReminder = ref(false)
 const showPassword = ref(false)
 const loginData = ref(
     {email:'',password:''})
 
-const copyLink = ()=>{
-    navigator.clipboard.writeText(currentUrl.value).then(()=>{
-        alert('copied!')
-    })
-}
+// const copyLink = ()=>{
+//     navigator.clipboard.writeText(currentUrl.value).then(()=>{
+//         alert('copied!')
+//     })
+// }
 
 const layoutStore = useLSSSellerLayoutStore()
+const sellerStore = useLSSSellerLayoutStore();
 
 // const rules = computed(()=> {
 //     return {
@@ -106,9 +109,13 @@ const signIn = ()=>{
     //     return
     // } 
     // console.log('signIn')  response.data.access
-    seller_general_login(loginData.value).then(response=>{
-        cookies.set("access_token", response.data.access)
-        cookies.set("login_with", 'general')
+    user_login(loginData.value).then(res=>{
+
+        console.log(res)
+        cookies.set("user_access_token", res?.data?.user_access_token)
+        toast.success("Login Success");
+        layoutStore.isAuthenticated = true
+        layoutStore.userInfo = res.data?.user
         router.push({name:'campaign-list'})
     })
 }

@@ -30,51 +30,23 @@
             <component :is="component"></component>
         </div> -->
 
-    <div
-      v-if="
-        layoutStore.userInfo.user_subscription.user_plan?.activated_platform?.includes(
-          'facebook'
-        )
-      "
-    >
-      <BindFacebookPageWidgets
-        :subscriptionPlatformField="subscriptionPlatformField['facebook']"
-      />
+    <div>
+      <BindFacebookPageWidgets/>
     </div>
-    <div
-      v-if="
-        layoutStore.userInfo.user_subscription.user_plan?.activated_platform.includes(
-          'instagram'
-        )
-      "
-    >
-      <BindInstagramProfileWidgets
-        :subscriptionPlatformField="subscriptionPlatformField['instagram']"
-      />
+    <div>
+      <BindInstagramProfileWidgets/>
     </div>
-    <div
-      v-if="
-        layoutStore.userInfo.user_subscription.user_plan?.activated_platform.includes(
-          'youtube'
-        )
-      "
-    >
+    <!-- <div>
       <BindYoutubeChannelWidgets
         :subscriptionPlatformField="subscriptionPlatformField['youtube']"
       />
     </div>
-    <div
-      v-if="
-        layoutStore.userInfo.user_subscription.user_plan?.activated_platform.includes(
-          'twitch'
-        )
-      "
-    >
+    <div>
       <BindTwitchChannelWidgets
         :subscriptionPlatformField="subscriptionPlatformField['twitch']"
       />
-    </div>
-    <div
+    </div> -->
+    <!-- <div
       v-if="
         layoutStore.userInfo.user_subscription.user_plan?.activated_platform.includes(
           'tiktok'
@@ -84,7 +56,7 @@
       <BindTiktokAccountWidgets
         :subscriptionPlatformField="subscriptionPlatformField['tiktok']"
       />
-    </div>
+    </div> -->
   </div>
   <!-- <Modal :show="UpgradeModal" @hidden="closeUpgradeModal()">
         <ModalBody class="text-center text-lg flex flex-col p-10">
@@ -136,9 +108,9 @@ const subscriptionPlatformField = ref({
 });
 
 onMounted(() => {
-  let subscription_plan = layoutStore.userInfo.user_subscription.type;
-  subscriptionPlan.value =
-    subscription_plan.charAt(0).toUpperCase() + subscription_plan.slice(1);
+  // let subscription_plan = layoutStore.userInfo.user_subscription.type;
+  // subscriptionPlan.value =
+  //   subscription_plan.charAt(0).toUpperCase() + subscription_plan.slice(1);
 });
 
 const plural = (number) => {

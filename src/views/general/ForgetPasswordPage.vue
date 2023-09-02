@@ -29,20 +29,26 @@
 
 <script setup >
 
-import { seller_forgot_password } from '@/api_v2/user'
+// import { seller_forgot_password } from '@/api_v2/user'
+import { user_forget_password } from '@/api_v3/user'
+
 import { useRoute, useRouter } from "vue-router";
 import {ref, onMounted, onBeforeMount } from 'vue'
 import { usePublicLayoutStore } from "@/stores/lss-public-layout"
 import i18n from "@/locales/i18n";
+import { useToast } from "vue-toastification";
+const toast = useToast();
 
 const publicLayout = usePublicLayoutStore()
 const route = useRoute()
 const router = useRouter()
 const email = ref('')
 const sendResetLink=()=>{
-    seller_forgot_password({email: email.value})
+    user_forget_password(email.value)
     .then(res=>{
-        publicLayout.notification.showMessageToast(i18n.global.t('forgot_password.success_message'))
+
+        console.log(res.data)
+        // publicLayout.notification.showMessageToast(i18n.global.t('forgot_password.success_message'))
     })
 }
 

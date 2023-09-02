@@ -1,4 +1,4 @@
-import { instagramAxios } from "@/libs/axiosClient";
+// import { instagramAxios } from "@/libs/axiosClient";
 import { createAxiosWithoutInterceptor, createAxios } from "@/libs/axiosClient";
 
 export const get_ig_live_media = (platform_id, limit='', toastify=null) => {
@@ -14,7 +14,7 @@ export const check_instagram_profile_token_valid = (platform_id) => {
 }
 
 export const get_ig_conversation_messages = (page_id, ig_user_id, pageToken) => {
-    return instagramAxios(pageToken).get(`/${page_id}/conversations?fields=participants,updated_time,messages{from,to,message,id,created_time,story}&user_id=${ig_user_id}&platform=instagram`)
+    // return instagramAxios(pageToken).get(`/${page_id}/conversations?fields=participants,updated_time,messages{from,to,message,id,created_time,story}&user_id=${ig_user_id}&platform=instagram`)
 }
 
 export const retrieve_instagram_profile = (pk, toastify=null) => {
@@ -22,7 +22,7 @@ export const retrieve_instagram_profile = (pk, toastify=null) => {
 }
 
 export const reply_to_direct_message = (page_id, user_id, text, pageToken) => {
-    return instagramAxios(pageToken).post(`${page_id}/messages/`, {"recipient": {"id":user_id},"message": {"text": text}})
+    // return instagramAxios(pageToken).post(`${page_id}/messages/`, {"recipient": {"id":user_id},"message": {"text": text}})
 }
 
 export const check_instagram_profile_post_exist = (platform_id, media_id, toastify=null) => {

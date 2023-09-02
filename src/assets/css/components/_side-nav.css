@@ -66,7 +66,7 @@
         }
       }
     }
-    @apply fixed w-[65px];
+    /* @apply fixed w-[65px]; */
     &.notSimple{ 
       @apply xl:w-[220px];
     }
@@ -83,7 +83,7 @@
           }
         }
       }
-      @apply rounded-xl fixed dark:bg-transparent;
+      @apply rounded-xl  dark:bg-transparent;
       &:before {
         content: "";
         @apply block inset-0 rounded-xl z-[-1] dark:bg-darkmode-900/30;
