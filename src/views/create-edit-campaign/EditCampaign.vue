@@ -1,0 +1,107 @@
+<template>
+	<div class="p-5 box my-5">
+		<CrudForm
+			:title="'General Settings'"    
+			:formSettings="generalSettings"
+			:action="actions"
+			v-model="data"
+		>
+		
+		</CrudForm>
+
+
+		<CrudForm
+			:title="'Payment Settings'"    
+			:formSettings="paymentSettings"
+			:action="actions"
+			v-model="data.payment_settings"
+		>
+		
+		</CrudForm>
+
+		<CrudForm
+			:title="'Logistic Settings'"    
+			:formSettings="logisticSettings"
+			:action="actions"
+			v-model="data.logistic_settings"
+		>
+		
+		</CrudForm>
+
+		<CrudForm
+			:title="'Point Settings'"    
+			:formSettings="pointSettings"
+			:action="actions"
+			v-model="data.point_settings"
+		>
+		
+		</CrudForm>
+
+
+		<CrudForm
+			:title="'Message Settings'"    
+			:formSettings="messageSettings"
+			:action="actions"
+			v-model="data.message_settings"
+		>
+		
+		</CrudForm>
+
+
+		<CrudForm
+			:title="'Note Settings'"    
+			:formSettings="noteSettings"
+			:action="actions"
+			v-model="data.note_settings"
+		>
+		
+		</CrudForm>
+
+		<div class="mt-5 flex flex-row justify-end px-5">
+			<button class="btn btn-primary" @click="update()">Update</button>
+		</div>
+	</div>
+   
+</template>  
+
+<script setup>
+import CrudForm from '@/views/crud-form-lss/Main.vue'
+import CrudWidge from '@/views/crud-form-lss/CrudWidge.vue'
+
+import {generalSettings, logisticSettings, paymentSettings, messageSettings, pointSettings, noteSettings} from './settings'
+import {getDefaultData} from './settings'
+import { ref, watch, onMounted, computed, watchEffect } from 'vue';
+import { required, minLength, maxLength, helpers, numeric, requiredIf, decimal, integer, minValue } from "@vuelidate/validators";
+import { useVuelidate } from "@vuelidate/core";
+import i18n from "@/locales/i18n"
+
+
+import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
+import { useCampaignDetailStore } from '@/stores/lss-campaign-detail';
+import { useRoute, useRouter } from "vue-router";
+// import { create_campaign, retrieve_campaign, update_campaign } from '@/api_v2/campaign';
+
+
+const sellerStore = useLSSSellerLayoutStore()
+const campaignDetailStore = useCampaignDetailStore();
+
+const route = useRoute()
+const router = useRouter()
+
+const data = ref(getDefaultData())
+
+onMounted(()=>{
+	//get campaign data
+})
+
+const actions = {}
+
+const update  =()=>{
+	console.log(data.value)
+}
+</script>
+
+<style scoped>
+
+
+</style>

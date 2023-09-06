@@ -7,6 +7,10 @@ import axios from "axios";
 import i18n from "@/locales/i18n";
 import { useCookies } from "vue3-cookies";
 import {ref} from "vue"
+
+import { useToast } from "vue-toastification";
+const toast = useToast();
+
 const { cookies } = useCookies();
 // change current language for i18n
 
@@ -126,6 +130,7 @@ export function createUserAxios(){
     axiosInstance.interceptors.response.use(
         response => response,
         error => {
+            toast.error(error?.message||error?.code)
             return Promise.reject(error);
         }
     );

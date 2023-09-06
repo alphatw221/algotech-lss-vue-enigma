@@ -53,6 +53,8 @@ import LucideIcons from "./lucide";
 
 import SearchSelect from "./search-select/Main.vue"
 
+import DatetimePickerLSS from './datetime-picker-lss/Main.vue'
+
 export default (app) => {
   // LSS ICON 
   app.component("Comments", Comments);
@@ -106,6 +108,7 @@ export default (app) => {
   app.component("Highlight", Highlight);
 
   app.component("SearchSelect", SearchSelect);
+  app.component("DatetimePickerLSS", DatetimePickerLSS)
 
   for (const [key, icon] of Object.entries(LucideIcons)) {
     app.component(key, icon);

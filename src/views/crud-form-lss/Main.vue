@@ -1,5 +1,5 @@
 <template>
-  <div class="intro-y flex items-center mt-8">
+  <div class="intro-y flex items-center mt-4 ml-4">
     <h2 class="text-lg font-medium mr-auto">{{ props.title }}</h2>
   </div>
 

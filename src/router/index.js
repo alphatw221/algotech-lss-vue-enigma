@@ -152,6 +152,24 @@ const routes = [
         component: CampaignList,
       },
       {
+        path: "campaign-list/create-campaign",
+        name: "create-campaign",
+        component: () => import('@/views/create-edit-campaign/CreateCampaign.vue'),
+      },
+      {
+        path: "campaign-list/campaign-live/:campaign_id?/edit-campaign",
+        name: "edit-campaign",
+        // beforeEnter:(to, from)=>{
+        //   return sellerRetrieveCampaignDataMiddleware(to, from);
+        // },
+        component: () => import('@/views/create-edit-campaign/EditCampaign.vue'),
+      },  
+
+
+
+
+
+      {
         path: "manage-order",
         name: "manage-order",
         component: ManageOrderClone, //simply reuse got chances component won't unmount
@@ -165,11 +183,7 @@ const routes = [
   //       },
   //       component: CampaignLive,
   //     },
-  //     {
-  //       path: "campaign-list/create-campaign",
-  //       name: "create-campaign",
-  //       component: () => import('@/views/create-campaign/Main.vue'),
-  //     },
+      
   //     {
   //       path: "campaign-list/campaign-live/:campaign_id?/lucky-draw-list",
   //       name: "lucky-draw-list",
@@ -205,14 +219,7 @@ const routes = [
   //       },
   //       component: () => import('@/views/mkt-plugin/quiz-game/Main.vue')
   //     },
-  //     {
-  //       path: "campaign-list/campaign-live/:campaign_id?/edit-campaign",
-  //       name: "edit-campaign",
-  //       beforeEnter:(to, from)=>{
-  //         return sellerRetrieveCampaignDataMiddleware(to, from);
-  //       },
-  //       component: () => import('@/views/edit-campaign/Main.vue'),
-  //     },  
+    
   //     {
   //       path: "campaign-list/campaign-live/:campaign_id?/assign-product",
   //       name: "assign-product",
@@ -403,7 +410,7 @@ const routes = [
       {
         path: "register",
         name: "registration-page",
-        component: () => import('@/views/seller-registration/Main.vue')
+        component: () => import('@/views/general/RegisterPage.vue')
       },
       {
         path: "login",

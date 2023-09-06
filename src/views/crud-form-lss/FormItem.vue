@@ -288,10 +288,11 @@
     </div>
 
 
-    <!-- <div class="mt-3" v-else-if="props.setting.type==='timezone_datetime'" :class="props.setting.class">
+    <div class="mt-3" v-else-if="props.setting.type==='datetime'" :class="props.setting.class">
       <label class="form-label">{{ props.setting.name }}</label>
-      <TimezoneDatetimePicker v-model="props.modelValue[props.setting.key]"/>
-    </div> -->
+      <DatetimePickerLSS v-model="props.modelValue[props.setting.key]"/>
+
+    </div>
 
 
     <div class="mt-3" v-else-if="props.setting.type==='date_range'" :class="props.setting.class">
@@ -339,7 +340,7 @@
       <label class="form-label">{{ props.setting.name }}</label>
 
       <div class="mt-2">
-        <textarea class="form-control w-full " v-model="props.modelValue[props.setting.key]"></textarea>
+        <textarea class="form-control w-full p-2" v-model="props.modelValue[props.setting.key]"></textarea>
 
       </div>
     </div> 
@@ -418,6 +419,11 @@ import { useRoute, useRouter } from "vue-router";
 // import SimpleUploadAdapter from '@ckeditor/ckeditor5-upload/src/adapters/simpleuploadadapter';
 
 import { useCookies } from "vue3-cookies";
+
+// import VueDatePicker from '@vuepic/vue-datepicker';
+// import '@vuepic/vue-datepicker/dist/main.css'
+// import DatetimePickerLSS from '../../global-components/datetime-picker-lss/Main.vue'
+
 const { cookies } = useCookies();
 const router = useRouter()
 const route = useRoute()

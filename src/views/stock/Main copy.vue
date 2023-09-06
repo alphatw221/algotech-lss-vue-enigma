@@ -7,6 +7,7 @@
         :data="data"
         :actions="actions"
         :emptyDataMessage="emptyDataMessage"
+        
     >
         <!-- <template v-slot:bulk_edit>
             <button type="button" class="btn btn-primary" @click="bulkEditBodalShow=true"> 批量修改</button>
@@ -27,37 +28,7 @@
                 </ModalBody>
             </Modal>
         </template> -->
-        <template v-slot:tabs>
-            <div
-                class="
-                    flex flex-row flex-wrap justify-center
-                    sm:justify-between mt-5 mx-0 gap-3 sm:gap-5
-                "
-                >
-                <div class="flex-none switch-toggle mx-auto sm:mx-0">
-                    <input id="on" name="state-d" type="radio" checked="checked" @click="()=>{type='ongoing';getData();emptyDataMessage='Do not Have any Ongoing Campaign.'}"/>
-                    <label for="on" >{{$t("campaign_list.tabs.ongoing")}}</label>
-                    <input id="na" name="state-d" type="radio" @click="()=>{type='scheduled';getData();emptyDataMessage='Do not Have any Scheduled Campaign.'}" />
-                    <label for="na" >{{$t("campaign_list.tabs.scheduled")}}</label>
-                    <input id="off" name="state-d" type="radio" class="my-0" @click="()=>{type='history';getData();emptyDataMessage='Do not Have any History Campaign.'}" />
-                    <label for="off" >{{$t("campaign_list.tabs.history")}}</label>
-                </div>
-                <button
-                    class="
-                    flex
-                    w-40 h-[35px] sm:h-[42px]
-                    ml-auto text-white
-                    btn btn-warning btn-rounded
-                    mx-auto mb-5 sm:mb-2
-                    sm:mx-0 border-[2px] border-slate-100 shadow-lg
-                    "
-                    @click="routeToCreatePage()"
-                >
-                    <span class="mr-1 text-lg font-bold">+</span>
-                    {{ $t("campaign_list.create_campaign") }}
-                </button>
-            </div>
-        </template>
+        <template v-slot:tabs></template>
     </CrudDataListLSS>
 </template>
 
@@ -72,13 +43,11 @@ import { useRoute, useRouter } from "vue-router";
 // import { search_product_category } from "../../api/product_category"
 
 // const globalStore = useGlobalStore()
-import {get_campaigns} from '../../api_v3/campaign.js'
 const route = useRoute()
 const router = useRouter()
 
-const title = 'Campaign List'
-const emptyDataMessage = ref('Do not Have any Ongoing Campaign.')
-
+const title = 'Stock'
+const emptyDataMessage = ''
 
 
 
@@ -98,10 +67,8 @@ const searchData = ref({
     dataCount:0,
     keyword:'',
     order_by:'-id'
-
 })
-const type  = ref('ongoing')
-
+const tabSettings=[]
 const searchBarSettings=[
     // {key:'category_id', name:'類別', type:'search_select', class:'w-[150px]', placeholder:'搜尋名稱', display_key:'category_name', search_function:searchProductCategory, option_name_keys:['name'], option_value_key:'id', router_param_key:'store_id', options:[{id:null, name:'無'}]},
     // {key:'category_id', name:'類別', type:'select', value_key:'id', name_key:'name', options:((globalStore?.user_data?.stores||[]).find(store=>store.id.toString()==route.params.store_id)?.product_categories||[])},
@@ -110,7 +77,7 @@ const searchBarSettings=[
 
     // {type:'slot', slot_name:'bulk_edit'},
 
-    // {key:'create_campaign', name:'Create', type:'button', action:'route_to_create_campaign_page' ,class:"ml-auto"},
+    {key:'create_campaign', name:'Create', type:'button', action:'route_to_create_campaign_page' ,class:"ml-auto"},
     // {key:'other', type:'dropdown', actions:[
 
     // ]},
@@ -118,14 +85,14 @@ const searchBarSettings=[
 const dataListSettings=[
     // {type:'checkbox', name:''},
 
-    {key:'social_platform_connections', type:'custom', custom_key:'platform', name:'Platform', headerClass:'text-center', },
+    {type:'custom', custom_key:'platform', name:'Platform', headerClass:'text-center'},
     
-    {key:'uuid', type:'link', name:'Title'},
-    {key:'start_at', type:'datetime', name:'Start Date' , sortable:true},
-    {key:'end_at', type:'datetime', name:'End Date', sortable:true},
+    {type:'link', name:'Title', sortable:true},
+    {type:'datetime', name:'Start Date'},
+    {type:'datetime', name:'End Date'},
 
-    {key:'uuid', type:'custom', custom_key:'manage_order', name:'Manage Order', headerClass:'text-center'},
-    {key:'uuid', type:'custom', custom_key:'stop_checkout', name:'Stop Checkout', headerClass:'text-center', tippy:'Disable shopping cart immediately'},
+    {type:'custom', custom_key:'manage_order', name:'Manage Order', headerClass:'text-center'},
+    {type:'custom', custom_key:'stop_checkout', name:'Stop Checkout', headerClass:'text-center', tippy:'Disable shopping cart immediately'},
 
 
     // {key:'images', name:'圖片', type:'images', dataType:'array'},
@@ -188,18 +155,21 @@ onMounted(()=>{
 
 
 const getData = ()=>{
-    var _keyword, _order_by, _page, _page_size, _type
-    get_campaigns(
-        _keyword=searchData.value.keyword,
-        _order_by=searchData.value.order_by,
-        _page=searchData.value.page,
-        _page_size=searchData.value.page_size,
-        _type = type.value
-    ).then(res=>{
-        console.log(res.data)
-        searchData.value.dataCount = res.data.count
-        data.value = res.data.results
-    })
+    // var _store_id, _category_id, _visibility, _keyword, _order_by, _page, _page_size, _exclude_ids, _type
+    // search_product(
+    //     _store_id=route.params.store_id,
+    //     _category_id=searchData.value.category_id, 
+    //     _visibility=searchData.value.visibility,
+    //     _keyword=searchData.value.keyword,
+    //     _order_by=searchData.value.order_by,
+    //     _page=searchData.value.page,
+    //     _page_size=searchData.value.page_size,
+    //     _exclude_ids=null,
+    //     _type = null
+    // ).then(res=>{
+    //     searchData.value.dataCount = res.data.count
+    //     data.value = res.data.results
+    // })
 }
 
 const search = ()=>{
@@ -207,18 +177,18 @@ const search = ()=>{
     getData()
 }
 
-// const selectAll = (event)=>{
-//     data.value.forEach(d => {
-//         d.check = event.target.checked
-//     });
-// }
-
-const routeToCreatePage = ()=>{
-    router.push({name:'create-campaign',params:route.params})
+const selectAll = (event)=>{
+    data.value.forEach(d => {
+        d.check = event.target.checked
+    });
 }
 
-const routeToEditPage = (data, index)=>{
-    router.push({name:'edit-campaign',params:{...route.params, 'campaign_uuid':data.uuid}})
+const routeToCreatePage = ()=>{
+    // router.push({name:'store-create-product',params:route.params})
+}
+
+const routeToProductPage = (product, index)=>{
+    // router.push({name:'store-edit-product',params:{...route.params, 'product_id':product.id}})
 }
 
 const deleteData = (product, index)=>{
@@ -231,9 +201,9 @@ const actions = {
     'get':getData,
     'search':search,
     'route_to_create_page':routeToCreatePage, 
-    'route_to_detail_page':routeToEditPage, 
+    'route_to_detail_page':routeToProductPage, 
     'delete_data':deleteData,
-    // 'select_all':selectAll
+    'select_all':selectAll
     
 }
 
