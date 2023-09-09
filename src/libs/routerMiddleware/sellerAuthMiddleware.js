@@ -14,12 +14,12 @@ export default async (to, from)=>{
     if (cookies.get('user_access_token')) {
         try{
             const res = await get_user_account()
-            sellerStore.userInfo = res.data;
+            sellerStore.user = res.data;
             sellerStore.isAuthenticated = true
             return true
         }catch(error){
             cookies.remove("user_access_token")
-            sellerStore.userInfo = null
+            sellerStore.user = null
             sellerStore.isAuthenticated = false
             return '/user/login'
         }

@@ -1,5 +1,10 @@
 export const generalSettings = [
 
+    
+
+    {type:'slot', slot_name:'social_platform_connection_form'},
+
+
     {key:'title', name:'Title', type:'input' ,inputType:'text', class:'w-full', unit:'', placeholder:'Title'},
 
     {key:'description', name:'Description', type:'textarea',},

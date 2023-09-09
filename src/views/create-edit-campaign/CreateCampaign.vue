@@ -6,9 +6,12 @@
 			:action="actions"
 			v-model="data"
 		>
-		
-		</CrudForm>
+			<template v-slot:social_platform_connection_form>
+				<SocialPlatformConnectionForm v-model="data.social_platofrm_connections"/>
+			</template>
 
+		</CrudForm>
+			
 
 		<CrudForm
 			:title="'Payment Settings'"    
@@ -80,7 +83,7 @@ import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 import { useCampaignDetailStore } from '@/stores/lss-campaign-detail';
 import { useRoute, useRouter } from "vue-router";
 // import { create_campaign, retrieve_campaign, update_campaign } from '@/api_v2/campaign';
-
+import SocialPlatformConnectionForm from './social-platform-connection-form/SocialPlatformConnectionForm.vue'
 
 const sellerStore = useLSSSellerLayoutStore()
 const campaignDetailStore = useCampaignDetailStore();
