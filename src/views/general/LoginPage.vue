@@ -122,7 +122,7 @@ const signIn = ()=>{
         cookies.set("user_access_token", res?.data?.user_access_token)
         toast.success("Login Success");
         layoutStore.isAuthenticated = true
-        layoutStore.userInfo = res.data?.user
+        layoutStore.user = res.data?.user
         router.push({name:'campaign-list'})
     })
 }

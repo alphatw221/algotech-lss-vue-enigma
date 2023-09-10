@@ -20,7 +20,7 @@
             <button
               type="button"
               style="display:block"
-              @click="props?.selectPost()"
+              @click="props?.selectVideo()"
               class="btn  btn-primary w-3/4 p-5 mx-auto my-4"
             >
               {{$t('campaign_list.enter_post_id_modal.select_video_post')}}
@@ -39,7 +39,7 @@ const props = defineProps({
   show:Boolean,
   hide:Function,
   selectLive:Function,
-  selectPost:Function,
+  selectVideo:Function,
 })
 
 

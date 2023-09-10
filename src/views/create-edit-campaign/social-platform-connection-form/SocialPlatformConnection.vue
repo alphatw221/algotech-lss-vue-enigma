@@ -27,7 +27,7 @@
         <Tippy tag="a" href="javascript:;" class="ml-1" :content="$t('campaign_list.enter_post_id_modal.search_recent_posts')" :options="{
           theme: 'light',
         }">
-          <SearchIcon class="" @click="()=>{showSelectLiveOrVideoModal=true}"/>
+          <SearchIcon class="" @click="()=>{showSelectLiveOrVideoModal = true}"/>
         </Tippy>
       </div>
       
@@ -42,20 +42,20 @@
       <SelectLiveOrVideoModal 
         :show="showSelectLiveOrVideoModal" 
         :hide="hideSelectLiveOrVideoModal" 
-        :selectLive="()=>{hideSelectLiveOrVideoModal()}" 
-        :selectPost="()=>{hideSelectLiveOrVideoModal()}"
+        :selectLive="selectLive" 
+        :selectVideo="selectVideo"
       />
       <SelectLiveModal  
         :show="showSelectLiveModal"
         :hide="hideSelectLiveModal"
         :socialPlatformAccount="props.modelValue?.social_platform_account"
-        :select="(live)=>{}"
+        :select="(live)=>{console.log(live)}"
       />
-      <SelectPostModal
-        :show="showSelectPostModal"
-        :hide="hideSelectPostModal"
+      <SelectVideoModal
+        :show="showSelectVideoModal"
+        :hide="hideSelectVideoModal"
         :socialPlatformAccount="props.modelValue?.social_platform_account"
-        :select="(post)=>{}"
+        :select="(post)=>{console.log(post)}"
       />
 
    
@@ -82,7 +82,7 @@ import instagram_platform from "/src/assets/images/lss-img/instagram.png"
 
 
 import SelectLiveOrVideoModal from './SelectLiveOrVideoModal.vue'
-import SelectPostModal from './SelectPostModal.vue'
+import SelectVideoModal from './SelectVideoModal.vue'
 import SelectLiveModal from './SelectLiveModal.vue';
 const props = defineProps({
   modelValue:Object,
@@ -99,11 +99,23 @@ const props = defineProps({
 const showSelectLiveOrVideoModal =ref(false)
 const hideSelectLiveOrVideoModal = ()=>{showSelectLiveOrVideoModal.value=false}
 
-const showSelectPostModal =ref(false)
-const hideSelectPostModal = ()=>{showSelectPostModal.value=false}
+const showSelectVideoModal =ref(false)
+const hideSelectVideoModal = ()=>{showSelectVideoModal.value=false}
 
 const showSelectLiveModal =ref(false)
 const hideSelectLiveModal = ()=>{showSelectLiveModal.value=false}
+
+
+
+const selectVideo = ()=>{
+  hideSelectLiveOrVideoModal()
+  showSelectVideoModal.value = true
+}
+
+const selectLive = ()=>{
+  hideSelectLiveOrVideoModal()
+  showSelectLiveModal.value = true
+}
 
 const updateModelValue = ()=>{
   emits('update:modelValue', props.modelValue)
