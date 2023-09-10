@@ -51,9 +51,9 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted, defineProps, defineEmits, getCurrentInstance} from 'vue'
-import { get_fb_page_live_videos, get_fb_page_videos } from "@/api_v2/facebook"
-import { get_ig_live_media, get_ig_media } from "@/api_v2/instagram"
-import { get_yt_live_media } from "@/api_v2/youtube"
+// import { get_fb_page_live_videos, get_fb_page_videos } from "@/api_v2/facebook"
+// import { get_ig_live_media, get_ig_media } from "@/api_v2/instagram"
+// import { get_yt_live_media } from "@/api_v2/youtube"
 
 
 const props = defineProps({
