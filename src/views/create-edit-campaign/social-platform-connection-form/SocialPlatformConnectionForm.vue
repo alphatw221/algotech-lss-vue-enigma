@@ -2,7 +2,7 @@
 	<div class="p-5 box my-5 relative">
 		<h3>Connected Platforms</h3>
         <div class="flex flex-row">
-            <template v-if="[].length<=0">
+            <template v-if="(props?.modelValue||[]).length<=0">
                 <h3 class="w-full text-center">No platform connected</h3>
             </template>
 
@@ -24,7 +24,7 @@
             <h3>My Socail Platform Connections</h3>
         </ModalHeader>
         <ModalBody >
-            <SocialPlatformList :addSocialPlatformConnection="addSocialPlatformConnection"/>
+            <SocialPlatformList :addSocialPlatformConnection="addSocialPlatformConnection" :socialPlatformConnections="props?.modelValue||[]"/>
         </ModalBody>
     </Modal>
 
