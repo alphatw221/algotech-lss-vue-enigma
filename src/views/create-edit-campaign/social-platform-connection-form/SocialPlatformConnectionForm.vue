@@ -1,13 +1,14 @@
 <template>
-	<div class="p-5 box my-5 relative">
-		<h3>Connected Platforms</h3>
+    <h3 class="text-lg">Connected Platforms</h3>
+
+	<div class="p-5 box mt-2 relative">
         <div class="flex flex-row">
             <template v-if="(props?.modelValue||[]).length<=0">
                 <h3 class="w-full text-center">No platform connected</h3>
             </template>
 
             <template v-for="socialPlatformConnection, i in (props?.modelValue||[])" :key="i">
-                <SocialPlatformConnection v-model="props.modelValue[i]"/>
+                <SocialPlatformConnection v-model="props.modelValue[i]" :remove="getRemoveFunc(i)" class="mx-2"/>
             </template>
         </div>
 
@@ -40,7 +41,7 @@ import CrudWidge from '@/views/crud-form-lss/CrudWidge.vue'
 
 
 
-import { ref, watch, onMounted, computed, watchEffect, defineProps } from 'vue';
+import { ref, watch, onMounted, computed, watchEffect, defineProps, defineEmits } from 'vue';
 import { required, minLength, maxLength, helpers, numeric, requiredIf, decimal, integer, minValue } from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";
 import i18n from "@/locales/i18n"
@@ -62,6 +63,7 @@ const props = defineProps({
 //   }
 })
 
+const emits = defineEmits();
 
 const updateModelValue = ()=>{
   emits('update:modelValue', props.modelValue)
@@ -81,7 +83,12 @@ const route = useRoute()
 const router = useRouter()
 
 
-
+const getRemoveFunc = (j)=>{
+    return ()=>{
+        props.modelValue.splice(j,1)
+        updateModelValue()
+    }
+}
 </script>
 
 <style scoped>

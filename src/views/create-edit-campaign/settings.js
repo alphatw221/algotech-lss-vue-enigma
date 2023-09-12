@@ -7,7 +7,7 @@ export const generalSettings = [
 
     {key:'title', name:'Title', type:'input' ,inputType:'text', class:'w-full', unit:'', placeholder:'Title'},
 
-    {key:'description', name:'Description', type:'textarea',},
+    // {key:'description', name:'Description', type:'textarea',},
 
     {type:'inline', inline_items:[    
         {key:'start_at', name:'Start At', type:'datetime', class:'w-ful'},

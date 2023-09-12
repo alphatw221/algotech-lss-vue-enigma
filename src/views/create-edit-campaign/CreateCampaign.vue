@@ -1,10 +1,11 @@
 <template>
-	<div class="p-5 box my-5">
+	<div class="p-5 box my-5 intro-y">
 		<CrudForm
 			:title="'General Settings'"    
 			:formSettings="generalSettings"
 			:action="actions"
 			v-model="data"
+			class="intro-y"
 		>
 			<template v-slot:social_platform_connection_form>
 				<SocialPlatformConnectionForm v-model="data.social_platofrm_connections"/>
@@ -18,6 +19,8 @@
 			:formSettings="paymentSettings"
 			:action="actions"
 			v-model="data.payment_settings"
+			class="intro-y"
+
 		>
 		
 		</CrudForm>
@@ -27,6 +30,8 @@
 			:formSettings="logisticSettings"
 			:action="actions"
 			v-model="data.logistic_settings"
+			class="intro-y"
+
 		>
 		
 		</CrudForm>

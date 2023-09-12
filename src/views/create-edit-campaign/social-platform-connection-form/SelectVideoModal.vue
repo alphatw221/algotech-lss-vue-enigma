@@ -21,30 +21,48 @@
         </ModalHeader>
 
         <ModalBody class="text-left content-center">
-          <div class="intro-y grid grid-cols-12 gap-3 my-0">
+
+          <div v-if="items.length<=0" class="h-[200px] flex flex-col justify-center items-center text-base ">
+              <h3>No Video Post Found</h3>
+          </div>
+
+          <div class="intro-y grid grid-cols-12 gap-3 my-0" v-else>
+
+          
+
             <template v-for="post,index in items" :key="index">
               <div class="col-span-12 post_frame">
-                <button type="button" href="javascript:;" class="btn btn-primary mr-3" @click="props.select(post)">{{$t('campaign_list.enter_post_id_modal.select_this_live')}}</button>
                 <div class="select_live flex-none rounded-md overflow-hidden">
-                  <span class="col-span-6 text-lg content-center">
-                    {{ post.title }}
-                  </span>
-                  <p class="col-span-6 text-sm content-center">
-                    {{ datetimeReformat(post?.created_time) }}
-                  </p>
+
+                  <div class="flex flex-row justify-between items-center">
+                    <span class="text-lg ">
+                      {{ post.title }}
+                    </span>
+                    <span class="text-sm ">
+                      {{ datetimeReformat(post?.created_time) }}
+                    </span>
+                  </div>
                  
-                  <template v-if="post?.embeddable && urlPattern.exec(post.embed_html)" >
+                  <template v-if="post?.url" >
                     <iframe 
-                      allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" 
+                      allow="clipboard-write; encrypted-media; picture-in-picture; web-share" 
                       allowfullscreen="true" 
                       frameborder="0" 
-                      height="200" 
+
                       scrolling="no" 
-                      :src="urlPattern.exec(post.embed_html)[1]"
+                      :src="post?.url"
                       style="border:none;overflow:hidden" 
-                      width="200">
+                      class="w-full h-[250px]"
+                    >
                     </iframe>
                   </template>
+
+                 
+                 
+                  <div class="text-center mt-2">
+                    <button type="button" href="javascript:;" class="btn btn-primary mr-3" @click="props.select(post)">{{$t('campaign_list.enter_post_id_modal.select_this_live')}}</button>
+                  </div>
+
                 </div>
               </div>
             </template>
