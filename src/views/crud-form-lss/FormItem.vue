@@ -52,7 +52,7 @@
           class="relative w-fit" v-if="props.modelValue?.[props.setting.key]"
         >
           <img
-            class="rounded-md object-cover "
+            class="rounded-md object-cover max-w-[250px]"
             alt="Midone Tailwind HTML Admin Template"
             :src="props.modelValue?.[props.setting.key]"
           />
@@ -106,7 +106,7 @@
                       }" class="dropzone" >
 
           <div class="text-lg font-medium">
-              拖曳或點擊來上傳
+              Drag/Click to upload
           </div>
       </Dropzone>
     </div>
@@ -170,6 +170,8 @@
         />
         <div  class="input-group-text" v-if="props.setting.unit">{{ props.setting.unit }}</div>
       </div>  
+      <p class="text-red-600" v-for="e,i in (props?.error?.[props.setting?.key]||[])" :key="i">{{ e?.$message||'' }}</p>
+
     </div>  
 
     <div  v-else-if="props.setting.type==='text'" :class="props.setting.class">
@@ -214,6 +216,8 @@
       >
         <option :value="item" v-for="item, itemIndex in props.modelValue[props.setting.key]" :key="itemIndex">{{ item }}</option>
       </TomSelect>
+      <p class="text-red-600" v-for="e,i in (props?.error?.[props.setting?.key]||[])" :key="i">{{ e?.$message||'' }}</p>
+
     </div>
 
     <div class="mt-3" v-else-if="props.setting.type==='select'" :class="props.setting.class">
@@ -232,6 +236,8 @@
         <option :value="null" v-if="!props.setting.multiple" ></option>
         <option :value="option[props.setting.value_key]" v-for="option, optionIndex in props.setting.options" :key="optionIndex">{{ option[props.setting.name_key] }}</option>
       </TomSelect>
+      <p class="text-red-600" v-for="e,i in (props?.error?.[props.setting?.key]||[])" :key="i">{{ e?.$message||'' }}</p>
+
     </div>
 
     <div class="mt-3" v-else-if="props.setting.type==='search_select'" :class="props.setting.class">
@@ -247,6 +253,7 @@
         :routerParamKey="props.setting.router_param_key"
         :defaultOptions="props.setting.options"
       />
+      <p class="text-red-600" v-for="e,i in (props?.error?.[props.setting?.key]||[])" :key="i">{{ e?.$message||'' }}</p>
 
     </div>
 
@@ -268,6 +275,8 @@
           <option :value="option[props.setting.value_key]" v-for="option, optionIndex in group[props.setting.option_key]" :key="optionIndex">{{ option[props.setting.name_key] }}</option>
         </optgroup>
       </TomSelect>
+      <p class="text-red-600" v-for="e,i in (props?.error?.[props.setting?.key]||[])" :key="i">{{ e?.$message||'' }}</p>
+
     </div>
 
 
@@ -285,12 +294,15 @@
             years: true,
           },
         }" class="form-control w-full block " />
+        <p class="text-red-600" v-for="e,i in (props?.error?.[props.setting?.key]||[])" :key="i">{{ e?.$message||'' }}</p>
+
     </div>
 
 
     <div class="mt-3" v-else-if="props.setting.type==='datetime'" :class="props.setting.class">
       <label class="form-label">{{ props.setting.name }}</label>
       <DatetimePickerLSS v-model="props.modelValue[props.setting.key]"/>
+      <p class="text-red-600" v-for="e,i in (props?.error?.[props.setting?.key]||[])" :key="i">{{ e?.$message||'' }}</p>
 
     </div>
 
@@ -312,6 +324,8 @@
           years: true,
         },
       }" class="form-control w-[190px] block " />
+      <p class="text-red-600" v-for="e,i in (props?.error?.[props.setting?.key]||[])" :key="i">{{ e?.$message||'' }}</p>
+
     </div>
 
 
@@ -323,6 +337,8 @@
       <div class="form-switch mt-2">
         <input type="checkbox" class="form-check-input" v-model="props.modelValue[props.setting.key]" @change="updateModelValue()"/>
       </div>
+      <p class="text-red-600" v-for="e,i in (props?.error?.[props.setting?.key]||[])" :key="i">{{ e?.$message||'' }}</p>
+
     </div>
 
 
@@ -334,6 +350,8 @@
         :config="editorConfig" 
         @change="updateModelValue()"/>
       </div>
+      <p class="text-red-600" v-for="e,i in (props?.error?.[props.setting?.key]||[])" :key="i">{{ e?.$message||'' }}</p>
+
     </div> 
 
     <div class="mt-3" v-else-if="props.setting.type==='textarea'" :class="props.setting.class">
@@ -343,6 +361,8 @@
         <textarea class="form-control w-full p-2" v-model="props.modelValue[props.setting.key]"></textarea>
 
       </div>
+      <p class="text-red-600" v-for="e,i in (props?.error?.[props.setting?.key]||[])" :key="i">{{ e?.$message||'' }}</p>
+
     </div> 
 
 
@@ -363,7 +383,7 @@
 
     <template v-else-if="props.setting.type==='inline'">
         <div class="flex flex-row" :class="props.setting.class">
-            <FormItem v-for="inlineItem, index in props.setting.inline_items" :key="index" :setting="inlineItem" :action="action" v-model="props.modelValue"></FormItem>
+            <FormItem v-for="inlineItem, index in props.setting.inline_items" :key="index" :setting="inlineItem" :action="action" v-model="props.modelValue" :error="props.error"></FormItem>
         </div>
     </template>
 
@@ -402,10 +422,16 @@
 
                 </div> -->
             </div>
-       
+            <p class="text-red-600" v-for="e,i in (props?.error?.[props.setting?.key]||[])" :key="i">{{ e?.$message||'' }}</p>
+
     </template>
 
+   
     <div v-else></div>
+
+
+
+
   </template>
 </template>
 
@@ -434,7 +460,9 @@ const props = defineProps({
       type:Object,
       default:{}
   },
-    action:Object
+    action:Object,
+    error:Object
+
 })
 
 const edit_textarea = ref(null)

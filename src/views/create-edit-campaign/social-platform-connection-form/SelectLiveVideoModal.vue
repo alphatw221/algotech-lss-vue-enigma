@@ -9,8 +9,9 @@
     >
         <ModalHeader>
     
-            <h2 class="mr-auto text-base font-medium">{{$t('campaign_list.enter_post_id_modal.your_current_video_posts')}}</h2>
-
+            <!-- <h2 class="mr-auto text-base font-medium">Your current media posts</h2> -->
+            <h2 class="mr-auto text-base font-medium" v-if="props.mediaType=='video'">Your current video posts</h2>
+            <h2 class="mr-auto text-base font-medium" v-else-if="props.mediaType=='live'">Your current live posts</h2>
           
           <a
             @click="props?.hide()"
@@ -23,34 +24,36 @@
         <ModalBody class="text-left content-center">
 
           <div v-if="items.length<=0" class="h-[200px] flex flex-col justify-center items-center text-base ">
-              <h3>No Video Post Found</h3>
+              <h3 v-if="props.mediaType=='video'">No Video Post Found</h3>
+              <h3 v-else-if="props.mediaType=='live'">No Live Post Found</h3>
+
           </div>
 
           <div class="intro-y grid grid-cols-12 gap-3 my-0" v-else>
 
           
 
-            <template v-for="post,index in items" :key="index">
+            <template v-for="item,index in items" :key="index">
               <div class="col-span-12 post_frame">
                 <div class="select_live flex-none rounded-md overflow-hidden">
 
                   <div class="flex flex-row justify-between items-center">
                     <span class="text-lg ">
-                      {{ post.title }}
+                      {{ item.title }}
                     </span>
                     <span class="text-sm ">
-                      {{ datetimeReformat(post?.created_time) }}
+                      {{ datetimeReformat(item?.created_time) }}
                     </span>
                   </div>
                  
-                  <template v-if="post?.url" >
+                  <template v-if="item?.url" >
                     <iframe 
                       allow="clipboard-write; encrypted-media; picture-in-picture; web-share" 
                       allowfullscreen="true" 
                       frameborder="0" 
 
                       scrolling="no" 
-                      :src="post?.url"
+                      :src="item?.url"
                       style="border:none;overflow:hidden" 
                       class="w-full h-[250px]"
                     >
@@ -60,7 +63,7 @@
                  
                  
                   <div class="text-center mt-2">
-                    <button type="button" href="javascript:;" class="btn btn-primary mr-3" @click="props.select(post)">{{$t('campaign_list.enter_post_id_modal.select_this_live')}}</button>
+                    <button type="button" href="javascript:;" class="btn btn-primary mr-3" @click="props.select(item)">{{$t('campaign_list.enter_post_id_modal.select_this_live')}}</button>
                   </div>
 
                 </div>
@@ -73,13 +76,17 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted, defineProps, defineEmits, getCurrentInstance} from 'vue'
-import { get_social_platform_account_videos} from '@/api_v3/social_platform_account'
+import { get_social_platform_account_videos, get_social_platform_account_lives} from '@/api_v3/social_platform_account'
 
 const props = defineProps({
   show:Boolean,
   hide:Function,
   socialPlatformAccount:Object,
-  select:Function
+  select:Function,
+  mediaType:{
+    type:String,
+    default:'video'
+  }
 })
 
 
@@ -87,11 +94,18 @@ const props = defineProps({
 const items = ref([])
 
 const getSocialPlatformData = ()=>{
-  get_social_platform_account_videos(props.socialPlatformAccount?.uuid).then((res)=>{
-    console.log(res.data)
-    items.value = res?.data||[]
-
-  })
+  if(props.mediaType=='video'){
+    get_social_platform_account_videos(props.socialPlatformAccount?.uuid).then((res)=>{
+        console.log(res.data)
+        items.value = res?.data||[]
+    })
+  }else if (props.mediaType=='live'){
+    get_social_platform_account_lives(props.socialPlatformAccount?.uuid).then((res)=>{
+        console.log(res.data)
+        items.value = res?.data||[]
+    })
+  }
+  
 }
 
 
@@ -104,7 +118,7 @@ const datetimeReformat = (datetime_string) => {
   })
 }
 
-var urlPattern = /src="([^"]+)"/;
+
 
 </script>
 <style scoped>

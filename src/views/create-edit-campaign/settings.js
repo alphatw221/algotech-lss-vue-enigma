@@ -75,7 +75,7 @@ export const pointSettings = [
     {key:'point_description', name:'Point Descriptions', type:'textarea',},
 
 ]
-export const messageSettings = [
+export const replySettings = [
     {key:'add', name:'Successfully Add Product', type:'accordion_textarea',placeholder:'', class:''},
     {key:'update', name:'Customer Change Quantity', type:'accordion_textarea',placeholder:'', class:'mt-5'},
     {key:'delete', name:'Product Delete From Shopping Cart', type:'accordion_textarea',placeholder:'', class:'mt-5'},
@@ -91,7 +91,7 @@ export const noteSettings = [
 
 
 
-export function getDefaultData(){
+export function getDefaultData(user){
     const defaultData = {
         title:'',
         description:'',
@@ -99,13 +99,19 @@ export function getDefaultData(){
         end_at:'',
         currency:'USD',
         currency_symbol:'$',
-        logistic_settings:{},
-        payment_settings:{},
-        note_settings:{},
-        message_settings:{},
-        point_settings:{},
+        // logistic_settings:{},
+        // payment_settings:{},
+        // note_settings:{},
+        // reply_settings:{},
+        // point_settings:{},
 
-        social_platofrm_connections:[]
+        social_platform_connections:[],
+
+        payment_settings:user.payment_settings||{},
+        logistic_settings:user.logistic_settings||{},
+        point_settings:user.point_settings||{},
+        reply_settings:user.reply_settings||{},
+        note_settings:user.note_settings||{}
     }
     return defaultData
 }

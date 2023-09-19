@@ -45,17 +45,18 @@
         :selectLive="selectLive" 
         :selectVideo="selectVideo"
       />
-      <SelectLiveModal  
+      <!-- <SelectLiveModal  
         :show="showSelectLiveModal"
         :hide="hideSelectLiveModal"
         :socialPlatformAccount="props.modelValue?.social_platform_account"
         :select="(live)=>{ props.modelValue.post_id = live.post_id; updateModelValue();hideSelectLiveModal();}"
-      />
-      <SelectVideoModal
-        :show="showSelectVideoModal"
-        :hide="hideSelectVideoModal"
+      /> -->
+      <SelectLiveVideoModal
+        :show="showSelectLiveVideoModal"
+        :hide="hideSelectLiveVideoModal"
         :socialPlatformAccount="props.modelValue?.social_platform_account"
-        :select="(video)=>{ props.modelValue.post_id = video.post_id; updateModelValue();hideSelectVideoModal();}"
+        :select="(media)=>{ props.modelValue.post_id = media.post_id; updateModelValue();hideSelectLiveVideoModal();}"
+        :mediaType="mediaType"
       />
 
    
@@ -82,7 +83,7 @@ import instagram_platform from "/src/assets/images/lss-img/instagram.png"
 
 
 import SelectLiveOrVideoModal from './SelectLiveOrVideoModal.vue'
-import SelectVideoModal from './SelectVideoModal.vue'
+import SelectLiveVideoModal from './SelectLiveVideoModal.vue'
 import SelectLiveModal from './SelectLiveModal.vue';
 const props = defineProps({
   modelValue:Object,
@@ -102,25 +103,25 @@ const socialPlatformIcons = {
 
 const emits = defineEmits()
 
+const mediaType = ref('video')
 const showSelectLiveOrVideoModal =ref(false)
 const hideSelectLiveOrVideoModal = ()=>{showSelectLiveOrVideoModal.value=false}
 
-const showSelectVideoModal =ref(false)
-const hideSelectVideoModal = ()=>{showSelectVideoModal.value=false}
-
-const showSelectLiveModal =ref(false)
-const hideSelectLiveModal = ()=>{showSelectLiveModal.value=false}
+const showSelectLiveVideoModal =ref(false)
+const hideSelectLiveVideoModal = ()=>{showSelectLiveVideoModal.value=false}
 
 
 
 const selectVideo = ()=>{
+  mediaType.value='video'
   hideSelectLiveOrVideoModal()
-  showSelectVideoModal.value = true
+  showSelectLiveVideoModal.value = true
 }
 
-const selectLive = ()=>{
+const selectLive =()=>{
+  mediaType.value='live'
   hideSelectLiveOrVideoModal()
-  showSelectLiveModal.value = true
+  showSelectLiveVideoModal.value = true
 }
 
 const updateModelValue = ()=>{

@@ -8,7 +8,7 @@
 			class="intro-y"
 		>
 			<template v-slot:social_platform_connection_form>
-				<SocialPlatformConnectionForm v-model="data.social_platofrm_connections"/>
+				<SocialPlatformConnectionForm v-model="data.social_platform_connections"/>
 			</template>
 
 		</CrudForm>
@@ -48,9 +48,9 @@
 
 		<CrudForm
 			:title="'Message Settings'"    
-			:formSettings="messageSettings"
+			:formSettings="replySettings"
 			:action="actions"
-			v-model="data.message_settings"
+			v-model="data.reply_settings"
 		>
 		
 		</CrudForm>
@@ -76,7 +76,7 @@
 import CrudForm from '@/views/crud-form-lss/Main.vue'
 import CrudWidge from '@/views/crud-form-lss/CrudWidge.vue'
 
-import {generalSettings, logisticSettings, paymentSettings, messageSettings, pointSettings, noteSettings} from './settings'
+import {generalSettings, logisticSettings, paymentSettings, replySettings, pointSettings, noteSettings} from './settings'
 import {getDefaultData} from './settings'
 import { ref, watch, onMounted, computed, watchEffect } from 'vue';
 import { required, minLength, maxLength, helpers, numeric, requiredIf, decimal, integer, minValue } from "@vuelidate/validators";
@@ -87,20 +87,23 @@ import i18n from "@/locales/i18n"
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 import { useCampaignDetailStore } from '@/stores/lss-campaign-detail';
 import { useRoute, useRouter } from "vue-router";
-// import { create_campaign, retrieve_campaign, update_campaign } from '@/api_v2/campaign';
+import { create_campaign } from '@/api_v3/campaign';
 import SocialPlatformConnectionForm from './social-platform-connection-form/SocialPlatformConnectionForm.vue'
 
-const sellerStore = useLSSSellerLayoutStore()
+const LSSSellerLayoutStore = useLSSSellerLayoutStore()
 const campaignDetailStore = useCampaignDetailStore();
 
 const route = useRoute()
 const router = useRouter()
 
-const data = ref(getDefaultData())
+const data = ref(getDefaultData(LSSSellerLayoutStore.user))
 const actions = {}
 
 const create  =()=>{
 	console.log(data.value)
+	create_campaign(data.value).then(res=>{
+		console.log(res.data)
+	})
 }
 </script>
 

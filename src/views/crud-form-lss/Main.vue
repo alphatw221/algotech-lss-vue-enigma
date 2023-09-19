@@ -11,7 +11,7 @@
           <!-- BEGIN: Form  -->
           <template v-for="setting, settingIndex in props.formSettings" :key="settingIndex">
             <slot v-if="setting.type==='slot'" :name="setting.slot_name"></slot>
-            <FormItem :setting="setting" :action="props.action" v-model="props.modelValue" v-else></FormItem>
+            <FormItem :setting="setting" :action="props.action" v-model="props.modelValue" :error="props?.error" v-else></FormItem>
           </template> 
           <!-- END: Form  -->
       </div>
@@ -27,7 +27,9 @@ const props = defineProps({
   modelValue:Object,
   title:String,
   formSettings:Object,
-  action:Object
+  action:Object,
+  error:Object
+
 })
 
 const emits = defineEmits(['update:modelValue'])

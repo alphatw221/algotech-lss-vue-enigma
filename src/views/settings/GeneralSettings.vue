@@ -9,10 +9,106 @@
     </CrudForm>
 
     <CrudForm
+        :title="'Payment Settings'"    
+        :formSettings="paymentSettings"
+        :action="actions"
+        class="intro-y"
+
+    >
+        <template v-slot:payment_services >
+            <div v-if="(paymentServices||[]).length<=0" class="text-center my-5">
+                <h3>No Payment Service Added</h3>
+            </div>
+            <template v-for="paymentService, i in (paymentServices||[])" :key="i">
+                <CrudWidge
+                    :formSettings="paymentServiceSettings"
+                    :action="actions"
+                    v-model="paymentServices[i]"
+                    class="intro-y border-slate border-[1px] rounded p-3 my-2"
+                    @change="()=>{paymentSettingsChanged=true}"
+                    :error="paymentServicesVuelidate?.$each?.$response?.$errors?.[i]"
+                >
+                    <template v-slot:remove_button>
+                        <XIcon class="w-6 h-6 right-1 top-1 cursor-pointer absolute text-slate-500" @click="()=>{paymentServices.splice(i,1); paymentSettingsChanged=true}"/>
+                    </template>
+                    <template v-slot:bank_transfer_form>
+                        <BankTransferForm v-model="paymentServices[i]" @change="()=>{paymentSettingsChanged=true}" :error="paymentServicesVuelidate?.$each?.$response?.$errors?.[i]"/>
+                    </template>
+                    <template v-slot:ecpay_form>
+                        <ECPayForm v-model="paymentServices[i]" @change="()=>{paymentSettingsChanged=true}" :error="paymentServicesVuelidate?.$each?.$response?.$errors?.[i]"/>
+                    </template>
+                    <template v-slot:stripe_form>
+                        <StripeForm v-model="paymentServices[i]" @change="()=>{paymentSettingsChanged=true}" :error="paymentServicesVuelidate?.$each?.$response?.$errors?.[i]"/>
+                    </template>
+                    <template v-slot:rapyd_form>
+                        <RapydForm v-model="paymentServices[i]" @change="()=>{paymentSettingsChanged=true}" :error="paymentServicesVuelidate?.$each?.$response?.$errors?.[i]"/>
+                    </template>
+                </CrudWidge>
+            </template>
+        </template>
+
+        <template v-slot:add_service_button >
+            <div class="text-center my-2">
+                <button class="btn btn-primary rounded-[50%]" @click="()=>{ (paymentServices||[]).push(getPaymentServiceTemplate());paymentSettingsChanged=true}">
+                    <PlusIcon/>
+                </button>
+            </div>
+        </template>
+    </CrudForm>
+
+
+
+    <CrudForm
+        :title="'Logistic Settings'"    
+        :formSettings="logisticSettings"
+        :action="actions"
+        v-model="logisticSettingsData"
+        class="intro-y"
+    >
+        <template v-slot:self_pickup_form>
+            <SelfPickupForm v-model="logisticServices" @change="()=>{logisticSettingsChanged=true}" :getLogisticServiceTemplate="()=>{return {provider:'self_pickup'}}"/>
+        </template>
+        
+        <template v-slot:self_delivery_form>
+            <SelfDeliveryForm v-model="logisticServices" @change="()=>{logisticSettingsChanged=true}" :getLogisticServiceTemplate="()=>{return {provider:'self_delivery'}}"/>
+        </template>
+
+        <template v-slot:logistic_services >
+            <h3 class="text-base">Logistic Services</h3>
+            <div v-if="(logisticServices||[]).filter(_logisticService=>_logisticService?.provider!='self_pickup'&&_logisticService?.provider!='self_delivery')?.length<=0" class="text-center my-5">
+                <h3>No Logistic Service Added</h3>
+            </div>
+            <template v-for="logisticService, i in (logisticServices||[])" :key="i">
+                <CrudWidge
+                    v-if="logisticService?.provider!='self_pickup' && logisticService?.provider!='self_delivery'"
+                    :formSettings="logisticServiceSettings"
+                    :action="actions"
+                    v-model="logisticService[i]"
+                    class="intro-y border-slate border-[1px] rounded p-3 my-2"
+                    @change="()=>{paymentSettingsChanged=true}"
+                    :error="paymentServicesVuelidate?.$each?.$response?.$errors?.[i]"
+                >
+                    <template v-slot:remove_button>
+                        <XIcon class="w-6 h-6 right-1 top-1 cursor-pointer absolute text-slate-500" @click="()=>{logisticServices?.splice(i,1);  }"/>
+                    </template>
+                </CrudWidge>
+            </template>
+        </template>
+
+        <template v-slot:add_service_button >
+            <div class="text-center my-2">
+                <button class="btn btn-primary rounded-[50%]" @click="()=>{ (logisticServices||[]).push({provider:''});paymentSettingsChanged=true}">
+                    <PlusIcon/>
+                </button>
+            </div>
+        </template>
+    </CrudForm>
+
+    <CrudForm
         :title="'Point Settings'"    
         :formSettings="pointSettings"
         :action="actions"
-        v-model="data"
+        v-model="pointSettingsData"
     >
     
     </CrudForm>
@@ -20,9 +116,9 @@
 
     <CrudForm
         :title="'Message Settings'"    
-        :formSettings="messageSettings"
+        :formSettings="replySettings"
         :action="actions"
-        v-model="data"
+        v-model="replySettingsData"
     >
     
     </CrudForm>
@@ -32,7 +128,7 @@
         :title="'Note Settings'"    
         :formSettings="notesSettings"
         :action="actions"
-        v-model="data"
+        v-model="noteSettingsData"
     >
     
     </CrudForm>
@@ -41,18 +137,95 @@
 
 <script setup>
 import CrudForm from '@/views/crud-form-lss/Main.vue'
+import CrudWidge from '@/views/crud-form-lss/CrudWidge.vue'
 import { ref, onMounted, reactive, computed } from 'vue';
 // import { get_general_info, update_general_info } from '@/api_v2/user_subscription'
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 // import i18n from "@/locales/i18n"
 // import PointsSettingsVue from './PointsSettings.vue';
 // import MessageSettingsVue from './MessageSettings.vue';
+import { useVuelidate } from "@vuelidate/core";
+import { helpers, required, requiredIf } from "@vuelidate/validators";
 
-const layoutStore = useLSSSellerLayoutStore();
+import BankTransferForm from './payment-settings/BankTransferForm.vue';
+import ECPayForm from './payment-settings/ECPayForm.vue'
+import RapydForm from './payment-settings/RapydForm.vue'
+import StripeForm from './payment-settings/StripeForm.vue'
+
+import SelfPickupForm from './delivery-settings/SelfPickupForm.vue'
+import SelfDeliveryForm from './delivery-settings/SelfDeliveryForm.vue'
+
+const LSSSellerLayoutStore = useLSSSellerLayoutStore();
 
 
 const title = 'Campaign General Settings'
 const data = ref({})
+
+const paymentServicesData = ref({})
+const paymentServices = ref([])
+
+const logisticServicesData = ref({})
+const logisticServices = ref([])
+
+const getPaymentServiceTemplate = ()=>{
+    return {
+        provider:'',
+        bank_account:'', 
+        bank_name:'', 
+        
+        ecpay_merchant_id:'',
+        ecpay_hash_key:'',
+        ecpay_hash_iv:'',
+
+        rapyd_access_key:'',
+        rapyd_secret_key:'',
+        rapyd_country:'',
+        rapyd_currency:'',
+
+        stripe_secret_key:'',
+        stripe_currency:'',
+            
+    }
+}
+const paymentServicesRule = computed(()=> {
+    return {
+        $each: helpers.forEach({
+                provider:{required, },
+                bank_name:{required:requiredIf((_,b)=>{return b?.provider=='bank_transfer'})},
+                bank_account:{required:requiredIf((_,b)=>{return b?.provider=='bank_transfer'})},
+
+                ecpay_merchant_id:{required:requiredIf((_,b)=>{return b?.provider=='ecpay'})},
+                ecpay_hash_key:{required:requiredIf((_,b)=>{return b?.provider=='ecpay'})},
+                ecpay_hash_iv:{required:requiredIf((_,b)=>{return b?.provider=='ecpay'})},
+
+                rapyd_access_key:{required:requiredIf((_,b)=>{return b?.provider=='rapyd'})},
+                rapyd_secret_key:{required:requiredIf((_,b)=>{return b?.provider=='rapyd'})},
+                rapyd_country:{required:requiredIf((_,b)=>{return b?.provider=='rapyd'})},
+                rapyd_currency:{required:requiredIf((_,b)=>{return b?.provider=='rapyd'})},
+
+                stripe_secret_key:{required:requiredIf((_,b)=>{return b?.provider=='stripe'})},
+                stripe_currency:{required:requiredIf((_,b)=>{return b?.provider=='stripe'})},
+
+                
+            })
+    }
+})
+const paymentServicesVuelidate = useVuelidate(paymentServicesRule, paymentServices);
+
+onMounted(() => {
+
+
+    data.value = JSON.parse(JSON.stringify(LSSSellerLayoutStore?.user?.general_settings||{}))
+    paymentServicesData.value.payment_services = JSON.parse(JSON.stringify(LSSSellerLayoutStore?.user?.payment_services||[]))
+    logisticServicesData.value.logistic_services = JSON.parse(JSON.stringify(LSSSellerLayoutStore?.user?.logistic_services||[]))
+
+
+})
+
+const logisticSettingsData = ref({})
+const replySettingsData = ref({})
+const pointSettingsData = ref({})
+const noteSettingsData = ref({})
 
 const settings = [
     {key:'currency', name:'Currency', type:'select', placeholder:'選擇電子發票服務', multiple:false, value_key:'value', name_key:'value', options:[
@@ -93,6 +266,63 @@ const settings = [
     ]},
 ]
 
+const logisticSettingsChanged = ref(false)
+const logisticSettings = [
+    
+    {type:'slot', slot_name:'self_pickup_form'},
+    {type:'slot', slot_name:'self_delivery_form'},
+
+
+    {type:'slot', slot_name:'logistic_services'},
+    {type:'slot', slot_name:'add_service_button'},
+
+    {type:'buttons' ,class:'text-right', buttons:[
+        {name:'Save', action:'update_logistic_settings', class:'btn-primary w-24'}
+    ]},
+]
+const logisticServiceSettings = [
+
+
+    {key:'provider', name:'Logistic Service', class:'w-full', type:'select', placeholder:'Choose a Logistic Service', multiple:false, value_key:'value', name_key:'name', options:[
+            {value:'ecpay', name:'ECPay(T-Cat, 7-11, FamilyMart)'},
+        ]},
+    {type:'slot', slot_name:'ecpay'},
+    {type:'slot', slot_name:'remove_button'},
+
+]
+
+const paymentSettingsChanged = ref(false)
+const paymentSettings = [
+    
+    {type:'slot', slot_name:'payment_services'},
+    {type:'slot', slot_name:'add_service_button'},
+
+    {type:'buttons' ,class:'text-right', buttons:[
+        {name:'Save', action:'update_payment_settings', class:'btn-primary w-24'}
+    ]},
+]
+
+const paymentServiceSettings = [
+
+    {type:'inline', class:'intro-y', inline_items:[
+        {key:'enable', name:'Enable', type:'toggle', class:'mr-2'},
+        {key:'provider', name:'Payment Service', class:'w-full', type:'select', placeholder:'Choose a Payment Service', multiple:false, value_key:'value', name_key:'name', options:[
+            {value:'bank_transfer', name:'Bank Transfer'},
+            {value:'ecpay', name:'ECPay(Credit Card)'},
+            {value:'stripe', name:'Stripe(Credit Card)'},
+            {value:'rapyd', name:'Rapyd(Credit Card)'},
+        ]},
+
+    ]},
+
+    {type:'slot', slot_name:'bank_transfer_form'},
+    {type:'slot', slot_name:'ecpay_form'},
+    {type:'slot', slot_name:'stripe_form'},
+    {type:'slot', slot_name:'rapyd_form'},
+
+    {type:'slot', slot_name:'remove_button'},
+
+]
 
 const pointSettings = [
 
@@ -133,7 +363,7 @@ const pointSettings = [
 
 
 
-const messageSettings = [
+const replySettings = [
 
 
     {key:'add', name:'Successfully Add Product', type:'accordion_textarea',placeholder:'', class:''},
@@ -167,15 +397,7 @@ const notesSettings = [
 
 ]
 
-onMounted(() => {
 
-
-    data.value = JSON.parse(JSON.stringify(layoutStore?.user?.general_settings||{}))
-    // get_general_info(layoutStore.alert).then(response => {
-
-    
-    // })
-})
 
 const update = () => {
     // console.log(generalInfo.value)
@@ -185,9 +407,23 @@ const update = () => {
     //     layoutStore.notification.showMessageToast(i18n.global.t('settings.update_successfully'))
     //     // console.log(layoutStore.userInfo)
     // })
-
+    console.log('')
 }
 
-const actions = {'update':update, }
+const updatePaymentSettings = ()=>{
+
+    // console.log(paymentServicesData.value.payment_services)
+    console.log(paymentServices.value)
+    paymentSettingsChanged.value=false
+
+    paymentServicesVuelidate.value.$touch();
+    
+    console.log( paymentServicesVuelidate.value.$each.$response.$errors)
+
+
+    //json to formdata conversion
+}
+
+const actions = {'update':update, 'update_payment_settings':updatePaymentSettings}
 
 </script>
