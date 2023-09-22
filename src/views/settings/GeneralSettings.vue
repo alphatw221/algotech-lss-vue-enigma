@@ -54,10 +54,25 @@
                 </button>
             </div>
         </template>
+
+        <template v-slot:save >
+            <button class="btn btn-primary w-fit float-right" @click="updatePaymentSettings()">
+                <div role="status" v-if="paymentSettingsUpdating">
+                    <svg aria-hidden="true" class="inline w-6 h-6 mx-2 text-gray-200 animate-spin dark:text-gray-600 fill-gray-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
+                        <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
+                    </svg>
+                    <span class="sr-only">Updating...</span>
+                </div>
+                <template v-else>{{ paymentSettingsChanged?'Save (Changes not saved yet)':'Save' }}</template>
+            </button>
+        </template>
+
+
     </CrudForm>
 
 
-
+    <!-- Logistic Settings -->
     <CrudForm
         :title="'Logistic Settings'"    
         :formSettings="logisticSettings"
@@ -66,30 +81,35 @@
         class="intro-y"
     >
         <template v-slot:self_pickup_form>
-            <SelfPickupForm v-model="logisticServices" @change="()=>{logisticSettingsChanged=true}" :getLogisticServiceTemplate="()=>{return {provider:'self_pickup'}}"/>
+            <SelfPickupForm v-model="logisticServices" @update:modelValue="()=>{logisticSettingsChanged=true}" @change="()=>{logisticSettingsChanged=true}" :getLogisticServiceTemplate="()=>{return {provider:'self_pickup'}}"/>
         </template>
         
-        <template v-slot:self_delivery_form>
-            <SelfDeliveryForm v-model="logisticServices" @change="()=>{logisticSettingsChanged=true}" :getLogisticServiceTemplate="()=>{return {provider:'self_delivery'}}"/>
+        <template v-slot:seller_deliver_form>
+            <SellerDeliverForm v-model="logisticServices" @update:modelValue="()=>{logisticSettingsChanged=true}" @change="()=>{logisticSettingsChanged=true}" :getLogisticServiceTemplate="()=>{return {provider:'seller_deliver'}}"/>
         </template>
 
         <template v-slot:logistic_services >
             <h3 class="text-base">Logistic Services</h3>
-            <div v-if="(logisticServices||[]).filter(_logisticService=>_logisticService?.provider!='self_pickup'&&_logisticService?.provider!='self_delivery')?.length<=0" class="text-center my-5">
+            <div v-if="(logisticServices||[]).filter(_logisticService=>_logisticService?.provider!='self_pickup'&&_logisticService?.provider!='seller_deliver'&&!_logisticService?.remove)?.length<=0" class="text-center my-5">
                 <h3>No Logistic Service Added</h3>
             </div>
             <template v-for="logisticService, i in (logisticServices||[])" :key="i">
                 <CrudWidge
-                    v-if="logisticService?.provider!='self_pickup' && logisticService?.provider!='self_delivery'"
+                    v-if="logisticService?.provider!='self_pickup' && logisticService?.provider!='seller_deliver' && !logisticService?.remove"
                     :formSettings="logisticServiceSettings"
                     :action="actions"
-                    v-model="logisticService[i]"
+                    v-model="logisticServices[i]"
                     class="intro-y border-slate border-[1px] rounded p-3 my-2"
-                    @change="()=>{paymentSettingsChanged=true}"
-                    :error="paymentServicesVuelidate?.$each?.$response?.$errors?.[i]"
+                    @change="()=>{logisticSettingsChanged=true}"
+
                 >
+
+                    <template v-slot:ecpay>
+                        <ECPayLogisticForm v-model="logisticServices[i]" @change="()=>{logisticSettingsChanged=true}" />
+                    </template>
+
                     <template v-slot:remove_button>
-                        <XIcon class="w-6 h-6 right-1 top-1 cursor-pointer absolute text-slate-500" @click="()=>{logisticServices?.splice(i,1);  }"/>
+                        <XIcon class="w-6 h-6 right-1 top-1 cursor-pointer absolute text-slate-500" @click="()=>{logisticServices[i].provider='';logisticServices[i].remove=true; logisticSettingsChanged=true }"/>
                     </template>
                 </CrudWidge>
             </template>
@@ -97,10 +117,23 @@
 
         <template v-slot:add_service_button >
             <div class="text-center my-2">
-                <button class="btn btn-primary rounded-[50%]" @click="()=>{ (logisticServices||[]).push({provider:''});paymentSettingsChanged=true}">
+                <button class="btn btn-primary rounded-[50%]" @click="()=>{ (logisticServices||[]).push({provider:''});logisticSettingsChanged=true}">
                     <PlusIcon/>
                 </button>
             </div>
+        </template>
+
+        <template v-slot:save >
+            <button class="btn btn-primary w-fit float-right" @click="updateLogisticSettings()">
+                <div role="status" v-if="logisticSettingsUpdating">
+                    <svg aria-hidden="true" class="inline w-6 h-6 mx-2 text-gray-200 animate-spin dark:text-gray-600 fill-gray-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
+                        <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
+                    </svg>
+                    <span class="sr-only">Updating...</span>
+                </div>
+                <template v-else>{{ logisticSettingsChanged?'Save (Changes not saved yet)':'Save' }}</template>
+            </button>
         </template>
     </CrudForm>
 
@@ -153,7 +186,12 @@ import RapydForm from './payment-settings/RapydForm.vue'
 import StripeForm from './payment-settings/StripeForm.vue'
 
 import SelfPickupForm from './delivery-settings/SelfPickupForm.vue'
-import SelfDeliveryForm from './delivery-settings/SelfDeliveryForm.vue'
+import SellerDeliverForm from './delivery-settings/SellerDeliverForm.vue'
+import ECPayLogisticForm from './delivery-settings/ECPayLogisticForm.vue';
+
+
+import {update_user_logistic_services} from '@/api_v3/logistic_service.js'
+import {update_user_payment_services} from '@/api_v3/payment_service.js'
 
 const LSSSellerLayoutStore = useLSSSellerLayoutStore();
 
@@ -213,11 +251,11 @@ const paymentServicesRule = computed(()=> {
 const paymentServicesVuelidate = useVuelidate(paymentServicesRule, paymentServices);
 
 onMounted(() => {
-
+    console.log(LSSSellerLayoutStore.user)
 
     data.value = JSON.parse(JSON.stringify(LSSSellerLayoutStore?.user?.general_settings||{}))
     paymentServicesData.value.payment_services = JSON.parse(JSON.stringify(LSSSellerLayoutStore?.user?.payment_services||[]))
-    logisticServicesData.value.logistic_services = JSON.parse(JSON.stringify(LSSSellerLayoutStore?.user?.logistic_services||[]))
+    logisticServices.value = JSON.parse(JSON.stringify(LSSSellerLayoutStore?.user?.logistic_services||[]))
 
 
 })
@@ -267,23 +305,22 @@ const settings = [
 ]
 
 const logisticSettingsChanged = ref(false)
+const logisticSettingsUpdating = ref(false)
 const logisticSettings = [
     
     {type:'slot', slot_name:'self_pickup_form'},
-    {type:'slot', slot_name:'self_delivery_form'},
-
-
+    {type:'slot', slot_name:'seller_deliver_form'},
     {type:'slot', slot_name:'logistic_services'},
     {type:'slot', slot_name:'add_service_button'},
 
-    {type:'buttons' ,class:'text-right', buttons:[
-        {name:'Save', action:'update_logistic_settings', class:'btn-primary w-24'}
-    ]},
+    {type:'slot', slot_name:'save'},
+
+    // {type:'buttons' ,class:'text-right', buttons:[
+    //     {name:'Save', action:'update_logistic_settings', class:'btn-primary w-24'}
+    // ]},
 ]
 const logisticServiceSettings = [
-
-
-    {key:'provider', name:'Logistic Service', class:'w-full', type:'select', placeholder:'Choose a Logistic Service', multiple:false, value_key:'value', name_key:'name', options:[
+    {key:'provider', name:'Logistic Service', class:'w-full intro-y', type:'select', placeholder:'Choose a Logistic Service', multiple:false, value_key:'value', name_key:'name', options:[
             {value:'ecpay', name:'ECPay(T-Cat, 7-11, FamilyMart)'},
         ]},
     {type:'slot', slot_name:'ecpay'},
@@ -292,14 +329,17 @@ const logisticServiceSettings = [
 ]
 
 const paymentSettingsChanged = ref(false)
+const paymentSettingsUpdating = ref(false)
+
 const paymentSettings = [
     
     {type:'slot', slot_name:'payment_services'},
     {type:'slot', slot_name:'add_service_button'},
+    {type:'slot', slot_name:'save'},
 
-    {type:'buttons' ,class:'text-right', buttons:[
-        {name:'Save', action:'update_payment_settings', class:'btn-primary w-24'}
-    ]},
+    // {type:'buttons' ,class:'text-right', buttons:[
+    //     {name:'Save', action:'update_payment_settings', class:'btn-primary w-24'}
+    // ]},
 ]
 
 const paymentServiceSettings = [
@@ -412,18 +452,39 @@ const update = () => {
 
 const updatePaymentSettings = ()=>{
 
-    // console.log(paymentServicesData.value.payment_services)
     console.log(paymentServices.value)
-    paymentSettingsChanged.value=false
+    paymentSettingsUpdating.value = true
+    update_user_payment_services(paymentServices.value).then(res=>{
+        console.log(res.data)
+        paymentServices.value = res.data
+        LSSSellerLayoutStore.user.payment_services = res.data
+        paymentSettingsChanged.value=false
+        paymentSettingsUpdating.value = false
+    }).catch(err=>{
+        paymentSettingsUpdating.value = false
 
-    paymentServicesVuelidate.value.$touch();
-    
-    console.log( paymentServicesVuelidate.value.$each.$response.$errors)
+    })
 
-
-    //json to formdata conversion
 }
 
-const actions = {'update':update, 'update_payment_settings':updatePaymentSettings}
+const updateLogisticSettings = ()=>{
+
+    console.log(logisticServices.value)
+    logisticSettingsUpdating.value = true
+    update_user_logistic_services(logisticServices.value).then(res=>{
+        console.log(res.data)
+        logisticServices.value = res.data
+        LSSSellerLayoutStore.user.logistic_services = res.data
+        logisticSettingsChanged.value=false
+        logisticSettingsUpdating.value = false
+    }).catch(err=>{
+        logisticSettingsUpdating.value = false
+
+    })
+
+
+}
+
+const actions = {'update':update, 'update_payment_settings':updatePaymentSettings, 'update_logistic_settings':updateLogisticSettings}
 
 </script>

@@ -485,7 +485,7 @@ const updateModelValue = ()=>{
   emits('update:modelValue', props.modelValue)
 }
 
-console.log(location.protocol)
+
 const editorConfig = {
   // toolbar:['mediaEmbed'],
   // mediaEmbed: {"previewsInData": "true"},
