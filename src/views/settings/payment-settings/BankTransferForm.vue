@@ -53,7 +53,7 @@ const settings = [
     {key:'bank_name', name:'Bank', type:'input' ,inputType:'text', class:'w-full', unit:'', placeholder:'Bank'},
     {key:'bank_account', name:'Bank Account', type:'input' ,inputType:'text', class:'w-full', unit:'', placeholder:'Bank Account'},
 
-    { key:'bank_image',  name:'Image',type:'image',ref:'dropzoneSingleRef', class:'mx-[20vw]', remove_action:'remove_image'},
+    // { key:'bank_image',  name:'Image',type:'image',ref:'dropzoneSingleRef', class:'mx-[20vw]', remove_action:'remove_image'},
 
 
 ]

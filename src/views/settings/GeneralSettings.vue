@@ -1,6 +1,6 @@
 <template>
     <CrudForm
-        :title="title"    
+        :title="'Currency Settings'"    
         :formSettings="settings"
         :action="actions"
         v-model="data"
@@ -16,7 +16,7 @@
 
     >
         <template v-slot:payment_services >
-            <div v-if="(paymentServices||[]).length<=0" class="text-center my-5">
+            <div v-if="(paymentServices||[]).filter(_paymentService=>!_paymentService?.remove).length<=0" class="text-center my-5">
                 <h3>No Payment Service Added</h3>
             </div>
             <template v-for="paymentService, i in (paymentServices||[])" :key="i">
@@ -27,9 +27,10 @@
                     class="intro-y border-slate border-[1px] rounded p-3 my-2"
                     @change="()=>{paymentSettingsChanged=true}"
                     :error="paymentServicesVuelidate?.$each?.$response?.$errors?.[i]"
+                    v-if="!paymentService.remove"
                 >
                     <template v-slot:remove_button>
-                        <XIcon class="w-6 h-6 right-1 top-1 cursor-pointer absolute text-slate-500" @click="()=>{paymentServices.splice(i,1); paymentSettingsChanged=true}"/>
+                        <XIcon class="w-6 h-6 right-1 top-1 cursor-pointer absolute text-slate-500" @click="()=>{paymentServices[i].provider='';paymentServices[i].remove=true; paymentSettingsChanged=true;}"/>
                     </template>
                     <template v-slot:bank_transfer_form>
                         <BankTransferForm v-model="paymentServices[i]" @change="()=>{paymentSettingsChanged=true}" :error="paymentServicesVuelidate?.$each?.$response?.$errors?.[i]"/>
@@ -143,12 +144,26 @@
         :action="actions"
         v-model="pointSettingsData"
     >
-    
+        <template v-slot:reward_table>
+            <RewardPointTableForm :currency="'SGD'" v-model="pointSettingsData" class="mt-2"/>
+        </template>
+        <template v-slot:save >
+            <button class="btn btn-primary w-fit float-right" @click="updatePointSettings()">
+                <div role="status" v-if="logisticSettingsUpdating">
+                    <svg aria-hidden="true" class="inline w-6 h-6 mx-2 text-gray-200 animate-spin dark:text-gray-600 fill-gray-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
+                        <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
+                    </svg>
+                    <span class="sr-only">Updating...</span>
+                </div>
+                <template v-else>{{ pointSettingsChanged?'Save (Changes not saved yet)':'Save' }}</template>
+            </button>
+        </template>
     </CrudForm>
 
 
     <CrudForm
-        :title="'Message Settings'"    
+        :title="'Message(DM) Settings'"    
         :formSettings="replySettings"
         :action="actions"
         v-model="replySettingsData"
@@ -189,6 +204,7 @@ import SelfPickupForm from './delivery-settings/SelfPickupForm.vue'
 import SellerDeliverForm from './delivery-settings/SellerDeliverForm.vue'
 import ECPayLogisticForm from './delivery-settings/ECPayLogisticForm.vue';
 
+import RewardPointTableForm from './general-settings/RewardPointTableForm.vue';
 
 import {update_user_logistic_services} from '@/api_v3/logistic_service.js'
 import {update_user_payment_services} from '@/api_v3/payment_service.js'
@@ -199,11 +215,9 @@ const LSSSellerLayoutStore = useLSSSellerLayoutStore();
 const title = 'Campaign General Settings'
 const data = ref({})
 
-const paymentServicesData = ref({})
 const paymentServices = ref([])
-
-const logisticServicesData = ref({})
 const logisticServices = ref([])
+
 
 const getPaymentServiceTemplate = ()=>{
     return {
@@ -228,21 +242,21 @@ const getPaymentServiceTemplate = ()=>{
 const paymentServicesRule = computed(()=> {
     return {
         $each: helpers.forEach({
-                provider:{required, },
-                bank_name:{required:requiredIf((_,b)=>{return b?.provider=='bank_transfer'})},
-                bank_account:{required:requiredIf((_,b)=>{return b?.provider=='bank_transfer'})},
+                provider:{required:requiredIf((_,b)=>{return !b?.remove})},
+                bank_name:{required:requiredIf((_,b)=>{return b?.provider=='bank_transfer' && !b?.remove})},
+                bank_account:{required:requiredIf((_,b)=>{return b?.provider=='bank_transfer' && !b?.remove})},
 
-                ecpay_merchant_id:{required:requiredIf((_,b)=>{return b?.provider=='ecpay'})},
-                ecpay_hash_key:{required:requiredIf((_,b)=>{return b?.provider=='ecpay'})},
-                ecpay_hash_iv:{required:requiredIf((_,b)=>{return b?.provider=='ecpay'})},
+                ecpay_merchant_id:{required:requiredIf((_,b)=>{return b?.provider=='ecpay' && !b?.remove})},
+                ecpay_hash_key:{required:requiredIf((_,b)=>{return b?.provider=='ecpay' && !b?.remove})},
+                ecpay_hash_iv:{required:requiredIf((_,b)=>{return b?.provider=='ecpay' && !b?.remove})},
 
-                rapyd_access_key:{required:requiredIf((_,b)=>{return b?.provider=='rapyd'})},
-                rapyd_secret_key:{required:requiredIf((_,b)=>{return b?.provider=='rapyd'})},
-                rapyd_country:{required:requiredIf((_,b)=>{return b?.provider=='rapyd'})},
-                rapyd_currency:{required:requiredIf((_,b)=>{return b?.provider=='rapyd'})},
+                rapyd_access_key:{required:requiredIf((_,b)=>{return b?.provider=='rapyd' && !b?.remove})},
+                rapyd_secret_key:{required:requiredIf((_,b)=>{return b?.provider=='rapyd' && !b?.remove})},
+                rapyd_country:{required:requiredIf((_,b)=>{return b?.provider=='rapyd' && !b?.remove})},
+                rapyd_currency:{required:requiredIf((_,b)=>{return b?.provider=='rapyd' && !b?.remove})},
 
-                stripe_secret_key:{required:requiredIf((_,b)=>{return b?.provider=='stripe'})},
-                stripe_currency:{required:requiredIf((_,b)=>{return b?.provider=='stripe'})},
+                stripe_secret_key:{required:requiredIf((_,b)=>{return b?.provider=='stripe' && !b?.remove})},
+                stripe_currency:{required:requiredIf((_,b)=>{return b?.provider=='stripe' && !b?.remove})},
 
                 
             })
@@ -254,7 +268,7 @@ onMounted(() => {
     console.log(LSSSellerLayoutStore.user)
 
     data.value = JSON.parse(JSON.stringify(LSSSellerLayoutStore?.user?.general_settings||{}))
-    paymentServicesData.value.payment_services = JSON.parse(JSON.stringify(LSSSellerLayoutStore?.user?.payment_services||[]))
+    paymentServices.value = JSON.parse(JSON.stringify(LSSSellerLayoutStore?.user?.payment_services||[]))
     logisticServices.value = JSON.parse(JSON.stringify(LSSSellerLayoutStore?.user?.logistic_services||[]))
 
 
@@ -262,7 +276,15 @@ onMounted(() => {
 
 const logisticSettingsData = ref({})
 const replySettingsData = ref({})
-const pointSettingsData = ref({})
+
+const pointSettingsChanged = ref(false)
+const pointSettingsUpdating = ref(false)
+const pointSettingsData = ref({
+    point_reward_tiers:[],
+    default_point_redemption_rate:1,
+    cash_redemption_rate_cash:1,
+    cash_redemption_rate_points:1,
+})
 const noteSettingsData = ref({})
 
 const settings = [
@@ -307,17 +329,11 @@ const settings = [
 const logisticSettingsChanged = ref(false)
 const logisticSettingsUpdating = ref(false)
 const logisticSettings = [
-    
     {type:'slot', slot_name:'self_pickup_form'},
     {type:'slot', slot_name:'seller_deliver_form'},
     {type:'slot', slot_name:'logistic_services'},
     {type:'slot', slot_name:'add_service_button'},
-
     {type:'slot', slot_name:'save'},
-
-    // {type:'buttons' ,class:'text-right', buttons:[
-    //     {name:'Save', action:'update_logistic_settings', class:'btn-primary w-24'}
-    // ]},
 ]
 const logisticServiceSettings = [
     {key:'provider', name:'Logistic Service', class:'w-full intro-y', type:'select', placeholder:'Choose a Logistic Service', multiple:false, value_key:'value', name_key:'name', options:[
@@ -325,25 +341,16 @@ const logisticServiceSettings = [
         ]},
     {type:'slot', slot_name:'ecpay'},
     {type:'slot', slot_name:'remove_button'},
-
 ]
 
 const paymentSettingsChanged = ref(false)
 const paymentSettingsUpdating = ref(false)
-
 const paymentSettings = [
-    
     {type:'slot', slot_name:'payment_services'},
     {type:'slot', slot_name:'add_service_button'},
     {type:'slot', slot_name:'save'},
-
-    // {type:'buttons' ,class:'text-right', buttons:[
-    //     {name:'Save', action:'update_payment_settings', class:'btn-primary w-24'}
-    // ]},
 ]
-
 const paymentServiceSettings = [
-
     {type:'inline', class:'intro-y', inline_items:[
         {key:'enable', name:'Enable', type:'toggle', class:'mr-2'},
         {key:'provider', name:'Payment Service', class:'w-full', type:'select', placeholder:'Choose a Payment Service', multiple:false, value_key:'value', name_key:'name', options:[
@@ -352,22 +359,16 @@ const paymentServiceSettings = [
             {value:'stripe', name:'Stripe(Credit Card)'},
             {value:'rapyd', name:'Rapyd(Credit Card)'},
         ]},
-
     ]},
-
     {type:'slot', slot_name:'bank_transfer_form'},
     {type:'slot', slot_name:'ecpay_form'},
     {type:'slot', slot_name:'stripe_form'},
     {type:'slot', slot_name:'rapyd_form'},
-
     {type:'slot', slot_name:'remove_button'},
-
 ]
 
 const pointSettings = [
-
-    {key:'allow_guest_checkout', name:'Enable', type:'toggle'},
-
+    {key:'enable', name:'Enable', type:'toggle'},
     {key:'point_validity', name:'Point Validity', type:'select', placeholder:'選擇電子發票服務', multiple:false, value_key:'value', name_key:'name', options:[
                 {value:0, name:'Unlimited'},
                 {value:1, name:'1 Month'},
@@ -383,58 +384,31 @@ const pointSettings = [
                 {value:11, name:'11 Month'},
                 {value:12, name:'12 Month'},
             ]},
-
- 
     {type:'slot', slot_name:'reward_table'},
-    {type:'slot', slot_name:'redemption_rate'},
-
-
     {key:'point_description', name:'Point Descriptions', type:'textarea',},
-
-
-
-    {type:'buttons' ,class:'text-right', buttons:[
-        {name:'Save', action:'update', class:'btn-primary w-24'}
-    ]},
-
-    
-
+    {type:'slot', slot_name:'save'},
 ]
 
 
 
 const replySettings = [
-
-
     {key:'add', name:'Successfully Add Product', type:'accordion_textarea',placeholder:'', class:''},
     {key:'update', name:'Customer Change Quantity', type:'accordion_textarea',placeholder:'', class:'mt-5'},
     {key:'delete', name:'Product Delete From Shopping Cart', type:'accordion_textarea',placeholder:'', class:'mt-5'},
     {key:'oos', name:'Out Of Stock', type:'accordion_textarea', placeholder:'', class:'mt-5'},
-
-
     {type:'buttons' ,class:'text-right', buttons:[
         {name:'Save', action:'update', class:'btn-primary w-24'}
     ]},
-
-    
-
 ]
 
 
 const notesSettings = [
-
-
     {key:'delivery_note', name:'Delivery Note', type:'accordion_textarea',placeholder:'', class:''},
     {key:'special_note', name:'Special Note', type:'accordion_textarea',placeholder:'', class:'mt-5'},
     {key:'confirmation_note', name:'Confirmation Note', type:'accordion_textarea',placeholder:'', class:'mt-5'},
-
-
     {type:'buttons' ,class:'text-right', buttons:[
         {name:'Save', action:'update', class:'btn-primary w-24'}
     ]},
-
-    
-
 ]
 
 
@@ -485,6 +459,28 @@ const updateLogisticSettings = ()=>{
 
 }
 
-const actions = {'update':update, 'update_payment_settings':updatePaymentSettings, 'update_logistic_settings':updateLogisticSettings}
+const updateCurrencySettings = ()=>{}
+const updatePointSettings = ()=>{
+   
+
+    console.log(pointSettingsData.value)
+    // logisticSettingsUpdating.value = true
+    // update_user_logistic_services(logisticServices.value).then(res=>{
+    //     console.log(res.data)
+    //     logisticServices.value = res.data
+    //     LSSSellerLayoutStore.user.logistic_services = res.data
+    //     logisticSettingsChanged.value=false
+    //     logisticSettingsUpdating.value = false
+    // }).catch(err=>{
+    //     logisticSettingsUpdating.value = false
+
+    // })
+
+
+}
+const updateMessageSettings = ()=>{}
+const updateNoteSettings = ()=>{}
+
+const actions = {'update_currency_settings':update,}
 
 </script>
