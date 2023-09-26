@@ -157,7 +157,7 @@ const routes = [
         component: () => import('@/views/create-edit-campaign/CreateCampaign.vue'),
       },
       {
-        path: "campaign-list/campaign-live/:campaign_id?/edit-campaign",
+        path: "campaign-list/campaign-live/:campaign_uuid?/edit-campaign",
         name: "edit-campaign",
         // beforeEnter:(to, from)=>{
         //   return sellerRetrieveCampaignDataMiddleware(to, from);
@@ -314,8 +314,8 @@ const routes = [
       // },  
 
       {  
-        path: "settings/campaign-general-default",
-        name: "testtest",
+        path: "settings/campaign-default-settings",
+        name: "campaign-default-settings",
         // component: () => import('@/views/settings/GeneralSettings.vue'),
         component:GeneralSettings,
       }, 

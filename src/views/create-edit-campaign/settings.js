@@ -106,12 +106,11 @@ export function getDefaultData(user){
         // point_settings:{},
 
         social_platform_connections:[],
-
-        payment_settings:user.payment_settings||{},
-        logistic_settings:user.logistic_settings||{},
-        point_settings:user.point_settings||{},
-        reply_settings:user.reply_settings||{},
-        note_settings:user.note_settings||{}
+        payment_services:user?.payment_services||[],
+        logistic_services:user?.logistic_services||[],
+        point_settings:user?.point_settings||{},
+        reply_settings:user?.reply_settings||{},
+        note_settings:user?.note_settings||{}
     }
     return defaultData
 }

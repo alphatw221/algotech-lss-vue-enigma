@@ -1,38 +1,37 @@
 <template>
-    <h3 class="text-lg">Connected Platforms</h3>
+        <h3 class="text-lg">Connected Platforms</h3>
 
-	<div class="p-5 box mt-2 relative">
-        <div class="flex flex-row">
-            <template v-if="(props?.modelValue||[]).length<=0">
-                <h3 class="w-full text-center">No platform connected</h3>
-            </template>
+        <div class="p-5 box mt-2 relative">
+            <div class="flex flex-row">
+                <template v-if="(props?.modelValue||[]).length<=0">
+                    <h3 class="w-full text-center">No platform connected</h3>
+                </template>
 
-            <template v-for="socialPlatformConnection, i in (props?.modelValue||[])" :key="i">
-                <SocialPlatformConnection v-model="props.modelValue[i]" :remove="getRemoveFunc(i)" class="mx-2"/>
-            </template>
+                <template v-for="socialPlatformConnection, i in (props?.modelValue||[])" :key="i">
+                    <SocialPlatformConnection v-model="props.modelValue[i]" :remove="getRemoveFunc(i)" class="mx-2"/>
+                </template>
+            </div>
+
+            <div class="absolute top-1/2 right-[20px] translate-y-[-50%] ">
+                <button class="btn btn-primary rounded-[50%]" @click="()=>{showSocialPlatformList=true}">
+                    <PlusIcon/>
+                </button>
+            </div>
+
+
+
+        <Modal :show="showSocialPlatformList" @hidden="()=>{showSocialPlatformList=false}" >
+            <ModalHeader>
+                <h3>My Socail Platform Connections</h3>
+            </ModalHeader>
+            <ModalBody >
+                <SocialPlatformList :addSocialPlatformConnection="addSocialPlatformConnection" :socialPlatformConnections="props?.modelValue||[]"/>
+            </ModalBody>
+        </Modal>
+
+        
+
         </div>
-
-		<div class="absolute top-1/2 right-[20px] translate-y-[-50%] ">
-			<button class="btn btn-primary rounded-[50%]" @click="()=>{showSocialPlatformList=true}">
-                <PlusIcon/>
-            </button>
-		</div>
-
-
-
-    <Modal :show="showSocialPlatformList" @hidden="()=>{showSocialPlatformList=false}" >
-        <ModalHeader>
-            <h3>My Socail Platform Connections</h3>
-        </ModalHeader>
-        <ModalBody >
-            <SocialPlatformList :addSocialPlatformConnection="addSocialPlatformConnection" :socialPlatformConnections="props?.modelValue||[]"/>
-        </ModalBody>
-    </Modal>
-
-    
-
-	</div>
-   
 </template>  
 
 <script setup>
@@ -76,6 +75,7 @@ const addSocialPlatformConnection = (socialPlatformAccount)=>{
     }else{
         props.modelValue.push({social_platform_account:socialPlatformAccount, post_id:''})
         showSocialPlatformList.value = false
+        updateModelValue()
     }
 
 }

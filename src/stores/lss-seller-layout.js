@@ -72,7 +72,7 @@ export const useLSSSellerLayoutStore = defineStore("sellerLayout", {
         title: "settings",
         subMenu: [
           {
-            pageName: "testtest",
+            pageName: "campaign-default-settings",
             title: "campaign_default_setting",
           },
           {

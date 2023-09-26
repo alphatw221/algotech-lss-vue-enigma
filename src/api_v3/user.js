@@ -19,6 +19,21 @@ export const get_user_account = () =>{
 }
 
 
+export const update_user_currency = (data) =>{
+    return createUserAxios().put(`/api/v3/lss/user/currency/update/`,data);
+}
+
+export const update_user_reply_settings = (data) =>{
+    return createUserAxios().put(`/api/v3/lss/user/reply_settings/update/`,data);
+}
+
+export const update_user_point_settings = (data) =>{
+    return createUserAxios().put(`/api/v3/lss/user/point_settings/update/`,data);
+}
+
+export const update_user_note_settings = (data) =>{
+    return createUserAxios().put(`/api/v3/lss/user/note_settings/update/`,data);
+}
 
 // export const get_seller_account = () =>{
 //     return createAxios().get(`/api/v2/user/seller/account/`);

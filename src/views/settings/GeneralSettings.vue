@@ -1,19 +1,33 @@
 <template>
+    <!-- Currency Settings -->
     <CrudForm
         :title="'Currency Settings'"    
-        :formSettings="settings"
+        :formSettings="currencySettings"
         :action="actions"
-        v-model="data"
+        v-model="currencySettingsData"
+        @change="()=>{currencySettingsChanged=true}"
+
     >
-    
+        <template v-slot:save >
+            <button class="btn btn-primary w-fit float-right mt-2" @click="updateCurrencySettings()" :disabled="currencySettingsUpdating">
+                <div role="status" v-if="currencySettingsUpdating">
+                    <svg aria-hidden="true" class="inline w-6 h-6 mx-2 text-gray-200 animate-spin dark:text-gray-600 fill-gray-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
+                        <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
+                    </svg>
+                    <span class="sr-only">Updating...</span>
+                </div>
+                <template v-else>{{ currencySettingsChanged?'Save (Changes not saved yet)':'Save' }}</template>
+            </button>
+        </template>
     </CrudForm>
 
+    <!-- Payment Settings -->
     <CrudForm
         :title="'Payment Settings'"    
         :formSettings="paymentSettings"
         :action="actions"
         class="intro-y"
-
     >
         <template v-slot:payment_services >
             <div v-if="(paymentServices||[]).filter(_paymentService=>!_paymentService?.remove).length<=0" class="text-center my-5">
@@ -47,7 +61,6 @@
                 </CrudWidge>
             </template>
         </template>
-
         <template v-slot:add_service_button >
             <div class="text-center my-2">
                 <button class="btn btn-primary rounded-[50%]" @click="()=>{ (paymentServices||[]).push(getPaymentServiceTemplate());paymentSettingsChanged=true}">
@@ -55,9 +68,8 @@
                 </button>
             </div>
         </template>
-
         <template v-slot:save >
-            <button class="btn btn-primary w-fit float-right" @click="updatePaymentSettings()">
+            <button class="btn btn-primary w-fit float-right" @click="updatePaymentSettings()" :disabled="paymentSettingsUpdating">
                 <div role="status" v-if="paymentSettingsUpdating">
                     <svg aria-hidden="true" class="inline w-6 h-6 mx-2 text-gray-200 animate-spin dark:text-gray-600 fill-gray-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
@@ -68,8 +80,6 @@
                 <template v-else>{{ paymentSettingsChanged?'Save (Changes not saved yet)':'Save' }}</template>
             </button>
         </template>
-
-
     </CrudForm>
 
 
@@ -78,17 +88,14 @@
         :title="'Logistic Settings'"    
         :formSettings="logisticSettings"
         :action="actions"
-        v-model="logisticSettingsData"
         class="intro-y"
     >
         <template v-slot:self_pickup_form>
             <SelfPickupForm v-model="logisticServices" @update:modelValue="()=>{logisticSettingsChanged=true}" @change="()=>{logisticSettingsChanged=true}" :getLogisticServiceTemplate="()=>{return {provider:'self_pickup'}}"/>
         </template>
-        
         <template v-slot:seller_deliver_form>
             <SellerDeliverForm v-model="logisticServices" @update:modelValue="()=>{logisticSettingsChanged=true}" @change="()=>{logisticSettingsChanged=true}" :getLogisticServiceTemplate="()=>{return {provider:'seller_deliver'}}"/>
         </template>
-
         <template v-slot:logistic_services >
             <h3 class="text-base">Logistic Services</h3>
             <div v-if="(logisticServices||[]).filter(_logisticService=>_logisticService?.provider!='self_pickup'&&_logisticService?.provider!='seller_deliver'&&!_logisticService?.remove)?.length<=0" class="text-center my-5">
@@ -102,20 +109,16 @@
                     v-model="logisticServices[i]"
                     class="intro-y border-slate border-[1px] rounded p-3 my-2"
                     @change="()=>{logisticSettingsChanged=true}"
-
                 >
-
                     <template v-slot:ecpay>
                         <ECPayLogisticForm v-model="logisticServices[i]" @change="()=>{logisticSettingsChanged=true}" />
                     </template>
-
                     <template v-slot:remove_button>
                         <XIcon class="w-6 h-6 right-1 top-1 cursor-pointer absolute text-slate-500" @click="()=>{logisticServices[i].provider='';logisticServices[i].remove=true; logisticSettingsChanged=true }"/>
                     </template>
                 </CrudWidge>
             </template>
         </template>
-
         <template v-slot:add_service_button >
             <div class="text-center my-2">
                 <button class="btn btn-primary rounded-[50%]" @click="()=>{ (logisticServices||[]).push({provider:''});logisticSettingsChanged=true}">
@@ -123,9 +126,8 @@
                 </button>
             </div>
         </template>
-
         <template v-slot:save >
-            <button class="btn btn-primary w-fit float-right" @click="updateLogisticSettings()">
+            <button class="btn btn-primary w-fit float-right" @click="updateLogisticSettings()" :disabled="logisticSettingsUpdating">
                 <div role="status" v-if="logisticSettingsUpdating">
                     <svg aria-hidden="true" class="inline w-6 h-6 mx-2 text-gray-200 animate-spin dark:text-gray-600 fill-gray-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
@@ -138,18 +140,20 @@
         </template>
     </CrudForm>
 
+    <!-- Point Settings -->
     <CrudForm
         :title="'Point Settings'"    
         :formSettings="pointSettings"
         :action="actions"
         v-model="pointSettingsData"
+        @change="()=>{pointSettingsChanged=true}"
     >
         <template v-slot:reward_table>
-            <RewardPointTableForm :currency="'SGD'" v-model="pointSettingsData" class="mt-2"/>
+            <RewardPointTableForm :currency="'SGD'" v-model="pointSettingsData" class="mt-2" @update:modelValue="()=>{pointSettingsChanged=true}" />
         </template>
         <template v-slot:save >
-            <button class="btn btn-primary w-fit float-right" @click="updatePointSettings()">
-                <div role="status" v-if="logisticSettingsUpdating">
+            <button class="btn btn-primary w-fit float-right mt-2" @click="updatePointSettings()" :disabled="pointSettingsUpdating">
+                <div role="status" v-if="pointSettingsUpdating">
                     <svg aria-hidden="true" class="inline w-6 h-6 mx-2 text-gray-200 animate-spin dark:text-gray-600 fill-gray-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
                         <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
@@ -161,24 +165,49 @@
         </template>
     </CrudForm>
 
-
+    <!-- Reply Settings -->
     <CrudForm
         :title="'Message(DM) Settings'"    
         :formSettings="replySettings"
         :action="actions"
         v-model="replySettingsData"
+        @change="()=>{replySettingsChanged=true}"
     >
-    
+        <template v-slot:save >
+            <button class="btn btn-primary w-fit float-right mt-2" @click="updateReplySettings()" :disabled="replySettingsUpdating">
+                <div role="status" v-if="replySettingsUpdating">
+                    <svg aria-hidden="true" class="inline w-6 h-6 mx-2 text-gray-200 animate-spin dark:text-gray-600 fill-gray-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
+                        <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
+                    </svg>
+                    <span class="sr-only">Updating...</span>
+                </div>
+                <template v-else>{{ replySettingsChanged?'Save (Changes not saved yet)':'Save' }}</template>
+            </button>
+        </template>
     </CrudForm>
 
-
+    <!-- Note Settings -->
     <CrudForm
         :title="'Note Settings'"    
         :formSettings="notesSettings"
         :action="actions"
         v-model="noteSettingsData"
+        @change="()=>{noteSettingsChanged=true}"
+        class="mb-10"
     >
-    
+        <template v-slot:save >
+            <button class="btn btn-primary w-fit float-right mt-2" @click="updateNoteSettings()" :disabled="noteSettingsUpdating">
+                <div role="status" v-if="noteSettingsUpdating">
+                    <svg aria-hidden="true" class="inline w-6 h-6 mx-2 text-gray-200 animate-spin dark:text-gray-600 fill-gray-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
+                        <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
+                    </svg>
+                    <span class="sr-only">Updating...</span>
+                </div>
+                <template v-else>{{ noteSettingsChanged?'Save (Changes not saved yet)':'Save' }}</template>
+            </button>
+        </template>
     </CrudForm>
 
 </template>
@@ -187,11 +216,8 @@
 import CrudForm from '@/views/crud-form-lss/Main.vue'
 import CrudWidge from '@/views/crud-form-lss/CrudWidge.vue'
 import { ref, onMounted, reactive, computed } from 'vue';
-// import { get_general_info, update_general_info } from '@/api_v2/user_subscription'
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 // import i18n from "@/locales/i18n"
-// import PointsSettingsVue from './PointsSettings.vue';
-// import MessageSettingsVue from './MessageSettings.vue';
 import { useVuelidate } from "@vuelidate/core";
 import { helpers, required, requiredIf } from "@vuelidate/validators";
 
@@ -208,102 +234,38 @@ import RewardPointTableForm from './general-settings/RewardPointTableForm.vue';
 
 import {update_user_logistic_services} from '@/api_v3/logistic_service.js'
 import {update_user_payment_services} from '@/api_v3/payment_service.js'
-
+import { 
+    update_user_currency, 
+    update_user_reply_settings, 
+    update_user_point_settings, 
+    update_user_note_settings} from '@/api_v3/user.js'
+import { useToast } from "vue-toastification";
+const toast = useToast();
+  
 const LSSSellerLayoutStore = useLSSSellerLayoutStore();
 
 
-const title = 'Campaign General Settings'
-const data = ref({})
-
-const paymentServices = ref([])
-const logisticServices = ref([])
 
 
-const getPaymentServiceTemplate = ()=>{
-    return {
-        provider:'',
-        bank_account:'', 
-        bank_name:'', 
-        
-        ecpay_merchant_id:'',
-        ecpay_hash_key:'',
-        ecpay_hash_iv:'',
-
-        rapyd_access_key:'',
-        rapyd_secret_key:'',
-        rapyd_country:'',
-        rapyd_currency:'',
-
-        stripe_secret_key:'',
-        stripe_currency:'',
-            
-    }
-}
-const paymentServicesRule = computed(()=> {
-    return {
-        $each: helpers.forEach({
-                provider:{required:requiredIf((_,b)=>{return !b?.remove})},
-                bank_name:{required:requiredIf((_,b)=>{return b?.provider=='bank_transfer' && !b?.remove})},
-                bank_account:{required:requiredIf((_,b)=>{return b?.provider=='bank_transfer' && !b?.remove})},
-
-                ecpay_merchant_id:{required:requiredIf((_,b)=>{return b?.provider=='ecpay' && !b?.remove})},
-                ecpay_hash_key:{required:requiredIf((_,b)=>{return b?.provider=='ecpay' && !b?.remove})},
-                ecpay_hash_iv:{required:requiredIf((_,b)=>{return b?.provider=='ecpay' && !b?.remove})},
-
-                rapyd_access_key:{required:requiredIf((_,b)=>{return b?.provider=='rapyd' && !b?.remove})},
-                rapyd_secret_key:{required:requiredIf((_,b)=>{return b?.provider=='rapyd' && !b?.remove})},
-                rapyd_country:{required:requiredIf((_,b)=>{return b?.provider=='rapyd' && !b?.remove})},
-                rapyd_currency:{required:requiredIf((_,b)=>{return b?.provider=='rapyd' && !b?.remove})},
-
-                stripe_secret_key:{required:requiredIf((_,b)=>{return b?.provider=='stripe' && !b?.remove})},
-                stripe_currency:{required:requiredIf((_,b)=>{return b?.provider=='stripe' && !b?.remove})},
-
-                
-            })
-    }
-})
-const paymentServicesVuelidate = useVuelidate(paymentServicesRule, paymentServices);
-
-onMounted(() => {
-    console.log(LSSSellerLayoutStore.user)
-
-    data.value = JSON.parse(JSON.stringify(LSSSellerLayoutStore?.user?.general_settings||{}))
-    paymentServices.value = JSON.parse(JSON.stringify(LSSSellerLayoutStore?.user?.payment_services||[]))
-    logisticServices.value = JSON.parse(JSON.stringify(LSSSellerLayoutStore?.user?.logistic_services||[]))
-
-
-})
-
-const logisticSettingsData = ref({})
-const replySettingsData = ref({})
-
-const pointSettingsChanged = ref(false)
-const pointSettingsUpdating = ref(false)
-const pointSettingsData = ref({
-    point_reward_tiers:[],
-    default_point_redemption_rate:1,
-    cash_redemption_rate_cash:1,
-    cash_redemption_rate_points:1,
-})
-const noteSettingsData = ref({})
-
-const settings = [
+const currencySettingsData = ref({})
+const currencySettingsChanged = ref(false)
+const currencySettingsUpdating = ref(false)
+const currencySettings = [
     {key:'currency', name:'Currency', type:'select', placeholder:'選擇電子發票服務', multiple:false, value_key:'value', name_key:'value', options:[
-                {value:'TWD', name:'台幣'},
-                {value:'SGD', name:'新加坡幣'},
-                {value:'MYR', name:'馬來西亞令吉'},
                 {value:'USD', name:'美金'},
+                {value:'SGD', name:'新加坡幣'},
+                {value:'TWD', name:'台幣'},
+                {value:'VND', name:'越南盾'},
+                {value:'MYR', name:'馬來西亞令吉'},
+                {value:'KRW', name:'韓元'},
                 {value:'AUD', name:'澳幣'},
                 {value:'JPY', name:'日圓'},
                 {value:'EUR', name:'歐元'},
                 {value:'RMB', name:'人民幣'},
-                {value:'KRW', name:'韓元'},
                 {value:'PHP', name:'菲律賓披索'},
-                {value:'VND', name:'越南盾'},
                 {value:'THB', name:'泰銖'},
-                {value:'IDR', name:'台幣'},
+                {value:'IDR', name:'印尼盾'},
             ]},
-
     {key:'currency_symbol', name:'Currency Symbol', type:'select', placeholder:'選擇電子發票服務', multiple:false, value_key:'name', name_key:'name', options:[
                 {name:'$'},
                 {name:'NT$'},
@@ -318,31 +280,10 @@ const settings = [
                 {name:'Rp'},
                 {name:'S$'},
     ]},
-
-
-
-    {type:'buttons' ,class:'text-right', buttons:[
-        {name:'Save', action:'update', class:'btn-primary w-24'}
-    ]},
-]
-
-const logisticSettingsChanged = ref(false)
-const logisticSettingsUpdating = ref(false)
-const logisticSettings = [
-    {type:'slot', slot_name:'self_pickup_form'},
-    {type:'slot', slot_name:'seller_deliver_form'},
-    {type:'slot', slot_name:'logistic_services'},
-    {type:'slot', slot_name:'add_service_button'},
     {type:'slot', slot_name:'save'},
 ]
-const logisticServiceSettings = [
-    {key:'provider', name:'Logistic Service', class:'w-full intro-y', type:'select', placeholder:'Choose a Logistic Service', multiple:false, value_key:'value', name_key:'name', options:[
-            {value:'ecpay', name:'ECPay(T-Cat, 7-11, FamilyMart)'},
-        ]},
-    {type:'slot', slot_name:'ecpay'},
-    {type:'slot', slot_name:'remove_button'},
-]
 
+const paymentServices = ref([])
 const paymentSettingsChanged = ref(false)
 const paymentSettingsUpdating = ref(false)
 const paymentSettings = [
@@ -366,7 +307,68 @@ const paymentServiceSettings = [
     {type:'slot', slot_name:'rapyd_form'},
     {type:'slot', slot_name:'remove_button'},
 ]
+const getPaymentServiceTemplate = ()=>{
+    return {
+        provider:'',
+        bank_account:'', 
+        bank_name:'', 
+        ecpay_merchant_id:'',
+        ecpay_hash_key:'',
+        ecpay_hash_iv:'',
+        rapyd_access_key:'',
+        rapyd_secret_key:'',
+        rapyd_country:'',
+        rapyd_currency:'',
+        stripe_secret_key:'',
+        stripe_currency:'',
+    }
+}
+const paymentServicesRule = computed(()=> {
+    return {
+        $each: helpers.forEach({
+                provider:{required:requiredIf((_,b)=>{return !b?.remove})},
+                bank_name:{required:requiredIf((_,b)=>{return b?.provider=='bank_transfer' && !b?.remove})},
+                bank_account:{required:requiredIf((_,b)=>{return b?.provider=='bank_transfer' && !b?.remove})},
+                ecpay_merchant_id:{required:requiredIf((_,b)=>{return b?.provider=='ecpay' && !b?.remove})},
+                ecpay_hash_key:{required:requiredIf((_,b)=>{return b?.provider=='ecpay' && !b?.remove})},
+                ecpay_hash_iv:{required:requiredIf((_,b)=>{return b?.provider=='ecpay' && !b?.remove})},
+                rapyd_access_key:{required:requiredIf((_,b)=>{return b?.provider=='rapyd' && !b?.remove})},
+                rapyd_secret_key:{required:requiredIf((_,b)=>{return b?.provider=='rapyd' && !b?.remove})},
+                rapyd_country:{required:requiredIf((_,b)=>{return b?.provider=='rapyd' && !b?.remove})},
+                rapyd_currency:{required:requiredIf((_,b)=>{return b?.provider=='rapyd' && !b?.remove})},
+                stripe_secret_key:{required:requiredIf((_,b)=>{return b?.provider=='stripe' && !b?.remove})},
+                stripe_currency:{required:requiredIf((_,b)=>{return b?.provider=='stripe' && !b?.remove})},
+            })
+    }
+})
+const paymentServicesVuelidate = useVuelidate(paymentServicesRule, paymentServices);
 
+const logisticServices = ref([])
+const logisticSettingsChanged = ref(false)
+const logisticSettingsUpdating = ref(false)
+const logisticSettings = [
+    {type:'slot', slot_name:'self_pickup_form'},
+    {type:'slot', slot_name:'seller_deliver_form'},
+    {type:'slot', slot_name:'logistic_services'},
+    {type:'slot', slot_name:'add_service_button'},
+    {type:'slot', slot_name:'save'},
+]
+const logisticServiceSettings = [
+    {key:'provider', name:'Logistic Service', class:'w-full intro-y', type:'select', placeholder:'Choose a Logistic Service', multiple:false, value_key:'value', name_key:'name', options:[
+            {value:'ecpay', name:'ECPay(T-Cat, 7-11, FamilyMart)'},
+        ]},
+    {type:'slot', slot_name:'ecpay'},
+    {type:'slot', slot_name:'remove_button'},
+]
+
+const pointSettingsChanged = ref(false)
+const pointSettingsUpdating = ref(false)
+const pointSettingsData = ref({
+    point_reward_tiers:[],
+    default_point_redemption_rate:1,
+    cash_redemption_rate_cash:1,
+    cash_redemption_rate_points:1,
+})
 const pointSettings = [
     {key:'enable', name:'Enable', type:'toggle'},
     {key:'point_validity', name:'Point Validity', type:'select', placeholder:'選擇電子發票服務', multiple:false, value_key:'value', name_key:'name', options:[
@@ -389,39 +391,39 @@ const pointSettings = [
     {type:'slot', slot_name:'save'},
 ]
 
-
-
+const replySettingsChanged = ref(false)
+const replySettingsUpdating = ref(false)
+const replySettingsData = ref({})
 const replySettings = [
     {key:'add', name:'Successfully Add Product', type:'accordion_textarea',placeholder:'', class:''},
     {key:'update', name:'Customer Change Quantity', type:'accordion_textarea',placeholder:'', class:'mt-5'},
     {key:'delete', name:'Product Delete From Shopping Cart', type:'accordion_textarea',placeholder:'', class:'mt-5'},
     {key:'oos', name:'Out Of Stock', type:'accordion_textarea', placeholder:'', class:'mt-5'},
-    {type:'buttons' ,class:'text-right', buttons:[
-        {name:'Save', action:'update', class:'btn-primary w-24'}
-    ]},
+    {type:'slot', slot_name:'save'},
 ]
 
-
+const noteSettingsChanged = ref(false)
+const noteSettingsUpdating = ref(false)
+const noteSettingsData = ref({})
 const notesSettings = [
     {key:'delivery_note', name:'Delivery Note', type:'accordion_textarea',placeholder:'', class:''},
     {key:'special_note', name:'Special Note', type:'accordion_textarea',placeholder:'', class:'mt-5'},
     {key:'confirmation_note', name:'Confirmation Note', type:'accordion_textarea',placeholder:'', class:'mt-5'},
-    {type:'buttons' ,class:'text-right', buttons:[
-        {name:'Save', action:'update', class:'btn-primary w-24'}
-    ]},
+    {type:'slot', slot_name:'save'},
 ]
 
+onMounted(() => {
+    console.log(LSSSellerLayoutStore.user)
+    currencySettingsData.value = {currency:LSSSellerLayoutStore?.user?.currency||'USD' , currency_symbol:LSSSellerLayoutStore?.user?.currency_symbol||'$'}
+    paymentServices.value = JSON.parse(JSON.stringify(LSSSellerLayoutStore?.user?.payment_services||[]))
+    logisticServices.value = JSON.parse(JSON.stringify(LSSSellerLayoutStore?.user?.logistic_services||[]))
+    replySettingsData.value = {...replySettingsData.value, ...JSON.parse(JSON.stringify(LSSSellerLayoutStore?.user?.reply_settings||{}))}
+    pointSettingsData.value = {...pointSettingsData.value, ...JSON.parse(JSON.stringify(LSSSellerLayoutStore?.user?.point_settings||{}))}
+    noteSettingsData.value = {...noteSettingsData.value, ...JSON.parse(JSON.stringify(LSSSellerLayoutStore?.user?.note_settings||{}))}
+})
 
-
-const update = () => {
-    // console.log(generalInfo.value)
-    // update_general_info(generalInfo.value, layoutStore.alert).then(res => {
-    //     layoutStore.userInfo = res.data
-    //     document.querySelector('#lss-content').scrollTo(0, -70)
-    //     layoutStore.notification.showMessageToast(i18n.global.t('settings.update_successfully'))
-    //     // console.log(layoutStore.userInfo)
-    // })
-    console.log('')
+const toastUpdateSuccess = ()=>{
+    toast.success("Update successful");
 }
 
 const updatePaymentSettings = ()=>{
@@ -434,6 +436,7 @@ const updatePaymentSettings = ()=>{
         LSSSellerLayoutStore.user.payment_services = res.data
         paymentSettingsChanged.value=false
         paymentSettingsUpdating.value = false
+        toastUpdateSuccess()
     }).catch(err=>{
         paymentSettingsUpdating.value = false
 
@@ -451,6 +454,7 @@ const updateLogisticSettings = ()=>{
         LSSSellerLayoutStore.user.logistic_services = res.data
         logisticSettingsChanged.value=false
         logisticSettingsUpdating.value = false
+        toastUpdateSuccess()
     }).catch(err=>{
         logisticSettingsUpdating.value = false
 
@@ -459,28 +463,58 @@ const updateLogisticSettings = ()=>{
 
 }
 
-const updateCurrencySettings = ()=>{}
+const updateCurrencySettings = ()=>{
+    console.log(currencySettingsData.value)
+    currencySettingsUpdating.value = true
+    update_user_currency(currencySettingsData.value).then(res=>{
+        LSSSellerLayoutStore.user = {...LSSSellerLayoutStore.user, ...currencySettingsData.value}
+        currencySettingsChanged.value=false
+        currencySettingsUpdating.value = false
+        toastUpdateSuccess()
+    }).catch(err=>{
+        currencySettingsUpdating.value = false
+    })
+}
 const updatePointSettings = ()=>{
    
-
     console.log(pointSettingsData.value)
-    // logisticSettingsUpdating.value = true
-    // update_user_logistic_services(logisticServices.value).then(res=>{
-    //     console.log(res.data)
-    //     logisticServices.value = res.data
-    //     LSSSellerLayoutStore.user.logistic_services = res.data
-    //     logisticSettingsChanged.value=false
-    //     logisticSettingsUpdating.value = false
-    // }).catch(err=>{
-    //     logisticSettingsUpdating.value = false
-
-    // })
+    pointSettingsUpdating.value = true
+    update_user_point_settings({'point_settings':pointSettingsData.value}).then(res=>{
+        LSSSellerLayoutStore.user = {...LSSSellerLayoutStore.user, point_settings:pointSettingsData.value}
+        pointSettingsChanged.value=false
+        pointSettingsUpdating.value = false
+        toastUpdateSuccess()
+    }).catch(err=>{
+        pointSettingsUpdating.value = false
+    })
 
 
 }
-const updateMessageSettings = ()=>{}
-const updateNoteSettings = ()=>{}
+const updateReplySettings = ()=>{
+    console.log(replySettingsData.value)
+    replySettingsUpdating.value = true
+    update_user_reply_settings({'reply_settings':replySettingsData.value}).then(res=>{
+        LSSSellerLayoutStore.user = {...LSSSellerLayoutStore.user, reply_settings:replySettingsData.value}
+        replySettingsChanged.value=false
+        replySettingsUpdating.value = false
+        toastUpdateSuccess()
+    }).catch(err=>{
+        replySettingsUpdating.value = false
+    })
+}
+const updateNoteSettings = ()=>{
+    console.log(noteSettingsData.value)
+    noteSettingsUpdating.value = true
+    update_user_note_settings({'note_settings':noteSettingsData.value}).then(res=>{
+        LSSSellerLayoutStore.user = {...LSSSellerLayoutStore.user, note_settings:noteSettingsData.value}
+        noteSettingsChanged.value=false
+        noteSettingsUpdating.value = false
+        toastUpdateSuccess()
+    }).catch(err=>{
+        noteSettingsUpdating.value = false
+    })
+}
 
-const actions = {'update_currency_settings':update,}
+const actions = {}
 
 </script>
