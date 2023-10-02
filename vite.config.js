@@ -30,6 +30,7 @@ export default defineConfig({
     vue(), 
     mkcert(),
     vueI18n({
+      runtimeOnly: false,
       // you need to set i18n resource including paths !
       include: path.resolve(__dirname, './src/locales/**')
     })
