@@ -529,52 +529,52 @@ const routes = [
 
  // -------------------------------Dealer Route-----------------------------
 
- {
-  path: "/dealer",
-  component: LSSDealerLayout,
-  beforeEnter: isDealerMiddleware,
-  children: [
-    {
-      path: "dashboard",
-      name: "dashboard",
-      component: () => import('@/views/dealer-dashboard/Main.vue')
-    },
-    {
-      path: "accounts",
-      name: "accounts",
-      component: () => import('@/views/dealer-accounts/Main.vue')
-    },
-    {
-      path: "transactions",
-      name: "transactions",
-      component: () => import('@/views/dealer-transactions/Main.vue')
-    },
-    // {
-    //   path: "plans",
-    //   name: "plans",
-    //   component: () => import('@/views/dealer-plans/Main.vue')
-    // },
-    {
-      path: "licenses",
-      name: "licenses",
-      component: () => import('@/views/dealer-licenses/Main.vue')
-    },
-    {
-      path: "sellers",
-      name: "sellers",
-      component: () => import('@/views/dealer-sellers/Main.vue')
-    },
-    {
-      path: "buyers",
-      name: "buyers",
-      component: () => import('@/views/dealer-buyers/Main.vue')
-    },
-    {
-      path: "settings",
-      name: "dealer-settings",
-      component: () => import('@/views/dealer-settings/Main.vue')
-    }]
-  },
+//  {
+//   path: "/dealer",
+//   component: LSSDealerLayout,
+//   beforeEnter: isDealerMiddleware,
+//   children: [
+//     {
+//       path: "dashboard",
+//       name: "dashboard",
+//       component: () => import('@/views/dealer-dashboard/Main.vue')
+//     },
+//     {
+//       path: "accounts",
+//       name: "accounts",
+//       component: () => import('@/views/dealer-accounts/Main.vue')
+//     },
+//     {
+//       path: "transactions",
+//       name: "transactions",
+//       component: () => import('@/views/dealer-transactions/Main.vue')
+//     },
+//     // {
+//     //   path: "plans",
+//     //   name: "plans",
+//     //   component: () => import('@/views/dealer-plans/Main.vue')
+//     // },
+//     {
+//       path: "licenses",
+//       name: "licenses",
+//       component: () => import('@/views/dealer-licenses/Main.vue')
+//     },
+//     {
+//       path: "sellers",
+//       name: "sellers",
+//       component: () => import('@/views/dealer-sellers/Main.vue')
+//     },
+//     {
+//       path: "buyers",
+//       name: "buyers",
+//       component: () => import('@/views/dealer-buyers/Main.vue')
+//     },
+//     {
+//       path: "settings",
+//       name: "dealer-settings",
+//       component: () => import('@/views/dealer-settings/Main.vue')
+//     }]
+//   },
 
  // -------------------------------Admin Route-----------------------------
   {
