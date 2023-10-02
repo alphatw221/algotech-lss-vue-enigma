@@ -549,11 +549,11 @@ const routes = [
       name: "transactions",
       component: () => import('@/views/dealer-transactions/Main.vue')
     },
-    {
-      path: "plans",
-      name: "plans",
-      component: () => import('@/views/dealer-plans/Main.vue')
-    },
+    // {
+    //   path: "plans",
+    //   name: "plans",
+    //   component: () => import('@/views/dealer-plans/Main.vue')
+    // },
     {
       path: "licenses",
       name: "licenses",
