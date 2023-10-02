@@ -1,0 +1,596 @@
+{
+  "src/main.js": {
+    "file": "assets/lss.js",
+    "src": "src/main.js",
+    "isEntry": true,
+    "dynamicImports": [
+      "src/views/mkt-plugin/lucky-draw/DrawFlow.vue",
+      "src/views/create-campaign/Main.vue",
+      "src/views/mkt-plugin/lucky-draw/LuckyDrawList.vue",
+      "src/views/mkt-plugin/lucky-draw/CreateEditLuckyDraw.vue",
+      "src/views/mkt-plugin/quiz-game/Main.vue",
+      "src/views/edit-campaign/Main.vue",
+      "src/views/edit-campaign-product/Main.vue",
+      "src/views/settings/Main.vue",
+      "src/views/stock/Main.vue",
+      "src/views/add-product/Main.vue",
+      "src/views/category-management/Main.vue",
+      "src/views/seller-buyers/Main.vue",
+      "src/views/seller-buyers/order-history/Main.vue",
+      "src/views/seller-buyers/points/Main.vue",
+      "src/views/seller-registration/Main.vue",
+      "src/views/seller-registration/TrialSignUp.vue",
+      "src/views/general/LoginPage.vue",
+      "src/views/general/ForgotPasswordPage.vue",
+      "src/views/password-reset/Main.vue",
+      "src/views/general/DealerLoginPage.vue",
+      "src/views/general/AdminLoginPage.vue",
+      "src/plugin/easy-store/views/AuthorizationPage.vue",
+      "src/views/test/test7.vue",
+      "src/views/general/BuyerLoginPage.vue",
+      "src/views/buyer-search-tiktok-cart/Main.vue",
+      "src/views/buyer-recaptcha/Main.vue",
+      "src/views/buyer-points/Main.vue",
+      "src/views/buyer-order-history/Main.vue",
+      "src/views/buyer-order-detail/Main.vue",
+      "src/views/buyer-order-payment/Main.vue",
+      "src/views/buyer-order-confirmation/Main.vue",
+      "src/views/buyer-order-awaiting-confirm/Main.vue",
+      "src/views/shoppingcart_v2/Main.vue",
+      "src/views/recommand/RecommandPlatformPage.vue",
+      "src/views/account-import/Main.vue"
+    ],
+    "css": [
+      "assets/lss_lss.css"
+    ],
+    "assets": [
+      "assets/bg-login-page-dark_lss.svg",
+      "assets/bg-login-page_lss.svg",
+      "assets/collect_lss.svg",
+      "assets/delivery_lss.svg",
+      "assets/error-illustration_lss.svg",
+      "assets/food-beverage-1_lss.jpg",
+      "assets/food-beverage-10_lss.jpg",
+      "assets/food-beverage-11_lss.jpg",
+      "assets/food-beverage-12_lss.jpg",
+      "assets/food-beverage-13_lss.jpg",
+      "assets/food-beverage-14_lss.jpg",
+      "assets/food-beverage-15_lss.jpg",
+      "assets/food-beverage-16_lss.jpg",
+      "assets/food-beverage-17_lss.jpg",
+      "assets/food-beverage-18_lss.jpg",
+      "assets/food-beverage-19_lss.jpg",
+      "assets/food-beverage-2_lss.jpg",
+      "assets/food-beverage-3_lss.jpg",
+      "assets/food-beverage-4_lss.jpg",
+      "assets/food-beverage-5_lss.jpg",
+      "assets/food-beverage-6_lss.jpg",
+      "assets/food-beverage-7_lss.jpg",
+      "assets/food-beverage-8_lss.jpg",
+      "assets/food-beverage-9_lss.jpg",
+      "assets/illustration_lss.svg",
+      "assets/kuai.mai_lss.jpg",
+      "assets/logo_lss.svg",
+      "assets/map-marker-dark_lss.svg",
+      "assets/map-marker-region-dark_lss.svg",
+      "assets/map-marker-region_lss.svg",
+      "assets/map-marker_lss.svg",
+      "assets/phone-illustration_lss.svg",
+      "assets/preview-1_lss.jpg",
+      "assets/preview-10_lss.jpg",
+      "assets/preview-11_lss.jpg",
+      "assets/preview-12_lss.jpg",
+      "assets/preview-13_lss.jpg",
+      "assets/preview-14_lss.jpg",
+      "assets/preview-15_lss.jpg",
+      "assets/preview-2_lss.jpg",
+      "assets/preview-3_lss.jpg",
+      "assets/preview-4_lss.jpg",
+      "assets/preview-5_lss.jpg",
+      "assets/preview-6_lss.jpg",
+      "assets/preview-7_lss.jpg",
+      "assets/preview-8_lss.jpg",
+      "assets/preview-9_lss.jpg",
+      "assets/profile-1_lss.jpg",
+      "assets/profile-10_lss.jpg",
+      "assets/profile-11_lss.jpg",
+      "assets/profile-12_lss.jpg",
+      "assets/profile-13_lss.jpg",
+      "assets/profile-14_lss.jpg",
+      "assets/profile-15_lss.jpg",
+      "assets/profile-2_lss.jpg",
+      "assets/profile-3_lss.jpg",
+      "assets/profile-4_lss.jpg",
+      "assets/profile-5_lss.jpg",
+      "assets/profile-6_lss.jpg",
+      "assets/profile-7_lss.jpg",
+      "assets/profile-8_lss.jpg",
+      "assets/profile-9_lss.jpg",
+      "assets/woman-illustration_lss.svg",
+      "assets/LSS_logo_words_white_lss.png",
+      "assets/facebook_lss.png",
+      "assets/instagram_lss.png",
+      "assets/youtube_lss.png",
+      "assets/twitch_lss.png",
+      "assets/tiktok_black_bg_lss.png",
+      "assets/noname_lss.png",
+      "assets/icon-user-ig_lss.svg",
+      "assets/icon-user-yt_lss.svg",
+      "assets/icon-user-tt_lss.svg",
+      "assets/icon-user-tc_lss.svg",
+      "assets/express_Icon_lss.svg",
+      "assets/xlsx_icon_lss.svg",
+      "assets/secured_tag_lss.jpeg",
+      "assets/ionicons_lss.woff2",
+      "assets/ionicons_lss.woff",
+      "assets/ionicons_lss.ttf",
+      "assets/ionicons_lss.svg"
+    ]
+  },
+  "src/views/mkt-plugin/lucky-draw/DrawFlow.vue": {
+    "file": "assets/DrawFlow_lss.js",
+    "src": "src/views/mkt-plugin/lucky-draw/DrawFlow.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/main.js",
+      "_campaign_lucky_draw_lss.js"
+    ],
+    "css": [
+      "assets/DrawFlow_lss.css"
+    ],
+    "assets": [
+      "assets/no winner_lss.svg",
+      "assets/winner_showup_lss.svg"
+    ]
+  },
+  "_campaign_lucky_draw_lss.js": {
+    "file": "assets/campaign_lucky_draw_lss.js",
+    "imports": [
+      "src/main.js"
+    ]
+  },
+  "src/views/create-campaign/Main.vue": {
+    "file": "assets/Main_lss.js",
+    "src": "src/views/create-campaign/Main.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/main.js",
+      "_NotesForm_lss.js",
+      "_MessageSettings_lss.js"
+    ],
+    "css": [
+      "assets/Main_lss16.css"
+    ]
+  },
+  "_NotesForm_lss.js": {
+    "file": "assets/NotesForm_lss.js",
+    "imports": [
+      "src/main.js"
+    ],
+    "css": [
+      "assets/NotesForm_lss.css"
+    ]
+  },
+  "_MessageSettings_lss.js": {
+    "file": "assets/MessageSettings_lss.js",
+    "imports": [
+      "src/main.js"
+    ]
+  },
+  "src/views/mkt-plugin/lucky-draw/LuckyDrawList.vue": {
+    "file": "assets/LuckyDrawList_lss.js",
+    "src": "src/views/mkt-plugin/lucky-draw/LuckyDrawList.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/main.js",
+      "_campaign_lucky_draw_lss.js"
+    ],
+    "css": [
+      "assets/LuckyDrawList_lss.css"
+    ]
+  },
+  "src/views/mkt-plugin/lucky-draw/CreateEditLuckyDraw.vue": {
+    "file": "assets/CreateEditLuckyDraw_lss.js",
+    "src": "src/views/mkt-plugin/lucky-draw/CreateEditLuckyDraw.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/main.js",
+      "_campaign_lucky_draw_lss.js"
+    ]
+  },
+  "src/views/mkt-plugin/quiz-game/Main.vue": {
+    "file": "assets/Main_lss2.js",
+    "src": "src/views/mkt-plugin/quiz-game/Main.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/main.js"
+    ],
+    "css": [
+      "assets/Main_lss4.css"
+    ]
+  },
+  "src/views/edit-campaign/Main.vue": {
+    "file": "assets/Main_lss3.js",
+    "src": "src/views/edit-campaign/Main.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/main.js",
+      "_NotesForm_lss.js",
+      "_MessageSettings_lss.js"
+    ],
+    "css": [
+      "assets/Main_lss12.css"
+    ]
+  },
+  "src/views/edit-campaign-product/Main.vue": {
+    "file": "assets/Main_lss4.js",
+    "src": "src/views/edit-campaign-product/Main.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/main.js"
+    ],
+    "css": [
+      "assets/Main_lss6.css"
+    ]
+  },
+  "src/views/settings/Main.vue": {
+    "file": "assets/Main_lss5.js",
+    "src": "src/views/settings/Main.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/main.js",
+      "_MessageSettings_lss.js"
+    ],
+    "css": [
+      "assets/Main_lss15.css"
+    ]
+  },
+  "src/views/stock/Main.vue": {
+    "file": "assets/Main_lss6.js",
+    "src": "src/views/stock/Main.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/main.js"
+    ],
+    "css": [
+      "assets/Main_lss2.css"
+    ]
+  },
+  "src/views/add-product/Main.vue": {
+    "file": "assets/Main_lss7.js",
+    "src": "src/views/add-product/Main.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/main.js"
+    ],
+    "css": [
+      "assets/Main_lss3.css"
+    ]
+  },
+  "src/views/category-management/Main.vue": {
+    "file": "assets/Main_lss8.js",
+    "src": "src/views/category-management/Main.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/main.js"
+    ]
+  },
+  "src/views/seller-buyers/Main.vue": {
+    "file": "assets/Main_lss9.js",
+    "src": "src/views/seller-buyers/Main.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/main.js",
+      "_LoadingTable_lss.js"
+    ],
+    "css": [
+      "assets/Main_lss8.css"
+    ]
+  },
+  "_LoadingTable_lss.js": {
+    "file": "assets/LoadingTable_lss.js",
+    "imports": [
+      "src/main.js"
+    ]
+  },
+  "src/views/seller-buyers/order-history/Main.vue": {
+    "file": "assets/Main_lss10.js",
+    "src": "src/views/seller-buyers/order-history/Main.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/main.js",
+      "_LoadingTable_lss2.js"
+    ],
+    "css": [
+      "assets/Main_lss11.css"
+    ]
+  },
+  "_LoadingTable_lss2.js": {
+    "file": "assets/LoadingTable_lss2.js",
+    "imports": [
+      "src/main.js"
+    ],
+    "css": [
+      "assets/LoadingTable_lss.css"
+    ]
+  },
+  "src/views/seller-buyers/points/Main.vue": {
+    "file": "assets/Main_lss11.js",
+    "src": "src/views/seller-buyers/points/Main.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/main.js",
+      "_LoadingTable_lss.js"
+    ],
+    "css": [
+      "assets/Main_lss13.css"
+    ]
+  },
+  "src/views/seller-registration/Main.vue": {
+    "file": "assets/Main_lss12.js",
+    "src": "src/views/seller-registration/Main.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/main.js"
+    ],
+    "css": [
+      "assets/Main_lss.css"
+    ],
+    "assets": [
+      "assets/gCashQR_lss.jpeg",
+      "assets/vn_bank_lss.png",
+      "assets/ecpay_lss.png"
+    ]
+  },
+  "src/views/seller-registration/TrialSignUp.vue": {
+    "file": "assets/TrialSignUp_lss.js",
+    "src": "src/views/seller-registration/TrialSignUp.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/main.js",
+      "_LSS_logo_words_lss.js"
+    ],
+    "css": [
+      "assets/TrialSignUp_lss.css"
+    ],
+    "assets": [
+      "assets/login-bot_lss.svg"
+    ]
+  },
+  "_LSS_logo_words_lss.js": {
+    "file": "assets/LSS_logo_words_lss.js",
+    "assets": [
+      "assets/LSS_logo_words_lss.png"
+    ]
+  },
+  "src/views/general/LoginPage.vue": {
+    "file": "assets/LoginPage_lss.js",
+    "src": "src/views/general/LoginPage.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/main.js",
+      "_mobile_login_robot_hand_lss.js",
+      "_LSS_logo_words_lss.js"
+    ],
+    "css": [
+      "assets/LoginPage_lss.css"
+    ]
+  },
+  "_mobile_login_robot_hand_lss.js": {
+    "file": "assets/mobile_login_robot_hand_lss.js",
+    "assets": [
+      "assets/bg_lss.svg",
+      "assets/robot_lss.svg",
+      "assets/mobile_login_robot_lss.svg",
+      "assets/mobile_login_robot_hand_lss.svg"
+    ]
+  },
+  "src/views/general/ForgotPasswordPage.vue": {
+    "file": "assets/ForgotPasswordPage_lss.js",
+    "src": "src/views/general/ForgotPasswordPage.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/main.js",
+      "_LSS_logo_words_lss.js"
+    ],
+    "css": [
+      "assets/ForgotPasswordPage_lss.css"
+    ],
+    "assets": [
+      "assets/forgot_robot_lss.svg"
+    ]
+  },
+  "src/views/password-reset/Main.vue": {
+    "file": "assets/Main_lss13.js",
+    "src": "src/views/password-reset/Main.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/main.js",
+      "_LSS_logo_words_lss.js"
+    ],
+    "css": [
+      "assets/Main_lss5.css"
+    ]
+  },
+  "src/views/general/DealerLoginPage.vue": {
+    "file": "assets/DealerLoginPage_lss.js",
+    "src": "src/views/general/DealerLoginPage.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/main.js",
+      "_mobile_login_robot_hand_lss.js",
+      "_LSS_logo_words_lss.js"
+    ],
+    "css": [
+      "assets/DealerLoginPage_lss.css"
+    ]
+  },
+  "src/views/general/AdminLoginPage.vue": {
+    "file": "assets/AdminLoginPage_lss.js",
+    "src": "src/views/general/AdminLoginPage.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/main.js",
+      "_mobile_login_robot_hand_lss.js",
+      "_LSS_logo_words_lss.js"
+    ],
+    "css": [
+      "assets/AdminLoginPage_lss.css"
+    ]
+  },
+  "src/plugin/easy-store/views/AuthorizationPage.vue": {
+    "file": "assets/AuthorizationPage_lss.js",
+    "src": "src/plugin/easy-store/views/AuthorizationPage.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/main.js",
+      "_mobile_login_robot_hand_lss.js",
+      "_LSS_logo_words_lss.js"
+    ],
+    "css": [
+      "assets/AuthorizationPage_lss.css"
+    ]
+  },
+  "src/views/test/test7.vue": {
+    "file": "assets/test7_lss.js",
+    "src": "src/views/test/test7.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/main.js"
+    ]
+  },
+  "src/views/general/BuyerLoginPage.vue": {
+    "file": "assets/BuyerLoginPage_lss.js",
+    "src": "src/views/general/BuyerLoginPage.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_mobile_login_robot_hand_lss.js",
+      "_LSS_logo_words_lss.js",
+      "src/main.js"
+    ],
+    "css": [
+      "assets/BuyerLoginPage_lss.css"
+    ]
+  },
+  "src/views/buyer-search-tiktok-cart/Main.vue": {
+    "file": "assets/Main_lss14.js",
+    "src": "src/views/buyer-search-tiktok-cart/Main.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/main.js"
+    ],
+    "css": [
+      "assets/Main_lss10.css"
+    ],
+    "assets": [
+      "assets/Tiktok_name_exp_lss.svg"
+    ]
+  },
+  "src/views/buyer-recaptcha/Main.vue": {
+    "file": "assets/Main_lss15.js",
+    "src": "src/views/buyer-recaptcha/Main.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/main.js"
+    ]
+  },
+  "src/views/buyer-points/Main.vue": {
+    "file": "assets/Main_lss16.js",
+    "src": "src/views/buyer-points/Main.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/main.js",
+      "_LoadingTable_lss.js"
+    ],
+    "css": [
+      "assets/Main_lss7.css"
+    ]
+  },
+  "src/views/buyer-order-history/Main.vue": {
+    "file": "assets/Main_lss17.js",
+    "src": "src/views/buyer-order-history/Main.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/main.js",
+      "_LoadingTable_lss2.js"
+    ],
+    "css": [
+      "assets/Main_lss9.css"
+    ]
+  },
+  "src/views/buyer-order-detail/Main.vue": {
+    "file": "assets/Main_lss18.js",
+    "src": "src/views/buyer-order-detail/Main.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_lss-buyer-order_lss.js",
+      "src/main.js"
+    ],
+    "css": [
+      "assets/Main_lss18.css"
+    ]
+  },
+  "_lss-buyer-order_lss.js": {
+    "file": "assets/lss-buyer-order_lss.js",
+    "imports": [
+      "src/main.js"
+    ]
+  },
+  "src/views/buyer-order-payment/Main.vue": {
+    "file": "assets/Main_lss19.js",
+    "src": "src/views/buyer-order-payment/Main.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "_lss-buyer-order_lss.js",
+      "src/main.js"
+    ]
+  },
+  "src/views/buyer-order-confirmation/Main.vue": {
+    "file": "assets/Main_lss20.js",
+    "src": "src/views/buyer-order-confirmation/Main.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/main.js",
+      "_lss-buyer-order_lss.js"
+    ]
+  },
+  "src/views/buyer-order-awaiting-confirm/Main.vue": {
+    "file": "assets/Main_lss21.js",
+    "src": "src/views/buyer-order-awaiting-confirm/Main.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/main.js",
+      "_lss-buyer-order_lss.js"
+    ]
+  },
+  "src/views/shoppingcart_v2/Main.vue": {
+    "file": "assets/Main_lss22.js",
+    "src": "src/views/shoppingcart_v2/Main.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/main.js"
+    ],
+    "css": [
+      "assets/Main_lss14.css"
+    ]
+  },
+  "src/views/recommand/RecommandPlatformPage.vue": {
+    "file": "assets/RecommandPlatformPage_lss.js",
+    "src": "src/views/recommand/RecommandPlatformPage.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/main.js"
+    ]
+  },
+  "src/views/account-import/Main.vue": {
+    "file": "assets/Main_lss23.js",
+    "src": "src/views/account-import/Main.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "src/main.js"
+    ],
+    "css": [
+      "assets/Main_lss17.css"
+    ]
+  }
+}
