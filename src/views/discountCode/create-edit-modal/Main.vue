@@ -72,7 +72,7 @@
                             <v-date-picker class="z-10" 
                                 v-model="dateTimePicker" 
                                 :timezone="timezone" 
-                                :columns="$screens({ default: 1})" 
+                                :columns="1" 
                                 mode="dateTime" is-range is-required is24hr
                                 :min-date='new Date()'
                                 >

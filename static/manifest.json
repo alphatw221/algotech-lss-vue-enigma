@@ -159,7 +159,7 @@
       "_MessageSettings_lss.js"
     ],
     "css": [
-      "assets/Main_lss2.css"
+      "assets/Main_lss14.css"
     ]
   },
   "_NotesForm_lss.js": {
@@ -206,7 +206,7 @@
       "src/main.js"
     ],
     "css": [
-      "assets/Main_lss8.css"
+      "assets/Main_lss9.css"
     ]
   },
   "src/views/edit-campaign/Main.vue": {
@@ -219,7 +219,7 @@
       "_MessageSettings_lss.js"
     ],
     "css": [
-      "assets/Main_lss16.css"
+      "assets/Main_lss12.css"
     ]
   },
   "src/views/edit-campaign-product/Main.vue": {
@@ -230,7 +230,7 @@
       "src/main.js"
     ],
     "css": [
-      "assets/Main_lss10.css"
+      "assets/Main_lss4.css"
     ]
   },
   "src/views/settings/Main.vue": {
@@ -242,7 +242,7 @@
       "_MessageSettings_lss.js"
     ],
     "css": [
-      "assets/Main_lss5.css"
+      "assets/Main_lss8.css"
     ]
   },
   "src/views/stock/Main.vue": {
@@ -253,7 +253,7 @@
       "src/main.js"
     ],
     "css": [
-      "assets/Main_lss15.css"
+      "assets/Main_lss13.css"
     ]
   },
   "src/views/add-product/Main.vue": {
@@ -264,7 +264,7 @@
       "src/main.js"
     ],
     "css": [
-      "assets/Main_lss17.css"
+      "assets/Main_lss10.css"
     ]
   },
   "src/views/category-management/Main.vue": {
@@ -284,7 +284,7 @@
       "_LoadingTable_lss.js"
     ],
     "css": [
-      "assets/Main_lss14.css"
+      "assets/Main_lss3.css"
     ]
   },
   "_LoadingTable_lss.js": {
@@ -323,7 +323,7 @@
       "_LoadingTable_lss.js"
     ],
     "css": [
-      "assets/Main_lss13.css"
+      "assets/Main_lss.css"
     ]
   },
   "src/views/seller-registration/Main.vue": {
@@ -334,7 +334,7 @@
       "src/main.js"
     ],
     "css": [
-      "assets/Main_lss7.css"
+      "assets/Main_lss2.css"
     ],
     "assets": [
       "assets/gCashQR_lss.jpeg",
@@ -409,7 +409,7 @@
       "_LSS_logo_words_lss.js"
     ],
     "css": [
-      "assets/Main_lss12.css"
+      "assets/Main_lss11.css"
     ]
   },
   "src/views/general/DealerLoginPage.vue": {
@@ -480,7 +480,7 @@
       "src/main.js"
     ],
     "css": [
-      "assets/Main_lss11.css"
+      "assets/Main_lss5.css"
     ],
     "assets": [
       "assets/Tiktok_name_exp_lss.svg"
@@ -503,7 +503,7 @@
       "_LoadingTable_lss.js"
     ],
     "css": [
-      "assets/Main_lss3.css"
+      "assets/Main_lss7.css"
     ]
   },
   "src/views/buyer-order-history/Main.vue": {
@@ -527,7 +527,7 @@
       "src/main.js"
     ],
     "css": [
-      "assets/Main_lss4.css"
+      "assets/Main_lss16.css"
     ]
   },
   "_lss-buyer-order_lss.js": {
@@ -571,7 +571,7 @@
       "src/main.js"
     ],
     "css": [
-      "assets/Main_lss9.css"
+      "assets/Main_lss15.css"
     ]
   },
   "src/views/recommand/RecommandPlatformPage.vue": {
@@ -590,7 +590,7 @@
       "src/main.js"
     ],
     "css": [
-      "assets/Main_lss.css"
+      "assets/Main_lss17.css"
     ]
   }
 }

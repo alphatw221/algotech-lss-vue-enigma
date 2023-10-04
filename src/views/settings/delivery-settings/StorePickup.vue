@@ -43,7 +43,7 @@
                         <v-date-picker class="" 
                             v-model="pickupdatePicker[index]"
                             :timezone="timezone" 
-                            :columns="$screens({ default: 1, sm: 2 })" 
+                            :columns="1" 
                             mode="datetime" is-range is-required is24hr
                             :min-date='new Date()'
                             >
