@@ -82,7 +82,7 @@ const nextPage = ()=>{
     if(props.modelValue.page+1<=computedTotalPage.value) changePage(props.modelValue.page+1)
 }
 const computedTotalPage = computed(()=>{
-    return Math.ceil(props.modelValue.dataCount/props.modelValue.page_size)
+    return Math.ceil(props.modelValue.dataCount/props.modelValue.size)
 })
 
 </script>

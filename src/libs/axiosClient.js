@@ -7,8 +7,8 @@ import axios from "axios";
 import i18n from "@/locales/i18n";
 import { useCookies } from "vue3-cookies";
 import {ref} from "vue"
-
 import { useToast } from "vue-toastification";
+
 const toast = useToast();
 
 const { cookies } = useCookies();
@@ -165,4 +165,13 @@ export function createCustomerAxios(){
         }
     );
     return axiosInstance
+}
+
+export function createQueryParams(query){
+
+    var queryParams = '?'
+    Object.entries(query).forEach(([key, value]) => {
+        queryParams+=`${key}=${value}&`
+    });
+    return queryParams
 }

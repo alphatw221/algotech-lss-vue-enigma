@@ -8,7 +8,7 @@
       <slot :name="'tabs'"></slot>
 
       <div
-        class="intro-y col-span-12 flex flex-wrap xl:flex-nowrap items-center my-2" v-if="props?.searchBarSettings"
+        class="intro-y col-span-12 flex flex-wrap items-center my-2 gap-2" v-if="props?.searchBarSettings"
       >
         <template v-for="item, itemIndex in props.searchBarSettings" :key="itemIndex">
 
@@ -74,11 +74,21 @@
             <TimezoneDatetimePicker v-model="props.modelValue[item.key]"/>
           </div>
 
-          <div class="sm:flex items-center sm:mr-4 " v-else-if="item.key==='keyword'">
+          <div class="sm:flex items-center sm:mr-4 " v-else-if="item.type==='input'">
             <label class="w-12 flex-none xl:w-auto xl:flex-initial mr-2"
               >{{ item.name }}</label
             >
-            <div class="w-56 relative">
+
+             <input
+                type="text"
+                class="form-control w-full mt-2 sm:mt-0"
+                :placeholder="item.placeholder"
+                v-model="props.modelValue[item.key]"
+                @change="updateModelValue(); "
+                @keydown.enter.prevent="props.actions.search()"
+              />
+
+            <!-- <div class="w-56 relative">
               <input
                 type="text"
                 class="form-control w-full mt-2 sm:mt-0"
@@ -88,7 +98,7 @@
                 @keydown.enter.prevent="props.actions.search()"
               />
               <SearchIcon class="w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0" />
-            </div>
+            </div> -->
             
           </div>
 
@@ -143,6 +153,8 @@
                             const fields = (props.modelValue?.order_by||'').split(',');
                             props.modelValue.order_by = fields.map(f=>f==`${item.key}`?`-${item.key}`:f).join(',');
                             updateModelValue();
+
+                            props.actions.get();
                         }" 
                         />
                       <XIcon class="w-5 h-5 text-slate-400 cursor-pointer inline" @click="()=>{
@@ -150,6 +162,8 @@
                         const fields = (props.modelValue?.order_by||'').split(',');
                         props.modelValue.order_by = fields.filter(f=>f!=`${item.key}`).join(',');
                         updateModelValue();
+
+                        props.actions.get();
                       }"/>
                     </template>
                     <template v-else-if="(props.modelValue?.order_by||'').split(',').includes('-'+item.key)">
@@ -158,6 +172,8 @@
                             const fields = (props.modelValue?.order_by||'').split(',');
                             props.modelValue.order_by = fields.map(f=>f==`-${item.key}`?`${item.key}`:f).join(',');
                             updateModelValue();
+
+                            props.actions.get();
                           }" 
                         />
                       <XIcon class="w-5 h-5 text-slate-400 cursor-pointer inline" @click="()=>{
@@ -165,14 +181,19 @@
                         const fields = (props.modelValue?.order_by||'').split(',');
                         props.modelValue.order_by = fields.filter(f=>f!=`-${item.key}`).join(',');
                         updateModelValue();
+
+                        props.actions.get();
                       }"/>
                     </template>
                     <template v-else> 
                       <ChevronDownIcon class="ml-3 h-5 w-5 text-black bg-null opacity-[.85] rounded-full right-[5%] z-50 cursor-pointer inline" @click="()=>{
                         const fields = (props.modelValue?.order_by||'').split(',');
                         fields.push(item.key);
+                        
                         props.modelValue.order_by = fields.join(',');
                         updateModelValue();
+
+                        props.actions.get();
 
                       }" />
                     </template>
@@ -298,6 +319,16 @@
 
                 </template>
 
+                <template v-else-if="item.type==='custom'" >
+
+                  <!-- {{ props.customColumns?.[item.key] }} -->
+
+                  <component :is="props.customColumns?.[item.key]"/>
+                  <!-- <div>123</div> -->
+                  
+                </template>
+
+
               </template>
             </tr>
 
@@ -392,7 +423,7 @@
         />
 
         <select class="w-20 form-select box mt-3 sm:mt-0" 
-          v-model="props.modelValue.page_size" 
+          v-model="props.modelValue.size" 
           @change="updateModelValue(); props.actions.search()"
         >
           <option :value="10">10</option>
@@ -448,7 +479,8 @@ const props = defineProps({
   paginator:{
     type:Boolean,
     default:true
-  }
+  },
+  customColumns:Object
 })
 
 const emits = defineEmits(['update:modelValue'])
