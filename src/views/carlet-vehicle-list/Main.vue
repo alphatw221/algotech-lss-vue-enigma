@@ -52,6 +52,8 @@ const searchData = ref({
     keyword:'',
     exclude_auto_data_done_mapping:null,
     exclude_tire_rack_done_mapping:null,
+    engine:'',
+    chassis:'',
     order_by:'id'
 
 })
@@ -62,7 +64,10 @@ const reset = ()=>{
     sub_model:'',
     start_of_production_year:'',
     end_of_production_year:'',
-    keyword:'',}
+    keyword:'',
+    engine:'',
+    chassis:'',
+}
 }
 const searchBarSettings=[
     // {key:'category_id', name:'類別', type:'search_select', class:'w-[150px]', placeholder:'搜尋名稱', display_key:'category_name', search_function:searchProductCategory, option_name_keys:['name'], option_value_key:'id', router_param_key:'store_id', options:[{id:null, name:'無'}]},
@@ -75,6 +80,10 @@ const searchBarSettings=[
     {key:'sub_model', name:'子車型', type:'input', placeholder:'(關鍵字使用,隔開)', action:'search'},
     {key:'start_of_production_year', name:'起始製造年份', type:'input', placeholder:'輸入年份', action:'search'},
     {key:'end_of_production_year', name:'結束製造年份', type:'input', placeholder:'輸入年份', action:'search'},
+
+    {key:'engine', name:'引擎', type:'input', placeholder:'輸入引擎', action:'search'},
+    {key:'chassis', name:'底盤', type:'input', placeholder:'輸入底盤', action:'search'},
+
     // {key:'keyword', name:'關鍵字', type:'input', placeholder:'廠牌/車型/子車型', action:'search'},
    
     props?.mappingResource=='auto_data'? {key:'exclude_auto_data_done_mapping', name:'只顯示AutoData未關聯', type:'checkbox', action:'search'}

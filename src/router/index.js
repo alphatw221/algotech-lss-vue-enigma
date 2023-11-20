@@ -84,13 +84,19 @@ const routes = [
     beforeEnter: carletBackendAuthModdleware,
     children: [
       {
-        path: "t",
+        path: "",
         name: "carlet-auto-data-vehicle-mapping",
         component: CarletAutoDataVehicleMapping,
           
       },
       {
-          path: "t1",
+        path: "auto-data-mapping",
+        name: "carlet-auto-data-vehicle-mapping",
+        component: CarletAutoDataVehicleMapping,
+          
+      },
+      {
+          path: "tire-rack-mapping",
           name: "carlet-tire-rack-vehicle-mapping",
           component: CarletTireRackVehicleMapping,
             
