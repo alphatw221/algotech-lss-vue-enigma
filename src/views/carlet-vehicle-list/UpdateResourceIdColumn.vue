@@ -1,34 +1,46 @@
 <template>
-    <div>
+    <div class="flex flex-row justify-between">
 
-        <input/>
-        <button>test</button>
+        <input type="number"
+                class="form-control w-[100px] "
+                :placeholder="'AutoData ID'"
+                v-model="props.data.auto_data_id"
+
+                />
+
+        <button class="btn btn-primary" @click="updateAutoDataID()">更新</button>
     </div>
 </template>
 
 <script setup>
-import {ref, onMounted, watch, computed, defineProps} from "vue"
-import { useRoute, useRouter } from "vue-router";
+import {ref, defineProps} from "vue"
 
-import {search_carlet_vehicles} from '../../api_carlet/carlet.js'
+import {update_auto_data_vehicle_id} from '../../api_carlet/carlet.js'
 const props = defineProps({
-//   modelValue:Object,
-
-  item:{
+  modelValue:Object,
+  data:{
     type:Object,
     default:{}
+  },
+  dataIndex:{
+    type:Number,
+    default:null
   }
-
 })
 
+const autoDataID = ref(props?.data?.auto_data_id)
+
+const updateAutoDataID = ()=>{
+  update_auto_data_vehicle_id(props.data?.id, props.data.auto_data_id).then(res=>{
+    console.log(res)
+  })
+}
 // const emits = defineEmits(['update:modelValue'])
 
 // const updateModelValue = ()=>{
 //   emits('update:modelValue', props.modelValue)
 // }
 
-const route = useRoute()
-const router = useRouter()
 
 
 </script>

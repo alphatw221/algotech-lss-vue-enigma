@@ -1,11 +1,14 @@
-import { createUserAxios, createUserAxiosWithoutInterceptor } from "@/libs/axiosClient";
+import { createAxios, createUserAxios, createUserAxiosWithoutInterceptor } from "@/libs/axiosClient";
 
 
-export const user_login = (data) =>{
-    return createUserAxios().post(`/api/v3/lss/user/login/`,data);
+export const user_login = (username, password) =>{
+
+    const formData = new FormData()
+    formData.append('username', username)
+    formData.append('password', password)
+    return createAxios().post(`/token/`,formData);
 }
 
 export const get_user_account = () =>{
-    return createUserAxios().get(`/api/v3/lss/user/account/`);
+    return createAxios().get(`/users/me`);
 }
-

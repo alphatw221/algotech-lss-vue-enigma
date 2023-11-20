@@ -24,7 +24,7 @@
             <li v-else :key="menu + menuKey"> 
               <SideMenuTooltip
                 tag="a"
-                :content="$t(`layout.menu.${menu.title}`)"
+                :content="menu.title"
                 :href="
                   menu.subMenu
                     ? 'javascript:;'
@@ -42,7 +42,7 @@
                   <MenuIcon :icon="menu.icon" color="#334155" width="20" /> 
                 </div>
                 <div class="side-menu__title">
-                  {{ $t(`layout.menu.${menu.title}`) }}
+                  {{ menu.title }}
                   <div
                     v-if="menu.subMenu"
                     class="side-menu__sub-icon"
@@ -61,7 +61,7 @@
                   >
                     <SideMenuTooltip
                       tag="a"
-                      :content="$t(`layout.menu.${subMenu.title}`)"
+                      :content="subMenu.title"
                       :href="
                         subMenu.subMenu
                           ? 'javascript:;'
@@ -75,7 +75,7 @@
                         <MenuIcon :icon="subMenu.pageName" color="#334155" />
                       </div>
                       <div class="side-menu__title">
-                        {{ $t(`layout.menu.${subMenu.title}`) }}
+                        {{ subMenu.title }}
                         <div
                           v-if="subMenu.subMenu"
                           class="side-menu__sub-icon"
@@ -98,7 +98,7 @@
                         >
                           <SideMenuTooltip
                             tag="a"
-                            :content="$t(`layout.menu.${lastSubMenu.title}`)"
+                            :content="lastSubMenu.title"
                             :href="
                               lastSubMenu.subMenu
                                 ? 'javascript:;'
@@ -116,7 +116,7 @@
                               <ZapIcon />
                             </div>
                             <div class="side-menu__title">
-                              {{ $t(`layout.menu.${lastSubMenu.title}`) }}
+                              {{ lastSubMenu.title }}
                             </div>
                           </SideMenuTooltip >
                         </li>
@@ -191,17 +191,12 @@ const menu = [
       {
         icon: "settings",
         pageName: "carlet-auto-data-vehicle-mapping",
-        title: "Mapping", 
+        title: "對應AutoData", 
       },
       {
         icon: "settings",
-        pageName: "carlet-vehicle-list",
-        title: "Carlet", 
-      },
-      {
-        icon: "settings",
-        pageName: "auto-data-vehicle-list",
-        title: "Auto Data", 
+        pageName: "carlet-tire-rack-vehicle-mapping",
+        title: "對應TireRack", 
       },
       // {
       //   icon: "manage-order",

@@ -102,6 +102,23 @@
             
           </div>
 
+          <div class="sm:flex items-center sm:mr-4 " v-else-if="item.type==='checkbox'">
+            <label class="w-12 flex-none xl:w-auto xl:flex-initial mr-2"
+              >{{ item.name }}</label
+            >
+
+             <input
+                type="checkbox"
+                class="form-control w-6 h-6 mt-2 sm:mt-0"
+                v-model="props.modelValue[item.key]"
+                @change="updateModelValue(); "
+                @keydown.enter.prevent="props.actions.search()"
+              />
+            
+          </div>
+
+
+
           <button class="btn btn-primary shadow-md mr-2" v-else-if="item.type==='button'" @click="props.actions[item.action]()" :class="item.class">{{ item.name }}</button>
 
           <Dropdown v-else-if="item.type==='dropdown'">
@@ -122,6 +139,8 @@
             </DropdownMenu>
           </Dropdown>
 
+
+
           <slot v-if="item.type==='slot'" :name="item.slot_name"></slot>
 
         </template>
@@ -129,9 +148,9 @@
       </div>
 
       <!-- BEGIN: Data List -->
-      <div class="intro-y col-span-12 overflow-auto lg:overflow-visible">
-        <table class="table table-report -mt-2">
-          <thead>
+      <div class="intro-y col-span-12 overflow-auto " :class="props?.tableClass">
+        <table class="table table-report -mt-2 ">
+          <thead class="sticky top-0 z-[99]">
             <tr>
               <template  v-for="item, itemIndex in props.dataListSettings" :key="itemIndex">
                 <th class="whitespace-nowrap bg-secondary" :class="item.headerClass" v-if="item.type=='checkbox'">
@@ -215,8 +234,7 @@
             </tr>
           </thead>
 
-
-          <tbody>
+          <tbody >
 
             
             <tr v-if="(props?.data||[]).length<=0">
@@ -320,10 +338,12 @@
                 </template>
 
                 <template v-else-if="item.type==='custom'" >
-
+                  <td>
+                    <component :is="props.customColumns?.[item.key]" :data="data" :dataIndex="dataIndex" />
+                  </td>
                   <!-- {{ props.customColumns?.[item.key] }} -->
 
-                  <component :is="props.customColumns?.[item.key]"/>
+                  
                   <!-- <div>123</div> -->
                   
                 </template>
@@ -480,7 +500,8 @@ const props = defineProps({
     type:Boolean,
     default:true
   },
-  customColumns:Object
+  customColumns:Object,
+  tableClass:String
 })
 
 const emits = defineEmits(['update:modelValue'])
@@ -492,3 +513,9 @@ const updateModelValue = ()=>{
 
 
 </script>
+
+<style scope>
+
+
+
+</style>

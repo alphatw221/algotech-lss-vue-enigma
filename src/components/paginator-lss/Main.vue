@@ -20,7 +20,7 @@
         </li>
 
         <li class="page-item" v-if="props.modelValue.page-1>=1">
-            <button class="page-link btn" @click="changePage(props.modelValue.page-1)">
+            <button class="page-link btn"  @click="(e)=>{e.target?.blur();changePage(props.modelValue.page-1);}">
                 {{ props.modelValue.page -1}}
             </button>
         </li>
@@ -30,7 +30,7 @@
         </li>
 
         <li class="page-item" v-if="props.modelValue.page+1<=computedTotalPage">
-            <button class="page-link btn" @click="changePage(props.modelValue.page+1)">
+            <button class="page-link btn" @click="(e)=>{e.target?.blur();changePage(props.modelValue.page+1);}">
                 {{ props.modelValue.page +1}}
             </button>
         </li>

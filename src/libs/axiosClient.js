@@ -79,7 +79,7 @@ const { cookies } = useCookies();
 export function createAxiosWithoutInterceptor(){
 
     const headers = {}
-    if(cookies.get("user_access_token")) headers.Authorization = `Bearer ${cookies.get("user_access_token")}`
+    if(cookies.get("access_token")) headers.Authorization = `Bearer ${cookies.get("access_token")}`
 
     return axios.create({
         baseURL: import.meta.env.VITE_APP_ROOT_API,
@@ -90,7 +90,7 @@ export function createAxiosWithoutInterceptor(){
 export function createAxios(){
 
     const headers = {}
-    if(cookies.get("user_access_token")) headers.Authorization = `Bearer ${cookies.get("user_access_token")}`
+    if(cookies.get("access_token")) headers.Authorization = `Bearer ${cookies.get("access_token")}`
     const axiosInstance = axios.create({
         baseURL: import.meta.env.VITE_APP_ROOT_API,
         headers: headers,

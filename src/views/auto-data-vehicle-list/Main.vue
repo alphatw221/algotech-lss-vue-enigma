@@ -7,6 +7,8 @@
         :data="data"
         :actions="actions"
         :emptyDataMessage="emptyDataMessage"
+        :tableClass="'h-[50vh]'"
+
     >
     </CrudDataListLSS>
 </template>
@@ -46,8 +48,8 @@ const searchBarSettings=[
     // {key:'visibility', name:'狀態', type:'select',value_key:'value', name_key:'name', options:[{value:'visable',name:'公開'},{value:'invisable',name:'未公開'},{value:'schedule',name:'限時公開'}]},
     {key:'id', name:'ID', type:'input', placeholder:'輸入ID', action:'search'},
     {key:'make', name:'廠牌', type:'input', placeholder:'輸入廠牌', action:'search'},
-    {key:'model', name:'車型', type:'input', placeholder:'輸入車型', action:'search'},
-    {key:'sub_model', name:'子車型', type:'input', placeholder:'輸入子車型', action:'search'},
+    {key:'model', name:'車型', type:'input', placeholder:'(關鍵字使用,隔開)', action:'search'},
+    {key:'sub_model', name:'子車型', type:'input', placeholder:'(關鍵字使用,隔開)', action:'search'},
     {key:'start_of_production_year', name:'起始製造年份', type:'input', placeholder:'輸入年份', action:'search'},
     {key:'end_of_production_year', name:'結束製造年份', type:'input', placeholder:'輸入年份', action:'search'},
     {key:'keyword', name:'關鍵字', type:'input', placeholder:'廠牌/車型/子車型', action:'search'},

@@ -33,6 +33,8 @@ import { createRouter, createWebHistory } from "vue-router";
 // import FaqLayout2 from "../views/faq-layout-2/Main.vue";
 // import FaqLayout3 from "../views/faq-layout-3/Main.vue";
 // import Login from "../views/login/Main.vue";
+import Login from "../views/carlet-login/Main.vue";
+
 // import Register from "../views/register/Main.vue";
 import ErrorPage from "../views/error-page/Main.vue";
 // import UpdateProfile from "../views/update-profile/Main.vue";
@@ -66,14 +68,14 @@ import ErrorPage from "../views/error-page/Main.vue";
 
 import CarletBackendLayout from "../layouts/carlet-backend-layout/Main.vue"
 import carletBackendAuthModdleware from "@/libs/routerMiddleware/carletBackendAuthMiddleware.js"
-import CarletVehicleList from "../views/carlet-vehicle-list/Main.vue"
-import AutoDataVehicleList from "../views/auto-data-vehicle-list/Main.vue"
+
 import CarletAutoDataVehicleMapping from "../views/carlet-auto-data-vehicle-mapping/Main.vue"
+import CarletTireRackVehicleMapping from "../views/carlet-tire-rack-vehicle-mapping/Main.vue"
 const routes = [
 
   {
     path: "/backend/login",
-    component: CarletBackendLayout,
+    component: Login,
     beforeEnter: carletBackendAuthModdleware,
   },
   {
@@ -82,23 +84,17 @@ const routes = [
     beforeEnter: carletBackendAuthModdleware,
     children: [
       {
-        path: "/",
+        path: "t",
         name: "carlet-auto-data-vehicle-mapping",
         component: CarletAutoDataVehicleMapping,
           
       },
       {
-          path: "/t1",
-          name: "carlet-vehicle-list",
-          component: CarletVehicleList,
+          path: "t1",
+          name: "carlet-tire-rack-vehicle-mapping",
+          component: CarletTireRackVehicleMapping,
             
       },
-      {
-        path: "/t2",
-        name: "auto-data-vehicle-list",
-        component: AutoDataVehicleList,
-          
-    },
     ],
   },
   {
