@@ -9,7 +9,7 @@ import vueI18n from '@intlify/vite-plugin-vue-i18n'
 export default defineConfig({
   base:'/',
   build:{
-    outDir:'./static',
+    outDir:'./static/dist',
     manifest:true,
     rollupOptions: {
       input: {lss:'./src/main.js'},
