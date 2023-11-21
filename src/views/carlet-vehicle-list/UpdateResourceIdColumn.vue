@@ -1,14 +1,14 @@
 <template>
-    <div class="flex flex-row justify-between">
+    <div class="flex flex-row justify-between gap-2">
 
         <input type="number"
-                class="form-control w-[100px] "
+                class="form-control w-[80px] "
                 :placeholder="'AutoData ID'"
                 v-model="props.data.auto_data_id"
 
                 />
 
-        <button class="btn btn-primary" @click="updateAutoDataID()">更新</button>
+        <button class="btn btn-primary whitespace-nowrap" @click="updateAutoDataID()">更新</button>
     </div>
 </template>
 

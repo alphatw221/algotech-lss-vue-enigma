@@ -21,6 +21,8 @@ import { useRoute, useRouter } from "vue-router";
 import {search_carlet_vehicles} from '../../api_carlet/carlet.js'
 import UpdateResourceIdColumn from './UpdateResourceIdColumn.vue'
 import UpdateTireRackIdColumn from './UpdateTireRackIdColumn.vue'
+import UpdateYahooIdColumn from './UpdateYahooIdColumn.vue'
+import UpdateOutputColumn from './UpdateOutputColumn.vue'
 
 const props = defineProps({
   mappingResource:{
@@ -31,7 +33,9 @@ const props = defineProps({
 
 const customColumns = {
     'auto_data_id':UpdateResourceIdColumn,
-    'tire_rack_id':UpdateTireRackIdColumn
+    'tire_rack_id':UpdateTireRackIdColumn,
+    'yahoo_id':UpdateYahooIdColumn,
+    'output':UpdateOutputColumn,
 }
 
 const route = useRoute()
@@ -90,7 +94,10 @@ const searchBarSettings=[
     :
     props?.mappingResource=='tire_rack'? {key:'exclude_tire_rack_done_mapping', name:'只顯示TireRack未關聯', type:'checkbox', action:'search'}
     :
+    props?.mappingResource=='yahoo'? {key:'exclude_yahoo_done_mapping', name:'只顯示Yahoo未關聯', type:'checkbox', action:'search'}
+    :
     {},
+
 
 
     // {type:'slot', slot_name:'bulk_edit'},
@@ -121,7 +128,15 @@ const dataListSettings=[
     {key:'year', name:'年份', type:'text', dataType:'integer', sortable:true},
     {key:'engine', name:'引擎', type:'text', dataType:'string', sortable:true},
     {key:'chassis', name:'底盤', type:'text', dataType:'string', sortable:true},
-    props?.mappingResource=='auto_data'?{key:'auto_data_id', name:'AutoData ID', type:'custom'}:props?.mappingResource=='tire_rack'?{key:'tire_rack_id', name:'TireRack ID', type:'custom'}:{}
+
+    {key:'output', name:'輸出(馬力)', type:'custom'},
+    props?.mappingResource=='auto_data'?{key:'auto_data_id', name:'AutoData ID', type:'custom'}
+    :
+    props?.mappingResource=='tire_rack'?{key:'tire_rack_id', name:'TireRack ID', type:'custom'}
+    :
+    props?.mappingResource=='yahoo'?{key:'yahoo_id', name:'Yahoo ID', type:'custom'}
+    :
+    {}
     // {key:'short_name', name:'簡稱', type:'text', dataType:'string', headerClass:'text-center', class:'text-center'},
     // {key:'price', name:'價格', type:'text', dataType:'string', headerClass:'text-center', class:'text-center'},
     // {key:'bundle', name:'個數', type:'text', dataType:'string', headerClass:'text-center', class:'text-center'},

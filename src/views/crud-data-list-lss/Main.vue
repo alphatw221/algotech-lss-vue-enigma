@@ -111,8 +111,7 @@
                 type="checkbox"
                 class="form-control w-6 h-6 mt-2 sm:mt-0"
                 v-model="props.modelValue[item.key]"
-                @change="updateModelValue(); "
-                @keydown.enter.prevent="props.actions.search()"
+                @change="updateModelValue(); props.actions.search();"
               />
             
           </div>
