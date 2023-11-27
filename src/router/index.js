@@ -80,6 +80,7 @@ import CampaignList from "../views/campaign-list/Main.vue";
 import CampaignLive from "../views/campaign-live/Main.vue"; 
 import ManageOrder from "../views/manage-order/Main_no_use.vue";  
 import ManageOrderClone from "../views/manage-order/MainClone.vue"
+import CustomerManagement from "../views/seller-buyers/Main.vue"
 import SellerOrderDetail from "../views/seller-order-detail/Main.vue"
 import SellerCartDetail from "../views/seller-cart-detail/Main.vue"
 // import CampaignSelect from "../views/manage-order/Campaignselect.vue";
@@ -132,7 +133,7 @@ const routes = [
   //   component: WysiwygEditor,
   // },
   {
-    path: "/backend",
+    path: "/admin",
     component: LssSellerLayout,
     beforeEnter: sellerAuthMiddleware,
     children: [
@@ -351,21 +352,21 @@ const routes = [
         name: "discount-code",
         component: DiscountCode,
       },  
-      {
-        path: "stock",
-        name: "stock",
-        component: () => import('@/views/stock/Main.vue'),
-      },
-      {
-        path: "stock/add-product",
-        name: "add-product",
-        component: () => import('@/views/add-product/Main.vue'),
-      },
-      {
-        path: "stock/edit-product/:product_id?",
-        name: "edit-product",
-        component: () => import('@/views/add-product/Main.vue'),
-      },                                                             //temp
+      // {
+      //   path: "stock",
+      //   name: "stock",
+      //   component: () => import('@/views/stock/Main.vue'),
+      // },
+      // {
+      //   path: "stock/add-product",
+      //   name: "add-product",
+      //   component: () => import('@/views/add-product/Main.vue'),
+      // },
+      // {
+      //   path: "stock/edit-product/:product_id?",
+      //   name: "edit-product",
+      //   component: () => import('@/views/add-product/Main.vue'),
+      // },                                                             //temp
   //     {
   //       path: "stock/category-management",
   //       name: "category-management",
@@ -374,7 +375,7 @@ const routes = [
       {  
         path: "buyers",
         name: "seller-buyers",
-        component: () => import('@/views/seller-buyers/Main.vue'),
+        component: CustomerManagement,
       },
   //     {  
   //       path: "buyers/:buyer_id",

@@ -18,6 +18,7 @@ import CrudDataListLSS from "../crud-data-list-lss/Main.vue"
 // import CrudWidgeKingPork from "../crud-form-king-pork/CrudWidgeKingPork.vue";
 
 import { useRoute, useRouter } from "vue-router";
+import {search_orders} from '../../api_v3/order.js'
 // import { search_product, delete_product, bulk_update_product } from "../../api/product.js"
 // import { useGlobalStore } from "../../stores/global"
 // import { search_product_category } from "../../api/product_category"
@@ -157,18 +158,14 @@ onMounted(()=>{
 
 
 const getData = ()=>{
-    // var _keyword, _order_by, _page, _page_size, _type
-    // get_campaigns(
-    //     _keyword=searchData.value.keyword,
-    //     _order_by=searchData.value.order_by,
-    //     _page=searchData.value.page,
-    //     _page_size=searchData.value.page_size,
-    //     _type = type.value
-    // ).then(res=>{
-    //     console.log(res.data)
-    //     searchData.value.dataCount = res.data.count
-    //     data.value = res.data.results
-    // })
+
+    search_orders(
+      searchData.value
+    ).then(res=>{
+        console.log(res.data)
+        searchData.value.dataCount = res.data.count
+        data.value = res.data.results
+    })
 }
 
 const search = ()=>{

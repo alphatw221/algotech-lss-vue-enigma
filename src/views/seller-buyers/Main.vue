@@ -1,158 +1,207 @@
 <template>
-<div class="flex flex-col lg:mt-8 my-3 gap-5 h-fit sm:h-full">
-  <h2 class="text-xl sm:text-2xl sm:px-20 mx-auto sm:mx-0 font-medium">
-    {{ $t('buyers.page_title')}}
-  </h2>
-  <div class="flex flex-col px-3 sm:px-8 py-5 box h-full lg:mx-20 gap-4">
-    <div class="flex flex-row">
-      <BuyersSearchBar class="my-auto"/> 
-      <FileUploadButton 
-        v-if="sellerStore?.userInfo?.user_subscription?.user_plan?.display?.import_customer_button"
-        class="ml-auto text-sm h-[35px] w-[35px] p-0 sm:p-2 sm:w-fit sm:h-[42px] text-[#ff9505] bg-[#fefce8] font-medium shadow-lg border-[#fcd34d] hover:bg-[#fef6e8] rounded-full border-[2px]" 
-        button_id="import_customer"
-        accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
-        :multiple="false"
-        :uploadFunction = "importCustomers"
-      >
-      
-      <LoadingIcon  v-if="import_processing" icon="three-dots" color="black" class="absolute h-[30px] w-[30px] sm:w-40 mr-2 sm:mr-0 sm:h-[20px] top-2"/>
-      <template  v-else> 
-        <ArrowDownIcon class="w-6 h-6 " />
-        <span class="hidden sm:inline-block text-md font-bold text-[#ff9505] align-middle flex flex-row">Import Customer</span> 
-      </template>
-      </FileUploadButton>
-      <button class="btn btn-primary ml-2 w-[120px]" @click="exportPointsExcel()"> Export Points</button>
-    </div>
-    
-    <BuyersListTable
-      :tableColumns="tableColumns"
-    />
-  </div>
-</div>
+    <CrudDataListLSS
+        v-model="searchData"
+        :title="title"
+        :searchBarSettings="searchBarSettings"
+        :dataListSettings="dataListSettings"
+        :data="data"
+        :actions="actions"
+        :emptyDataMessage="emptyDataMessage"
+        :customColumns="customColumns"
+    >
+    </CrudDataListLSS>
 </template>
 
 <script setup>
-import BuyersSearchBar from "@/views/seller-buyers/BuyersSearchBar.vue";
-import BuyersListTable from "@/views/seller-buyers/BuyersListTable.vue";
-import { ref, watch, computed, getCurrentInstance, onMounted} from "vue";
+import {ref, onMounted, watch, computed} from "vue"
+import CrudDataListLSS from "../crud-data-list-lss/Main.vue"
+// import CrudWidgeKingPork from "../crud-form-king-pork/CrudWidgeKingPork.vue";
+
 import { useRoute, useRouter } from "vue-router";
-import { useLSSCampaignListStore } from "@/stores/lss-campaign-list";
-import { retrieve_campaign } from "@/api_v2/campaign"
-import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
-import { import_customer } from "@/api_v2/user_subscription"
-import FileUploadButton from "@/components/file-upload-button/Main.vue";
-import { useCookies } from "vue3-cookies";
-import { get_points_report } from "../../api_v2/user_subscription";
-import { utils, writeFile } from 'xlsx'
+import {search_customers} from '../../api_v3/customer.js'
+// import { search_product, delete_product, bulk_update_product } from "../../api/product.js"
+// import { useGlobalStore } from "../../stores/global"
+// import { search_product_category } from "../../api/product_category"
 
-const { cookies } = useCookies()
-const accessToken = cookies.get('access_token')
-const sellerStore = useLSSSellerLayoutStore();
-const store = useLSSCampaignListStore();
-const route = useRoute();
-const router = useRouter();
-const internalInstance = getCurrentInstance()
-const eventBus = internalInstance.appContext.config.globalProperties.eventBus; 
+// const globalStore = useGlobalStore()
+// import {get_campaigns} from '../../api_v3/campaign.js'
 
-const searchColumns = ref([{ text: "name", value: "name" }]);
+// import SocialPlatformColumn from './custom-column-cells/SocialPlatformColumn.vue'
+// import TitleColumn from './custom-column-cells/TitleColumn.vue'
+// import ManageOrderColumn from './custom-column-cells/ManageOrderColumn.vue'
+// import StopCheckoutColumn from './custom-column-cells/StopCheckoutColumn.vue'
+// import ActionsColumn from './custom-column-cells/ActionsColumn.vue'
 
-const tableColumns = ref([
-    { name: null, key: "customer_img" },
-    { name: "customer_name", key: "customer_name" },
-    { name: "email", key: "email"},
-    // { name: "type", key: "type" },
-    { name: "order_history", key: "order_history"},
-    { name: "points", key: "points"},
-]);
+const customColumns = {
+    // 'social_platform_connections':SocialPlatformColumn,
+    // 'title':TitleColumn,
+    // 'manage_order':ManageOrderColumn,
+    // 'stop_checkout':StopCheckoutColumn,
+    // 'campaign_more_actions':ActionsColumn
+}   
+
+
+const route = useRoute()
+const router = useRouter()
+
+const title = 'Customers'
+const emptyDataMessage = ref('Do not Have any Customers.')
+
+
+
+
+
+// const searchProductCategory = (searchText, routeParam)=>{
+//     var _store_id, _keyword, _order_by, _page, _page_size
+//     return search_product_category(_store_id=routeParam, _keyword=searchText, _order_by=null, _page=1, _page_size=20)
+// }
+
+
+
+
+
+const searchData = ref({
+    page:1,
+    page_size:25,
+    dataCount:0,
+    keyword:'',
+    order_by:'-id'
+
+})
+const type  = ref('ongoing')
+
+const searchBarSettings=[
+    // {key:'category_id', name:'類別', type:'search_select', class:'w-[150px]', placeholder:'搜尋名稱', display_key:'category_name', search_function:searchProductCategory, option_name_keys:['name'], option_value_key:'id', router_param_key:'store_id', options:[{id:null, name:'無'}]},
+    // {key:'category_id', name:'類別', type:'select', value_key:'id', name_key:'name', options:((globalStore?.user_data?.stores||[]).find(store=>store.id.toString()==route.params.store_id)?.product_categories||[])},
+    // {key:'visibility', name:'狀態', type:'select',value_key:'value', name_key:'name', options:[{value:'visable',name:'公開'},{value:'invisable',name:'未公開'},{value:'schedule',name:'限時公開'}]},
+    {key:'keyword', name:'Keyword:', type:'input', placeholder:'Order ID/Customer Name', action:'search', class:'w-[200px]'},
+
+    // {type:'slot', slot_name:'bulk_edit'},
+
+    // {key:'create_campaign', name:'Create', type:'button', action:'route_to_create_campaign_page' ,class:"ml-auto"},
+    // {key:'other', type:'dropdown', actions:[
+
+    // ]},
+]
+const dataListSettings=[
+    // {type:'checkbox', name:''},
+
+    // {key:'social_platform_connections', type:'custom', custom_key:'platform', name:'Platform', headerClass:'text-center', class:'text-center'},
+    
+    // {key:'title', type:'custom', name:'Title'},
+
+    {key:'id', name:'ID', type:'text', dataType:'string'},
+    {key:'created_at', type:'datetime', name:'Created At' , sortable:true},
+    // {key:'end_at', type:'datetime', name:'End Date', sortable:true},
+
+    // {key:'manage_order', type:'custom', name:'Manage Order', headerClass:'text-center'},
+    // {key:'stop_checkout', type:'custom', name:'Stop Checkout', headerClass:'text-center', tippy:'Disable shopping cart immediately'},
+
+
+    // {key:'images', name:'圖片', type:'images', dataType:'array'},
+    // {key:'name', name:'名稱', type:'text', dataType:'string'},
+    // {key:'short_name', name:'簡稱', type:'text', dataType:'string', headerClass:'text-center', class:'text-center'},
+    // {key:'price', name:'價格', type:'text', dataType:'string', headerClass:'text-center', class:'text-center'},
+    // {key:'bundle', name:'個數', type:'text', dataType:'string', headerClass:'text-center', class:'text-center'},
+    // // {key:'tags', name:'標籤', type:'text', dataType:'array', headerClass:'text-center'},
+    // {key:'category_name', name:'類別', type:'text', dataType:'string', headerClass:'text-center', class:'text-center'},
+    // {key:'tags', name:'標籤', type:'list', dataType:'string'},
+    // {key:'priority', name:'優先', type:'text', dataType:'integer', headerClass:'text-center', class:'text-center'},
+    // {key:'visibility', name:'狀態', type:'map_text',  headerClass:'text-center', class:'text-center', classes:{visable:'text-success',invisable:'text-danger'}, map:{'visable':'公開','invisable':'未公開','schedule':'排程公開'}},
+
+
+    // {key:'campaign_more_actions', type:'custom', name:'Actions'},
+
+
+    // {key: null, name:'', type:'actions', headerClass:'text-center', actions:[
+    //     {key:'product_detail', name:'編輯商品', class:'', action:'route_to_product_detail_page'},
+    //     {key:'delete_product', name:'刪除商品', class:'text-danger', action:'delete_product'}
+    // ]}
+
+]
+const data = ref([])
+
+
+// const bulkEditSettings = [
+//     {key:'category', name:'類別', type:'search_select', class:'w-[150px]', placeholder:'搜尋名稱', display_key:'category_name', search_function:searchProductCategory, option_name_keys:['name'], option_value_key:'id', router_param_key:'store_id', options:[{id:null, name:'無動作'},{id:'null', name:'無'}]},
+
+//     {key:'visibility', name:'公開商品', type:'select', class:'w-ful', placeholder:'選擇是否公開商品', multiple:false, value_key:'value', name_key:'name', options:[{value:null, name:'無動作'},{value:'visable', name:'公開'},{value:'invisable', name:'不公開'},{value:'schedule', name:'排程公開'}]},
+//     {type:'inline', inline_items:[
+//         {key:'visable_start_date', name:'商品公開起始日', type:'date', class:'w-ful'},
+//         {key:'visable_end_date', name:'商品公開結束日', type:'date', class:'ml-5 w-ful'},
+//     ]},
+// ]
+
+// const bulkEditBodalShow = ref(false)
+// const bulkEditData = ref({
+//     category:null,
+//     visibility:null
+// })
+
+// const bulkUpdate=()=>{
+//     const ids=[]
+//     data.value.forEach(element => {
+//         if(element.check==true) ids.push(element.id)
+//     });
+//     var _store_id, _ids, _data
+//     bulk_update_product(_store_id=route.params.store_id, _ids=ids.join(','), _data=bulkEditData.value).then(res=>{
+//         getData()
+//         bulkEditBodalShow.value = false
+//     })
+// }
 
 
 onMounted(()=>{
-  sellerStore.buyer = {}
+    getData()
 })
 
-const import_processing = ref(false)
-const fileBuffer = ref(null)
 
-const importCustomers = file =>{
-  import_processing.value = true
-  fileBuffer.value = file
-  startWebSocketConnection(true)
+
+const getData = ()=>{
+
+    search_customers(
+      searchData.value
+    ).then(res=>{
+        console.log(res.data)
+        searchData.value.dataCount = res.data.count
+        data.value = res.data.results
+    })
 }
 
-
-const startWebSocketConnection =(init)=> {
-    const websocket = new WebSocket(
-        `${import.meta.env.VITE_APP_WEBSOCKET_URL}/ws/data/import/?token=${accessToken}`
-    );
-
-    websocket.onmessage = e =>{
-        const data = JSON.parse(e.data);
-
-        if(data.type==="room_data" && init){
-          let formData = new FormData();
-          formData.append("file", fileBuffer.value);
-          formData.append('room_id',data.room_id)
-
-          import_customer(formData, sellerStore.alert)
-          .then((res) => {
-            console.log(res.data)
-          }).catch(err=>{
-            console.log('upload file error')
-            websocket.close(1000);
-          });
-        } 
-
-        else if(data.type==="result_data"){
-            console.log(data)
-            if(data.data.result=='complete'){
-              location.reload()
-            }else{
-              sellerStore.alert.showMessageToast('Import Fail, Please try again or contect support team.')
-            }
-            websocket.close(1000);
-        } 
-
-    };
-
-    websocket.onopen = e => {
-        console.log('socket connected')
-    };
-
-    websocket.onclose = e => {
-        if(e.code!=1000){
-            startWebSocketConnection(false)
-        }
-        console.error('socket closed');
-        import_processing.value = false
-    };
-
-    websocket.onerror = function(err) {
-        console.error('Socket encountered error: ', err.message, 'Closing socket');
-        websocket.close(1000);
-    };
+const search = ()=>{
+    searchData.value.page = 1
+    getData()
 }
 
+// const selectAll = (event)=>{
+//     data.value.forEach(d => {
+//         d.check = event.target.checked
+//     });
+// }
 
+// const routeToCreatePage = ()=>{
+//     router.push({name:'create-campaign',params:route.params})
+// }
 
+// const routeToEditPage = (data, index)=>{
+//     router.push({name:'edit-campaign',params:{...route.params, 'campaign_uuid':data.uuid}})
+// }
 
+// const deleteData = (product, index)=>{
+//     // delete_product(route.params.store_id, product.id).then(res=>{
+//     //     data.value.splice(index,1)
+//     // })
+// }
 
-const exportPointsExcel = () => {
-    get_points_report()
-    .then(
-        res => {
-            const data = res.data.data
-            const header = res.data.header
-            const displayHeader = res.data.display_header
-            const columnSettings = res.data.column_settings
-            const displayData = [displayHeader, ...data]
-            const workSheet = utils.json_to_sheet(displayData, {header:header, skipHeader:true})
-            workSheet['!cols'] = columnSettings
-            const wb = utils.book_new()
-            utils.book_append_sheet(wb, workSheet, 'sheets')
-            writeFile(wb, 'sheets.xlsx')
-
-        }
-    )
+const actions = {
+    'get':getData,
+    'search':search,
+    // 'route_to_create_page':routeToCreatePage, 
+    // 'route_to_detail_page':routeToEditPage, 
+    // 'delete_data':deleteData,
+    // 'select_all':selectAll
+    
 }
+
 
 </script>

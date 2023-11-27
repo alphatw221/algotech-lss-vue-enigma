@@ -166,3 +166,13 @@ export function createCustomerAxios(){
     );
     return axiosInstance
 }
+
+
+export function createQueryParams(query){
+
+    var queryParams = '?'
+    Object.entries(query).forEach(([key, value]) => {
+        queryParams+=`${key}=${value}&`
+    });
+    return queryParams
+}
