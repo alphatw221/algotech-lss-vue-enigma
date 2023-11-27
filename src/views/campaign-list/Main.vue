@@ -120,12 +120,12 @@ const dataListSettings=[
 
     {key:'social_platform_connections', type:'custom', custom_key:'platform', name:'Platform', headerClass:'text-center', },
     
-    {key:'uuid', type:'link', name:'Title'},
+    {key:'title', type:'text', name:'Title'},
     {key:'start_at', type:'datetime', name:'Start Date' , sortable:true},
     {key:'end_at', type:'datetime', name:'End Date', sortable:true},
 
-    {key:'uuid', type:'custom', custom_key:'manage_order', name:'Manage Order', headerClass:'text-center'},
-    {key:'uuid', type:'custom', custom_key:'stop_checkout', name:'Stop Checkout', headerClass:'text-center', tippy:'Disable shopping cart immediately'},
+    {key:'manage_order', type:'custom', name:'Manage Order', headerClass:'text-center'},
+    {key:'stop_checkout', type:'custom', name:'Stop Checkout', headerClass:'text-center', tippy:'Disable shopping cart immediately'},
 
 
     // {key:'images', name:'圖片', type:'images', dataType:'array'},
@@ -140,7 +140,7 @@ const dataListSettings=[
     // {key:'visibility', name:'狀態', type:'map_text',  headerClass:'text-center', class:'text-center', classes:{visable:'text-success',invisable:'text-danger'}, map:{'visable':'公開','invisable':'未公開','schedule':'排程公開'}},
 
 
-    {type:'custom', custom_key:'campaign_more_actions', name:''},
+    {key:'campaign_more_actions', type:'custom', name:'Actions'},
 
 
     // {key: null, name:'', type:'actions', headerClass:'text-center', actions:[
