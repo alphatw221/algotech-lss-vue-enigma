@@ -7,6 +7,7 @@
         :data="data"
         :actions="actions"
         :emptyDataMessage="emptyDataMessage"
+        :customColumns="customColumns"
     >
         <!-- <template v-slot:bulk_edit>
             <button type="button" class="btn btn-primary" @click="bulkEditBodalShow=true"> 批量修改</button>
@@ -73,6 +74,22 @@ import { useRoute, useRouter } from "vue-router";
 
 // const globalStore = useGlobalStore()
 import {get_campaigns} from '../../api_v3/campaign.js'
+
+import SocialPlatformColumn from './custom-column-cells/SocialPlatformColumn.vue'
+import TitleColumn from './custom-column-cells/TitleColumn.vue'
+import ManageOrderColumn from './custom-column-cells/ManageOrderColumn.vue'
+import StopCheckoutColumn from './custom-column-cells/StopCheckoutColumn.vue'
+import ActionsColumn from './custom-column-cells/ActionsColumn.vue'
+
+const customColumns = {
+    'social_platform_connections':SocialPlatformColumn,
+    'title':TitleColumn,
+    'manage_order':ManageOrderColumn,
+    'stop_checkout':StopCheckoutColumn,
+    'campaign_more_actions':ActionsColumn
+}   
+
+
 const route = useRoute()
 const router = useRouter()
 
@@ -118,9 +135,9 @@ const searchBarSettings=[
 const dataListSettings=[
     // {type:'checkbox', name:''},
 
-    {key:'social_platform_connections', type:'custom', custom_key:'platform', name:'Platform', headerClass:'text-center', },
+    {key:'social_platform_connections', type:'custom', custom_key:'platform', name:'Platform', headerClass:'text-center', class:'text-center'},
     
-    {key:'title', type:'text', name:'Title'},
+    {key:'title', type:'custom', name:'Title'},
     {key:'start_at', type:'datetime', name:'Start Date' , sortable:true},
     {key:'end_at', type:'datetime', name:'End Date', sortable:true},
 

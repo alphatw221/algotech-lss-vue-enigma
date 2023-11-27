@@ -1,295 +1,210 @@
 <template>
-    <!-- OUTTER BOX -->
-        <!-- BEGIN: campaign Info -->
-    <div class="flex flex-col lg:pt-5 mt-3 h-fit gap-5 sm:mx-20">
-        <div class="flex flex-row gap-4 mt-3 mx-auto sm:mx-0 font-medium">
-            <div @click="show_table('manageOrder')" :class="[{ 'menu' : tableType === 'manageOrder'},{'statusBtn': route.params.campaign_id}]" >
-                <h2 :data-content="$t('manage_order.title')" class="text-xl sm:text-2xl allp" >{{$t('manage_order.title')}}({{ manageOrderStore?.data_count?.all||0 }})</h2>
-            </div>
-            <div v-if="route.params.campaign_id" class="bar"></div>
-            <div v-if="route.params.campaign_id" @click="show_table('incomingOrder')" class="statusBtn" :class="{ 'menu' : tableType === 'incomingOrder'}">
-                <h2 :data-content="$t('manage_order.incoming_order')" class="text-xl sm:text-2xl allp">{{$t('manage_order.incoming_order')}}( ${{ number2decimal(manageOrderStore?.cartsPotentialSales||0, manageOrderStore?.campaign?.decimal_places||2) }} )</h2>
-            </div>
-        </div> 
-        <!-- BEGIN: campaign Status -->
-        <CampaignStatus v-if="route.params.campaign_id"/>
-        <!-- END: campaign Status -->
-
-        <div class="w-full flex flex-col -mb-5 sm:mb-0 mt-3 lg:mt-0">
-            <div v-show="tableType !=='incomingOrder'" class="flex -mb-5 text-base align-baseline justify-end lg:text-xl">
-                <button @click="show_order('all')" class="statusBtn"  :class="{ 'all' : orderType === 'all'}" >
-                    <p class="allp" :data-content="$t('manage_order.all')">{{$t('manage_order.all')}}</p><span class="mr-2">(<span style="font-weight:500;">{{manageOrderStore.data_count['all']}}</span>)</span>
-                </button>
-
-                <button @click="show_order('proceed')" class="statusBtn" :class="{ 'all' : orderType === 'proceed'}">
-                    <p class="allp" :data-content="$t('manage_order.review')">{{$t('manage_order.review')}}</p><span class=" mr-2">(<span style="font-weight:500;">{{manageOrderStore.data_count['proceed']}}</span>)</span>
-                </button>
-
-                <button @click="show_order('complete')" class="statusBtn" :class="{ 'all' : orderType === 'complete'}">
-                    <p class="allp" :data-content="$t('manage_order.complete')">{{$t('manage_order.complete')}}</p><span class="mr-2">(<span style="font-weight:500;">{{manageOrderStore.data_count['complete']}}</span>)</span>
-                </button>
-            </div>
-
-            
-            <!--分隔線-->
-            <div v-show="tableType !=='incomingOrder'" class="w-full my-5 border-t border-slate-800/60 dark:border-darkmode-400"></div>
-            <div class="flex flex-col sm:flex-row">
-                <div class="flex flex-row relative right-0 flex-auto sm:my-auto">
-                    <SearchBar 
-                        v-show="orderType == 'all' && tableType !=='incomingOrder'"
-                        :tableStatus="'all'"
-                        :tableSearch="'searchAll'"
-                        :tableFilter="'filterAll'"
-                        :searchEventBusName="'searchAll'"
-                        />
-
-                    <SearchBar 
-                        v-show="orderType == 'proceed' && tableType !== 'incomingOrder'"
-                        :tableStatus="'proceed'"
-                        :tableSearch="'searchProceed'"
-                        :tableFilter="'filterProceed'"
-                        :searchEventBusName="'searchProceed'"
-                        />
-                    
-                    <SearchBar 
-                        v-show="orderType == 'complete' && tableType !== 'incomingOrder'"
-                        :tableStatus="'complete'"
-                        :tableSearch="'searchComplete'"
-                        :tableFilter="'filterComplete'"
-                        :searchEventBusName="'searchComplete'"
-                        />
-                    <CartSearchBar v-show="tableType === 'incomingOrder'" /> 
-                    <ExportOrderButton :tableStatus="orderType" v-show="tableType !== 'incomingOrder'"/>
-                </div>
-                <template  v-if="tableType !== 'incomingOrder'">
-                    <ExportEasyStoreOrderButton/>
-                    <ExportShopifyOrderButton/>
-                </template>  
-            </div>
-            
-            
-            <div v-if="new Date() < new Date(manageOrderStore.campaign.end_at)" class="form-check form-switch justify-end mt-2">
-                <label class="ml-0 form-check-label" for="show-example-3"> {{$t('manage_order.stop_checkout')}}</label>
-                <Tippy 
-                    class="rounded-full w-fit whitespace-wrap ml-1 my-auto" 
-                    data-tippy-allowHTML="true" 
-                    data-tippy-placement="right" 
-                    :content="$t('tooltips.campaign_list.stop_checkout')" 
-                    > 
-                    <HelpCircleIcon class="w-5 tippy-icon" />
-                </Tippy> 
-                <input @click="stopCheckout()" class="ml-3 mr-0 form-check-input" type="checkbox" v-model="manageOrderStore.campaign.stop_checkout"/> 
-            </div>
-        </div>
-
-
-        <div v-show="orderType === 'all' && tableType !=='incomingOrder'" class="w-full overflow-hidden h-full">
-            <ManageOrderTable
-                :tableStatus="'all'"
-                :tableSearch="'searchAll'"
-                :tableFilter="'filterAll'"
-                :searchEventBusName="'searchAll'"
-                :filterEventBusName="'filterAll'"
-            />
-        </div>
-        
-        <div v-show="orderType === 'proceed' && tableType !=='incomingOrder'" class="w-full overflow-hidden h-full">
-            <ManageOrderTable
-                :tableStatus="'proceed'"
-                :tableSearch="'searchProceed'"
-                :tableFilter="'filterProceed'"
-                :searchEventBusName="'searchProceed'"
-                :filterEventBusName="'filterProceed'"
-            />
-        </div>
-        <div v-show="orderType === 'complete' && tableType !=='incomingOrder'" class="w-full overflow-hidden h-full">
-            <ManageOrderTable
-                :tableStatus="'complete'"
-                :tableSearch="'searchComplete'"
-                :tableFilter="'filterComplete'"
-                :searchEventBusName="'searchComplete'"
-                :filterEventBusName="'filterComplete'"
-            />
-        </div>
-        <div v-if="tableType === 'incomingOrder'" class="w-full overflow-hidden h-full">
-            <ManageCartTable
-                :tableSearch="'searchComplete'"
-            />
-        </div>
-        
-
-        <FilterModal
-            :tableStatus="'all'"
-            :filterEventBusName="'filterAll'"
-        />
-
-        <FilterModal
-            :tableStatus="'proceed'"
-            :filterEventBusName="'filterProceed'"
-        />
-
-        <FilterModal
-            :tableStatus="'complete'"
-            :filterEventBusName="'filterComplete'"
-        />
-    </div>
-        <!-- <button class="btn z-50 btn-primary rounded-full" @click.native="scrollToTop()"> Back to Top </button> -->
-    <!-- <CartProductModal /> -->
-    <OrderProductModal />
+    <CrudDataListLSS
+        v-model="searchData"
+        :title="title"
+        :searchBarSettings="searchBarSettings"
+        :dataListSettings="dataListSettings"
+        :data="data"
+        :actions="actions"
+        :emptyDataMessage="emptyDataMessage"
+        :customColumns="customColumns"
+    >
+    </CrudDataListLSS>
 </template>
 
 <script setup>
+import {ref, onMounted, watch, computed} from "vue"
+import CrudDataListLSS from "../crud-data-list-lss/Main.vue"
+// import CrudWidgeKingPork from "../crud-form-king-pork/CrudWidgeKingPork.vue";
 
-import ManageOrderTable  from "./ManageOrderTable.vue";
-import ManageCartTable from "./ManageCartTable.vue"
-import CampaignStatus from "./CampaignStatus.vue";
-import SearchBar from "./SearchBar.vue";
-import CartSearchBar from "./CartSearchBar.vue"
-import OrderProductModal from "./OrderProductModal.vue"
-import CartProductModal from "./CartProductModal.vue"
-import  FilterModal  from "./FilterModal.vue";
-
-import { ref, provide, onMounted, onUnmounted, onBeforeMount, getCurrentInstance } from "vue";
-// import xlsx from "xlsx";
-import { toggle_stop_checkout, retrieve_campaign } from "@/api_v2/campaign"
 import { useRoute, useRouter } from "vue-router";
-import { useManageOrderStore } from "@/stores/lss-manage-order";
-import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
-import i18n from "@/locales/i18n"
-import ExportEasyStoreOrderButton from '@/plugin/easy-store/views/ExportOrderButton.vue'
-import ExportShopifyOrderButton from '@/plugin/shopify/views/ExportOrderButton.vue'
-import ExportOrderButton from "./ExportOrderButton.vue";
-import { number2decimal } from "../../libs/utils/number2decimal";
-// import { watch } from "fs";
+// import { search_product, delete_product, bulk_update_product } from "../../api/product.js"
+// import { useGlobalStore } from "../../stores/global"
+// import { search_product_category } from "../../api/product_category"
+
+// const globalStore = useGlobalStore()
+// import {get_campaigns} from '../../api_v3/campaign.js'
+
+// import SocialPlatformColumn from './custom-column-cells/SocialPlatformColumn.vue'
+// import TitleColumn from './custom-column-cells/TitleColumn.vue'
+// import ManageOrderColumn from './custom-column-cells/ManageOrderColumn.vue'
+// import StopCheckoutColumn from './custom-column-cells/StopCheckoutColumn.vue'
+// import ActionsColumn from './custom-column-cells/ActionsColumn.vue'
+
+const customColumns = {
+    // 'social_platform_connections':SocialPlatformColumn,
+    // 'title':TitleColumn,
+    // 'manage_order':ManageOrderColumn,
+    // 'stop_checkout':StopCheckoutColumn,
+    // 'campaign_more_actions':ActionsColumn
+}   
 
 
 const route = useRoute()
 const router = useRouter()
-const manageOrderStore = useManageOrderStore()
-const internalInstance = getCurrentInstance()
-const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
-const layout = useLSSSellerLayoutStore()
 
-const deliveryStatus = ref(false);
-const checkout_status = ref(false)
-const orderType = ref('all')
-const tableType = ref('manageOrder')
+const title = 'Manage Orders'
+const emptyDataMessage = ref('Do not Have any Orders.')
 
-const show_table = status=>{
-    tableType.value=status
-//   console.log(tableType.value)
-}
 
-const show_order = status=>{
-  orderType.value=status
-//   console.log(orderType.value)
-}
 
-onBeforeMount(()=>{
-    if (layout.userInfo.user_subscription.status === "test") router.push({ name: 'campaign-list'})
+
+
+// const searchProductCategory = (searchText, routeParam)=>{
+//     var _store_id, _keyword, _order_by, _page, _page_size
+//     return search_product_category(_store_id=routeParam, _keyword=searchText, _order_by=null, _page=1, _page_size=20)
+// }
+
+
+
+
+
+const searchData = ref({
+    page:1,
+    page_size:25,
+    dataCount:0,
+    keyword:'',
+    order_by:'-id'
+
+})
+const type  = ref('ongoing')
+
+const searchBarSettings=[
+    // {key:'category_id', name:'類別', type:'search_select', class:'w-[150px]', placeholder:'搜尋名稱', display_key:'category_name', search_function:searchProductCategory, option_name_keys:['name'], option_value_key:'id', router_param_key:'store_id', options:[{id:null, name:'無'}]},
+    // {key:'category_id', name:'類別', type:'select', value_key:'id', name_key:'name', options:((globalStore?.user_data?.stores||[]).find(store=>store.id.toString()==route.params.store_id)?.product_categories||[])},
+    // {key:'visibility', name:'狀態', type:'select',value_key:'value', name_key:'name', options:[{value:'visable',name:'公開'},{value:'invisable',name:'未公開'},{value:'schedule',name:'限時公開'}]},
+    {key:'keyword', name:'Keyword:', type:'input', placeholder:'Order ID/Customer Name', action:'search', class:'w-[200px]'},
+
+    // {type:'slot', slot_name:'bulk_edit'},
+
+    // {key:'create_campaign', name:'Create', type:'button', action:'route_to_create_campaign_page' ,class:"ml-auto"},
+    // {key:'other', type:'dropdown', actions:[
+
+    // ]},
+]
+const dataListSettings=[
+    // {type:'checkbox', name:''},
+
+    // {key:'social_platform_connections', type:'custom', custom_key:'platform', name:'Platform', headerClass:'text-center', class:'text-center'},
+    
+    // {key:'title', type:'custom', name:'Title'},
+
+    {key:'id', name:'ID', type:'text', dataType:'string'},
+    {key:'created_at', type:'datetime', name:'Created At' , sortable:true},
+    // {key:'end_at', type:'datetime', name:'End Date', sortable:true},
+
+    // {key:'manage_order', type:'custom', name:'Manage Order', headerClass:'text-center'},
+    // {key:'stop_checkout', type:'custom', name:'Stop Checkout', headerClass:'text-center', tippy:'Disable shopping cart immediately'},
+
+
+    // {key:'images', name:'圖片', type:'images', dataType:'array'},
+    // {key:'name', name:'名稱', type:'text', dataType:'string'},
+    // {key:'short_name', name:'簡稱', type:'text', dataType:'string', headerClass:'text-center', class:'text-center'},
+    // {key:'price', name:'價格', type:'text', dataType:'string', headerClass:'text-center', class:'text-center'},
+    // {key:'bundle', name:'個數', type:'text', dataType:'string', headerClass:'text-center', class:'text-center'},
+    // // {key:'tags', name:'標籤', type:'text', dataType:'array', headerClass:'text-center'},
+    // {key:'category_name', name:'類別', type:'text', dataType:'string', headerClass:'text-center', class:'text-center'},
+    // {key:'tags', name:'標籤', type:'list', dataType:'string'},
+    // {key:'priority', name:'優先', type:'text', dataType:'integer', headerClass:'text-center', class:'text-center'},
+    // {key:'visibility', name:'狀態', type:'map_text',  headerClass:'text-center', class:'text-center', classes:{visable:'text-success',invisable:'text-danger'}, map:{'visable':'公開','invisable':'未公開','schedule':'排程公開'}},
+
+
+    // {key:'campaign_more_actions', type:'custom', name:'Actions'},
+
+
+    // {key: null, name:'', type:'actions', headerClass:'text-center', actions:[
+    //     {key:'product_detail', name:'編輯商品', class:'', action:'route_to_product_detail_page'},
+    //     {key:'delete_product', name:'刪除商品', class:'text-danger', action:'delete_product'}
+    // ]}
+
+]
+const data = ref([])
+
+
+// const bulkEditSettings = [
+//     {key:'category', name:'類別', type:'search_select', class:'w-[150px]', placeholder:'搜尋名稱', display_key:'category_name', search_function:searchProductCategory, option_name_keys:['name'], option_value_key:'id', router_param_key:'store_id', options:[{id:null, name:'無動作'},{id:'null', name:'無'}]},
+
+//     {key:'visibility', name:'公開商品', type:'select', class:'w-ful', placeholder:'選擇是否公開商品', multiple:false, value_key:'value', name_key:'name', options:[{value:null, name:'無動作'},{value:'visable', name:'公開'},{value:'invisable', name:'不公開'},{value:'schedule', name:'排程公開'}]},
+//     {type:'inline', inline_items:[
+//         {key:'visable_start_date', name:'商品公開起始日', type:'date', class:'w-ful'},
+//         {key:'visable_end_date', name:'商品公開結束日', type:'date', class:'ml-5 w-ful'},
+//     ]},
+// ]
+
+// const bulkEditBodalShow = ref(false)
+// const bulkEditData = ref({
+//     category:null,
+//     visibility:null
+// })
+
+// const bulkUpdate=()=>{
+//     const ids=[]
+//     data.value.forEach(element => {
+//         if(element.check==true) ids.push(element.id)
+//     });
+//     var _store_id, _ids, _data
+//     bulk_update_product(_store_id=route.params.store_id, _ids=ids.join(','), _data=bulkEditData.value).then(res=>{
+//         getData()
+//         bulkEditBodalShow.value = false
+//     })
+// }
+
+
+onMounted(()=>{
+    getData()
 })
 
 
 
-const stopCheckout = ()=>{
-    toggle_stop_checkout(route.params.campaign_id, layout.alert).then(res=>{
-        manageOrderStore.campaign = res.data
-        layout.notification.showMessageToast(`${i18n.global.t('manage_order.update_successed')}`);
-    }) 
+const getData = ()=>{
+    // var _keyword, _order_by, _page, _page_size, _type
+    // get_campaigns(
+    //     _keyword=searchData.value.keyword,
+    //     _order_by=searchData.value.order_by,
+    //     _page=searchData.value.page,
+    //     _page_size=searchData.value.page_size,
+    //     _type = type.value
+    // ).then(res=>{
+    //     console.log(res.data)
+    //     searchData.value.dataCount = res.data.count
+    //     data.value = res.data.results
+    // })
 }
 
+const search = ()=>{
+    searchData.value.page = 1
+    getData()
+}
+
+// const selectAll = (event)=>{
+//     data.value.forEach(d => {
+//         d.check = event.target.checked
+//     });
+// }
+
+// const routeToCreatePage = ()=>{
+//     router.push({name:'create-campaign',params:route.params})
+// }
+
+// const routeToEditPage = (data, index)=>{
+//     router.push({name:'edit-campaign',params:{...route.params, 'campaign_uuid':data.uuid}})
+// }
+
+// const deleteData = (product, index)=>{
+//     // delete_product(route.params.store_id, product.id).then(res=>{
+//     //     data.value.splice(index,1)
+//     // })
+// }
+
+const actions = {
+    'get':getData,
+    'search':search,
+    // 'route_to_create_page':routeToCreatePage, 
+    // 'route_to_detail_page':routeToEditPage, 
+    // 'delete_data':deleteData,
+    // 'select_all':selectAll
+    
+}
+
+
 </script>
-
-<style scoped>
-    .modal-content{
-        background-color: theme('colors.secondary');
-    }
-    .dark .modal-content{
-        --color-secondary: theme("colors.rgb.blueGray.800");
-    }
-    .export :hover{
-        background-color: #131C34;
-        color: #fff;
-    }
-
-
-/* statusBtn*/
-    .statusBtn {
-    padding: 0;
-    margin: 0;
-    border: none;
-    background: none;
-    }
-
-    .statusBtn {
-    --primary-color: rgba(78, 78, 78, 0.808);
-    --hovered-color: #474747;
-    position: relative;
-    cursor: pointer;
-    display: flex;
-    font-weight: 500;
-    font-size: 16px;
-    align-items: center;
-    }
-
-    .statusBtn p {
-    margin: 0;
-    position: relative;
-    font-size: 20px;
-    color: var(--primary-color)
-    }
-
-    .statusBtn h2 {
-    margin: 0;
-    position: relative;
-    color: var(--primary-color)
-    }
-
-    .all p{
-    color: theme('colors.primary');
-    font-weight: 800;
-    }
-    .menu h2{
-    color: theme('colors.primary');
-    }
-    .all{
-        border-bottom: solid 2px #131C34;
-    }
-
-    .statusBtn::after {
-    position: absolute;
-    content: "";
-    width: 0;
-    left: 0;
-    bottom: -2px;
-    font-weight: 800;
-    background: var(--hovered-color);
-    height: 2px;
-    transition: 0.3s ease-out;
-    }
-
-    .statusBtn .allp::before{
-    position: absolute;
-    /*   box-sizing: border-box; */
-    content: attr(data-content);
-    width: 0%;
-    inset: 0;
-    color: theme('colors.primary');
-    overflow: hidden;
-    transition: 0.3s ease-out;
-    }
-    .statusBtn:hover::after {
-    width: 100%;
-    }
-    .statusBtn:hover p::before {
-    width: 100%;
-    }
-    .statusBtn:hover h2::before {
-    width: 100%;
-    }
-
-    .bar{
-        background-color: #4E4E4ECE;
-        width: 3px;
-    }
-</style>

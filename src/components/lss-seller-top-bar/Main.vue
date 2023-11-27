@@ -173,13 +173,12 @@
     </button> -->
     <!-- Language -->
 
-      <Dropdown class="absolute right-[10px] sm:right-[30px] intro-x">
+      <!-- <Dropdown class="absolute right-[10px] sm:right-[30px] intro-x">
         <DropdownToggle
           tag="div"
           role="button"
           class="cursor-pointer notification"
         >
-          <!-- <GlobeIcon class=" dark:text-slate-500" /> -->
           <SimpleIcon icon="globle" color="#e6e9ed"/>
         </DropdownToggle>
         
@@ -190,19 +189,16 @@
               </template>
             </DropdownContent>
           </DropdownMenu>
-      </Dropdown>
+      </Dropdown> -->
 
       <!-- BEGIN: Account Menu -->
       <Dropdown class="w-10 h-10 intro-x">
         <DropdownToggle
           tag="div"
           role="button"
-          class="w-10 h-10 overflow-hidden scale-110 border-2 rounded-full shadow-lg border-slate-200 image-fit zoom-in"
+          class="w-10 h-10 overflow-hidden scale-110 border-2 rounded-full shadow-lg border-slate-200 image-fit zoom-in bg-secondary flex flex-col justify-center"
         > 
-            <img
-            :src="userAvatar"
-            class="rounded-full"
-          />
+            <h3 class="text-[20px] font-bold text-primary text-center"> {{computedNameFirstLetter}} </h3>
         </DropdownToggle>
         <DropdownMenu class="w-56">
           <DropdownContent
@@ -210,10 +206,10 @@
           >
             <DropdownHeader tag="div" class="!font-normal">
               <div class="font-medium">
-                {{ sellerLayoutStore.userInfo.name }}
+                {{ (sellerLayoutStore?.user?.first_name||'') + ' ' + (sellerLayoutStore?.user?.last_name||'') }}
               </div>
               <div class="text-xs text-white/60 mt-0.5 dark:text-slate-500">
-                {{ sellerLayoutStore.userInfo.email }}
+                {{ sellerLayoutStore?.user?.email }}
               </div>
             </DropdownHeader>
             <DropdownDivider class="border-white/[0.08]" />
@@ -241,7 +237,7 @@
   </div>
   <!-- END: Top Bar -->
   <!-- Switch Mode Modal -->
-  <Modal backdrop="static" :show="showSwitchModeMessage" @hidden="showSwitchModeMessage=false">
+  <!-- <Modal backdrop="static" :show="showSwitchModeMessage" @hidden="showSwitchModeMessage=false">
     <a
       @click="showSwitchModeMessage=false"
       class="absolute right-0 top-0 mt-3 mr-3"
@@ -261,7 +257,7 @@
         </button>
       </div>
     </ModalBody>
-  </Modal>
+  </Modal> -->
 </template>
 
 <script setup>
@@ -356,5 +352,12 @@ const switchToProductionMode = () => {
   //     showSwitchModeMessage.value = false
   // })
 }
+
+
+const computedNameFirstLetter = computed(()=>{
+  var _words = (sellerLayoutStore.user?.last_name||'').split(' ')
+  if (_words.length<=1) return _words[0].split('')[0]
+  return _words[_words.length-1].split('')[0]
+})
 
 </script>

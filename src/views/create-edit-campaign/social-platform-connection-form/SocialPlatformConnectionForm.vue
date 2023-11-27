@@ -22,7 +22,7 @@
 
         <Modal :show="showSocialPlatformList" @hidden="()=>{showSocialPlatformList=false}" >
             <ModalHeader>
-                <h3>My Socail Platform Connections</h3>
+                <h3>My Social Platform Accounts</h3>
             </ModalHeader>
             <ModalBody >
                 <SocialPlatformList :addSocialPlatformConnection="addSocialPlatformConnection" :socialPlatformConnections="props?.modelValue||[]"/>

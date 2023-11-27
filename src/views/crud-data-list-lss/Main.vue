@@ -337,14 +337,9 @@
                 </template>
 
                 <template v-else-if="item.type==='custom'" >
-                  <td>
-                    <component :is="props.customColumns?.[item.key]" :data="data" :dataIndex="dataIndex" />
+                  <td :class="item.class">
+                    <component :is="props.customColumns?.[item.key]" v-model="props.data[dataIndex]" :data="data" :dataIndex="dataIndex" />
                   </td>
-                  <!-- {{ props.customColumns?.[item.key] }} -->
-
-                  
-                  <!-- <div>123</div> -->
-                  
                 </template>
 
 
@@ -442,7 +437,7 @@
         />
 
         <select class="w-20 form-select box mt-3 sm:mt-0" 
-          v-model="props.modelValue.size" 
+          v-model="props.modelValue.page_size" 
           @change="updateModelValue(); props.actions.search()"
         >
           <option :value="10">10</option>

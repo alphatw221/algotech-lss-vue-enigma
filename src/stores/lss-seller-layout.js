@@ -22,23 +22,23 @@ export const useLSSSellerLayoutStore = defineStore("sellerLayout", {
     commentCapturingCampaignData:ref({}),
 
     menu: [
-      {
-        icon: "stock",
-        pageName: "stock",
-        title: "stock",
-        subMenu: [
-          {
-            icon: "stock",
-            pageName: "stock",
-            title: "stock",
-          },
-          {
-            icon: "stock",
-            pageName: "stock",
-            title: "stock",
-          },
-        ],
-      },
+      // {
+      //   icon: "stock",
+      //   pageName: "stock",
+      //   title: "stock",
+      //   subMenu: [
+      //     {
+      //       icon: "stock",
+      //       pageName: "stock",
+      //       title: "stock",
+      //     },
+      //     {
+      //       icon: "stock",
+      //       pageName: "stock",
+      //       title: "stock",
+      //     },
+      //   ],
+      // },
       {
         icon: "campaign",
         pageName: "campaign-list",
@@ -62,6 +62,7 @@ export const useLSSSellerLayoutStore = defineStore("sellerLayout", {
       },
 
       {
+        icon: "discount-code",
         pageName: "discount-code",
         title: "discount_code",
       },
