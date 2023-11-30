@@ -125,6 +125,7 @@ const dataListSettings=[
     {key:'make', name:'車廠', type:'text', dataType:'string', sortable:true},
     {key:'name', name:'車型', type:'text', dataType:'string', sortable:true},
     {key:'name_variant', name:'子車型', type:'text', dataType:'string', sortable:true},
+    {key:'transmission', name:'變速', type:'text', dataType:'string'},
     {key:'year', name:'年份', type:'text', dataType:'integer', sortable:true},
     {key:'engine', name:'引擎', type:'text', dataType:'string', sortable:true},
     {key:'chassis', name:'底盤', type:'text', dataType:'string', sortable:true},
