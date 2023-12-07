@@ -4,7 +4,7 @@
         <input type="text"
                 class="form-control w-[80px] "
                 :placeholder="'輸出'"
-                v-model="props.data.output"
+                v-model="props.data.hp"
 
                 />
 
@@ -30,7 +30,7 @@ const props = defineProps({
 
 
 const updateOutput = ()=>{
-  update_carlet_vehicle(props.data?.id, {'output':props.data?.output}).then(res=>{
+  update_carlet_vehicle(props.data?.id, {'hp':props.data?.hp}).then(res=>{
     console.log(res)
   })
 }
