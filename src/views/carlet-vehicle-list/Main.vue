@@ -35,7 +35,7 @@ const customColumns = {
     'auto_data_id':UpdateResourceIdColumn,
     'tire_rack_id':UpdateTireRackIdColumn,
     'yahoo_id':UpdateYahooIdColumn,
-    'output':UpdateOutputColumn,
+    'hp':UpdateOutputColumn,
 }
 
 const route = useRoute()
@@ -125,11 +125,12 @@ const dataListSettings=[
     {key:'make', name:'車廠', type:'text', dataType:'string', sortable:true},
     {key:'name', name:'車型', type:'text', dataType:'string', sortable:true},
     {key:'name_variant', name:'子車型', type:'text', dataType:'string', sortable:true},
+    {key:'transmission', name:'變速', type:'text', dataType:'string'},
     {key:'year', name:'年份', type:'text', dataType:'integer', sortable:true},
     {key:'engine', name:'引擎', type:'text', dataType:'string', sortable:true},
     {key:'chassis', name:'底盤', type:'text', dataType:'string', sortable:true},
 
-    {key:'output', name:'輸出(馬力)', type:'custom'},
+    {key:'hp', name:'輸出(馬力)', type:'custom'},
     props?.mappingResource=='auto_data'?{key:'auto_data_id', name:'AutoData ID', type:'custom'}
     :
     props?.mappingResource=='tire_rack'?{key:'tire_rack_id', name:'TireRack ID', type:'custom'}
