@@ -50,7 +50,9 @@ const searchData = ref({
     dataCount:0,
     make:'',
     model:'',
+    exclude_model:'',
     sub_model:'',
+    exclude_sub_model:'',
     start_of_production_year:'',
     end_of_production_year:'',
     keyword:'',
@@ -58,19 +60,29 @@ const searchData = ref({
     exclude_tire_rack_done_mapping:null,
     engine:'',
     chassis:'',
-    order_by:'id'
+    order_by:'id',
+
+    auto_data_id:'',
+    tire_rack_id:'',
+    yahoo_id:''
 
 })
 
 const reset = ()=>{
     searchData.value = {...searchData.value,  make:'',
     model:'',
+    exclude_model:'',
     sub_model:'',
+    exclude_sub_model:'',
     start_of_production_year:'',
     end_of_production_year:'',
     keyword:'',
     engine:'',
     chassis:'',
+
+    auto_data_id:'',
+    tire_rack_id:'',
+    yahoo_id:''
 }
 }
 const searchBarSettings=[
@@ -81,7 +93,9 @@ const searchBarSettings=[
 
     {key:'make', name:'廠牌', type:'input', placeholder:'輸入廠牌', action:'search'},
     {key:'model', name:'車型', type:'input', placeholder:'(關鍵字使用,隔開)', action:'search'},
+    {key:'exclude_model', name:'排除車型', type:'input', placeholder:'(關鍵字使用,隔開)', action:'search'},
     {key:'sub_model', name:'子車型', type:'input', placeholder:'(關鍵字使用,隔開)', action:'search'},
+    {key:'exclude_sub_model', name:'排除子車型', type:'input', placeholder:'(關鍵字使用,隔開)', action:'search'},
     {key:'start_of_production_year', name:'起始製造年份', type:'input', placeholder:'輸入年份', action:'search'},
     {key:'end_of_production_year', name:'結束製造年份', type:'input', placeholder:'輸入年份', action:'search'},
 
@@ -98,6 +112,14 @@ const searchBarSettings=[
     :
     {},
 
+
+    props?.mappingResource=='auto_data'? {key:'auto_data_id', name:'AutoDataID', type:'input', placeholder:'AutoDataID', action:'search'}
+    :
+    props?.mappingResource=='tire_rack'? {key:'tire_rack_id', name:'TireRackID', type:'input', placeholder:'TireRackID', action:'search'}
+    :
+    props?.mappingResource=='yahoo'? {key:'yahoo_id', name:'YahooID', type:'input', placeholder:'YahooID', action:'search'}
+    :
+    {},
 
 
     // {type:'slot', slot_name:'bulk_edit'},
