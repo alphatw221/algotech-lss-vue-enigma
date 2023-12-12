@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-row">
+    <div class="flex flex-row overflow-x-auto">
         <CarletVehicleList :mappingResource="'yahoo'"/>
         <YahooVehicleList/>
     </div>
