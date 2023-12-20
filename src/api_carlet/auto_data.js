@@ -3,6 +3,6 @@ import { createAxios, createAxiosWithoutInterceptor, createUserAxios, createUser
 
 
 export const search_auto_data_vehicles = (query) =>{
-    return createAxios().get(`/carlet/auto_data/vehicles${createQueryParams(query)}`);
+    return createAxios().get(`/carlet/api/v2/auto_data/vehicles${createQueryParams(query)}`);
 }
 
