@@ -81,7 +81,7 @@ const dataListSettings=[
     {key:'model', name:'車型', type:'text', dataType:'string', headerClass:'text-center', class:'text-center', sortable:true},
     {key:'sub_model', name:'子車型', type:'text', dataType:'string', headerClass:'text-center', class:'text-center', sortable:true},
 
-    {key:'property_value', name:'變速', type:'text', dataType:'string', headerClass:'text-center', class:'text-center', sortable:true},
+    {key:'', name:'變速', type:'text', dataType:'string', headerClass:'text-center', class:'text-center', sortable:true},
     {key:'start_of_production_year', name:'開始生產年份', type:'text', dataType:'integer', headerClass:'text-center', class:'text-center', sortable:true},
     {key:'end_of_production_year', name:'結束生產年份', type:'text', dataType:'integer', headerClass:'text-center', class:'text-center', sortable:true},
 
