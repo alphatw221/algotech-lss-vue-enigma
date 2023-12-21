@@ -144,7 +144,7 @@ const dataListSettings=[
 
     {key:'id', name:'ID', type:'text', dataType:'string', sortable:true},
     
-    {key:'make', name:'車廠', type:'text', dataType:'string', sortable:true},
+    {key:'make_name', name:'車廠', type:'text', dataType:'string', sortable:true},
     {key:'name', name:'車型', type:'text', dataType:'string', sortable:true},
     {key:'name_variant', name:'子車型', type:'text', dataType:'string', sortable:true},
     {key:'transmission', name:'變速', type:'text', dataType:'string'},
