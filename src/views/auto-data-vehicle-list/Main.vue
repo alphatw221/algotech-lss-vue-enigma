@@ -8,7 +8,7 @@
         :actions="actions"
         :emptyDataMessage="emptyDataMessage"
         :tableClass="'h-[50vh]'"
-
+        :customColumns="customColumns"
     >
     </CrudDataListLSS>
 </template>
@@ -41,6 +41,9 @@ const searchData = ref({
 
 })
 
+const customColumns = {
+
+}
 
 const searchBarSettings=[
     // {key:'category_id', name:'類別', type:'search_select', class:'w-[150px]', placeholder:'搜尋名稱', display_key:'category_name', search_function:searchProductCategory, option_name_keys:['name'], option_value_key:'id', router_param_key:'store_id', options:[{id:null, name:'無'}]},
