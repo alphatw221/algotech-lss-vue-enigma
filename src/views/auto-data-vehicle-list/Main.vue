@@ -20,6 +20,8 @@ import { useRoute, useRouter } from "vue-router";
 
 
 import { search_auto_data_vehicles } from '../../api_carlet/auto_data.js'
+
+import transmission from './custom-column/transmission.vue'
 const route = useRoute()
 const router = useRouter()
 
@@ -42,7 +44,7 @@ const searchData = ref({
 })
 
 const customColumns = {
-
+    'transmission':transmission
 }
 
 const searchBarSettings=[
@@ -57,7 +59,7 @@ const searchBarSettings=[
     {key:'end_of_production_year', name:'結束製造年份', type:'input', placeholder:'輸入年份', action:'search'},
     {key:'keyword', name:'關鍵字', type:'input', placeholder:'廠牌/車型/子車型', action:'search'},
 
-     {key:'reset', name:'重設', type:'button', action:'reset' ,class:"ml-auto"},
+    {key:'reset', name:'重設', type:'button', action:'reset' ,class:"ml-auto"},
     {key:'search', name:'搜索', type:'button', action:'search' ,class:"ml-2"},
     // {type:'slot', slot_name:'bulk_edit'},
 
@@ -84,7 +86,7 @@ const dataListSettings=[
     {key:'model', name:'車型', type:'text', dataType:'string', headerClass:'text-center', class:'text-center', sortable:true},
     {key:'sub_model', name:'子車型', type:'text', dataType:'string', headerClass:'text-center', class:'text-center', sortable:true},
 
-    {key:'', name:'變速', type:'text', dataType:'string', headerClass:'text-center', class:'text-center', sortable:true},
+    {key:'transmission', name:'變速', type:'custom', headerClass:'text-center', class:'text-center'},
     {key:'start_of_production_year', name:'開始生產年份', type:'text', dataType:'integer', headerClass:'text-center', class:'text-center', sortable:true},
     {key:'end_of_production_year', name:'結束生產年份', type:'text', dataType:'integer', headerClass:'text-center', class:'text-center', sortable:true},
 

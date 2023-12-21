@@ -340,11 +340,6 @@
                   <td>
                     <component :is="props.customColumns?.[item.key]" :data="data" :dataIndex="dataIndex" />
                   </td>
-                  <!-- {{ props.customColumns?.[item.key] }} -->
-
-                  
-                  <!-- <div>123</div> -->
-                  
                 </template>
 
 
