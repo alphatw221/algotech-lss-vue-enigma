@@ -2,7 +2,7 @@ import { createAxios, createAxiosWithoutInterceptor, createUserAxios, createUser
 
 
 export const search_carlet_vehicles = (query) =>{
-    return createAxios().get(`/carlet/api/v2/vehicles${createQueryParams(query)}`);
+    return createAxios().get(`/carlet/api/v2/vehicles/${createQueryParams(query)}`);
 }
 
 export const search_yahoo_vehicles = (query) =>{
