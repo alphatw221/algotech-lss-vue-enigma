@@ -338,13 +338,8 @@
 
                 <template v-else-if="item.type==='custom'" >
                   <td>
-                    <component :is="props.customColumns?.[item.key]" :data="data" :dataIndex="dataIndex" />
+                    <component :is="props.customColumns?.[item.key]" v-model="props.data[dataIndex]" :data="data" :dataIndex="dataIndex" />
                   </td>
-                  <!-- {{ props.customColumns?.[item.key] }} -->
-
-                  
-                  <!-- <div>123</div> -->
-                  
                 </template>
 
 
