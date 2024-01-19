@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-row overflow-x-auto">
-        <CarletVehicleList/>
+        <CarletVehicleList :mappingResource="'auto_data'"/>
         <AutoDataVehicleList/>
     </div>
 </template>

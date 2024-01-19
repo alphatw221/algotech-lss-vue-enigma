@@ -73,6 +73,7 @@ import CarletAutoDataVehicleMapping from "../views/carlet-auto-data-vehicle-mapp
 import CarletTireRackVehicleMapping from "../views/carlet-tire-rack-vehicle-mapping/Main.vue"
 import CarletYahooVehicleMapping from "../views/carlet-yahoo-vehicle-mapping/Main.vue"
 
+import CarletVehicleList from "../views/carlet-vehicle-list/Main.vue"
 const routes = [
 
   {
@@ -85,6 +86,12 @@ const routes = [
     component: CarletBackendLayout,
     beforeEnter: carletBackendAuthModdleware,
     children: [
+      {
+        path: "carlet-vehicles",
+        name: "carlet-vehicles",
+        component: CarletVehicleList,
+          
+      },
       {
         path: "",
         name: "carlet-auto-data-vehicle-mapping",

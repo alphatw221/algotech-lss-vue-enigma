@@ -11,6 +11,39 @@
         :tableClass="'h-[50vh]'"
     >
     </CrudDataListLSS>
+
+
+
+
+
+    <Modal size="modal-lg"  :slideOver="false" :show="showCreateModal" @hidden="hideCreateVehicleModal()">
+        <ModalHeader class="p-2">
+            <div class="w-full flex flex-row items-center justify-end">
+              <XIcon class=" w-8 h-8 text-slate-400 cursor-pointer" @click="hideCreateVehicleModal()"/>
+            </div>
+        </ModalHeader>
+        
+        <ModalBody class="overflow-y-auto">
+           <CrudWidge
+            :formSettings="[...formSettings,
+                {type:'buttons', class:'text-center mt-5', buttons:[
+                    { name:'新增', class:'btn-primary mx-auto', action:'createVehicle'},
+                    ]
+                }
+            ]"
+            :action="actions"
+            v-model="vehicleData"
+            class="intro-y"
+          >
+            <!-- <template v-slot:social_platform_connection_form>
+              <SocialPlatformConnectionForm v-model="data.social_platform_connections"/>
+            </template> -->
+
+          </CrudWidge>
+
+
+        </ModalBody>
+    </Modal>
 </template>
 
 <script setup>
@@ -18,24 +51,33 @@ import {ref, onMounted, watch, computed, defineProps} from "vue"
 import CrudDataListLSS from "../crud-data-list-lss/Main.vue"
 import { useRoute, useRouter } from "vue-router";
 
-import {search_carlet_vehicles} from '../../api_carlet/carlet.js'
+import {search_carlet_vehicles, create_carlet_vehicle} from '../../api_carlet/carlet.js'
 import UpdateResourceIdColumn from './UpdateResourceIdColumn.vue'
 import UpdateTireRackIdColumn from './UpdateTireRackIdColumn.vue'
 import UpdateYahooIdColumn from './UpdateYahooIdColumn.vue'
 import UpdateOutputColumn from './UpdateOutputColumn.vue'
+import UpdateVehicleDetailColumn from './UpdateVehicleDetailColumn.vue'
 
+import CrudWidge from '@/views/crud-form-lss/CrudWidge.vue'
+
+import {formSettings, defaultVehicleData} from './settings.js'
 const props = defineProps({
   mappingResource:{
-    type:String,
-    default:'auto_data'
+    type:[String,null],
+    default:null
   },
 })
+
+const vehicleData = ref({...defaultVehicleData})
+
+const showCreateModal = ref(false)
 
 const customColumns = {
     'auto_data_id':UpdateResourceIdColumn,
     'tire_rack_id':UpdateTireRackIdColumn,
     'yahoo_id':UpdateYahooIdColumn,
     'hp':UpdateOutputColumn,
+    'detail':UpdateVehicleDetailColumn
 }
 
 const route = useRoute()
@@ -85,6 +127,42 @@ const reset = ()=>{
     yahoo_id:''
 }
 }
+
+
+const getAdditionalSettings=()=>{
+    const searchBarSettings = []
+    const dataListSettings = []
+    if(props?.mappingResource=='auto_data'){
+        searchBarSettings.push({key:'exclude_auto_data_done_mapping', name:'只顯示AutoData未關聯', type:'checkbox', action:'search'})
+        searchBarSettings.push({key:'auto_data_id', name:'AutoDataID', type:'input', placeholder:'AutoDataID', action:'search'})
+        
+        
+        dataListSettings.push({key:'hp', name:'輸出(馬力)', type:'custom'})
+        dataListSettings.push({key:'auto_data_id', name:'AutoData ID', type:'custom'})
+
+    }
+    else if(props?.mappingResource=='tire_rack'){
+        searchBarSettings.push({key:'exclude_tire_rack_done_mapping', name:'只顯示TireRack未關聯', type:'checkbox', action:'search'})
+        searchBarSettings.push({key:'tire_rack_id', name:'TireRackID', type:'input', placeholder:'TireRackID', action:'search'})
+        dataListSettings.push({key:'hp', name:'輸出(馬力)', type:'custom'})
+        dataListSettings.push({key:'tire_rack_id', name:'TireRack ID', type:'custom'})
+
+
+    }
+    else if(props?.mappingResource=='yahoo'){
+        searchBarSettings.push({key:'exclude_yahoo_done_mapping', name:'只顯示Yahoo未關聯', type:'checkbox', action:'search'})
+        searchBarSettings.push({key:'yahoo_id', name:'YahooID', type:'input', placeholder:'YahooID', action:'search'})
+        dataListSettings.push({key:'hp', name:'輸出(馬力)', type:'custom'})
+        dataListSettings.push({key:'yahoo_id', name:'Yahoo ID', type:'custom'})
+
+        
+    }
+    else{
+        dataListSettings.push({key:'detail', name:'詳細', type:'custom'})
+    }
+
+    return {searchBarSettings, dataListSettings}
+}
 const searchBarSettings=[
     // {key:'category_id', name:'類別', type:'search_select', class:'w-[150px]', placeholder:'搜尋名稱', display_key:'category_name', search_function:searchProductCategory, option_name_keys:['name'], option_value_key:'id', router_param_key:'store_id', options:[{id:null, name:'無'}]},
     // {key:'category_id', name:'類別', type:'select', value_key:'id', name_key:'name', options:((globalStore?.user_data?.stores||[]).find(store=>store.id.toString()==route.params.store_id)?.product_categories||[])},
@@ -104,31 +182,23 @@ const searchBarSettings=[
 
     // {key:'keyword', name:'關鍵字', type:'input', placeholder:'廠牌/車型/子車型', action:'search'},
    
-    props?.mappingResource=='auto_data'? {key:'exclude_auto_data_done_mapping', name:'只顯示AutoData未關聯', type:'checkbox', action:'search'}
-    :
-    props?.mappingResource=='tire_rack'? {key:'exclude_tire_rack_done_mapping', name:'只顯示TireRack未關聯', type:'checkbox', action:'search'}
-    :
-    props?.mappingResource=='yahoo'? {key:'exclude_yahoo_done_mapping', name:'只顯示Yahoo未關聯', type:'checkbox', action:'search'}
-    :
-    {},
+    
 
-
-    props?.mappingResource=='auto_data'? {key:'auto_data_id', name:'AutoDataID', type:'input', placeholder:'AutoDataID', action:'search'}
-    :
-    props?.mappingResource=='tire_rack'? {key:'tire_rack_id', name:'TireRackID', type:'input', placeholder:'TireRackID', action:'search'}
-    :
-    props?.mappingResource=='yahoo'? {key:'yahoo_id', name:'YahooID', type:'input', placeholder:'YahooID', action:'search'}
-    :
-    {},
+    ...(getAdditionalSettings().searchBarSettings),
 
 
     // {type:'slot', slot_name:'bulk_edit'},
     {key:'reset', name:'重設', type:'button', action:'reset' ,class:"ml-auto"},
     {key:'search', name:'搜索', type:'button', action:'search' ,class:"ml-2"},
+
+    ![].includes()?{key:'create', name:'新增', type:'button', action:'showCreateVehicleModal' ,class:"ml-2"}:{},
+
     // {key:'other', type:'dropdown', actions:[
 
     // ]},
 ]
+
+
 const dataListSettings=[
     // {type:'checkbox', name:''},
 
@@ -152,14 +222,19 @@ const dataListSettings=[
     {key:'engine', name:'引擎', type:'text', dataType:'string', sortable:true},
     {key:'chassis', name:'底盤', type:'text', dataType:'string', sortable:true},
 
-    {key:'hp', name:'輸出(馬力)', type:'custom'},
-    props?.mappingResource=='auto_data'?{key:'auto_data_id', name:'AutoData ID', type:'custom'}
-    :
-    props?.mappingResource=='tire_rack'?{key:'tire_rack_id', name:'TireRack ID', type:'custom'}
-    :
-    props?.mappingResource=='yahoo'?{key:'yahoo_id', name:'Yahoo ID', type:'custom'}
-    :
-    {}
+
+    ...(getAdditionalSettings().dataListSettings),
+    // props?.mappingResource=='auto_data'?{key:'auto_data_id', name:'AutoData ID', type:'custom'}
+    // :
+    // props?.mappingResource=='tire_rack'?{key:'tire_rack_id', name:'TireRack ID', type:'custom'}
+    // :
+    // props?.mappingResource=='yahoo'?{key:'yahoo_id', name:'Yahoo ID', type:'custom'}
+    // :
+    // {}
+    // ,
+
+    // !['auto_data', 'tire_rack', 'yahoo'].includes(props?.mappingResource)?{key:'detail', name:'詳細', type:'custom'}:{},
+
     // {key:'short_name', name:'簡稱', type:'text', dataType:'string', headerClass:'text-center', class:'text-center'},
     // {key:'price', name:'價格', type:'text', dataType:'string', headerClass:'text-center', class:'text-center'},
     // {key:'bundle', name:'個數', type:'text', dataType:'string', headerClass:'text-center', class:'text-center'},
@@ -199,15 +274,35 @@ const search = ()=>{
     getData()
 }
 
-const deleteData = (product, index)=>{
-
+const removeData = (index)=>{
+    data.value.splice(index,1)
 }
+
+const showCreateVehicleModal = ()=>{
+    showCreateModal.value=true
+}
+const hideCreateVehicleModal = ()=>{
+    showCreateModal.value=false
+}
+
+
+const createVehicle = ()=>{
+    create_carlet_vehicle(vehicleData.value).then(res=>{
+        console.log(res.data)
+        hideCreateVehicleModal()
+        vehicleData.value = {...defaultVehicleData}
+
+    })
+}
+
 
 const actions = {
     'get':getData,
     'search':search,
-    'delete_data':deleteData,
-    'reset':reset
+    removeData,
+    'reset':reset,
+    showCreateVehicleModal,
+    createVehicle
 }
 
 

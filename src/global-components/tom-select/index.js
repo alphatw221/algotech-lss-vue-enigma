@@ -2,9 +2,18 @@ import dom from "@left4code/tw-starter/dist/js/dom";
 import TomSelect from "tom-select";
 
 const setValue = (el, props) => {
-  if (props.modelValue.length) {
-    dom(el).val(props.modelValue);
-  }
+
+  // console.log(`set value length ${props.modelValue.length}`)
+  // if (props.modelValue.length) {
+  //   dom(el).val(props.modelValue);
+  // }
+  // console.log(props.modelValue)
+  
+  // dom(el).val(props.modelValue);
+  // if(props.modelValue==0){
+  //   console.log(el)
+  // }
+  el.value = props.modelValue
 };
 
 const init = (originalEl, clonedEl, props, emit, computedOptions) => {
@@ -27,6 +36,8 @@ const init = (originalEl, clonedEl, props, emit, computedOptions) => {
 
   clonedEl.TomSelect = new TomSelect(clonedEl, computedOptions);
 
+  // //Initial Value
+  // emit("update:modelValue", props.modelValue);
   // On change
   clonedEl.TomSelect.on("change", function (selectedItems) {
     emit("update:modelValue", selectedItems);

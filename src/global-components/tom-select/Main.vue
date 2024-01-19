@@ -21,6 +21,7 @@ const vSelectDirective = {
     // Initialize tom select
     setValue(clonedEl, value.props);
     init(el, clonedEl, value.props, value.emit, value.computedOptions);
+
   },
   updated(el, { value }) {
     const clonedEl = dom(el).next()[0];

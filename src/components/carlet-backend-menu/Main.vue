@@ -190,6 +190,11 @@ const menu = [
       // },
       {
         icon: "settings",
+        pageName: "carlet-vehicles",
+        title: "Carlet車型資料", 
+      },
+      {
+        icon: "settings",
         pageName: "carlet-yahoo-vehicle-mapping",
         title: "對應Yahoo", 
       },

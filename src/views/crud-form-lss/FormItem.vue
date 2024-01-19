@@ -234,7 +234,10 @@
         @change="updateModelValue();"
       >
         <option :value="null" v-if="!props.setting.multiple" ></option>
-        <option :value="option[props.setting.value_key]" v-for="option, optionIndex in props.setting.options" :key="optionIndex">{{ option[props.setting.name_key] }}</option>
+        <template  v-for="option, optionIndex in props.setting.options" :key="optionIndex">
+          <option :value="option[props.setting.value_key]" >{{ option[props.setting.name_key] }}</option>
+        </template>
+        <!-- <option :value="option[props.setting.value_key]" v-for="option, optionIndex in props.setting.options" :key="optionIndex">{{ option[props.setting.name_key] }}</option> -->
       </TomSelect>
       <p class="text-red-600" v-for="e,i in (props?.error?.[props.setting?.key]||[])" :key="i">{{ e?.$message||'' }}</p>
 
@@ -367,7 +370,7 @@
 
 
 
-    <div class="text-right mt-5" :class="props.setting.class" v-else-if="props.setting.type==='buttons'">
+    <div class="" :class="props.setting.class" v-else-if="props.setting.type==='buttons'">
       <button type="button" class="btn" v-for="button, buttonIndex in props.setting.buttons" :key="buttonIndex" :class="button.class" @click="props.action[button.action](props.setting.index)">
         {{ button.name }}
       </button>
